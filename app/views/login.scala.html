@@ -3,12 +3,88 @@
 @import helper._
 @implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapInput.render) }
 
-<!-- erzeugt die Trennlinie -->
-<div class="page-header form-signin-heading">
-<h3>@Messages("login.login")</h3>
+<div class='container_signin'>
+<ul class='nav nav-tabs'>
+<li class='active'>
+<a data-toggle="tab" href="#tab-ldap">Student</a>
+</li>
+<li>
+<a data-toggle="tab" href="#tab-signin">Standard</a>
+</li>
+</ul>
+<div class='tab-content'>
+<div class='tab-pane active' id='tab-ldap'>
+@form(routes.Application.authenticate(), 'class -> "form") {
+ <fieldset >
+        @inputText(
+            loginForm("user"),
+            'placeholder -> Messages("s12345"),
+            '_label -> Messages("signin.novell"),
+            '_help -> "",
+            'class -> "form-control",
+            'autofocus -> 1
+        )
+        @inputPassword(
+            loginForm("password"),
+            '_label -> Messages("signin.pw"),
+            '_help -> "",
+            'placeholder -> Messages("password"),
+            'class -> "form-control"
+        )
+    </fieldset>
+<br>
+<div class="form-actions">
+    <!-- class="btn btn-lg btn-primary btn-block" -->
+        <input type="submit" class="btn btn-primary" value="@Messages("login.login")">
+    </div>
+}
+</div>
+<div class='tab-pane' id='tab-signin'>
+@form(routes.Application.authenticate(), 'class -> "form") {
+ <fieldset >
+        @inputText(
+            loginForm("user"),
+            'placeholder -> Messages("s12345"),
+            '_label -> Messages("signin.email"),
+            'class -> "form-control",
+			'_help -> "",
+            'required -> None
+        )
+        @inputPassword(
+            loginForm("password"),
+            '_label -> Messages("signin.pw"),
+			'_help -> "",
+            'placeholder -> Messages("password"),
+            'class -> "form-control"
+        )
+        @checkbox(
+        	loginForm("checkbox"),
+            '_label -> Messages("signin.remember"),
+            '_help -> "",
+            'class -> "form-control"	
+        )
+    </fieldset>
+<br>
+<div class="form-actions">
+    <!-- class="btn btn-lg btn-primary btn-block" -->
+        <input type="submit" class="btn btn-primary" value="@Messages("login.login")">
+    </div>
+}
+</div>
+<div>
+<hr>
+<p>
+<span class='light'>Did not receive confirmation email?</span>
+<a href="/users/confirmation/new">Send again</a>
+</p>
 </div>
 
-@form(routes.Application.authenticate(), 'class -> "form") {
+
+</div>
+</div>
+
+
+
 
     @if(loginForm.hasGlobalErrors) {
         <p class="error">
@@ -16,28 +92,6 @@
         </p>
     }
 
-    <fieldset >
-        @inputText(
-            loginForm("email"),
-            'placeholder -> Messages("s12345"),
-            '_label -> null,
-            '_help -> Messages("signin.novell"),
-            'class -> "form-control",
-            'required -> None,
-            'autofocus -> None
-        )
-        @inputPassword(
-            loginForm("password"),
-            '_label -> null,
-            'placeholder -> Messages("password"),
-            '_help -> Messages("signin.pw"),
-            'class -> "form-control"
-        )
-    </fieldset>
+   
 
-    <div class="form-actions">
-    <!-- class="btn btn-lg btn-primary btn-block" -->
-        <input type="submit" class="btn btn-primary" value="@Messages("login.login")">
-        <small><a href="@controllers.account.routes.Reset.ask">@Messages("forgot.password")</a></small>
-    </div>
-}
+</div>

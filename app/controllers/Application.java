@@ -53,10 +53,11 @@ public class Application extends Controller {
     public static class Login {
 
         @Constraints.Required
-        public String email;
+        public String login;
         @Constraints.Required
         public String password;
-
+        public boolean remeberme;
+        
         /**
          * Validate the authentication.
          *
@@ -66,7 +67,7 @@ public class Application extends Controller {
 
             User user = null;
             try {
-                user = User.authenticate(email, password);
+                user = User.authenticate(login, password);
             } catch (AppException e) {
                 return Messages.get("error.technical");
             }
@@ -130,7 +131,7 @@ public class Application extends Controller {
         if (loginForm.hasErrors()) {
             return badRequest(index.render(registerForm, loginForm));
         } else {
-            session("email", loginForm.get().email);
+            session("email", loginForm.get().login);
             return GO_DASHBOARD;
         }
     }

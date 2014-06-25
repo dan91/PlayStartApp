@@ -29,14 +29,16 @@ account.settings.email=Enter your new email address. Click OK to receive instruc
 
 #selbsterstellt
 login.login= Login
-signin.novell = Deine Novell-Kennung
-signin.pw = Dein Passwort
+signin.novell = Novell-Kennung
+signin.email = Email-Adresse
+signin.pw = Passwort
 
 
 
 signin.signin=Sign In
 signin.your.email=Your email address
 signin.your.password=Your password
+signin.remember=Remember me?
 
 forgot.password=Forgot password ?
 
