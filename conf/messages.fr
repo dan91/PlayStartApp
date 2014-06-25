@@ -58,6 +58,10 @@ signin.your.password=Votre mot de passe
 
 forgot.password=Mot de passe oublié ?
 
+
+#selbsterstellt
+login.login = Login
+
 signup.signup=Inscription
 signup.successfull=Inscription réussie !
 signup.new=Nouveau ?

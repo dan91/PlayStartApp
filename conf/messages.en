@@ -27,6 +27,13 @@ error.expiredmaillink=This mail change has expired.
 account.settings.password=Click OK to receive instructions by mail.
 account.settings.email=Enter your new email address. Click OK to receive instructions on this new mail.
 
+#selbsterstellt
+login.login= Login
+signin.novell = Deine Novell-Kennung
+signin.pw = Dein Passwort
+
+
+
 signin.signin=Sign In
 signin.your.email=Your email address
 signin.your.password=Your password

@@ -3,7 +3,10 @@
 @import helper._
 @implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapInput.render) }
 
-<h3>@Messages("signin.signin")</h3>
+<!-- erzeugt die Trennlinie -->
+<div class="page-header form-signin-heading">
+<h3>@Messages("login.login")</h3>
+</div>
 
 @form(routes.Application.authenticate(), 'class -> "form") {
 
@@ -13,25 +16,28 @@
         </p>
     }
 
-    <fieldset>
+    <fieldset >
         @inputText(
             loginForm("email"),
-            'placeholder -> Messages("email"),
+            'placeholder -> Messages("s12345"),
             '_label -> null,
-            '_help -> Messages("signin.your.email"),
-            'class -> "form-control"
+            '_help -> Messages("signin.novell"),
+            'class -> "form-control",
+            'required -> None,
+            'autofocus -> None
         )
         @inputPassword(
             loginForm("password"),
             '_label -> null,
             'placeholder -> Messages("password"),
-            '_help -> Messages("signin.your.password"),
+            '_help -> Messages("signin.pw"),
             'class -> "form-control"
         )
     </fieldset>
 
     <div class="form-actions">
-        <input type="submit" class="btn btn-primary" value="@Messages("signin.signin")">
+    <!-- class="btn btn-lg btn-primary btn-block" -->
+        <input type="submit" class="btn btn-primary" value="@Messages("login.login")">
         <small><a href="@controllers.account.routes.Reset.ask">@Messages("forgot.password")</a></small>
     </div>
 }
