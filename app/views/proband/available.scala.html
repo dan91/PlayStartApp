@@ -1,39 +1,110 @@
 @main(null, null) {
+<meta charset="utf-8"/>
 <div class="page-header">
-		<h3>Anmeldungen <span class="label label-default">3</span></h3>
+		<h3>Verfügbare Studien <span class="label label-default">4</span></h3>
 	</div>
-	<div class="container">
-		<div class="row">
-			<div class="col-md-3"><b>Multitasking I</b></div>
-			<div class="col-md-3"><span class="glyphicon glyphicon-time"></span> 26.12.2013, 13:00-14:00 Uhr</div>
-			<div class="col-md-2"><span class="loc" title="Juliuspromenade 8, 97070 Würzburg"><span class="glyphicon glyphicon-globe"></span> Gebäude 82</span> </div>
-			<div class="col-md-4">
-				<button class="btn btn-default btn-sm">Karte</button>
-				<button class="btn btn-default btn-sm">Termin speichern</button>
-				<button class="btn btn-danger btn-sm">Abmelden</button>
+	<div class="panel-group" id="accordion">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4">
+					<div class="panel panel-default" \>
+						<div class="panel-heading">
+							<span class="pull-right"><span class="glyphicon glyphicon-time"></span> 1 Stunde</span><h4 class="panel-title">Multitasking III</h4>
+						</div>
+						<div id="collapseOne" class="panel-collapse collapse in">
+							<div class="panel-body"> 
+								<div class="btn-group">
+									<button type="button" class="btn btn-default btn-sm">Mo, <br />23.12.</button>
+									<button type="button" class="btn btn-default btn-sm">Di, <br />24.12.</button>
+									<button type="button" class="btn btn-default btn-sm">Mi, <br />25.12.</button>
+									<button type="button" class="btn btn-default btn-sm">Do, <br />26.12.</button>
+									<button type="button" class="btn btn-default btn-sm">Fr, <br />27.12.</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<span class="pull-right"><span class="glyphicon glyphicon-time"></span> 1,5 Stunden</span><h4 class="panel-title">Gestenpräzision</h4>
+						</div>
+						<div id="collapseTwo" class="panel-collapse collapse in">
+							<div class="panel-body">
+								<div class="btn-group">
+									<a type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-chevron-left"></span><br />&nbsp;</a>
+									<button type="button" class="btn btn-default btn-sm">Di, <br />24.12.</button>
+									<button type="button" class="btn btn-default btn-sm">Mi, <br />25.12.</button>
+									<button type="button" class="btn btn-default btn-sm">Do, <br />26.12.</button>
+									<button type="button" class="btn btn-default btn-sm">Fr, <br />27.12.</button>
+									<a type="button" class="btn btn-default btn-sm" id="next"><span class="glyphicon glyphicon-chevron-right"></span><br />&nbsp;</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<span class="pull-right"><span class="glyphicon glyphicon-time"></span> 1 Stunde</span><h4 class="panel-title">Multitasking II</h4>
+						</div>
+						<div id="collapseThree" class="panel-collapse collapse in">
+							<div class="panel-body">
+							<div class="btn-group">
+									<button type="button" class="btn btn-default btn-sm">Mo, <br />23.12.</button>
+									<button type="button" class="btn btn-default btn-sm">Di, <br />24.12.</button>
+									<button type="button" class="btn btn-default btn-sm">Mi, <br />25.12.</button>
+									<button type="button" class="btn btn-default btn-sm">Do, <br />26.12.</button>
+									<button type="button" class="btn btn-default btn-sm">Fr, <br />27.12.</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<span class="pull-right"><span class="glyphicon glyphicon-time"></span> 2 Stunden</span><h4 class="panel-title">Touch in VR</h4>
+						</div>
+						<div id="collapseFour" class="panel-collapse collapse in">
+							<div class="panel-body">
+							<div class="btn-group">
+									<button type="button" class="btn btn-default btn-sm">Mo, <br />23.12.</button>
+									<button type="button" class="btn btn-default btn-sm">Di, <br />24.12.</button>
+									<button type="button" class="btn btn-default btn-sm">Mi, <br />25.12.</button>
+									<button type="button" class="btn btn-default btn-sm">Do, <br />26.12.</button>
+									<button type="button" class="btn btn-default btn-sm">Fr, <br />27.12.</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-md-3"><b>Multitasking II</b></div>
-			<div class="col-md-3"><span class="glyphicon glyphicon-time"></span> 27.12.2013, 15:00-17:00 Uhr</div>
-			<div class="col-md-2"><span class="loc" title="Juliuspromenade 8, 97070 Würzburg"><span class="glyphicon glyphicon-globe"></span> Gebäude 82</span> </div>
-			<div class="col-md-4">
-				<button class="btn btn-default btn-sm">Karte</button>
-				<button class="btn btn-default btn-sm">Termin speichern</button>
-				<button class="btn btn-danger btn-sm">Abmelden</button>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-3"><b>Multitasking III</b></div>
-			<div class="col-md-3"><span class="glyphicon glyphicon-time"></span> 29.12.2013, 14:00-15:00 Uhr</div>
-			<div class="col-md-2"><span class="loc" title="Juliuspromenade 8, 97070 Würzburg"><span class="glyphicon glyphicon-globe"></span> Gebäude 82</span> </div>
-			<div class="col-md-4">
-				<button class="btn btn-default btn-sm">Karte</button>
-				<button class="btn btn-default btn-sm">Termin speichern</button>
-				<button class="btn btn-danger btn-sm">Abmelden</button>
-			</div>
-		</div>
-			
 	</div>
-</div>
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">Anmeldung bestätigen</h4>
+				</div>
+				<div class="modal-body"><h4>Multitasking III</h4>
+					<div><span class="glyphicon glyphicon-time"></span> Dienstag, 24.12.2013, 12:00 - 13:00 Uhr</div>
+					<div id="loc" title="Juliuspromenade 8, 97070 Würzburg"><span class="glyphicon glyphicon-globe"></span> Gebäude 82 <span class="label label-default"><a href="www.google.de">Karte</a></span></div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Abbrechen</button>
+					<button type="button" class="btn btn-primary" id="submit" data-loading-text="Laden..." >Anmelden</button>
+					<div  id="success" class="hidden">
+						<div class="alert alert-success"> Ihre Anmeldung war erfolgreich. </div>
+						<button type="button" class="btn btn-default">Termin speichern</button>
+						<button type="button" class="btn btn-primary" data-dismiss="modal">Schließen</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /.modal-content --> 
+	</div>
+	<!-- /.modal-dialog --> 
 }

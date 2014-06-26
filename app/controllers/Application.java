@@ -56,7 +56,7 @@ public class Application extends Controller {
         public String login;
         @Constraints.Required
         public String password;
-        public boolean remeberme;
+        public boolean rememberMe;
         
         /**
          * Validate the authentication.
