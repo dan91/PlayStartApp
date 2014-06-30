@@ -38,7 +38,7 @@ public class Experimenter extends Controller {
 =======
 
     /**
-     * Displays the edit experiment view
+     * Displays the edit experiment view (Mitch testedit)
      *
      * @return
      */
