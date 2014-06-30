@@ -1,0 +1,544 @@
+@main(null, null) {
+<div role="main" class="container main">
+	<div class="page-header">
+		<h2>Studie editieren</h2>
+	</div>
+	<form class="form-horizontal" role="form">
+		<div class="form-group">
+			<label for="name" class="col-sm-2 control-label">Name</label>
+			<div class="col-sm-6">
+				<input type="text" name="name" class="form-control" id="name" value="Multitasking III" autofocus>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="description" class="col-sm-2 control-label">Beschreibung</label>
+			<div class="col-sm-6">
+				<textarea class="form-control" name="description" rows="4" id="description" value="Beschreibung der Studie Beschreibung der Studie Beschreibung der Studie Beschreibung der Studie Beschreibung der Studie"></textarea>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="duration" class="col-sm-2 control-label">Dauer</label>
+			<div class="col-sm-6">
+				<div class="row">
+					<div class="col-sm-2">
+						<input type="text" class="form-control" name="duration" id="dur" maxlength="3" style="width:3.5em" value="60">
+						Minuten </div>
+					<div class="col-sm-7">
+						<input type="text" class="pull-right" value="" data-slider-min="15" data-slider-max="120" data-slider-step="15" data-slider-value="60"  data-slider-selection="after"data-slider-tooltip="hide" id="duration" style="width:33em">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="description" class="col-sm-2 control-label">Typ</label>
+			<div class="col-sm-6">
+				<div class="btn-group">
+					<label class="btn btn-default">
+						<input type="radio" name="options" id="option1" checked>
+						Labor </label>
+					<label class="btn btn-default">
+						<input type="radio" name="options" id="option2">
+						Internet </label>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="description" class="col-sm-2 control-label">Versuchsleiter</label>
+			<div class="col-sm-6">
+				<button type="button" class="btn btn-default" id="me">Ich</button>
+				<button type="button" class="btn btn-default" id="me">Max Mustermann</button>
+				<button type="button" class="btn btn-default" id="add"><span class="glyphicon glyphicon-plus"></span> Hinzufügen</button>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="description" class="col-sm-2 control-label">Termine</label>
+			<div class="col-sm-6">
+				<button type="button" class="btn btn-default" id="add" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-plus"></span> Hinzufügen</button>
+			</div>
+		</div>
+		
+			<div class="form-group">
+			<label for="description" class="col-sm-2 control-label">EingetrageneTermine</label>
+			<div class="col-sm-6">
+				<p>12.21.2012 12:00-13:00 | 0 Eingetragene Teilnehmer | Entfernen</p>				<button type="button" class="btn btn-default" id="del" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-minus"></span> Entfernen</button>
+				<p>12.21.2012 13:00-14:00 | 2 Eingetragene Teilnehmer</p>
+				<p>12.21.2012 14:00-15:00 | 4 Eingetragene Teilnehmer</p>
+				<p>12.21.2012 15:00-16:00 | 1 Eingetragene Teilnehmer</p>
+							
+				<p></p>
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<div class="col-sm-offset-2 col-sm-6" style="margin-top:1em; border-top:1px solid #eee; padding-top:1em">
+				<button type="submit" class="btn btn-primary btn-lg pull-right">Speichern</button>
+			</div>
+		</div>
+	</form>
+</div>
+</div>
+<div class="modal fade" id="myModal">
+	<div class="modal-dialog mo">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Termine hinzufügen</h4>
+			</div>
+			<div class="modal-body">
+				<table class="table table-striped calendar">
+					<thead>
+						<tr>
+							<th width="5%"></th>
+							<th width="19%">Montag</th>
+							<th width="19%">Dienstag</th>
+							<th width="19%">Mittwoch</th>
+							<th width="19%">Donnerstag</th>
+							<th width="19%">Freitag</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>8:00</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td>9:00</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td>10:00</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td>11:00</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td>12:00</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td>13:00</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td>14:00</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td>15:00</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td>16:00</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td>17:00</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td>18:00</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td>19:00</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td>20:00</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" data-dismiss="modal">Speichern</button>
+			</div>
+		</div>
+		<!-- /.modal-content --> 
+	</div>
+	<!-- /.modal-dialog --> 
+</div>
+<!-- /.modal --> 
+ <link rel="stylesheet" href="@routes.Assets.at("stylesheets/slider.css")"></script>
+<script src="@routes.Assets.at("javascripts/bootstrap-slider.js")"></script> 
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script> 
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/localization/messages_de.js"></script> 
+<script>
+$('#duration').slider().on('slide', function() {
+	$("#dur").val($('#duration').val());
+});
+c1 = '<div class="list-group" style="margin:0"><a href="#" class="list-group-item" id="1">Max Mustermann</a><a href="#" class="list-group-item">Petra Musterfrau</a></div>';
+$('#add').popover({ trigger: 'click', html: true, placement: "auto right", content: c1});
+div = "<div id='date' class='open' style='position:absolute; border: 2px solid #ccc; z-index:10000;height:40px; width: 80px; border-radius:5px;padding:4px;color:#999;cursor:pointer'><span class='glyphicon glyphicon-plus'></span> Termin</div>";
+div2 = "<div id='saved' class='saved' style='position:absolute; background: #428bca; z-index:10000;height:40px; width: 80px; border-radius:5px;padding:0px 3px; color: white'><button type='button' class='close' style='float:right'>&times;</button>08:30-<br />09:30</div>";
+$("table.calendar tr td").not("table.calendar tr td:nth-child(1)").hover(function() {
+	if($(this).children().length == 0){ 
+	var offset = $(this).offset();
+	//var el = document.createElement("div");
+	//el.setAttribute("width", "200px")
+	//el.setAttribute("top", offset.top+"px");
+	//el.setAttribute("left", offset.left+"px");
+	$(div).css('width',"200px");
+	$(div).css('top',offset.top+"px");
+	$(div).css('left',offset.left+"px");
+	//$(el).appendTo($(this).children());
+	$(this).html(div)
+	}
+}, function() {
+	if(!$(this).children().first().hasClass("saved"))
+	$(this).html('')
+});
+$("table.calendar tr td").on("click", function() {
+	$(this).on("click", function() {
+			if($(this).children().first().hasClass("saved"))
+			$(this).children().first().remove();
+	});
+	$(this).html(div2);
+	$(div).css('width',"200px");
+	$(div).css('top',offset.top+"px");
+	$(div).css('left',offset.left+"px");
+});
+$(".close").click(function () {
+	alert('close');
+});
+$("#description").popover({ trigger: 'focus', placement: "right", content: 'Dieser Text wird auch in den Einladungen angezeigt.', container: 'body'});
+$(document).ready(function(){
+ 
+ $('.form-horizontal').validate(
+ {
+  rules: {
+    name: {
+      minlength: 6,
+      required: true
+    },
+    description: {
+      minlength: 6,
+      required: true,
+    },
+	duration: {
+	required: true,
+	digits:true,
+	range: [15,600]
+	}
+  },
+  highlight: function(element) {
+        $(element).closest('.form-group').addClass('has-error');
+    },
+    unhighlight: function(element) {
+        $(element).closest('.form-group').removeClass('has-error');
+
+    }
+ });
+});
+</script>
+}

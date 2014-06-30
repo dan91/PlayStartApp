@@ -35,4 +35,14 @@ public class Experimenter extends Controller {
         return ok(views.html.experimenter.create.render());
     }
 
+    /**
+     * Displays the edit experiment view
+     *
+     * @return
+     */
+    public static Result edit() {  
+        return ok(views.html.experimenter.edit.render());
+    }
+
+
 }

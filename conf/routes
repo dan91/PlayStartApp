@@ -42,3 +42,4 @@ GET     /completed                 controllers.Proband.completed()
 
 # Experimenter
 GET     /create                 controllers.Experimenter.create()
+GET     /edit                   controllers.Experimenter.edit()
