@@ -135,9 +135,9 @@ get_mem_opts () {
   # default is to set memory options but this can be overridden by code section below
   memopts="-Xms${mem}m -Xmx${mem}m"
   if [[ "${java_version}" > "1.8" ]]; then
-    extmemopts="-XX:MetaspaceSize=64m -XX:MaxMetaspaceSize=${meta}m"
+    extmemopts="-XX:MetaspaceSize=512m -XX:MaxMetaspaceSize=${meta}m"
   else
-    extmemopts="-XX:PermSize=64m -XX:MaxPermSize=${meta}m"
+    extmemopts="-XX:PermSize=512m -XX:MaxPermSize=${meta}m"
   fi
 
   if [[ "${java_opts}" == *-Xmx* ]] || [[ "${java_opts}" == *-Xms* ]] || [[ "${java_opts}" == *-XX:MaxPermSize* ]] || [[ "${java_opts}" == *-XX:ReservedCodeCacheSize* ]] || [[ "${java_opts}" == *-XX:MaxMetaspaceSize* ]]; then
