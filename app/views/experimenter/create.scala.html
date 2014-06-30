@@ -68,18 +68,29 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<span class="pull-right">
+				Pause: <select class="form-control" style="width: auto">
+				  <option>5 Minuten</option>
+				  <option>10 Minuten</option>
+				  <option>15 Minuten</option>
+				  <option>20 Minuten</option>
+				  <option>25 Minuten</option>
+				  <option>30 Minuten</option>
+				</select>
+				</span>
 				<h4 class="modal-title">Termine hinzufügen</h4>
+				
 			</div>
 			<div class="modal-body">
 				<table class="table table-striped calendar">
 					<thead>
 						<tr>
 							<th width="5%"></th>
-							<th width="19%">Montag</th>
-							<th width="19%">Dienstag</th>
-							<th width="19%">Mittwoch</th>
-							<th width="19%">Donnerstag</th>
-							<th width="19%">Freitag</th>
+							<th width="19%">Montag <button class="btn btn-default btn-sm fill" id="2"><span class="glyphicon glyphicon-plus"></span>Füllen</button></th>
+							<th width="19%">Dienstag <button class="btn btn-default btn-sm fill" id="3"><span class="glyphicon glyphicon-plus"></span>Füllen</button></th>
+							<th width="19%">Mittwoch <button class="btn btn-default btn-sm fill" id="4"><span class="glyphicon glyphicon-plus"></span>Füllen</button></th>
+							<th width="19%">Donnerstag <button class="btn btn-default btn-sm fill" id="5"><span class="glyphicon glyphicon-plus"></span>Füllen</button></th>
+							<th width="19%">Freitag <button class="btn btn-default btn-sm fill" id="6"><span class="glyphicon glyphicon-plus"></span>Füllen</button></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -455,6 +466,9 @@
 	<!-- /.modal-dialog --> 
 </div>
 <!-- /.modal --> 
+<div id='date' class='open'>
+<span class='glyphicon glyphicon-plus'></span> Termin</div>
+<div id='saved' class='saved'><button type='button' class='close' style='float:right'>&times;</button>08:30-<br />09:30</div>
  <link rel="stylesheet" href="@routes.Assets.at("stylesheets/slider.css")"></script>
 <script src="@routes.Assets.at("javascripts/bootstrap-slider.js")"></script> 
 <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script> 
@@ -465,38 +479,29 @@ $('#duration').slider().on('slide', function() {
 });
 c1 = '<div class="list-group" style="margin:0"><a href="#" class="list-group-item" id="1">Max Mustermann</a><a href="#" class="list-group-item">Petra Musterfrau</a></div>';
 $('#add').popover({ trigger: 'click', html: true, placement: "auto right", content: c1});
-div = "<div id='date' class='open' style='position:absolute; border: 2px solid #ccc; z-index:10000;height:40px; width: 80px; border-radius:5px;padding:4px;color:#999;cursor:pointer'><span class='glyphicon glyphicon-plus'></span> Termin</div>";
-div2 = "<div id='saved' class='saved' style='position:absolute; background: #428bca; z-index:10000;height:40px; width: 80px; border-radius:5px;padding:0px 3px; color: white'><button type='button' class='close' style='float:right'>&times;</button>08:30-<br />09:30</div>";
+
+$(".fill").on("click", function () {
+	$("table tbody tr:nth-child(4n) td:nth-child(" + $(this).attr("id") +"").append($("#saved").clone().show());
+})
+
 $("table.calendar tr td").not("table.calendar tr td:nth-child(1)").hover(function() {
 	if($(this).children().length == 0){ 
-	var offset = $(this).offset();
-	//var el = document.createElement("div");
-	//el.setAttribute("width", "200px")
-	//el.setAttribute("top", offset.top+"px");
-	//el.setAttribute("left", offset.left+"px");
-	$(div).css('width',"200px");
-	$(div).css('top',offset.top+"px");
-	$(div).css('left',offset.left+"px");
-	//$(el).appendTo($(this).children());
-	$(this).html(div)
+	$(this).append($("#date").clone().show())
 	}
 }, function() {
-	if(!$(this).children().first().hasClass("saved"))
+	if(!$(this).children().first().hasClass("saved")) {
 	$(this).html('')
+	}
 });
 $("table.calendar tr td").on("click", function() {
 	$(this).on("click", function() {
 			if($(this).children().first().hasClass("saved"))
 			$(this).children().first().remove();
 	});
-	$(this).html(div2);
-	$(div).css('width',"200px");
-	$(div).css('top',offset.top+"px");
-	$(div).css('left',offset.left+"px");
+	$(this).append($("#saved").clone().show());
+	
 });
-$(".close").click(function () {
-	alert('close');
-});
+
 $("#description").popover({ trigger: 'focus', placement: "right", content: 'Dieser Text wird auch in den Einladungen angezeigt.', container: 'body'});
 $(document).ready(function(){
  

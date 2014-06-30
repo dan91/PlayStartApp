@@ -34,5 +34,4 @@ public class Experimenter extends Controller {
     public static Result create() {  
         return ok(views.html.experimenter.create.render());
     }
-
 }
