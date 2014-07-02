@@ -96,14 +96,20 @@ margin-bottom: 1.5em
 	padding-top:5em;
 }
 
-table.calendar tr td {
+table.calendar tr td, table.calendar tr th {
 	padding: 0px 5px;
+}
+
+table.calendar tr th {
+	padding: 5px;
+	vertical-align: middle;
+text-align: center;
 }
 table.calendar tr td:nth-child(1) {
 	border-right:1px solid #ccc;
 }
 table.calendar tbody tr td {
-	border-right:10px solid white
+	border-right:5px solid white
 }
 table.calendar tbody tr:nth-child(4n+1) td {
 	border-top-width: 2px;
