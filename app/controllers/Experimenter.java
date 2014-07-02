@@ -34,10 +34,7 @@ public class Experimenter extends Controller {
     public static Result create() {  
         return ok(views.html.experimenter.create.render());
     }
-<<<<<<< HEAD
 
-=======
->>>>>>> FETCH_HEAD
 
     /**
      * Displays the edit experiment view (Mitch testedit)
