@@ -34,8 +34,6 @@ public class Experimenter extends Controller {
     public static Result create() {  
         return ok(views.html.experimenter.create.render());
     }
-<<<<<<< HEAD
-=======
 
     /**
      * Displays the edit experiment view (Mitch testedit)
@@ -45,7 +43,15 @@ public class Experimenter extends Controller {
     public static Result edit() {  
         return ok(views.html.experimenter.edit.render());
     }
+    
+    /**
+     * Displays current and expired studies of the experimenter
+     *
+     * @return
+     */
+    public static Result myStudies() {  
+        return ok(views.html.experimenter.myStudies.render());
+    }
 
 
->>>>>>> FETCH_HEAD
 }
