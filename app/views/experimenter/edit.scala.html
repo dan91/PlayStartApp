@@ -47,89 +47,32 @@
 			<div class="col-sm-6">
 				<button type="button" class="btn btn-default" id="me">Ich</button>
 				<button type="button" class="btn btn-default" id="me">Max Mustermann</button>
-				<button type="button" class="btn btn-default" id="add"><span class="glyphicon glyphicon-plus"></span> Hinzufügen</button>
-			</div>
+<button type="button" class="btn btn-default" id="add" data-toggle="modal" data-target="#modalAddPersons"><span class="glyphicon glyphicon-plus"></span> Bearbeiten</button>			</div>
 		</div>
+
 <div class="form-group">
-			<label for="description" class="col-sm-2 control-label">Versuchsleiter</label>
-			<div class="col-sm-6">
-				<button type="button" class="btn btn-default" id="add" data-toggle="modal" data-target="#modalAddPersons"><span class="glyphicon glyphicon-plus"></span> Hinzufügen</button>
-			</div>
-		</div>
-
-
-
-		<div class="form-group">
 			<label for="description" class="col-sm-2 control-label">Termine</label>
 			<div class="col-sm-6">
 				<button type="button" class="btn btn-default" id="add" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-plus"></span> Hinzufügen</button>
 			</div>
-		</div>
-		
-<!-- hier die paar dummen modaltabs fuer dummycontent -->		
-<div class="modal fade" id="myModalTeilnehmer1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-
-<div class="modal-header">
-				<h4 class="modal-title">Teilnehmer Verwaltung</h4>
-			</div>
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-body">
-				<div>
-				Keine Angemeldeten Teilnehmer <hr>
-			<div class="col-sm-6">
-				<input type="text" name="name" class="form-control" id="name" placeholder="Name des Probands" autofocus>
-			</div>
- <button type="button" class="btn btn-default" ><span class="glyphicon glyphicon-del"></span>Teilnehmer Hinzufügen</button>		<hr>		
-				</div></div>
-				</div>
-			</div>
-		</div>
-		<!-- /.modal-content --> 
-<!-- /.modal-dialog --> 		
-<div class="modal fade" id="myModalTeilnehmer2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-body">
-			<div>
-			<div class="modal title">Angemeldete Teilnehmer:	</div>
-            <p>Max Mustermann <button type="button" class="btn btn-danger" id="me">Austragen</button></p>
-            
-			<p>
-			  Simone Musterfrau  <button type="button" class="btn btn-danger" id="me">Austragen</button>
-			</p>	
-
-			<hr>
-
-
-			<div class="col-sm-6">
-				<input type="text" name="name" class="form-control" id="name" placeholder="Name des Probands" autofocus>
-			</div>
-			
-			
- <button type="button" class="btn btn-default" ><span class="glyphicon glyphicon-del"></span>Teilnehmer Hinzufügen</button>		<hr>		
-				</div></div>
-				</div>
-			</div>
-		</div>
-		<!-- /.modal-content --> 
-<!-- /.modal-dialog --> 	
-
-
-		
+		</div>		
 			<div class="form-group">
-			<label for="description" class="col-sm-2 control-label">Terminübersicht</label>
-			<div class="col-sm-6">
+			<label for="description" class="col-sm-2 control-label">Sitzungen</label>
+			<div class="col-sm-10">
 			
 				<b>12.21.2012 12:00-13:00 </b>  | 0 Teilnehmer 
-				    <button type="button" class="btn btn-default" id="add" data-toggle="modal" data-target="#myModalTeilnehmer1"><span class="glyphicon glyphicon-add">Verwalten</span></button>
-				    <button type="button" class="btn btn-danger" ><span class="glyphicon glyphicon-del"></span>Termin Entfernen</button>		<hr>		
+				    <button type="button" class="btn btn-default" id="add" data-toggle="modal" data-target="#myModalTeilnehmer1"><span class="glyphicon glyphicon-user"> Verwalten</span></button>
+				    <button type="button" class="btn btn-danger" ><span class="glyphicon glyphicon-remove"></span> Termin Entfernen</button>		<hr>		
 				<b>12.21.2012 13:00-14:00  </b> | 3 Teilnehmer  
-				      <button type="button" class="btn btn-default" id="add" data-toggle="modal" data-target="#myModalTeilnehmer2"><span class="glyphicon glyphicon-add">Verwalten</span></button>
-				    <button type="button" class="btn btn-danger" ><span class="glyphicon glyphicon-del"></span>Termin Entfernen</button>		<hr>
+				      <button type="button" class="btn btn-default" id="add" data-toggle="modal" data-target="#myModalTeilnehmer2"><span class="glyphicon glyphicon-user"> Verwalten</span></button>
+				    <button type="button" class="btn btn-danger" ><span class="glyphicon glyphicon-remove"></span> Termin Entfernen</button>		<hr>
+				    <b>12.21.2012 15:00-16:00  </b> | 0 Teilnehmer 
+				      <button type="button" class="btn btn-default" id="add" data-toggle="modal" data-target="#myModalTeilnehmer1"><span class="glyphicon glyphicon-user"> Verwalten</span></button>
+				    <button type="button" class="btn btn-danger" ><span class="glyphicon glyphicon-remove"></span> Termin Entfernen</button>    	<hr>	
+				</b>
 				<b>12.21.2012 15:00-16:00  </b> | 3 Teilnehmer 
-				      <button type="button" class="btn btn-default" id="add" data-toggle="modal" data-target="#myModalTeilnehmer2"><span class="glyphicon glyphicon-add">Verwalten</span></button>
-				    <button type="button" class="btn btn-danger" ><span class="glyphicon glyphicon-del"></span>Termin Entfernen</button>    	<hr>	
+				      <button type="button" class="btn btn-default" id="add" data-toggle="modal" data-target="#myModalTeilnehmer2"><span class="glyphicon glyphicon-user"> Verwalten</span></button>
+				    <button type="button" class="btn btn-danger" ><span class="glyphicon glyphicon-remove"></span> Termin Entfernen</button>    		
 				</b>
 						
 			</div>
@@ -137,8 +80,8 @@
 				</div>
 
 		<div class="form-group">
-			<div class="col-sm-offset-2 col-sm-6" style="margin-top:1em; border-top:1px solid #eee; padding-top:1em">
-				<button type="submit" class="btn btn-primary btn-lg pull-right">Speichern</button>
+			<div class="col-sm-offset-2 col-sm-6" >
+				<button type="submit" class="btn btn-primary btn-lg pull-right"> Speichern</button>
 			</div>
 		</div>
 	</form>
@@ -544,9 +487,23 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<h4 class="modal-title">Personen hinzufügen</h4>
+				<h4 class="modal-title">Versuchsleiter bearbeiten</h4>
 			</div>
 			<div class="modal-body">
+		<div class="row">
+		<div class="col-sm-6">
+				<button type="button" class="btn btn-default" id="me"><span class="glyphicon glyphicon-remove"></span> Ich</button>
+				<button type="button" class="btn btn-default" id="me"><span class="glyphicon glyphicon-remove"></span> Max Mustermann</button>
+				</div>
+			</div>
+			<hr>
+<div class="col-sm-6">
+				<input type="text" name="name" class="form-control" id="name" placeholder="Name des Versuchsleiter" autofocus>
+			</div>
+ <button type="button" class="btn btn-default" ><span class="glyphicon glyphicon-remove"></span>Hinzufügen</button>		<hr>		
+				</div></div>
+				</div>
+
 
 			</div>
 			<div class="modal-footer">
@@ -560,6 +517,68 @@
 <!-- /.modal --> 
 
 
+		
+<!-- hier die paar dummen modaltabs fuer dummycontent -->		
+<div class="modal fade" id="myModalTeilnehmer1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog mo">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Sitzungs-Teilnehmer Bearbeiten</h4>
+			</div>
+				<div class="modal-body">
+			<div class="container">
+		<div class="row">	
+            <div class="col-md-3">Kein Eingetragene Teilnehmer</div> 
+            <div class="col-md-1 text-center"><small></small></div>
+            <div class="col-md-2"><button type="button" class="btn btn-danger" id="me"></button></div>
+		</div> <!-- row -->
+	</div> <!-- container -->
+			<div class="col-sm-6">
+				<input type="text" name="name" class="form-control" id="name" placeholder="Name des Probands" autofocus>
+			</div>
+ <button type="button" class="btn btn-default" ><span class="glyphicon glyphicon-plus"></span> Teilnehmer Hinzufügen</button>		<hr>		
+				</div></div>
+				</div>
+			</div>
+		</div>
+		<!-- /.modal-content --> 
+<!-- /.modal-dialog --> 		
+
+<div class="modal fade" id="myModalTeilnehmer2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body">
+			<div>
+			<div class="modal title">Angemeldete Teilnehmer:	</div>
+		<div class="container">
+		<div class="row">	
+            <div class="col-md-3">Max Mustermann </div> 
+            <div class="col-md-1 text-center"><small>Anwesenheit: 93%</small></div>
+            <div class="col-md-2"><button type="button" class="btn btn-danger" id="me">Austragen</button></div>
+		</div> <!-- row -->
+		<div class="row">	
+            <div class="col-md-3">Melanie Mustermann </div> 
+            <div class="col-md-1 text-center"><small>Anwesenheit: 97%</small></div>
+            <div class="col-md-2"><button type="button" class="btn btn-danger" id="me">Austragen</button></div>
+		</div> <!-- row -->
+			<div class="row">	
+            <div class="col-md-3">D Mustermann </div> 
+            <div class="col-md-1 text-center"><small>Anwesenheit: 53%</small></div>
+            <div class="col-md-2"><button type="button" class="btn btn-danger" id="me">Austragen</button></div>
+		</div> <!-- row -->
+		</div> <!--  container -->
+
+			<div class="col-sm-6">
+				<input type="text" name="name" class="form-control" id="name" placeholder="Name des Probands" autofocus>
+			</div>
+ <button type="button" class="btn btn-default" ><span class="glyphicon glyphicon-del"></span>Teilnehmer Hinzufügen</button>		<hr>		
+				</div></div>
+				</div>
+			</div>
+		</div>
+		<!-- /.modal-content --> 
+<!-- /.modal-dialog --> 	
 
 
 
@@ -571,8 +590,7 @@
 $('#duration').slider().on('slide', function() {
 	$("#dur").val($('#duration').val());
 });
-c1 = '<div class="list-group" style="margin:0"><a href="#" class="list-group-item" id="1">Max Mustermann</a><a href="#" class="list-group-item">Petra Musterfrau</a></div>';
-$('#add').popover({ trigger: 'click', html: true, placement: "auto right", content: c1});
+
 div = "<div id='date' class='open' style='position:absolute; border: 2px solid #ccc; z-index:10000;height:40px; width: 80px; border-radius:5px;padding:4px;color:#999;cursor:pointer'><span class='glyphicon glyphicon-plus'></span> Termin</div>";
 div2 = "<div id='saved' class='saved' style='position:absolute; background: #428bca; z-index:10000;height:40px; width: 80px; border-radius:5px;padding:0px 3px; color: white'><button type='button' class='close' style='float:right'>&times;</button>08:30-<br />09:30</div>";
 $("table.calendar tr td").not("table.calendar tr td:nth-child(1)").hover(function() {
