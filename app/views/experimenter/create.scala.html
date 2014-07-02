@@ -466,9 +466,12 @@
 	<!-- /.modal-dialog --> 
 </div>
 <!-- /.modal --> 
+<a class='btn btn-default cl' style='float:right'>&times;</a>
+
 <div id='date' class='open'>
 <span class='glyphicon glyphicon-plus'></span> Termin</div>
-<div id='saved' class='saved'><button type='button' class='close' style='float:right'>&times;</button>08:30-<br />09:30</div>
+
+<div id='saved' class='saved'>08:30-<br />09:30</div>
  <link rel="stylesheet" href="@routes.Assets.at("stylesheets/slider.css")"></script>
 <script src="@routes.Assets.at("javascripts/bootstrap-slider.js")"></script> 
 <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script> 
@@ -490,17 +493,16 @@ $("table.calendar tr td").not("table.calendar tr td:nth-child(1)").hover(functio
 	}
 }, function() {
 	if(!$(this).children().first().hasClass("saved")) {
-	$(this).html('')
+		$(this).html('');
 	}
 });
 $("table.calendar tr td").on("click", function() {
-	$(this).on("click", function() {
-			if($(this).children().first().hasClass("saved"))
-			$(this).children().first().remove();
-	});
+	$(this).html("");
 	$(this).append($("#saved").clone().show());
-	
+	$(this).children().first().append($(".cl").clone().show());
 });
+
+
 
 $("#description").popover({ trigger: 'focus', placement: "right", content: 'Dieser Text wird auch in den Einladungen angezeigt.', container: 'body'});
 $(document).ready(function(){
