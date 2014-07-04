@@ -6,48 +6,264 @@
 	<div class="panel-group" id="accordion">
 		<div class="container">
 			<div class="row">
-				<div class="col-sm-6">
+				<div class="col-sm-12 ">
 					<div class="panel panel-default" \>
 						<div class="panel-heading">
-							<span class="pull-right"><span class="glyphicon glyphicon-time"></span> 1 Stunde</span><h4 class="panel-title">Multitasking III</h4>
+
+				
+						<button class="btn btn-default btn-sm disabled mb10"><span class="glyphicon glyphicon-star"></span><b> 1.5</b></button>
+						<button class="btn btn-default btn-sm disabled mb10"><span class="glyphicon glyphicon-time"></span><b> 45 min</b></button>
+						<button data-toggle="modal" data-target="#myModal" class="btn btn-default btn-sm loc mb10" title="Juliuspromenade 8, 97070 Würzburg"><span class="glyphicon glyphicon-map-marker"></span></button> 
+						<button class="btn btn-default btn-sm disabled mb10"><span class="glyphicon glyphicon-user"></span><b> 23</b></button>
+						<button class="btn btn-success btn-sm disabled mb10"><span class="glyphicon glyphicon-unchecked"></span><b> Verfügbar</b></button>
+
+						
+						<h4 class="panel-title">Multitasking III  
+						</h4>
+						
 						</div>
+
 						<div id="collapseOne" class="panel-collapse collapse in">
 							<div class="panel-body"> 
-								<div class="btn-group">
-									<button type="button" class="btn btn-default btn-sm">Mo, <br />23.12.</button>
-									<button type="button" class="btn btn-default btn-sm">Di, <br />24.12.</button>
-									<button type="button" class="btn btn-default btn-sm">Mi, <br />25.12.</button>
-									<button type="button" class="btn btn-default btn-sm">Do, <br />26.12.</button>
-									<button type="button" class="btn btn-default btn-sm">Fr, <br />27.12.</button>
+
+							<table class="table" style="border: none">
+								<tr class="ghover"> <!-- Onclick this show hide -->
+									<!-- sucessive every DAY, open second table for next week? weekends?-->
+									<td>
+									<button type="button" class="btn btn-default disabled btn-sm">	Mo, <br />23.12.</button>
+									</td>
+									<td>
+									<button type="button" class="btn btn-default disabled btn-sm">	Di, <br />24.12.</button>
+									</td>
+									<td>
+									<button type="button" class="btn btn-default disabled btn-sm">	Mi, <br />25.12.</button>
+									</td>
+									<td>
+									<button type="button" class="btn btn-default disabled btn-sm">	Do, <br />26.12.</button>
+									</td>
+									<td>
+									<button type="button" class="btn btn-default disabled btn-sm">   Fr, <br />27.12.</button>
+									</td>
+								</tr>
+
+								<tr class="showhide_WEEK_ID">  <!-- needs attention --> 
+									<td>
+										<div class="btn-group-vertical">
+									<button type="button" class="btn btn-default btn-sm">08:00<br /></button>
+									<button type="button" class="btn btn-default btn-sm">09:00<br /></button>
+									<button type="button" class="btn btn-default btn-sm">10:00 <br /></button>
+									<button type="button" class="btn btn-default btn-sm">11:00 <br /></button>
+									<button type="button" class="btn btn-default btn-sm">12:00 <br /></button>
+									<button type="button" class="btn btn-default btn-sm">13:00 <br /></button>
 								</div>
+									</td>
+										<td>
+											<div class="btn-group-vertical">
+									<button type="button" class="btn btn-default btn-sm"><span class="label label-success"><a href="#">08:00</a></span><br /></button>
+									<button type="button" class="btn btn-default btn-sm"><span class="label label-success">09:00</span><br /></button>
+									<button type="button" class="btn btn-default btn-sm">10:00 <br /></button>
+									<button type="button" class="btn btn-default btn-sm">11:00 <br /></button>
+									<button type="button" class="btn btn-default btn-sm">12:00 <br /></button>
+									<button type="button" class="btn btn-default btn-sm">13:00 <br /></button>
+											</div>
+									</td>
+									<td>
+											<div class="btn-group-vertical">
+  
+
+
+									<button type="button" class="btn btn-default btn-sm"><span class="label label-success"><a href="#">08:00</a></span><br /></button>
+									<button type="button" class="btn btn-default btn-sm"><span class="label label-success">09:00</span><br /></button>
+									<button type="button" class="btn btn-default btn-sm">10:00 <br /></button>
+									<button type="button" class="btn btn-default btn-sm">11:00 <br /></button>
+									<button type="button" class="btn btn-default btn-sm">12:00 <br /></button>
+									<button type="button" class="btn btn-default btn-sm">13:00 <br /></button>
+
+								</div>
+									</td>
+											<td>
+											<div class="btn-group-vertical">
+  
+
+
+									<button type="button" class="btn btn-default btn-sm"><span class="label label-success"><a href="#">08:00</a></span><br /></button>
+									<button type="button" class="btn btn-default btn-sm"><span class="label label-success">09:00</span><br /></button>
+									<button type="button" class="btn btn-default btn-sm">10:00 <br /></button>
+									<button type="button" class="btn btn-default btn-sm">11:00 <br /></button>
+									<button type="button" class="btn btn-default btn-sm">12:00 <br /></button>
+									<button type="button" class="btn btn-default btn-sm">13:00 <br /></button>
+
+								</div>
+									</td>
+											<td>
+											<div class="btn-group-vertical">
+  
+
+
+									<button type="button" class="btn btn-default btn-sm"><span class="label label-success"><a href="#">08:00</a></span><br /></button>
+									<button type="button" class="btn btn-default btn-sm"><span class="label label-success">09:00</span><br /></button>
+									<button type="button" class="btn btn-default btn-sm">10:00 <br /></button>
+									<button type="button" class="btn btn-default btn-sm">11:00 <br /></button>
+									<button type="button" class="btn btn-default btn-sm">12:00 <br /></button>
+									<button type="button" class="btn btn-default btn-sm">13:00 <br /></button>
+
+								</div>
+									</td>
+
+								</tr>
+
+							</table>
+
+								
+
+
+							<table class="table" style="border: none">
+								<tr class="ghover"> <!-- Onclick this show hide -->
+									<!-- sucessive every DAY, open second table for next week? weekends?-->
+									<td>
+									<button type="button" class="btn btn-default disabled btn-sm">	Mo, <br />23.12.</button>
+									</td>
+									<td>
+									<button type="button" class="btn btn-default disabled btn-sm">	Di, <br />24.12.</button>
+									</td>
+									<td>
+									<button type="button" class="btn btn-default disabled btn-sm">	Mi, <br />25.12.</button>
+									</td>
+									<td>
+									<button type="button" class="btn btn-default disabled btn-sm">	Do, <br />26.12.</button>
+									</td>
+									<td>
+									<button type="button" class="btn btn-default disabled btn-sm">   Fr, <br />27.12.</button>
+									</td>
+								</tr>
+
+								<tr class="showhide_WEEK_ID">  <!-- needs attention --> 
+									<td>
+										<div class="btn-group-vertical">
+									<button type="button" class="btn btn-default btn-sm">08:00<br /></button>
+									<button type="button" class="btn btn-default btn-sm">09:00<br /></button>
+									<button type="button" class="btn btn-default btn-sm">10:00 <br /></button>
+									<button type="button" class="btn btn-default btn-sm">11:00 <br /></button>
+									<button type="button" class="btn btn-default btn-sm">12:00 <br /></button>
+									<button type="button" class="btn btn-default btn-sm">13:00 <br /></button>
+								</div>
+									</td>
+										<td>
+											<div class="btn-group-vertical">
+									<button type="button" class="btn btn-default btn-sm"><span class="label label-success"><a href="#">08:00</a></span><br /></button>
+									<button type="button" class="btn btn-default btn-sm"><span class="label label-success">09:00</span><br /></button>
+									<button type="button" class="btn btn-default btn-sm">10:00 <br /></button>
+									<button type="button" class="btn btn-default btn-sm">11:00 <br /></button>
+									<button type="button" class="btn btn-default btn-sm">12:00 <br /></button>
+									<button type="button" class="btn btn-default btn-sm">13:00 <br /></button>
+											</div>
+									</td>
+									<td>
+											<div class="btn-group-vertical">
+  
+
+
+									<button type="button" class="btn btn-default btn-sm"><span class="label label-success"><a href="#">08:00</a></span><br /></button>
+									<button type="button" class="btn btn-default btn-sm"><span class="label label-success">09:00</span><br /></button>
+									<button type="button" class="btn btn-default btn-sm">10:00 <br /></button>
+									<button type="button" class="btn btn-default btn-sm">11:00 <br /></button>
+									<button type="button" class="btn btn-default btn-sm">12:00 <br /></button>
+									<button type="button" class="btn btn-default btn-sm">13:00 <br /></button>
+
+								</div>
+									</td>
+											<td>
+											<div class="btn-group-vertical">
+  
+
+
+									<button type="button" class="btn btn-default btn-sm"><span class="label label-success"><a href="#">08:00</a></span><br /></button>
+									<button type="button" class="btn btn-default btn-sm"><span class="label label-success">09:00</span><br /></button>
+									<button type="button" class="btn btn-default btn-sm">10:00 <br /></button>
+									<button type="button" class="btn btn-default btn-sm">11:00 <br /></button>
+									<button type="button" class="btn btn-default btn-sm">12:00 <br /></button>
+									<button type="button" class="btn btn-default btn-sm">13:00 <br /></button>
+
+								</div>
+									</td>
+											<td>
+											<div class="btn-group-vertical">
+  
+
+
+									<button type="button" class="btn btn-default btn-sm"><span class="label label-success"><a href="#">08:00</a></span><br /></button>
+									<button type="button" class="btn btn-default btn-sm"><span class="label label-success">09:00</span><br /></button>
+									<button type="button" class="btn btn-default btn-sm">10:00 <br /></button>
+									<button type="button" class="btn btn-default btn-sm">11:00 <br /></button>
+									<button type="button" class="btn btn-default btn-sm">12:00 <br /></button>
+									<button type="button" class="btn btn-default btn-sm">13:00 <br /></button>
+
+								</div>
+									</td>
+
+								</tr>
+
+							</table>
+
+
+
+
+									<!-- toggle content -->
+							
+
+
+
+								
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="col-sm-6">
+				<div class="col-sm-12 mt15">
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							<span class="pull-right"><span class="glyphicon glyphicon-time"></span> 1,5 Stunden</span><h4 class="panel-title">Gestenpräzision</h4>
+					<div class="panel-heading"><span class="pull-right">
+						<button class="btn btn-default btn-sm disabled mb10"><span class="glyphicon glyphicon-star"></span><b> 1.5</b></button>
+						<button class="btn btn-default btn-sm disabled mb10"><span class="glyphicon glyphicon-time"></span><b> 45 min</b></button>
+						<button class="btn btn-default btn-sm disabled mb10"><span class="glyphicon glyphicon-user"></span><b> 23</b></button>
+						<button class="btn btn-success btn-sm disabled mb10"><span class="glyphicon glyphicon-unchecked"></span><b> Verfügbar</b></button>
+
+						</span>
+
+						<h4 class="panel-title">Gestenpräzision</h4>
 						</div>
+							</div>
 						<div id="collapseTwo" class="panel-collapse collapse in">
 							<div class="panel-body">
 								<div class="btn-group">
-									<a type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-chevron-left"></span><br />&nbsp;</a>
+								
 									<button type="button" class="btn btn-default btn-sm">Di, <br />24.12.</button>
 									<button type="button" class="btn btn-default btn-sm">Mi, <br />25.12.</button>
 									<button type="button" class="btn btn-default btn-sm">Do, <br />26.12.</button>
 									<button type="button" class="btn btn-default btn-sm">Fr, <br />27.12.</button>
-									<a type="button" class="btn btn-default btn-sm" id="next"><span class="glyphicon glyphicon-chevron-right"></span><br />&nbsp;</a>
+									<button type="button" class="btn btn-default btn-sm">Di, <br />24.12.</button>
+									<button type="button" class="btn btn-default btn-sm">Mi, <br />25.12.</button>
+									<button type="button" class="btn btn-default btn-sm">Do, <br />26.12.</button>
+									<button type="button" class="btn btn-default btn-sm">Fr, <br />27.12.</button>
+									<button type="button" class="btn btn-default btn-sm">Di, <br />24.12.</button>
+									<button type="button" class="btn btn-default btn-sm">Mi, <br />25.12.</button>
+									<button type="button" class="btn btn-default btn-sm">Do, <br />26.12.</button>
+									<button type="button" class="btn btn-default btn-sm">Fr, <br />27.12.</button>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="col-sm-6">
+				<div class="col-sm-12 mt15">
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							<span class="pull-right"><span class="glyphicon glyphicon-time"></span> 1 Stunde</span><h4 class="panel-title">Multitasking II</h4>
-						</div>
+<div class="panel-heading"><span class="pull-right">
+						<button class="btn btn-default btn-sm disabled mb10"><span class="glyphicon glyphicon-star"></span><b> 1.5</b></button>
+						<button class="btn btn-default btn-sm disabled mb10"><span class="glyphicon glyphicon-time"></span><b> 45 min</b></button>
+						<button class="btn btn-default btn-sm disabled mb10"><span class="glyphicon glyphicon-user"></span><b> 23</b></button>
+						</span>
+						<h4 class="panel-title">Multitasking II</h4>
+						</div>							</div>
+
 						<div id="collapseThree" class="panel-collapse collapse in">
 							<div class="panel-body">
 							<div class="btn-group">
@@ -61,11 +277,16 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-sm-6">
+				<div class="col-sm-12 mt15">
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							<span class="pull-right"><span class="glyphicon glyphicon-time"></span> 2 Stunden</span><h4 class="panel-title">Touch in VR</h4>
-						</div>
+						<div class="panel-heading"><span class="pull-right">
+						<button class="btn btn-default btn-sm disabled mb10"><span class="glyphicon glyphicon-star"></span><b> 1.5</b></button>
+						<button class="btn btn-default btn-sm disabled mb10"><span class="glyphicon glyphicon-time"></span><b> 45 min</b></button>
+						<button class="btn btn-default btn-sm disabled mb10"><span class="glyphicon glyphicon-user"></span><b> 23</b></button>
+						</span><h4 class="panel-title">Touch in VR</h4>
+						</div>							</div>
+
 						<div id="collapseFour" class="panel-collapse collapse in">
 							<div class="panel-body">
 							<div class="btn-group">
