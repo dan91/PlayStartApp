@@ -1,0 +1,314 @@
+@scripts = {
+<link rel='stylesheet' href='@routes.Assets.at("stylesheets/fullcalendar.css")' />
+<script src='@routes.Assets.at("javascripts/jquery-ui.custom.min.js")'></script>
+<script src='@routes.Assets.at("javascripts/moment-with-langs.min.js")'></script>
+<script src='@routes.Assets.at("javascripts/fullcalendar.min.js")'></script>
+}
+@main(null, scripts) {
+<div role="main" class="container main">
+	<div class="page-header">
+		<h2>Neue Studie erstellen</h2>
+	</div>
+	<form class="form-horizontal" role="form">
+		<div class="form-group">
+			<label for="name" class="col-sm-2 control-label">Name</label>
+			<div class="col-sm-6">
+				<input type="text" name="name" class="form-control" id="name" placeholder="Name der Studie" autofocus>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="description" class="col-sm-2 control-label">Beschreibung</label>
+			<div class="col-sm-6">
+				<textarea class="form-control" name="description" rows="4" id="description" placeholder="Beschreibung der Studie"></textarea>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="duration" class="col-sm-2 control-label">Dauer</label>
+			<div class="col-sm-6">
+				<div class="row">
+					<div class="col-sm-2">
+						<input type="text" class="form-control" name="duration" id="dur" maxlength="3" style="width:3.5em" value="60">
+						Minuten </div>
+						<div class="col-sm-7">
+							<input type="text" class="pull-right" value="" data-slider-min="15" data-slider-max="120" data-slider-step="15" data-slider-value="60"  data-slider-selection="after"data-slider-tooltip="hide" id="duration" style="width:33em">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="description" class="col-sm-2 control-label">Typ</label>
+				<div class="col-sm-6">
+					<div class="btn-group">
+						<label class="btn btn-default">
+							<input type="radio" name="options" id="option1" checked>
+							Labor </label>
+							<label class="btn btn-default">
+								<input type="radio" name="options" id="option2">
+								Internet </label>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="description" class="col-sm-2 control-label">Versuchsleiter</label>
+						<div class="col-sm-6">
+							<button type="button" class="btn btn-default" id="me">Ich</button>
+							<button type="button" class="btn btn-default" id="add"><span class="glyphicon glyphicon-plus"></span> Hinzufügen</button>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="description" class="col-sm-2 control-label">Termine</label>
+						<div class="col-sm-6">
+							<button type="button" class="btn btn-default" id="add" data-toggle="modal" data-target="#sessionCalendar"><span class="glyphicon glyphicon-plus"></span> Hinzufügen</button>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-6" style="margin-top:1em; border-top:1px solid #eee; padding-top:1em">
+							<button type="submit" class="btn btn-primary btn-lg pull-right">Speichern</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="modal fade" id="sessionCalendar">
+			<div class="modal-dialog modal-lg mo">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+						<div class="row sessionsAuto">
+							<div class="col-sm-4" style="width:30%"><h4 class="modal-title">Termine hinzufügen</h4></div>
+							<div class="col-sm-3" style="width:20%">
+								<label for="hour">von: </label>
+								<select id="hour" class="form-control noBreak">
+									<option>08</option>
+									<option>09</option>
+									<option>10</option>
+									<option>11</option>
+									<option>12</option>
+									<option>13</option>
+									<option>14</option>
+									<option>15</option>
+									<option>16</option>
+									<option>17</option>
+									<option>18</option>
+								</select>
+								<select id="minute" class="form-control noBreak">
+									<option>00</option>
+									<option>15</option>
+									<option>30</option>
+									<option>45</option>
+								</select>
+							</div>
+
+							<div class="col-sm-3"  style="width:20%">
+								<label for="hour2">bis: </label>
+								<select id="hour2" class="form-control noBreak">
+									<option>08</option>
+									<option>09</option>
+									<option>10</option>
+									<option>11</option>
+									<option>12</option>
+									<option>13</option>
+									<option>14</option>
+									<option>15</option>
+									<option>16</option>
+									<option selected>17</option>
+									<option>18</option>
+								</select>
+								<select id="minute2" class="form-control noBreak">
+									<option>00</option>
+									<option>15</option>
+									<option>30</option>
+									<option>45</option>
+								</select>
+							</div>
+
+							<div class="col-sm-3">
+								<label for="break">Pause: </label>
+								<select id="break" class="form-control noBreak">
+									<option>15 Minuten</option>
+									<option>30 Minuten</option>
+									<option>45 Minuten</option>
+									<option>60 Minuten</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="modal-body">
+							<div id="calendar"></div>
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-dismiss="modal">Speichern</button>
+					</div>
+				</div>
+				<!-- /.modal-content --> 
+			</div>
+			<!-- /.modal-dialog --> 
+		</div>
+		<!-- /.modal --> 
+		<a class='btn btn-default cl' style='float:right'>&times;</a>
+
+		<div id='date' class='open'>
+			<span class='glyphicon glyphicon-plus'></span> Termin</div>
+
+			<div id='saved' class='saved'>08:30-<br />09:30</div>
+			<link rel="stylesheet" href="@routes.Assets.at("stylesheets/slider.css")"></script>
+			<script src="@routes.Assets.at("javascripts/bootstrap-slider.js")"></script> 
+			<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script> 
+			<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/localization/messages_de.js"></script> 
+			<script>
+
+			$('#duration').slider().on('slide', function() {
+				$("#dur").val($('#duration').val());
+			});
+			c1 = '<div class="list-group" style="margin:0"><a href="#" class="list-group-item" id="1">Max Mustermann</a><a href="#" class="list-group-item">Petra Musterfrau</a></div>';
+			$('#add').popover({ trigger: 'click', html: true, placement: "auto right", content: c1});
+
+			
+
+
+			$(".fill").on("click", function () {
+				//$("table tbody tr:nth-child(4n) td:nth-child(" + $(this).attr("id") +"").append($("#saved").clone().show());
+			selectedDay = new Date(Date.parse($(this).parent().data("datetime")));
+
+			start = new Date(selectedDay);
+			start.setHours(parseInt($("#hour option:selected").text()));
+			start.setMinutes(parseInt($("#minute option:selected").text()));
+
+			end = new Date(selectedDay)
+			end.setHours(parseInt($("#hour2 option:selected").text()));
+			end.setMinutes(parseInt($("#minute2 option:selected").text()));
+				
+				$("td").each(function() {
+					dt = $(this).data('datetime');
+					if(dt != null) {
+						currTime = new Date(Date.parse(dt));
+						
+						if(start.getTime() <= currTime.getTime() && end.getTime() > currTime.getTime()) {						
+							$(this).text('select');
+						}
+							
+					}
+				})
+			})
+
+			$("table.calendar tr td").not("table.calendar tr td:nth-child(1)").hover(function() {
+				if($(this).children().length == 0){ 
+					$(this).append($("#date").clone().show())
+				}
+			}, function() {
+				if(!$(this).children().first().hasClass("saved")) {
+					$(this).html('');
+				}
+			});
+			$("table.calendar tr td").on("click", function() {
+				if($(this).data('datetime') != null) {
+					str = $(this).data('datetime');
+					ms = Date.parse(str);
+					d = new Date(ms);
+					alert(d)
+				}
+				$(this).html("");
+				$(this).append($("#saved").clone().show());
+				$(cl) = $(".cl").clone();
+				$(this).children().first().append($(cl));
+			});
+
+$('#sessionCalendar').on('shown.bs.modal', function (e) {
+  $('#calendar').fullCalendar({
+  	defaultView: 'agendaWeek',
+  	lang: 'de',
+  	allDaySlot: false,
+  	slotDuration: '00:15:00',
+  	minTime: '08:00:00',
+  	maxTime: '19:00:00',
+  	editable: true,
+  	events: [
+				{
+					title: 'All Day Event',
+					start: '2014-07-01'
+				},
+				{
+					title: 'Long Event',
+					start: '2014-07-07',
+					end: '2014-07-10'
+				},
+				{
+					id: 999,
+					title: 'Repeating Event',
+					start: '2014-07-09T16:00:00'
+				},
+				{
+					id: 999,
+					title: 'Repeating Event',
+					start: '2014-07-16T16:00:00'
+				},
+				{
+					title: 'Meeting',
+					start: '2014-07-12T10:30:00',
+					end: '2014-07-12T12:30:00'
+				},
+				{
+					title: 'Lunch',
+					start: '2014-07-12T12:00:00'
+				},
+				{
+					title: 'Birthday Party',
+					start: '2014-07-13T07:00:00'
+				},
+				{
+					title: 'Click for Google',
+					url: 'http://google.com/',
+					start: '2014-07-28'
+				}
+			],
+		
+});
+
+// $("table.fc-agenda-slots td.fc-widget-content").each(function () {
+//     $(this).width(($("table.fc-agenda-days thead th.fc-col0").width()));
+//     $(this).after("<td class=\"fc-widget-content\"><div style=\"position:relative\" class=\"hover\"></div></td>");
+//     $(this).after("<td class=\"fc-widget-content\" style=\"width:" + $("table.fc-agenda-days thead th.fc-col5").width() + "px\"><div style=\"position:relative\" class=\"hover\"></div></td>");
+//     $(this).after("<td class=\"fc-widget-content\" style=\"width:" + $("table.fc-agenda-days thead th.fc-col4").width() + "px\"><div style=\"position:relative\" class=\"hover\"></div></td>");
+//     $(this).after("<td class=\"fc-widget-content\" style=\"width:" + $("table.fc-agenda-days thead th.fc-col3").width() + "px\"><div style=\"position:relative\" class=\"hover\"></div></td>");
+//     $(this).after("<td class=\"fc-widget-content\" style=\"width:" + $("table.fc-agenda-days thead th.fc-col2").width() + "px\"><div style=\"position:relative\" class=\"hover\"></div></td>");
+//     $(this).after("<td class=\"fc-widget-content\" style=\"width:" + $("table.fc-agenda-days thead th.fc-col1").width() + "px\"><div style=\"position:relative\" class=\"hover\"></div></td>");
+// });
+$("td.fc-widget-content").on("click", function() {
+	alert('test');
+});
+});
+
+
+			$("#description").popover({ trigger: 'focus', placement: "right", content: 'Dieser Text wird auch in den Einladungen angezeigt.', container: 'body'});
+			$(document).ready(function(){
+
+				$('.form-horizontal').validate(
+				{
+					rules: {
+						name: {
+							minlength: 6,
+							required: true
+						},
+						description: {
+							minlength: 6,
+							required: true,
+						},
+						duration: {
+							required: true,
+							digits:true,
+							range: [15,600]
+						}
+					},
+					highlight: function(element) {
+						$(element).closest('.form-group').addClass('has-error');
+					},
+					unhighlight: function(element) {
+						$(element).closest('.form-group').removeClass('has-error');
+
+					}
+				});
+			});
+			</script>
+		}

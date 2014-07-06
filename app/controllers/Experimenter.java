@@ -32,7 +32,7 @@ public class Experimenter extends Controller {
      * @return
      */
     public static Result create() {  
-        return ok(views.html.experimenter.create.render());
+        return ok(views.html.experimenter.create2.render());
     }
 
 

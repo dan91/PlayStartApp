@@ -11,6 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.util.Date;
 
+
+
 /**
  * User: yesnault
  * Date: 20/01/12

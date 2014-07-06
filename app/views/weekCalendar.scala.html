@@ -1,23 +1,15 @@
-<table class="table table-striped calendar">
-	<thead>
-		<tr>
-			<th width="5%"></th>
-			<th width="19%" data-datetime="2014-06-30">Montag <button class="btn btn-default btn-sm fill" id="2"><span class="glyphicon glyphicon-plus"></span></button></th>
-			<th width="19%" data-datetime="2014-07-01">Dienstag <button class="btn btn-default btn-sm fill" id="3"><span class="glyphicon glyphicon-plus"></span></button></th>
-			<th width="19%" data-datetime="2014-07-02">Mittwoch <button class="btn btn-default btn-sm fill" id="4"><span class="glyphicon glyphicon-plus"></span></button></th>
-			<th width="19%" data-datetime="2014-07-03">Donnerstag <button class="btn btn-default btn-sm fill" id="5"><span class="glyphicon glyphicon-plus"></span></button></th>
-			<th width="19%" data-datetime="2014-07-04">Freitag <button class="btn btn-default btn-sm fill" id="6"><span class="glyphicon glyphicon-plus"></span></button></th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td>8:00</td>
-			<td data-datetime="2014-06-30T08:00+02:00">&nbsp;</td>
-			<td data-datetime="2014-07-01T08:00+02:00">&nbsp;</td>
-			<td data-datetime="2014-07-02T08:00+02:00">&nbsp;</td>
-			<td data-datetime="2014-07-03T08:00+02:00">&nbsp;</td>
-			<td data-datetime="2014-07-04T08:00+02:00">&nbsp;</td>
-		</tr>
-		<tr>
-		</tbody>
-</table>
+@scripts = {
+	<script type="text/javascript" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.0.2/fullcalendar.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.0.2/fullcalendar.css">
+<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.0.2/fullcalendar.print.css">
+$(document).ready(function() {
+
+    // page is now ready, initialize the calendar...
+
+    $('#calendar').fullCalendar({
+        // put your options and callbacks here
+    })
+
+});
+}
+<div id="calendar"></div>
