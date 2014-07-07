@@ -30,7 +30,8 @@
 						<input type="text" class="form-control" name="duration" id="dur" maxlength="3" style="width:3.5em" value="60">
 						Minuten </div>
 						<div class="col-sm-7">
-							<input type="text" class="pull-right" value="" data-slider-min="15" data-slider-max="120" data-slider-step="15" data-slider-value="60"  data-slider-selection="after"data-slider-tooltip="hide" id="duration" style="width:33em">
+							<input type="range" id="duration" min="15" max="120" step="15" value="60">
+
 						</div>
 					</div>
 				</div>
@@ -58,8 +59,15 @@
 					<div class="form-group">
 						<label for="description" class="col-sm-2 control-label">Termine</label>
 						<div class="col-sm-6">
+							<div class="row">
+								<div class="col-sm-4">
 							<button type="button" class="btn btn-default" id="add" data-toggle="modal" data-target="#sessionCalendar"><span class="glyphicon glyphicon-plus"></span> Hinzufügen</button>
 						</div>
+					</div>
+						<div id="events">
+						
+					</div>
+					
 					</div>
 					<div class="form-group">
 						<div class="col-sm-offset-2 col-sm-6" style="margin-top:1em; border-top:1px solid #eee; padding-top:1em">
@@ -135,7 +143,7 @@
 						</div>
 					</div>
 					<div class="modal-body">
-							<div id="calendar"></div>
+						<div id="calendar"></div>
 
 					</div>
 					<div class="modal-footer">
@@ -147,19 +155,21 @@
 			<!-- /.modal-dialog --> 
 		</div>
 		<!-- /.modal --> 
-		<a class='btn btn-default cl' style='float:right'>&times;</a>
-
-		<div id='date' class='open'>
-			<span class='glyphicon glyphicon-plus'></span> Termin</div>
-
-			<div id='saved' class='saved'>08:30-<br />09:30</div>
+	<div class="row" style="display:none" id="event">
+							<div class="col-sm-5"><span class="glyphicon glyphicon-calendar"></span> <span id="date"><span></div>
+							<div class="col-sm-2"><span class="glyphicon glyphicon-time"></span> <span id="time"><span></div>
+							<div class="col-sm-3">
+								<button type="button" class="btn btn-default btn-sm" data-event-id=""><span class="glyphicon glyphicon-pencil"></span></button>
+								<button type="button" class="btn btn-danger btn-sm" data-event-id=""><span class="glyphicon glyphicon-remove"></span></button>
+							</div>
+						</div>
 			<link rel="stylesheet" href="@routes.Assets.at("stylesheets/slider.css")"></script>
 			<script src="@routes.Assets.at("javascripts/bootstrap-slider.js")"></script> 
 			<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script> 
 			<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/localization/messages_de.js"></script> 
 			<script>
 
-			$('#duration').slider().on('slide', function() {
+			$('#duration').on('change', function() {
 				$("#dur").val($('#duration').val());
 			});
 			c1 = '<div class="list-group" style="margin:0"><a href="#" class="list-group-item" id="1">Max Mustermann</a><a href="#" class="list-group-item">Petra Musterfrau</a></div>';
@@ -170,28 +180,28 @@
 
 			$(".fill").on("click", function () {
 				//$("table tbody tr:nth-child(4n) td:nth-child(" + $(this).attr("id") +"").append($("#saved").clone().show());
-			selectedDay = new Date(Date.parse($(this).parent().data("datetime")));
+					selectedDay = new Date(Date.parse($(this).parent().data("datetime")));
 
-			start = new Date(selectedDay);
-			start.setHours(parseInt($("#hour option:selected").text()));
-			start.setMinutes(parseInt($("#minute option:selected").text()));
+					start = new Date(selectedDay);
+					start.setHours(parseInt($("#hour option:selected").text()));
+					start.setMinutes(parseInt($("#minute option:selected").text()));
 
-			end = new Date(selectedDay)
-			end.setHours(parseInt($("#hour2 option:selected").text()));
-			end.setMinutes(parseInt($("#minute2 option:selected").text()));
-				
-				$("td").each(function() {
-					dt = $(this).data('datetime');
-					if(dt != null) {
-						currTime = new Date(Date.parse(dt));
-						
-						if(start.getTime() <= currTime.getTime() && end.getTime() > currTime.getTime()) {						
-							$(this).text('select');
-						}
+					end = new Date(selectedDay)
+					end.setHours(parseInt($("#hour2 option:selected").text()));
+					end.setMinutes(parseInt($("#minute2 option:selected").text()));
+
+					$("td").each(function() {
+						dt = $(this).data('datetime');
+						if(dt != null) {
+							currTime = new Date(Date.parse(dt));
+
+							if(start.getTime() <= currTime.getTime() && end.getTime() > currTime.getTime()) {						
+								$(this).text('select');
+							}
 							
-					}
+						}
+					})
 				})
-			})
 
 			$("table.calendar tr td").not("table.calendar tr td:nth-child(1)").hover(function() {
 				if($(this).children().length == 0){ 
@@ -215,71 +225,110 @@
 				$(this).children().first().append($(cl));
 			});
 
-$('#sessionCalendar').on('shown.bs.modal', function (e) {
-  $('#calendar').fullCalendar({
-  	defaultView: 'agendaWeek',
-  	lang: 'de',
-  	allDaySlot: false,
-  	slotDuration: '00:15:00',
-  	minTime: '08:00:00',
-  	maxTime: '19:00:00',
-  	eventStartEditable: true,
-});
-
-$("table.fc-agenda-slots td.fc-widget-content").each(function () {
-    $(this).width(($("table.fc-agenda-days thead th.fc-col0").width()));
-    $(this).after("<td class=\"fc-widget-content\"><div style=\"position:relative\" class=\"hover\"></div></td>");
-    $(this).after("<td class=\"fc-widget-content\" style=\"width:" + $("table.fc-agenda-days thead th.fc-col5").width() + "px\"><div style=\"position:relative\" class=\"hover\"></div></td>");
-    $(this).after("<td class=\"fc-widget-content\" style=\"width:" + $("table.fc-agenda-days thead th.fc-col4").width() + "px\"><div style=\"position:relative\" class=\"hover\"></div></td>");
-    $(this).after("<td class=\"fc-widget-content\" style=\"width:" + $("table.fc-agenda-days thead th.fc-col3").width() + "px\"><div style=\"position:relative\" class=\"hover\"></div></td>");
-    $(this).after("<td class=\"fc-widget-content\" style=\"width:" + $("table.fc-agenda-days thead th.fc-col2").width() + "px\"><div style=\"position:relative\" class=\"hover\"></div></td>");
-    $(this).after("<td class=\"fc-widget-content\" style=\"width:" + $("table.fc-agenda-days thead th.fc-col1").width() + "px\"><div style=\"position:relative\" class=\"hover\"></div></td>");
-});
-$("td.fc-widget-content").on("click", function() {
-	v = parseInt($(this).parent().children().find("input").val());
-	v = v+((parseInt($(this).index())-1)*24*60*60*1000-(60*60*2*1000));
-	d = $.fullCalendar.moment(v);
-	var events=new Array();
-    event = new Object();       
-    event.title = ''; // this should be string
-    event.start = new Date(v); // this should be date object
-    event.color = "blue";
-    event.allDay = false;
-    events.push(event);
- 
-$('#calendar').fullCalendar('addEventSource',events);
-});
-});
-
-
-			$("#description").popover({ trigger: 'focus', placement: "right", content: 'Dieser Text wird auch in den Einladungen angezeigt.', container: 'body'});
-			$(document).ready(function(){
-
-				$('.form-horizontal').validate(
-				{
-					rules: {
-						name: {
-							minlength: 6,
-							required: true
-						},
-						description: {
-							minlength: 6,
-							required: true,
-						},
-						duration: {
-							required: true,
-							digits:true,
-							range: [15,600]
-						}
+			$('#sessionCalendar').on('shown.bs.modal', function (e) {
+				$('#calendar').fullCalendar({
+					defaultView: 'agendaWeek',
+					header: {
+						left:   '',
+    					center: '',
+ 					    right:  'today prev,next'
 					},
-					highlight: function(element) {
-						$(element).closest('.form-group').addClass('has-error');
+					lang: 'de',
+					allDaySlot: false,
+					slotDuration: '00:15:00',
+					minTime: '08:00:00',
+					maxTime: '19:00:00',
+					eventStartEditable: true,
+					selectable: true,
+					select: function(start, end) {
+						var eventData;
+						end = $.fullCalendar.moment(start).add('m',$("#dur").val());
+						eventData = {
+							start: start,
+							end: end,
+						};
+						$('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+						$('#calendar').fullCalendar('unselect');
 					},
-					unhighlight: function(element) {
-						$(element).closest('.form-group').removeClass('has-error');
-
-					}
+					eventMouseover: function(calEvent, jsEvent, view) {
+						$(this).css('background-color', 'red');
+					},
+					eventMouseout: function(calEvent, jsEvent, view) {
+						$(this).css('background-color', 'none');
+					},
+					eventClick: function(calEvent, jsEvent, view) {
+						$('#calendar').fullCalendar('removeEvents',calEvent._id);
+    				}
+	});
+				$('#sessionCalendar').on('hidden.bs.modal', function (e) {
+				events = $('#calendar').fullCalendar( 'clientEvents');
+				$("#events").children().remove();
+				$.each(events, function (key, value) {
+					e = $("#event").clone();
+					date = value.start.format("dddd, Do MMMM YYYY");
+					time = value.start.format("h:mm");
+					e.find("#date").text(date);
+					e.find("#time").text(time);
+					$("#events").append(e);
+					e.show();
 				});
 			});
-			</script>
+
+			// $("table.fc-agenda-slots td.fc-widget-content").each(function () {
+			// 	$(this).width(($("table.fc-agenda-days thead th.fc-col0").width()));
+			// 	$(this).after("<td class=\"fc-widget-content\"><div style=\"position:relative\" class=\"hover\"></div></td>");
+			// 	$(this).after("<td class=\"fc-widget-content\" style=\"width:" + $("table.fc-agenda-days thead th.fc-col5").width() + "px\"><div style=\"position:relative\" class=\"hover\"></div></td>");
+			// 	$(this).after("<td class=\"fc-widget-content\" style=\"width:" + $("table.fc-agenda-days thead th.fc-col4").width() + "px\"><div style=\"position:relative\" class=\"hover\"></div></td>");
+			// 	$(this).after("<td class=\"fc-widget-content\" style=\"width:" + $("table.fc-agenda-days thead th.fc-col3").width() + "px\"><div style=\"position:relative\" class=\"hover\"></div></td>");
+			// 	$(this).after("<td class=\"fc-widget-content\" style=\"width:" + $("table.fc-agenda-days thead th.fc-col2").width() + "px\"><div style=\"position:relative\" class=\"hover\"></div></td>");
+			// 	$(this).after("<td class=\"fc-widget-content\" style=\"width:" + $("table.fc-agenda-days thead th.fc-col1").width() + "px\"><div style=\"position:relative\" class=\"hover\"></div></td>");
+			// });
+// $("td.fc-widget-content").on("click", function() {
+// 	v = parseInt($(this).parent().children().find("input").val());
+// 	v = v+((parseInt($(this).index())-1)*24*60*60*1000-(60*60*2*1000));
+// 	d = $.fullCalendar.moment(v);
+// 	var events=new Array();
+// 	event = new Object();       
+//     event.title = ''; // this should be string
+//     event.start = new Date(v); // this should be date object
+//     event.color = "blue";
+//     event.allDay = false;
+//     events.push(event);
+
+//     $('#calendar').fullCalendar('addEventSource',events);
+// });
+
+});
+
+
+$("#description").popover({ trigger: 'focus', placement: "right", content: 'Dieser Text wird auch in den Einladungen angezeigt.', container: 'body'});
+$(document).ready(function(){
+
+	$('.form-horizontal').validate(
+	{
+		rules: {
+			name: {
+				minlength: 6,
+				required: true
+			},
+			description: {
+				minlength: 6,
+				required: true,
+			},
+			duration: {
+				required: true,
+				digits:true,
+				range: [15,600]
+			}
+		},
+		highlight: function(element) {
+			$(element).closest('.form-group').addClass('has-error');
+		},
+		unhighlight: function(element) {
+			$(element).closest('.form-group').removeClass('has-error');
+
 		}
+	});
+});
+</script>
+}
