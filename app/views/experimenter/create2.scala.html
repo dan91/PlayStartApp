@@ -13,45 +13,18 @@
 	<form class="form-horizontal" role="form" action="/sessions">
 		<div class="form-group">
 			<label for="name" class="col-sm-3 control-label">Name</label>
-			<div class="col-sm-8">
+			<div class="col-sm-7">
 				<input type="text" name="name" class="form-control" id="name" placeholder="Name der Studie" autofocus>
 			</div>
 		</div>
 		<div class="form-group">
 			<label for="description" class="col-sm-3 control-label">Beschreibung</label>
-			<div class="col-sm-8">
+			<div class="col-sm-7">
 				<textarea class="form-control" name="description" rows="4" id="description" placeholder="Beschreibung der Studie"></textarea>
 			</div>
 		</div>
-		<div class="form-group dur">
-			<label for="duration" class="col-sm-3 control-label">Dauer <span class="glyphicon glyphicon-time"></span></label>
-			<div class="col-sm-3">
-				<select id="duration" class="form-control">
-					<option>5</option>
-					<option>10</option>
-					<option>15</option>
-					<option>20</option>								
-					<option>30</option>
-					<option>45</option>
-					<option selected>60</option>
-					<option>75</option>
-					<option>90</option>
-					<option>120</option>
-				</select> Minuten
-			</div>
-			<div class="col-sm-3">
-				<select id="vps" class="form-control">
-					<option>0.5</option>
-					<option selected>1.0</option>
-					<option>1.5</option>
-					<option>2.0</option>								
-					<option>2.5</option>
-					<option>3.0</option>
-				</select> VP-Stunden
-			</div>
-		</div>
 		<div class="form-group">
-			<label for="description" class="col-sm-3 control-label">Typ <span class="glyphicon glyphicon-time"></span></label>
+			<label for="description" class="col-sm-3 control-label">Typ</span></label>
 			<div class="col-sm-6">
 				<div class="btn-group">
 					<label class="btn btn-default">
@@ -62,11 +35,56 @@
 							Internet </label>
 						</div>
 					</div>
+				</div>			
+				<hr>
+				<div class="form-group inline">
+					<label for="duration" class="col-sm-3 control-label">Dauer</label>
+					<div class="col-sm-3">
+						<span class="glyphicon glyphicon-time"></span>
+						<select id="duration" class="form-control">
+							<option>5</option>
+							<option>10</option>
+							<option>15</option>
+							<option>20</option>								
+							<option>30</option>
+							<option>45</option>
+							<option selected>60</option>
+							<option>75</option>
+							<option>90</option>
+							<option>120</option>
+						</select> Minuten
+					</div>
+					<div class="col-sm-3">
+						<span class="glyphicon glyphicon-star"></span>
+						<select id="vps" class="form-control">
+							<option>0.5</option>
+							<option selected>1.0</option>
+							<option>1.5</option>
+							<option>2.0</option>								
+							<option>2.5</option>
+							<option>3.0</option>
+						</select> VP-Stunden
+					</div>
 				</div>
 				<div class="form-group">
-			<label for="description" class="col-sm-3 control-label">Versuchspersonen</label>
+					<label for="description" class="col-sm-3 control-label">Sitzungen</label>
+					<div class="col-sm-8">
+						<div class="row">
+							<div class="col-sm-4">
+								<button type="button" class="btn btn-default" id="add" data-toggle="modal" data-target="#sessionCalendar"><span class="glyphicon glyphicon-calendar"></span> Kalender</button>
+							</div>
+						</div>
+						<div id="events">
+
+						</div>
+
+					</div>
+				</div>
+				<hr>
+				<div class="form-group inline">
+					<label for="description" class="col-sm-3 control-label">Probanden</label>
 			<div class="col-sm-3">
-				<select id="hour" class="form-control noBreak">
+				pro Session: <select id="hour" class="form-control noBreak">
 									<option>1</option>
 									<option>2</option>
 									<option>3</option>
@@ -77,43 +95,27 @@
 									<option>8</option>
 									<option>9</option>
 									<option>10</option>
-								</select>
+								</select> Teilnehmer
+					</div>
+					<div class="col-sm-2">
+								<button type="button" class="btn btn-default" data-toggle="modal" data-target="#probands"><span class="glyphicon glyphicon-filter"></span> Filtern</button>
+					</div>
+					<div class="col-sm-2">
+						<div class="checkbox">
+								<label><input type="checkbox" class="form-control" checked>Einladungen senden</label>
+					</div>
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="description" class="col-sm-3 control-label">Versuchsleiter <span class="glyphicon glyphicon-user"></span></label>
+					<label for="description" class="col-sm-3 control-label">Versuchsleiter</span></label>
 					<div class="col-sm-6">
 						<button type="button" class="btn btn-default" id="me">Ich</button>
-						<button type="button" class="btn btn-default" id="add"><span class="glyphicon glyphicon-plus"></span> Hinzufügen</button>
-					</div>
-				</div>
-				<div class="form-group">
-					<label for="description" class="col-sm-3 control-label">Termine</label>
-					<div class="col-sm-8">
-						<div class="row">
-							<div class="col-sm-4">
-								<button type="button" class="btn btn-default" id="add" data-toggle="modal" data-target="#sessionCalendar"><span class="glyphicon glyphicon-plus"></span> Hinzufügen</button>
-							</div>
-						</div>
-						<div id="events">
-
-						</div>
-
-					</div>
-				</div>
-				<div class="form-group">
-					<label for="description" class="col-sm-3 control-label">Probanden</label>
-					<div class="col-sm-8">
-						<div class="row">
-							<div class="col-sm-4">
-								<button type="button" class="btn btn-default" data-toggle="modal" data-target="#probands"><span class="glyphicon glyphicon-plus"></span> Auswählen</button>
-							</div>
-						</div>
+						<button type="button" class="btn btn-default" id="add"><span class="glyphicon glyphicon-user"> <span class="glyphicon glyphicon-plus"></span></button>
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-8" style="margin-top:1em; border-top:1px solid #eee; padding-top:1em">
-						<button type="submit" class="btn btn-primary btn-lg pull-right">Speichern</button>
+						<button type="submit" class="btn btn-primary btn-lg pull-right"><span class="glyphicon glyphicon-ok"></span> Speichern</button>
 					</div>
 				</div>
 			</form>
@@ -124,7 +126,8 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					<h4 class="modal-title">Termine hinzufügen</h4>
+					<button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Speichern</button>
+					<h4 class="modal-title">Sitzungen</h4>
 						<!-- <div class="row sessionsAuto">
 							<div class="col-sm-4" style="width:30%"><h4 class="modal-title">Termine hinzufügen</h4></div>
 							<div class="col-sm-3" style="width:20%">
@@ -236,7 +239,7 @@
 											</div>
 										</div>
 									</div>
-							<div class="form-group dur">
+							<div class="form-group inline">
 								<label for="duration" class="col-sm-3 control-label">Semester</label>
 								<div class="col-sm-5">
 									von: <select id="semesterFrom" class="form-control">
@@ -293,9 +296,9 @@
 
 
 				<div class="row" style="display:none" id="event">
-					<div class="col-sm-5"><span class="glyphicon glyphicon-calendar"></span> <span id="date"><span></div>
-					<div class="col-sm-4"><span class="glyphicon glyphicon-time"></span> <span id="time"><span></div>
-					<div class="col-sm-3">
+					<div class="col-xs-5"><span class="glyphicon glyphicon-calendar"></span> <span id="date"><span></div>
+					<div class="col-xs-4"><span class="glyphicon glyphicon-time"></span> <span id="time"><span></div>
+					<div class="col-xs-3">
 						<button type="button" class="btn btn-danger btn-sm eventdel"><span class="glyphicon glyphicon-remove"></span></button>
 					</div>
 				</div>
@@ -336,12 +339,13 @@ $('#searchStudies').on("click", function() {
 					eventStartEditable: true,
 					selectable: true,
 					axisFormat: 'H:mm',
+					contentHeight: 1200,
 					select: function(start, end) {
 						var eventData;
 						m =parseInt($("#duration option:selected").text());
 						end = $.fullCalendar.moment(start).add('m',m);
 						eventData = {
-							title: 'Session',
+							title: '',
 							start: start,
 							end: end,
 						};
