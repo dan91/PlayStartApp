@@ -1,4 +1,4 @@
-@(user: User = null, scripts: Html = Html(""))(content: Html)
+@(user: User = null, scripts: Html = Html(""), navbar: String = "proband")(content: Html)
 
 <!DOCTYPE html>
 
@@ -19,7 +19,7 @@
     </head>
     <body>
 
-       <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+       <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="border: 0;box-shadow:0 0px 4px 0px #000">
 	<div class="container"> 
 		<!-- Brand and toggle get grouped for better mobile display -->
 		<div class="navbar-header">
@@ -28,20 +28,24 @@
 		
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-			<ul class="nav navbar-nav">
-				<li><a href="/available">Verfügbar <span class="badge">4</span></a></li>
-				<li><a href="/registered">Angemeldet <span class="badge">3</span></a></li>
-				<li><a href="/completed">Abgeschlossen <span class="badge">3</span></a></li>
+			<ul class="nav navbar-nav" id="mainNavbar">
+				@if(navbar == "proband") {
+				<li><a href="registered">Angemeldet <span class="badge">3</span></a></li>
+				<li><a href="available">Verfügbar <span class="badge">4</span></a></li>
+				<li><a href="completed">Abgeschlossen <span class="badge">3</span></a></li>
+				} else {
+					@if(navbar == "admin") {
+						<li><a href="/admin">Übersicht</a></li>
+						<li><a href="/allStudies">Studien <span class="badge">45</span></a></li>
+						<li><a href="/user">Benutzer <span class="badge">450</span></a></li>
+						<li><a href="/lab">Labore <span class="badge">15</span></a></li>
+					} else {
+
+					}
+				}
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
-				<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-info-sign"></span><b class="caret"></b></a>
-					<ul class="dropdown-menu">
-						<li><a href="#"><span class="glyphicon glyphicon-book"></span> Regeln</a></li>
-						<li><a href="#"><span class="glyphicon glyphicon-question-sign"></span> FAQ</a></li>
-						<li><a href="#"><span class="glyphicon glyphicon-lock"></span> Datenschutz</a></li>
-					</ul>
-				</li>
-				<li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span><b class="caret"></b></a>
+				<li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span> <b class="caret"></b></a>
 					<ul class="dropdown-menu">
 						<li><a href="#"><span class="glyphicon glyphicon-bell"></span> Benachrichtigungen</a></li>
 						<li><a href="#"><span class="glyphicon glyphicon-user"></span> Konto</a></li>
@@ -73,4 +77,21 @@
             </div>
         </div>
     </body>
+    <script type="text/javascript">
+    if(document.location.pathname ==  '/registered') 
+    	$('#mainNavbar li:nth-child(1)').addClass('active');
+    else if(document.location.pathname ==  '/available') 
+    	$('#mainNavbar li:nth-child(2)').addClass('active');
+	else if(document.location.pathname ==  '/completed') 
+    	$('#mainNavbar li:nth-child(3)').addClass('active');
+    else if(document.location.pathname ==  '/admin') 
+    	$('#mainNavbar li:nth-child(1)').addClass('active');
+	else if(document.location.pathname ==  '/allStudies') 
+    	$('#mainNavbar li:nth-child(2)').addClass('active');
+    else if(document.location.pathname ==  '/user') 
+    	$('#mainNavbar li:nth-child(3)').addClass('active');
+    else if(document.location.pathname ==  '/lab') 
+    	$('#mainNavbar li:nth-child(4)').addClass('active');
+
+    </script>
 </html>
