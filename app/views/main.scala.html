@@ -40,8 +40,12 @@
 						<li><a href="/user">Benutzer <span class="badge">450</span></a></li>
 						<li><a href="/lab">Labore <span class="badge">15</span></a></li>
 					} else {
+						@if(navbar == "experimenter") {
+						<li><a href="/myStudies">Meine Studien <span class="badge">3</span></a></li>
+					} else {
 
 					}
+				}
 				}
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
@@ -84,6 +88,7 @@
     	$('#mainNavbar li:nth-child(2)').addClass('active');
 	else if(document.location.pathname ==  '/completed') 
     	$('#mainNavbar li:nth-child(3)').addClass('active');
+
     else if(document.location.pathname ==  '/admin') 
     	$('#mainNavbar li:nth-child(1)').addClass('active');
 	else if(document.location.pathname ==  '/allStudies') 
@@ -92,6 +97,9 @@
     	$('#mainNavbar li:nth-child(3)').addClass('active');
     else if(document.location.pathname ==  '/lab') 
     	$('#mainNavbar li:nth-child(4)').addClass('active');
+
+    else if(document.location.pathname ==  '/myStudies') 
+    	$('#mainNavbar li:nth-child(1)').addClass('active');
 
     </script>
 </html>
