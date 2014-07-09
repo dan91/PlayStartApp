@@ -55,23 +55,15 @@
 <meta charset="utf-8"/>
 
 <div class="container">
-TODO MODAL DIA Labor Hinzufügen!
-
-		<h3>Labore <span class="label label-default">16</span>		<button class="btn btn-default btn pull-right"><span class="glyphicon glyphicon-plus"></span> Labor Hinzufügen</button>
+		<h3>Labore <span class="label label-default">16</span>		<button class="btn btn-default btn pull-right" id="add" data-toggle="modal" data-target="#myModal1"><span class="glyphicon glyphicon-plus"></span> Labor Hinzufügen</button>
 </h3>
 		<hr>
 
-		<div class="row">
-			<div class="col-sm-3 col-xs-6">Gebäudename</div>
-			<div class="col-sm-3 col-xs-6">Raumnahme</div>
-			<div class="col-sm-3 col-xs-6">	<button class="btn btn-default btn-sm"><span class="glyphicon glyphicon-map-marker"></span> Standort Bearbeiten</button></div>
-			<div class="col-sm-3 col-xs-6">	<button class="btn btn-default btn-sm"><span class="glyphicon glyphicon-map-marker"></span></button> <button class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove"></span> Labor Löschen</button></div> 
-		</div>
-		<hr>
+	
 			<div class="row">
 			<div class="col-sm-3 col-xs-6">Gebäudename</div>
 			<div class="col-sm-3 col-xs-6">Raumnahme</div>
-			<div class="col-sm-3 col-xs-6">	<button class="btn btn-default btn-sm"><span class="glyphicon glyphicon-map-marker"></span> Standort Bearbeiten</button></div>
+			<div class="col-sm-3 col-xs-6">	<button class="btn btn-default btn-sm" id="add" data-toggle="modal" data-target="#myModal1"><span class="glyphicon glyphicon-map-marker"></span> Standort Bearbeiten</button></div>
 			<div class="col-sm-3 col-xs-6">	<button class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove"></span> Labor Löschen</button></div> 
 		</div>
 		<hr>
@@ -131,7 +123,45 @@ TODO MODAL DIA Labor Hinzufügen!
 </div>
 
 
+<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 
+ <div class="modal-dialog ">
+        <div class="modal-content ">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                 <h4 class="modal-title">Labor Hinzufügen:</h4>
+
+            </div>
+<p></p>
+
+	<form class="form-horizontal" role="form">
+		<div class="form-group">
+			<label for="name" class="col-sm-3 control-label">Gebäude</label>
+			<div class="col-sm-6">
+			    <input type="text" name="name" class="form-control" id="name" value="Gebäudename" autofocus>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="name" class="col-sm-3 control-label">Raum</label>
+			<div class="col-sm-6">
+			    <input type="text" name="name" class="form-control" id="name" value="Raumname" autofocus>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="name" class="col-sm-3 control-label">Koordinaten</label>
+			<div class="col-sm-6">
+			    <input type="text" name="name" class="form-control" id="name" value="Bsp.: 36.038752, -104.729802" autofocus>
+			</div>
+		</div>
+	</form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->	
+</div>
 
 
 </body>
