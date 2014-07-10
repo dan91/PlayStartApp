@@ -390,21 +390,27 @@ $('#searchStudies').on("click", function() {
 					maxTime: '19:00:00',
 					eventStartEditable: true,
 					selectable: true,
+					slotEventOverlap: false,
 					axisFormat: 'H:mm',
 					timeFormat: 'H:mm',
+					columnFormat: 'dd., D.M',
 					contentHeight: 1200,
 					select: function(start, end) {
+						
+						dur = parseInt($("#duration option:selected").text());
+						temp = start;
+						while($.fullCalendar.moment(temp).isBefore(end)) {
 						var eventData;
-						m =parseInt($("#duration option:selected").text());
-						end = $.fullCalendar.moment(start).add('m',m);
+						temp_end = $.fullCalendar.moment(temp).add('m',dur);
 						eventData = {
 							title: '',
-							start: start,
-							end: end,
-						};
-						//events.push(eventData);
-						$('#calendar').fullCalendar('unselect');
+							start: temp,
+							end: temp_end,
+						};						
+						temp = temp_end;
 						$('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+					}
+						$('#calendar').fullCalendar('unselect');
 					},
 					eventMouseover: function(calEvent, jsEvent, view) {
 						$(this).css('background-color', 'red');
@@ -415,8 +421,26 @@ $('#searchStudies').on("click", function() {
 					eventClick: function(calEvent, jsEvent, view) {
 						$('#calendar').fullCalendar('removeEvents',calEvent._id);
 					},
-
+					eventDrop: function(event, dayDelta, minuteDelta, allDay, revertFunc) {
+						if (isOverlapping(event)) {revertFunc()};
+					},
+					eventResize: function(event, dayDelta, minuteDelta, revertFunc) {
+						if (isOverlapping(event)) {revertFunc()};
+					},
 				});
+
+function isOverlapping(event){
+    var array = calendar.fullCalendar('clientEvents');
+    for(i in array){
+        if(array[i].id != event.id){
+            if(!(array[i].start >= event.end || array[i].end <= event.start)){
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 $('#sessionCalendar').on('shown.bs.modal', function () {
 	$('#calendar').fullCalendar('render');
 });
