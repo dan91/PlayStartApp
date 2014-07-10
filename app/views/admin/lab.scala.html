@@ -37,6 +37,14 @@
         
       }
 
+	.building-name{
+		font-family Roboto;
+		border-color: #4d90fe;
+        margin-left: -1px;
+        padding-left: 14px;  /* Regular padding-left + 1. */
+        width: 301px;
+	}
+		
       #pac-input:focus {
         border-color: #4d90fe;
         margin-left: -1px;
@@ -82,68 +90,42 @@
             
         }
     	
-    	
-    	/**
-    	// add a click event handler to the map object
-        google.maps.event.addListener(map, "click", function(event)
-        {
-            // place a marker
-            placeMarker(event.latLng);
-
-            // display the lat/lng in your form's lat/lng fields
-            document.getElementById("latFld").value = event.latLng.lat();
-            document.getElementById("lngFld").value = event.latLng.lng();
-        });
-    	
-        function placeMarker(location) {
-            // first remove all markers if there are any
-            deleteOverlays();
-
-            var marker = new google.maps.Marker({
-                position: location, 
-                map: map
-            });
-
-            // add marker in markers array
-            markersArray.push(marker);
-
-            //map.setCenter(location);
-        }
-
-        // Deletes all markers in the array by removing references to them
-        function deleteOverlays() {
-            if (markersArray) {
-                for (i in markersArray) {
-                    markersArray[i].setMap(null);
-                }
-            markersArray.length = 0;
-            }
-        }
-        */
         
         
+        
+        var ZFM = new google.maps.LatLng(49.782264, 9.974931);
         
         
         /** autocomplete stuff*/
     	var mapOptions = {
         		
-        		/** Startwert ist hier das Zentrum für Mediendidaktik der Uni Würzburg*/
+        		/** Startwert ist hier das Zentrum für Mediendidaktik (ZFM) der Uni Würzburg*/
     		    center: new google.maps.LatLng(49.782264, 9.974931),
     		    zoom: 13
     		  };
-    		  var map = new google.maps.Map(document.getElementById('map-canvas'),
-    		    mapOptions);
+        
+        
+    		  var map = new google.maps.Map(document.getElementById('map-canvas'),mapOptions);
+    		  placeMarker(ZFM);
+    		  /** in dem Fall lat + lng =  null!!! */
+    		  
 
-    		  var input = /**  */(
-    		      document.getElementById('pac-input'));
-
-    		  var types = document.getElementById('type-selector');
-    		  map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-    		  map.controls[google.maps.ControlPosition.TOP_LEFT].push(types);
-
+    		  var input = (document.getElementById('pac-input'));
+				
+    		  
+    		  
+				/** bindet die autocomplete vorschläge an die Bounds der vorher gesuchten Eingabe!
+				
+				Wichtig, damit nicht zentren in anderen Städten, sondern immer die die lokal 
+				am nächsten sind, zuerst angezeigt werden.
+				
+				*/
     		  var autocomplete = new google.maps.places.Autocomplete(input);
     		  autocomplete.bindTo('bounds', map);
 
+    		  
+    		  
+    		  
     		  var infowindow = new google.maps.InfoWindow();
     		  var marker = new google.maps.Marker({
     		    map: map,
@@ -162,6 +144,7 @@
     		    if (place.geometry.viewport) {
     		      map.fitBounds(place.geometry.viewport);
     		    } else {
+    		      placeMarker(place.geometry.location)	
     		      map.setCenter(place.geometry.location);
     		      map.setZoom(17);  // Why 17? Because it looks good.
     		    }
@@ -174,15 +157,11 @@
     		    }));
     		    marker.setPosition(place.geometry.location);
     		    
-    		    
-    		    /** Macht kleinen Unterschied **/
-    		    //TomsCode
-    		    /** löscht alle vorherigen marker*/
-    		    deleteOverlay();
-    		    
-    		    /** schmeißt den marker ins array, wenn neue adresse eingegeben :)*/
-    		    marker.push(marker);
-    		    // Ende TomsCode
+    		    /** wenn der Admin vergisst einen genaueren Marker einzugeben,
+    		    wird immer die adresse genommen, die er eingetippt hat*/
+    		    document.getElementById("latFld").value = place.geometry.location.lat();
+	            document.getElementById("lngFld").value = place.geometry.location.lng();
+
     		  
     		    marker.setVisible(true);
 
@@ -200,19 +179,7 @@
     		  });
  
     		 
-    		  // Sets a listener on a radio button to change the filter type on Places
-    		  // Autocomplete.
-    		  function setupClickListener(id, types) {
-    		    var radioButton = document.getElementById(id);
-    		    google.maps.event.addDomListener(radioButton, 'click', function() {
-    		      autocomplete.setTypes(types);
-    		    });
-    		  }
-
-    		  setupClickListener('changetype-all', []);
-    		/**  setupClickListener('changetype-establishment', ['establishment']);
-    		  setupClickListener('changetype-geocode', ['geocode']);*/
-    		  
+    	
     		  
     		  
     		// add a click event handler to the map object
@@ -258,20 +225,24 @@
 		<meta charset="utf-8"/>
 
 		<h3>Labore <span class="label label-default">16</span>		
-			<button data-toggle="modal" data-target="#myMapModal" class="btn btn-default btn-sm loc" title="Juliuspromenade 8, 97070 WÃ¼rzburg"><span class="glyphicon glyphicon-map-marker"></span></button>
-</h3>
+			<button data-toggle="modal" data-target="#myMapModal" class="btn btn-default btn-sm loc" title="Juliuspromenade 8, 97070 WÃ¼rzburg"><span class="glyphicon glyphicon-map-marker"></span>Test</button>
+		</h3>
 		<hr>
 
 	
-			<div class="row">
-			<div class="col-sm-3 col-xs-6 myStudies_ListView"><h4>Gebäude 82</h4></div>
+			<div class="row myStudies_ListView">
+			<div class="col-sm-3 col-xs-6"><h4>GameBox</h4></div>
+				<div class="col-sm-6 col-xs-12">
+				<input type="text" id="latFld" disabled /> <input type="text" id="lngFld" disabled />
+				</div>
 			
 			
 			
-			<div class="col-sm-3 col-xs-6 myStudies_ListView pull-right">
-			<button class="btn btn-default btn pull-right" id="add" data-toggle="modal" data-target="#myMapModal"><span class="glyphicon glyphicon-plus"></span> Raum hinzufügen</button>
 			
+			<div class="col-sm-3 col-xs-6 pull-right">
+			<button class="btn btn-default btn pull-right" id="add" data-toggle="modal" data-target="#myMapModal"><span class="glyphicon glyphicon-map-marker"></span> Standort bearbeiten</button>
 			</div>
+			
 			</div>
 			
 			<hr>
@@ -279,82 +250,166 @@
 			
 			<div class="row">
 			<div class="col-sm-3 col-xs-6 col-sm-offset-2">Raum 00.205</div>
-			<div class="col-sm-3 col-xs-6">	<button class="btn btn-default btn-sm" id="add" data-toggle="modal" data-target="#myModal1"><span class="glyphicon glyphicon-map-marker"></span> Standort Bearbeiten</button></div>
+			<div class="col-sm-3 col-xs-6">	<button class="btn btn-default btn-sm" id="add" data-toggle="modal" data-target="#myRoomModal"><span class="glyphicon glyphicon-pencil"></span> Standort Beschreiben</button></div>
 			<div class="col-sm-3 col-xs-6">	<button class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove"></span> </button></div> 
 			</div>
 		
 		<hr>
 			<div class="row">
-			<div class="col-sm-3 col-xs-6">GebÃ¤udename</div>
-			<div class="col-sm-3 col-xs-6">Raumnahme</div>
-			<div class="col-sm-3 col-xs-6">	<button class="btn btn-default btn-sm"><span class="glyphicon glyphicon-map-marker"></span> Standort Bearbeiten</button></div>
+			<div class="col-sm-3 col-xs-6 col-sm-offset-2">Raum 00.206</div>
+			<div class="col-sm-3 col-xs-6">	<button class="btn btn-default btn-sm" id="add" data-toggle="modal" data-target="#myRoomModal"><span class="glyphicon glyphicon-pencil"></span> Standort Beschreiben</button></div>
 			<div class="col-sm-3 col-xs-6">	<button class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove"></span> </button></div> 
-		</div>
+			</div>
+		
 		<hr>
 			<div class="row">
-			<div class="col-sm-3 col-xs-6">GebÃ¤udename</div>
-			<div class="col-sm-3 col-xs-6">Raumnahme</div>
-			<div class="col-sm-3 col-xs-6">	<button class="btn btn-default btn-sm"><span class="glyphicon glyphicon-map-marker"></span> Standort Bearbeiten</button></div>
+			<div class="col-sm-3 col-xs-6 col-sm-offset-2">Raum 00.207</div>
+			<div class="col-sm-3 col-xs-6">	<button class="btn btn-default btn-sm" id="add" data-toggle="modal" data-target="#myRoomModal"><span class="glyphicon glyphicon-pencil"></span> Standort Beschreiben</button></div>
 			<div class="col-sm-3 col-xs-6">	<button class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove"></span> </button></div> 
-		</div>
+			</div>
+		
 		<hr>
 			<div class="row">
-			<div class="col-sm-3 col-xs-6">GebÃ¤udename</div>
-			<div class="col-sm-3 col-xs-6">Raumnahme</div>
-			<div class="col-sm-3 col-xs-6">	<button class="btn btn-default btn-sm"><span class="glyphicon glyphicon-map-marker"></span> Standort Bearbeiten</button></div>
+			<div class="col-sm-3 col-xs-6 col-sm-offset-2">Raum 00.208</div>
+			<div class="col-sm-3 col-xs-6">	<button class="btn btn-default btn-sm" id="add" data-toggle="modal" data-target="#myRoomModal"><span class="glyphicon glyphicon-pencil"></span> Standort Beschreiben</button></div>
 			<div class="col-sm-3 col-xs-6">	<button class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove"></span> </button></div> 
-		</div>
+			</div>
+		
 		<hr>
 			<div class="row">
-			<div class="col-sm-3 col-xs-6">GebÃ¤udename</div>
-			<div class="col-sm-3 col-xs-6">Raumnahme</div>
-			<div class="col-sm-3 col-xs-6">	<button class="btn btn-default btn-sm"><span class="glyphicon glyphicon-map-marker"></span> Standort Bearbeiten</button></div>
+			<div class="col-sm-3 col-xs-6 col-sm-offset-2">Raum 00.209</div>
+			<div class="col-sm-3 col-xs-6">	<button class="btn btn-default btn-sm" id="add" data-toggle="modal" data-target="#myRoomModal"><span class="glyphicon glyphicon-pencil"></span> Standort Beschreiben</button></div>
 			<div class="col-sm-3 col-xs-6">	<button class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove"></span> </button></div> 
-		</div>
+			</div>
+		
 		<hr>
 			<div class="row">
-			<div class="col-sm-3 col-xs-6">GebÃ¤udename</div>
-			<div class="col-sm-3 col-xs-6">Raumnahme</div>
-			<div class="col-sm-3 col-xs-6">	<button class="btn btn-default btn-sm"><span class="glyphicon glyphicon-map-marker"></span> Standort Bearbeiten</button></div>
+			<div class="col-sm-3 col-xs-6 col-sm-offset-2">Raum 00.210</div>
+			<div class="col-sm-3 col-xs-6">	<button class="btn btn-default btn-sm" id="add" data-toggle="modal" data-target="#myRoomModal"><span class="glyphicon glyphicon-pencil"></span> Standort Beschreiben</button></div>
 			<div class="col-sm-3 col-xs-6">	<button class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove"></span> </button></div> 
-		</div>
+			</div>
+		
 		<hr>
 			<div class="row">
-			<div class="col-sm-3 col-xs-6">GebÃ¤udename</div>
-			<div class="col-sm-3 col-xs-6">Raumnahme</div>
-			<div class="col-sm-3 col-xs-6">	<button class="btn btn-default btn-sm"><span class="glyphicon glyphicon-map-marker"></span> Standort Bearbeiten</button></div>
+			<div class="col-sm-3 col-xs-6 col-sm-offset-2">Raum 00.305</div>
+			<div class="col-sm-3 col-xs-6">	<button class="btn btn-default btn-sm" id="add" data-toggle="modal" data-target="#myRoomModal"><span class="glyphicon glyphicon-pencil"></span> Standort Beschreiben</button></div>
 			<div class="col-sm-3 col-xs-6">	<button class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove"></span> </button></div> 
-		</div>
+			</div>
+		
 		<hr>
 			<div class="row">
-			<div class="col-sm-3 col-xs-6">GebÃ¤udename</div>
-			<div class="col-sm-3 col-xs-6">Raumnahme</div>
-			<div class="col-sm-3 col-xs-6">	<button class="btn btn-default btn-sm"><span class="glyphicon glyphicon-map-marker"></span> Standort Bearbeiten</button></div>
+			<div class="col-sm-3 col-xs-6 col-sm-offset-2"><b>Raum 00.308</b></div>
+			<div class="col-sm-3 col-xs-6">	<button class="btn btn-default btn-sm" id="add" data-toggle="modal" data-target="#myRoomModal"><span class="glyphicon glyphicon-pencil"></span> Standort Beschreiben</button></div>
 			<div class="col-sm-3 col-xs-6">	<button class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove"></span> </button></div> 
-		</div>
+			</div>
+		
 		<hr>
 
+
+<!-- Beginn Map-Modal -->
 <div class="modal fade" id="myMapModal">
     <div class="modal-dialog admin_map1">
         <div class="modal-content contains_map2">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">Ã—</button>
-                 <h4 class="modal-title">Oswald KÃ¼lpe Weg, GebÃ¤ude 82</h4>
+            	
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                 
+                 <div class="row">
+            					<div class="col-sm-3">
+            					<b>Laborbezeichnung</b>
+            						<input class="controls building-name" type="text"
+            					
+						        placeholder="z.B. GameBox"/>
+            					</div>
+            
+            			</div>  
+
+					<div class="row">
+            					<div class="col-sm-3">
+            					<b>Location</b>
+            						<input id="pac-input" class="controls" type="text"
+						        placeholder="z.B. Zentrum für Mediendidaktik"/>
+            					</div>
+            
+            			</div> 
+            			
+            		<div class="row">
+            					<div class="col-sm-3">
+            					<i>Setzen Sie einen Marker auf der Karte.</i>
+            					</div>
+            
+            			</div>  
 
             </div>
   
    <div class="modal-body contains_map3">
                 <div class="container contains_map4">
                     <div class="row contains_map4">
-                                   
-						 <input id="pac-input" class="controls" type="text"
-						        placeholder="Enter a location"/>
-						    <div id="type-selector" class="controls">
-						      <input type="radio" name="type" id="changetype-all" checked="checked">
-						      <label for="changetype-all">All</label>
-						    </div>
+                                 
+						 
 						    <div id="map-canvas"></div>
-     
+     					
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="height:5%;">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+    
+    
+    
+    
+    
+    <!-- Raumbeschreibungs-modal -->
+    <div class="modal fade" id="myRoomModal">
+    <div class="modal-dialog admin_map1">
+        <div class="modal-content contains_map2">
+            <div class="modal-header">
+            	
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                 
+                 <div class="row">
+            					<div class="col-sm-3">
+            					<b>Raum</b>
+            						<input class="controls building-name" type="text"
+            					
+						        placeholder="z.B. Raum 00.105"/>
+            					</div>
+            
+            			</div>  
+
+					<div class="row">
+            					<div class="col-sm-3">
+            					<b>Location</b>
+            						<textarea class="field span12 desc-padding" id="textarea" cols="55" rows="15" placeholder="z.B. Der Raum 00.1XX befindet sich im oberen Stockwerk."></textarea>
+						        	
+            					</div>
+            
+            			</div> 
+            			
+            		<div class="row">
+            					<div class="col-sm-12">
+            					<i>Diese Beschreibung wird den Studenten als MarkerText auf der Karte angezeigt </i>
+            					</div>
+            
+            			</div>  
+
+            </div>
+  
+   <div class="modal-body contains_map3">
+                <div class="container contains_map4">
+                    <div class="row contains_map4">
+                                 
+						 
+						    <div id="map-canvas"></div>
+     					
                     </div>
                 </div>
             </div>
