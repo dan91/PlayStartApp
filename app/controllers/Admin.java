@@ -61,6 +61,15 @@ public class Admin extends Controller {
     public static Result alab() {  
         return ok(views.html.admin.lab.render());
     }
+    
+    /**
+     * Displays the admin lmap
+     *
+     * @return
+     */
+    public static Result mapTest() {  
+        return ok(views.html.admin.mapTest.render());
+    }
 
 
 }
