@@ -69,7 +69,7 @@
       
     $(document).ready(function(){
     
-    	
+    	var markersArray = [];
     	
     	$('#myMapModal').on('shown.bs.modal', function() {
         	resizeShit();
@@ -173,6 +173,17 @@
     		      scaledSize: new google.maps.Size(35, 35)
     		    }));
     		    marker.setPosition(place.geometry.location);
+    		    
+    		    
+    		    /** Macht kleinen Unterschied **/
+    		    //TomsCode
+    		    /** löscht alle vorherigen marker*/
+    		    deleteOverlay();
+    		    
+    		    /** schmeißt den marker ins array, wenn neue adresse eingegeben :)*/
+    		    marker.push(marker);
+    		    // Ende TomsCode
+    		  
     		    marker.setVisible(true);
 
     		    var address = '';
@@ -187,7 +198,8 @@
     		    infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
     		    infowindow.open(map, marker);
     		  });
-
+ 
+    		 
     		  // Sets a listener on a radio button to change the filter type on Places
     		  // Autocomplete.
     		  function setupClickListener(id, types) {
@@ -198,8 +210,46 @@
     		  }
 
     		  setupClickListener('changetype-all', []);
-    		  setupClickListener('changetype-establishment', ['establishment']);
-    		  setupClickListener('changetype-geocode', ['geocode']);
+    		/**  setupClickListener('changetype-establishment', ['establishment']);
+    		  setupClickListener('changetype-geocode', ['geocode']);*/
+    		  
+    		  
+    		  
+    		// add a click event handler to the map object
+    	        google.maps.event.addListener(map, "click", function(event)
+    	        {
+    	            // place a marker
+    	            placeMarker(event.latLng);
+
+    	            // display the lat/lng in your form's lat/lng fields
+    	            document.getElementById("latFld").value = event.latLng.lat();
+    	            document.getElementById("lngFld").value = event.latLng.lng();
+    	        });
+    	    	
+    	        function placeMarker(location) {
+    	            // first remove all markers if there are any
+    	            deleteOverlays();
+
+    	            var marker = new google.maps.Marker({
+    	                position: location, 
+    	                map: map
+    	            });
+
+    	            // add marker in markers array
+    	            markersArray.push(marker);
+
+    	            //map.setCenter(location);
+    	        }
+
+    	        // Deletes all markers in the array by removing references to them
+    	        function deleteOverlays() {
+    	            if (markersArray) {
+    	                for (i in markersArray) {
+    	                    markersArray[i].setMap(null);
+    	                }
+    	            markersArray.length = 0;
+    	            }
+    	        }
   
     });  
     </script>
@@ -310,7 +360,7 @@
             </div>
             <div class="modal-footer" style="height:5%;">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
             </div>
         </div>
         <!-- /.modal-content -->
