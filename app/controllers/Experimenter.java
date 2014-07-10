@@ -53,6 +53,15 @@ public class Experimenter extends Controller {
     public static Result myStudies() {  
         return ok(views.html.experimenter.myStudies.render());
     }
+    
+    /**
+     * Completes current study, shows attended probands and sessions
+     *
+     * @return
+     */
+    public static Result completeStudy() {  
+        return ok(views.html.experimenter.completeStudy.render());
+    }
 
 
 }

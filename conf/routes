@@ -44,6 +44,7 @@ GET     /completed                 controllers.Proband.completed()
 GET     /create                 controllers.Experimenter.create()
 GET     /edit                   controllers.Experimenter.edit()
 GET     /myStudies				controllers.Experimenter.myStudies()
+GET     /completeStudy			controllers.Experimenter.completeStudy()
 
 # Admin
 GET		/admin   				controllers.Admin.admin()

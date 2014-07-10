@@ -1,0 +1,120 @@
+@scripts = {
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+    
+    <script>
+    $(document).ready(function(){
+    	
+    	var myCenter=new google.maps.LatLng(49.785210, 9.976927);
+    	var marker=new google.maps.Marker({
+    	position:myCenter
+    	});
+    	
+    	var map=    new google.maps.Map(
+                 document.getElementById('map-canvas'), 
+                  { zoom: 18,
+                    center: myCenter,
+                    mapTypeId: google.maps.MapTypeId.HYBRID });
+    	
+    	marker.setMap(map);
+    
+    	var contentString = '<div id="content">'+
+    	'<div id="siteNotice">'+
+    	'</div>'+
+    	'<h1 id="firstHeading" class="firstHeading">Multitasking</h1>'+
+    	'<div id="bodyContent">'+
+    	'<p>Bei der Studie<b>"Multitasking"</b> geht es darum,'+
+    	'</br>mehrere Aufgaben nebeneinander zu lÃ¶sen.'+
+    	'<p><b>Raum: 00.120</b></p>'
+
+    	'</div>'+
+    	'</div>';
+
+    	var infowindow = new google.maps.InfoWindow({
+    	    content: contentString
+    	});
+    
+    $('#myMapModal').on('shown.bs.modal', function() {
+    	resizeShit();
+    	});
+    
+    // jquery erweiterung, damit tooltips angezeigt werden.
+    $('.tooltip_extension').tooltip();
+    $('.progressbar_extension').progressbar();
+    	
+    function resizeShit(){	
+    var center = map.getCenter();
+    google.maps.event.trigger(map, "resize");
+    map.setCenter(center); 
+	
+	
+	
+	//var infowindow = new google.maps.InfoWindow({
+	//  content: contentString
+	//});
+
+	google.maps.event.addListener(marker, 'click', function() {
+	  infowindow.open(map,marker);
+	  });
+	
+    };
+    	
+    	
+    });
+    
+    
+</script>
+}
+
+@main(null, null, "experimenter") {
+
+<meta charset="utf-8"/>
+
+        <div class="container">
+
+		<div class="row">
+			<div class="page-header">
+				<h3>
+				Gestenpräsentation 
+			
+				</h3>
+			</div>
+		</div>
+		
+
+        <div class="row">
+			<div class="col-sm-3">
+				<span class="glyphicon glyphicon-calendar">Dienstag, 8.Juli 2014</span></div>
+		</div>
+		<hr>
+		
+		</div> <!-- Ende container -->
+		
+        
+        <div class="modal fade" id="myMapModal">
+    <div class="modal-dialog contains_map1">
+        <div class="modal-content contains_map2">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">Ã—</button>
+                 <h4 class="modal-title">Oswald KÃ¼lpe Weg, GebÃ¤ude 82</h4>
+
+            </div>
+            <div class="modal-body contains_map3">
+                <div class="container contains_map4">
+                    <div class="row contains_map4">
+                    
+                        <div align="center" id="map-canvas"  class="contains_map4"></div>
+                      
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="height:5%;">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+}
