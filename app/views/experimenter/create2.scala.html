@@ -127,8 +127,12 @@
 				<div class="form-group">
 					<label for="description" class="col-sm-3 control-label">Versuchsleiter</span></label>
 					<div class="col-sm-6">
-						<button type="button" class="btn btn-default" id="me">Ich</button>
-						<button type="button" class="btn btn-default" id="add"><span class="glyphicon glyphicon-user"> <span class="glyphicon glyphicon-plus"></span></button>
+						<button type="button" class="btn btn-default" id="me" disabled>Ich</button>
+						
+<button type="button" class="btn btn-default removeExp" style="display:none">Max Mustermann <span class="glyphicon glyphicon-remove"></span></button>
+  </div>
+						<div class="col-sm-3">
+						<button type="button" class="btn btn-default" id="add" data-toggle="modal" data-target="#modalAddPersons"><span class="glyphicon glyphicon-user"> <span class="glyphicon glyphicon-plus"></span></button>
 					</div>
 				</div>
 				<div class="form-group">
@@ -320,6 +324,36 @@
 						<button type="button" class="btn btn-danger btn-sm eventdel"><span class="glyphicon glyphicon-remove"></span></button>
 					</div>
 				</div>
+				<div class="modal fade" id="modalAddPersons">
+	<div class="modal-dialog mo">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Versuchsleiter hinzufügen</h4>
+			</div>
+			<div class="modal-body">
+		<div class="row">
+			<div class="col-sm-12">
+				<input type="text" name="name" class="form-control" id="expSearch" placeholder="Name des Versuchsleiter" autofocus>
+				</div>
+				</div>
+				<div class="row" id="exp" style="display:none">
+					<div class="col-xs-9">Max Mustermann</div>
+					<div class="col-xs-3">
+						<button type="button" class="btn btn-primary" id="addExp"><span class="glyphicon glyphicon-plus"></span></button>
+					</div>
+				</div>
+				</div>
+
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" data-dismiss="modal">Speichern</button>
+			</div>
+		</div>
+		<!-- /.modal-content --> 
+	</div>
+	<!-- /.modal-dialog --> 
+</div>
+<!-- /.modal --> 
 				<link rel="stylesheet" href="@routes.Assets.at("stylesheets/slider.css")"></script>
 				<script src="@routes.Assets.at("javascripts/bootstrap-slider.js")"></script> 
 				<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script> 
@@ -407,7 +441,18 @@ $('#sessionCalendar').on('hidden.bs.modal', function (e) {
 		$('#calendar').fullCalendar('rerenderEvents');
 	})
 });			
-
+$('#modalAddPersons').on('shown.bs.modal', function () {
+	$('#addExp').click(function () {
+		$(this).attr('disabled',true);
+		$('.removeExp').show()
+	})
+	$('#expSearch').on('keypress', function () {
+	if($('#expSearch').val().length == 1) {
+		$('#exp').show();
+		
+		}
+	})
+});
 $(document).ready(function(){
 
 	$('.form-horizontal').validate(

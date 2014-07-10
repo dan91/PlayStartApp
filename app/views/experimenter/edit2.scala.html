@@ -129,7 +129,7 @@
 					<div class="col-sm-6">
 						<button type="button" class="btn btn-default" id="me" disabled>Ich</button>
 						
-<button type="button" class="btn btn-default" class="removeExp">Max Mustermann <span class="glyphicon glyphicon-remove"></span></button>
+<button type="button" class="btn btn-default removeExp" style="display:none">Max Mustermann <span class="glyphicon glyphicon-remove"></span></button>
   </div>
 						<div class="col-sm-3">
 						<button type="button" class="btn btn-default" id="add" data-toggle="modal" data-target="#modalAddPersons"><span class="glyphicon glyphicon-user"> <span class="glyphicon glyphicon-plus"></span></button>
@@ -324,8 +324,17 @@
 				<h4 class="modal-title">Versuchsleiter hinzufügen</h4>
 			</div>
 			<div class="modal-body">
-		
-				<input type="text" name="name" class="form-control" id="name" placeholder="Name des Versuchsleiter" autofocus>
+		<div class="row">
+			<div class="col-sm-12">
+				<input type="text" name="name" class="form-control" id="expSearch" placeholder="Name des Versuchsleiter" autofocus>
+				</div>
+				</div>
+				<div class="row" id="exp" style="display:none">
+					<div class="col-xs-9">Max Mustermann</div>
+					<div class="col-xs-3">
+						<button type="button" class="btn btn-primary" id="addExp"><span class="glyphicon glyphicon-plus"></span></button>
+					</div>
+				</div>
 				</div>
 
 			<div class="modal-footer">
@@ -510,6 +519,19 @@ listEvents();
 $('#sessionCalendar').on('shown.bs.modal', function () {
 	$('#calendar').fullCalendar('render');
 });
+$('#modalAddPersons').on('shown.bs.modal', function () {
+	$('#addExp').click(function () {
+		$(this).attr('disabled',true);
+		$('.removeExp').show()
+	})
+	$('#expSearch').on('keypress', function () {
+	if($('#expSearch').val().length == 1) {
+		$('#exp').show();
+		
+		}
+	})
+});
+
 
 $('#sessionCalendar').on('hidden.bs.modal', function() {
 	listEvents();
