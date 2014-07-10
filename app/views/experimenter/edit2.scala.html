@@ -8,7 +8,7 @@
 @main(null, scripts, "experimenter") {
 <div role="main" class="container main">
 	<div class="page-header">
-		<h2>Studie beareiten</h2>
+		<h2>Studie bearbeiten</h2>
 	</div>
 	<form class="form-horizontal" role="form" action="/sessions">
 		<div class="form-group">
@@ -127,8 +127,12 @@
 				<div class="form-group">
 					<label for="description" class="col-sm-3 control-label">Versuchsleiter</span></label>
 					<div class="col-sm-6">
-						<button type="button" class="btn btn-default" id="me">Ich</button>
-						<button type="button" class="btn btn-default" id="add"><span class="glyphicon glyphicon-user"> <span class="glyphicon glyphicon-plus"></span></button>
+						<button type="button" class="btn btn-default" id="me" disabled>Ich</button>
+						
+<button type="button" class="btn btn-default" class="removeExp">Max Mustermann <span class="glyphicon glyphicon-remove"></span></button>
+  </div>
+						<div class="col-sm-3">
+						<button type="button" class="btn btn-default" id="add" data-toggle="modal" data-target="#modalAddPersons"><span class="glyphicon glyphicon-user"> <span class="glyphicon glyphicon-plus"></span></button>
 					</div>
 				</div>
 				<div class="form-group">
@@ -317,25 +321,13 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<h4 class="modal-title">Versuchsleiter bearbeiten</h4>
+				<h4 class="modal-title">Versuchsleiter hinzufügen</h4>
 			</div>
 			<div class="modal-body">
-		<div class="row">
-		<div class="col-sm-6">
-				<button type="button" class="btn btn-default" id="me"><span class="glyphicon glyphicon-remove"></span> Ich</button>
-				<button type="button" class="btn btn-default" id="me"><span class="glyphicon glyphicon-remove"></span> Max Mustermann</button>
-				</div>
-			</div>
-			<hr>
-<div class="col-sm-6">
+		
 				<input type="text" name="name" class="form-control" id="name" placeholder="Name des Versuchsleiter" autofocus>
-			</div>
- <button type="button" class="btn btn-default" ><span class="glyphicon glyphicon-remove"></span>Hinzufügen</button>		<hr>		
-				</div></div>
 				</div>
 
-
-			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-primary" data-dismiss="modal">Speichern</button>
 			</div>
@@ -411,7 +403,7 @@
 <!-- /.modal-dialog --> 	
 
 
-				<div class="row" id="event">
+				<div class="row" id="event" style="display:none">
 					<div class="col-xs-5"><span class="glyphicon glyphicon-calendar"></span> <span id="date"><span></div>
 					<div class="col-xs-4"><span class="glyphicon glyphicon-time"></span> <span id="time"><span></div>
 					<div class="col-xs-3">
@@ -434,6 +426,9 @@
 				
 $('#searchStudies').on("click", function() {
 	$("#search").show()
+})
+$('.removeExp').on("click", function() {
+	$(this).remove()
 })
 
 
