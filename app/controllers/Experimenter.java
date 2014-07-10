@@ -42,7 +42,7 @@ public class Experimenter extends Controller {
      * @return
      */
     public static Result edit() {  
-        return ok(views.html.experimenter.edit.render());
+        return ok(views.html.experimenter.edit2.render());
     }
     
     /**

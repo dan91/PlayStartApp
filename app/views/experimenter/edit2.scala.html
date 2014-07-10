@@ -8,19 +8,19 @@
 @main(null, scripts, "experimenter") {
 <div role="main" class="container main">
 	<div class="page-header">
-		<h2>Neue Studie erstellen</h2>
+		<h2>Studie beareiten</h2>
 	</div>
 	<form class="form-horizontal" role="form" action="/sessions">
 		<div class="form-group">
 			<label for="name" class="col-sm-3 control-label">Name</label>
 			<div class="col-sm-7">
-				<input type="text" name="name" class="form-control" id="name" placeholder="Name der Studie" autofocus>
+				<input type="text" name="name" class="form-control" id="name" value="Multitasking III" autofocus>
 			</div>
 		</div>
 		<div class="form-group">
 			<label for="description" class="col-sm-3 control-label">Beschreibung</label>
 			<div class="col-sm-7">
-				<textarea class="form-control" name="description" rows="4" id="description" placeholder="Beschreibung der Studie"></textarea>
+				<textarea class="form-control" name="description" rows="4" id="description" placeholder="Beschreibung der Studie">In diesem Experiment soll die Aufmerksamkeit...</textarea>
 			</div>
 		</div>
 		<div class="form-group">
@@ -93,9 +93,9 @@
 							</div>
 						</div>
 						<div id="events">
-
-						</div>
-
+						
+				
+</div>
 					</div>
 				</div>
 				<hr>
@@ -312,8 +312,106 @@
 				<!-- /.modal --> 
 
 
+<div class="modal fade" id="modalAddPersons">
+	<div class="modal-dialog mo">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Versuchsleiter bearbeiten</h4>
+			</div>
+			<div class="modal-body">
+		<div class="row">
+		<div class="col-sm-6">
+				<button type="button" class="btn btn-default" id="me"><span class="glyphicon glyphicon-remove"></span> Ich</button>
+				<button type="button" class="btn btn-default" id="me"><span class="glyphicon glyphicon-remove"></span> Max Mustermann</button>
+				</div>
+			</div>
+			<hr>
+<div class="col-sm-6">
+				<input type="text" name="name" class="form-control" id="name" placeholder="Name des Versuchsleiter" autofocus>
+			</div>
+ <button type="button" class="btn btn-default" ><span class="glyphicon glyphicon-remove"></span>Hinzufügen</button>		<hr>		
+				</div></div>
+				</div>
 
-				<div class="row" style="display:none" id="event">
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" data-dismiss="modal">Speichern</button>
+			</div>
+		</div>
+		<!-- /.modal-content --> 
+	</div>
+	<!-- /.modal-dialog --> 
+</div>
+<!-- /.modal --> 
+
+
+		
+<!-- hier die paar dummen modaltabs fuer dummycontent -->		
+<div class="modal fade" id="myModalTeilnehmer1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog mo">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Sitzungs-Teilnehmer Bearbeiten</h4>
+			</div>
+				<div class="modal-body">
+			<div class="container">
+		<div class="row">	
+            <div class="col-md-3">Kein Eingetragene Teilnehmer</div> 
+            <div class="col-md-1 text-center"><small></small></div>
+            <div class="col-md-2"><button type="button" class="btn btn-danger" id="me"></button></div>
+		</div> <!-- row -->
+	</div> <!-- container -->
+			<div class="col-sm-6">
+				<input type="text" name="name" class="form-control" id="name" placeholder="Name des Probands" autofocus>
+			</div>
+ <button type="button" class="btn btn-default" ><span class="glyphicon glyphicon-plus"></span> Teilnehmer Hinzufügen</button>		<hr>		
+				</div></div>
+				</div>
+			</div>
+		</div>
+		<!-- /.modal-content --> 
+<!-- /.modal-dialog --> 		
+
+<div class="modal fade" id="myModalTeilnehmer2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body">
+			<div>
+			<div class="modal title">Angemeldete Teilnehmer:	</div>
+		<div class="container">
+		<div class="row">	
+            <div class="col-md-3">Max Mustermann </div> 
+            <div class="col-md-1 text-center"><small>Anwesenheit: 93%</small></div>
+            <div class="col-md-2"><button type="button" class="btn btn-danger" id="me">Austragen</button></div>
+		</div> <!-- row -->
+		<div class="row">	
+            <div class="col-md-3">Melanie Mustermann </div> 
+            <div class="col-md-1 text-center"><small>Anwesenheit: 97%</small></div>
+            <div class="col-md-2"><button type="button" class="btn btn-danger" id="me">Austragen</button></div>
+		</div> <!-- row -->
+			<div class="row">	
+            <div class="col-md-3">D Mustermann </div> 
+            <div class="col-md-1 text-center"><small>Anwesenheit: 53%</small></div>
+            <div class="col-md-2"><button type="button" class="btn btn-danger" id="me">Austragen</button></div>
+		</div> <!-- row -->
+		</div> <!--  container -->
+
+			<div class="col-sm-6">
+				<input type="text" name="name" class="form-control" id="name" placeholder="Name des Probands" autofocus>
+			</div>
+ <button type="button" class="btn btn-default" ><span class="glyphicon glyphicon-del"></span>Teilnehmer Hinzufügen</button>		<hr>		
+				</div></div>
+				</div>
+			</div>
+		</div>
+		<!-- /.modal-content --> 
+<!-- /.modal-dialog --> 	
+
+
+				<div class="row" id="event">
 					<div class="col-xs-5"><span class="glyphicon glyphicon-calendar"></span> <span id="date"><span></div>
 					<div class="col-xs-4"><span class="glyphicon glyphicon-time"></span> <span id="time"><span></div>
 					<div class="col-xs-3">
@@ -339,8 +437,6 @@ $('#searchStudies').on("click", function() {
 })
 
 
-
-
 				events = new Array();
 				$('#calendar').fullCalendar({
 					defaultView: 'agendaWeek',
@@ -359,6 +455,16 @@ $('#searchStudies').on("click", function() {
 					axisFormat: 'H:mm',
 					timeFormat: 'H:mm',
 					contentHeight: 1200,
+					events: [
+				        {
+				            start  : '2014-07-10T14:00',
+				            end  : '2014-07-10T15:00'
+				        },
+				        {
+				            start  : '2014-07-10T12:00',
+				            end  : '2014-07-10T13:00'
+				        }
+				    ],
 					select: function(start, end) {
 						var eventData;
 						m =parseInt($("#duration option:selected").text());
@@ -383,33 +489,38 @@ $('#searchStudies').on("click", function() {
 					},
 
 				});
-$('#sessionCalendar').on('shown.bs.modal', function () {
-	$('#calendar').fullCalendar('render');
-});
-
-$('#sessionCalendar').on('hidden.bs.modal', function (e) {
+function listEvents() {
 	events = $('#calendar').fullCalendar( 'clientEvents');
 	$("#events").children().remove();
 	$.each(events, function (key, value) {
 		e = $("#event").clone();
 		date = value.start.format("dddd, Do MMMM YYYY");
-		time = value.start.format("h:mm")+"-"+value.end.format("h:mm");
+		time = value.start.format("H:mm")+"-"+value.end.format("H:mm");
 		e.find("#date").text(date);
 		e.find("#time").text(time);
 		e.prop("id",value._id);
 		$("#events").append(e);
 		e.show();
 	});
+
 	$(".eventdel").on("click", function() {
 		id = $(this).parent().parent().prop('id');
 		$(this).parent().parent().remove();
 		$('#calendar').fullCalendar('removeEvents',id);
 		$('#calendar').fullCalendar('rerenderEvents');
 	})
-});			
+};			
+$('#calendar').fullCalendar('render');
+listEvents();
+$('#sessionCalendar').on('shown.bs.modal', function () {
+	$('#calendar').fullCalendar('render');
+});
+
+$('#sessionCalendar').on('hidden.bs.modal', function() {
+	listEvents();
+});
 
 $(document).ready(function(){
-
 	$('.form-horizontal').validate(
 	{
 		rules: {
