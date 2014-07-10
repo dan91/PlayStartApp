@@ -1,70 +1,3 @@
-@scripts = {
-<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
-    
-    <script>
-    $(document).ready(function(){
-    	
-    	var myCenter=new google.maps.LatLng(49.785210, 9.976927);
-    	var marker=new google.maps.Marker({
-    	position:myCenter
-    	});
-    	
-    	var map=    new google.maps.Map(
-                 document.getElementById('map-canvas'), 
-                  { zoom: 18,
-                    center: myCenter,
-                    mapTypeId: google.maps.MapTypeId.HYBRID });
-    	
-    	marker.setMap(map);
-    
-    	var contentString = '<div id="content">'+
-    	'<div id="siteNotice">'+
-    	'</div>'+
-    	'<h1 id="firstHeading" class="firstHeading">Multitasking</h1>'+
-    	'<div id="bodyContent">'+
-    	'<p>Bei der Studie<b>"Multitasking"</b> geht es darum,'+
-    	'</br>mehrere Aufgaben nebeneinander zu lÃ¶sen.'+
-    	'<p><b>Raum: 00.120</b></p>'
-
-    	'</div>'+
-    	'</div>';
-
-    	var infowindow = new google.maps.InfoWindow({
-    	    content: contentString
-    	});
-    
-    $('#myMapModal').on('shown.bs.modal', function() {
-    	resizeShit();
-    	});
-    
-    // jquery erweiterung, damit tooltips angezeigt werden.
-    $('.tooltip_extension').tooltip();
-    $('.progressbar_extension').progressbar();
-    	
-    function resizeShit(){	
-    var center = map.getCenter();
-    google.maps.event.trigger(map, "resize");
-    map.setCenter(center); 
-	
-	
-	
-	//var infowindow = new google.maps.InfoWindow({
-	//  content: contentString
-	//});
-
-	google.maps.event.addListener(marker, 'click', function() {
-	  infowindow.open(map,marker);
-	  });
-	
-    };
-    	
-    	
-    });
-    
-    
-</script>
-}
-
 @main(null, null, "experimenter") {
 
 <meta charset="utf-8"/>
@@ -76,14 +9,14 @@
 
 
 		<div class="row">
-			<div class="col-sm-3 col-xs-6 col-sm-offset-2"><h4><span class="glyphicon glyphicon-calendar"></span> Montag, 07. Juli 2014</h4></div>
+			<div class="col-sm-3 col-xs-6"><h4><span class="glyphicon glyphicon-calendar"></span> Montag, 07. Juli 2014</h4></div>
 			<div class="col-sm-2 col-xs-6">
 			<h4><span class="glyphicon glyphicon-time"></span>
 					08:30-09:30</h4></div>
 		</div>	
 		
 		<div class="row">
-				<div class="col-sm-3 col-xs-6 col-sm-offset-2"><h5>
+				<div class="col-sm-3 col-xs-6 "><h5>
 					<span class="glyphicon glyphicon-user"></span> Peter Schuster</h5>
 				</div>
 			<div class="col-sm-2 col-xs-6">
@@ -95,12 +28,11 @@
   			</div>
   		</div>
   			
-		</div>
 	 
 	 <hr>
 	 
 	 <div class="row">
-			<div class="col-sm-3 col-xs-6 col-sm-offset-2" ><h4>
+			<div class="col-sm-3 col-xs-6 " ><h4>
 			<span class="glyphicon glyphicon-calendar"></span> Dienstag, 08. Juli 2014</h4></div>
 			<div class="col-sm-2 col-xs-6">
 			<h4><span class="glyphicon glyphicon-time"></span>
@@ -108,7 +40,7 @@
 		</div>
 		
 		<div class="row">
-				<div class="col-sm-3 col-xs-6 col-sm-offset-2" ><h5>
+				<div class="col-sm-3 col-xs-6 " ><h5>
 					<span class="glyphicon glyphicon-user"></span> Werner Saalfrank</h5>
 				</div>
 			<div class="col-sm-2 col-xs-6">
@@ -123,7 +55,7 @@
 	 <hr>
 	 
 	 <div class="row">
-			<div class="col-sm-3 col-xs-6 col-sm-offset-2"><h4>
+			<div class="col-sm-3 col-xs-6 "><h4>
 			<span class="glyphicon glyphicon-calendar"></span> Mittwoch, 09. Juli 2014</h4></div>
 			<div class="col-sm-2 col-xs-6">
 			<h4><span class="glyphicon glyphicon-time"></span>
@@ -131,7 +63,7 @@
 		</div>
 		
 		<div class="row">
-				<div class="col-sm-3 col-xs-6 col-sm-offset-2"><h5>
+				<div class="col-sm-3 col-xs-6 "><h5>
 					<span class="glyphicon glyphicon-user"></span> Hans Müller</h5>
 				</div>
 			<div class="col-sm-2 col-xs-6">

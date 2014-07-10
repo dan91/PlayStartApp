@@ -93,7 +93,23 @@
 							</div>
 						</div>
 						<div id="events">
-						
+												
+				
+<div class="row" id="_fc1" style="">
+					<div class="col-xs-4"><span class="glyphicon glyphicon-calendar"></span> <span id="date">Donnerstag, 10. Juli 2014</span></div>
+					<div class="col-xs-3"><span class="glyphicon glyphicon-time"></span> <span id="time">14:00-15:00</span></div>
+					<div class="col-xs-3"><span class="glyphicon glyphicon-user"></span> 3 <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModalTeilnehmer2"><span class="glyphicon glyphicon-pencil"></span></button></div>
+					<div class="col-xs-2">
+						<button type="button" class="btn btn-danger btn-sm eventdel"><span class="glyphicon glyphicon-remove"></span></button>
+					</div>
+				</div><div class="row" id="_fc2" style="">
+					<div class="col-xs-4"><span class="glyphicon glyphicon-calendar"></span> <span id="date">Donnerstag, 10. Juli 2014</span></div>
+					<div class="col-xs-3"><span class="glyphicon glyphicon-time"></span> <span id="time">12:00-13:00</span></div>
+					<div class="col-xs-3"><span class="glyphicon glyphicon-user"></span> 3 <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModalTeilnehmer2"><span class="glyphicon glyphicon-pencil"></span></button></div>
+					<div class="col-xs-2">
+						<button type="button" class="btn btn-danger btn-sm eventdel"><span class="glyphicon glyphicon-remove"></span></button>
+					</div>
+				</div>
 				
 </div>
 					</div>
@@ -386,17 +402,17 @@
 		<div class="row">	
             <div class="col-md-3">Max Mustermann </div> 
             <div class="col-md-1 text-center"><small>Anwesenheit: 93%</small></div>
-            <div class="col-md-2"><button type="button" class="btn btn-danger" id="me">Austragen</button></div>
+            <div class="col-md-2"><button type="button" class="btn btn-danger" id="me"><span class="glyphicon glyphicon-remove"></span></button></div>
 		</div> <!-- row -->
 		<div class="row">	
             <div class="col-md-3">Melanie Mustermann </div> 
             <div class="col-md-1 text-center"><small>Anwesenheit: 97%</small></div>
-            <div class="col-md-2"><button type="button" class="btn btn-danger" id="me">Austragen</button></div>
+            <div class="col-md-2"><button type="button" class="btn btn-danger" id="me"><span class="glyphicon glyphicon-remove"></span></button></div>
 		</div> <!-- row -->
 			<div class="row">	
             <div class="col-md-3">D Mustermann </div> 
             <div class="col-md-1 text-center"><small>Anwesenheit: 53%</small></div>
-            <div class="col-md-2"><button type="button" class="btn btn-danger" id="me">Austragen</button></div>
+            <div class="col-md-2"><button type="button" class="btn btn-danger" id="me"><span class="glyphicon glyphicon-remove"></span></button></div>
 		</div> <!-- row -->
 		</div> <!--  container -->
 
@@ -411,11 +427,47 @@
 		<!-- /.modal-content --> 
 <!-- /.modal-dialog --> 	
 
+<div class="modal fade" id="myModalTeilnehmer2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body">
+			<div>
+			<div class="modal title">Angemeldete Teilnehmer:	</div>
+		<div class="container">
+		<div class="row">	
+            <div class="col-md-3">Max Mustermann </div> 
+            <div class="col-md-1 text-center"><small>Anwesenheit: 93%</small></div>
+            <div class="col-md-2"><button type="button" class="btn btn-danger" id="me"><span class="glyphicon glyphicon-remove"></span></button></div>
+		</div> <!-- row -->
+		<div class="row">	
+            <div class="col-md-3">Melanie Mustermann </div> 
+            <div class="col-md-1 text-center"><small>Anwesenheit: 97%</small></div>
+            <div class="col-md-2"><button type="button" class="btn btn-danger" id="me"><span class="glyphicon glyphicon-remove"></span></button></div>
+		</div> <!-- row -->
+			<div class="row">	
+            <div class="col-md-3">D Mustermann </div> 
+            <div class="col-md-1 text-center"><small>Anwesenheit: 53%</small></div>
+            <div class="col-md-2"><button type="button" class="btn btn-danger" id="me"><span class="glyphicon glyphicon-remove"></span></button></div>
+		</div> <!-- row -->
+		</div> <!--  container -->
+
+			<div class="col-sm-6">
+				<input type="text" name="name" class="form-control" id="name" placeholder="Name des Probands" autofocus>
+			</div>
+ <button type="button" class="btn btn-default" ><span class="glyphicon glyphicon-plus"></span>Teilnehmer Hinzufügen</button>		<hr>		
+				</div></div>
+				</div>
+			</div>
+		</div>
+		<!-- /.modal-content --> 
+<!-- /.modal-dialog --> 
+
 
 				<div class="row" id="event" style="display:none">
-					<div class="col-xs-5"><span class="glyphicon glyphicon-calendar"></span> <span id="date"><span></div>
-					<div class="col-xs-4"><span class="glyphicon glyphicon-time"></span> <span id="time"><span></div>
-					<div class="col-xs-3">
+					<div class="col-xs-4"><span class="glyphicon glyphicon-calendar"></span> <span id="date"><span></div>
+					<div class="col-xs-3"><span class="glyphicon glyphicon-time"></span> <span id="time"><span></div>
+					<div class="col-xs-3"><span class="glyphicon glyphicon-user"></span> 3 <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModalTeilnehmer2"><span class="glyphicon glyphicon-pencil"></span></div>
+					<div class="col-xs-2">
 						<button type="button" class="btn btn-danger btn-sm eventdel"><span class="glyphicon glyphicon-remove"></span></button>
 					</div>
 				</div>
@@ -515,7 +567,6 @@ function listEvents() {
 	})
 };			
 $('#calendar').fullCalendar('render');
-listEvents();
 $('#sessionCalendar').on('shown.bs.modal', function () {
 	$('#calendar').fullCalendar('render');
 });
