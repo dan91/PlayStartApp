@@ -1,0 +1,124 @@
+
+@main(null, null) {
+<meta charset="utf-8"/>
+<div class="page-header">
+		<h3>Konto Bearbeiten <span class="label label-default">4</span></h3>
+	</div>
+
+
+
+<form class="form-horizontal" role="form">
+		<div class="form-group">
+			<label for="name" class="col-sm-3 control-label">Name</label>
+			<div class="col-sm-6">
+			    <input type="text" name="name" class="form-control" id="name" value="Max Mustermann" autofocus>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="name" class="col-sm-3 control-label">Studienbegin</label>
+			<div class="col-sm-6">
+				<select id="semesterFrom" class="form-control">
+										<option>Wintersemester 2012/13</option>
+										<option>Sommersemester 2013</option>
+										<option>Wintersemester 2014/15</option>
+									</select> 			
+			</div>
+		</div>
+			<div class="form-group">
+			<label for="name" class="col-sm-3 control-label">Accounttyp</label>
+			<div class="col-sm-6">
+<div class="radio">
+  <label>
+    <input type="radio" name="options1" id="optionsRadios2" value="option2" checked>
+Uni Würzburg  </label>
+</div>	<div class="radio">
+  <label>
+    <input type="radio" name="options1" id="optionsRadios2" value="option2">
+Extern  </label>
+</div>				</div>
+		</div>
+			<div class="form-group">
+			<label for="name" class="col-sm-3 control-label">Studiengang</label>
+			<div class="col-sm-6">
+<div class="radio">
+  <label>
+    <input type="radio" name="options2" id="optionsRadios1" value="option1">
+MCS  </label>
+</div>
+<div class="radio">
+  <label>
+    <input type="radio" name="options2" id="optionsRadios2" value="option2">
+MK  </label>
+</div>		<div class="radio">
+  <label>
+    <input type="radio" name="options2" id="optionsRadios2" value="option2" checked>
+Sonstiger  </label>
+</div>		</div>
+		</div>
+		<div class="form-group">
+			<label for="name" class="col-sm-3 control-label">Händigkeit</label>
+			<div class="col-sm-6">
+
+
+<div class="radio">
+  <label>
+    <input type="radio" name="options3" id="optionsRadios1" value="option1" checked>
+Rechts  </label>
+</div>
+<div class="radio">
+  <label>
+    <input type="radio" name="options3" id="optionsRadios2" value="option2">
+Links  </label>
+</div>
+</div>
+		</div>
+	<div class="form-group">
+			<label for="name" class="col-sm-3 control-label">Rechte</label>
+			<div class="col-sm-6">
+<div class="checkbox">
+  <label>
+    <input type="checkbox" value="" disabled> Anwesenheit von Probanden bestätigen
+  </label>
+</div>
+<div class="checkbox">
+  <label>
+    <input type="checkbox" value="" disabled> Sitzungen erstellen
+  </label>
+</div>
+<div class="checkbox">
+  <label>
+    <input type="checkbox" value="" disabled> Studien erstellen
+  </label>
+</div>
+<div class="checkbox">
+  <label>
+    <input type="checkbox" value="" disabled> Rechte für eigene Studien vergeben
+  </label>
+</div>
+<div class="checkbox">
+  <label>
+    <input type="checkbox" value="" disabled> Gebäude / Räume verwalten
+  </label>
+</div>
+<div class="checkbox">
+  <label>
+    <input type="checkbox" value="" disabled> <span class="text-danger">Administrator</span>
+  </label>
+</div>
+
+			</div>
+		</div>
+			
+
+           
+	
+
+
+
+	</form>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+
+}

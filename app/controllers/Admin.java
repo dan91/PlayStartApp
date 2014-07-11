@@ -71,5 +71,15 @@ public class Admin extends Controller {
         return ok(views.html.admin.mapTest.render());
     }
 
+       /**
+     * Displays konto config
+     *
+     * @return
+     */
+    public static Result konto() {  
+        return ok(views.html.admin.konto.render());
+    }
+
+
 
 }
