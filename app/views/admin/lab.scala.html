@@ -8,28 +8,9 @@
         margin: 0px;
         padding: 0px
       }
-      .controls {
-        margin-top: 16px;
-        border: 1px solid transparent;
-        border-radius: 2px 0 0 2px;
-        box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        height: 32px;
-        outline: none;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-      }
+     
 
-      #pac-input {
-        background-color: #fff;
-        padding: 0 11px 0 13px;
-        width: 400px;
-        font-family: Roboto;
-        font-size: 15px;
-        font-weight: 300;
-        text-overflow: ellipsis;
-        
-      }
-
+      
     .building-name{
         font-family: Roboto;
         border-color: #4d90fe;
@@ -38,13 +19,7 @@
         width: 301px;
     }
         
-      #pac-input:focus {
-        border-color: #4d90fe;
-        margin-left: -1px;
-        padding-left: 14px;  /* Regular padding-left + 1. */
-        width: 401px;
-      }
-
+      
       .pac-container {
         font-family: Roboto;
         z-index: 10000 !important;
@@ -231,10 +206,10 @@
 	
 
 	<div class="row myStudies_ListView">
-			<div class="col-sm-6 col-xs-6"><h4>Gebäude 82</h4></div>
-			<div class="col-sm-3 col-xs-6"><button class="btn btn-default btn-sm" id="add" data-toggle="modal" data-target="#myRoomModal"><span class="glyphicon glyphicon-plus"></span> Standort Hinzufügen</button></div>
-			<div class="col-sm-3 col-xs-6">
-			<button class="btn btn-default btn" id="add" data-toggle="modal" data-target="#myMapModal"><span class="glyphicon glyphicon-map-marker"></span> Standort bearbeiten</button>
+			<div class="col-sm-2 col-xs-6"><h4>Gebäude 82</h4></div>
+			<div class="col-sm-3 col-xs-6"><button class="btn btn-default btn-sm" id="add" data-toggle="modal" data-target="#myMapModal"> <span class="glyphicon glyphicon-pencil"></span></button></div>
+			<div class="col-sm-2 col-xs-6 col-sm-offset-5">
+			<button class="btn btn-default btn" id="add" data-toggle="modal" data-target="#myRoomModal"><span class="glyphicon glyphicon-plus"></span> Raum</button>
 			</div>
 			
 			</div>
@@ -244,92 +219,56 @@
 		
 		<hr>
 			<div class="row">
-			<div class="col-sm-3 col-xs-6 col-sm-offset-2"><b>Raum 00.100</b></div>
-			<div class="col-sm-3 col-xs-6">	<button class="btn btn-default btn-sm" id="add" data-toggle="modal" data-target="#myRoomModal"><span class="glyphicon glyphicon-pencil"></span> Standort Beschreiben</button></div>
+			<div class="col-sm-3 col-xs-6"><b>Raum 00.100</b></div>
+			<div class="col-sm-3 col-xs-6 col-sm-offset-3">	<button class="btn btn-default btn-sm" id="add" data-toggle="modal" data-target="#myRoomModal"><span class="glyphicon glyphicon-pencil"></span></button></div>
 			<div class="col-sm-3 col-xs-6">	<button class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove"></span> </button></div> 
 			</div>
 
-		<div class="row">
-			<div class="col-sm-3 col-xs-6 col-sm-offset-2"><b>Raum 00.101</b></div>
-			<div class="col-sm-3 col-xs-6">	<button class="btn btn-default btn-sm" id="add" data-toggle="modal" data-target="#myRoomModal"><span class="glyphicon glyphicon-pencil"></span> Standort Beschreiben</button></div>
-			<div class="col-sm-3 col-xs-6">	<button class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove"></span> </button></div> 
-			</div>
-		<div class="row">
-			<div class="col-sm-3 col-xs-6 col-sm-offset-2"><b>Raum 00.102</b></div>
-			<div class="col-sm-3 col-xs-6">	<button class="btn btn-default btn-sm" id="add" data-toggle="modal" data-target="#myRoomModal"><span class="glyphicon glyphicon-pencil"></span> Standort Beschreiben</button></div>
-			<div class="col-sm-3 col-xs-6">	<button class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove"></span> </button></div> 
-			</div>
+		  <div class="row">
+      <div class="col-sm-3 col-xs-6"><b>Raum 00.100</b></div>
+      <div class="col-sm-3 col-xs-6 col-sm-offset-3"> <button class="btn btn-default btn-sm" id="add" data-toggle="modal" data-target="#myRoomModal"><span class="glyphicon glyphicon-pencil"></span></button></div>
+      <div class="col-sm-3 col-xs-6"> <button class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove"></span> </button></div> 
+      </div>
+
+        <div class="row">
+      <div class="col-sm-3 col-xs-6"><b>Raum 00.100</b></div>
+      <div class="col-sm-3 col-xs-6 col-sm-offset-3"> <button class="btn btn-default btn-sm" id="add" data-toggle="modal" data-target="#myRoomModal"><span class="glyphicon glyphicon-pencil"></span></button></div>
+      <div class="col-sm-3 col-xs-6"> <button class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove"></span> </button></div> 
+      </div>
 
 
+<div class="row myStudies_ListView">
+      <div class="col-sm-2 col-xs-6"><h4>Gebäude 82</h4></div>
+      <div class="col-sm-3 col-xs-6"><button class="btn btn-default btn-sm" id="add" data-toggle="modal" data-target="#myMapModal"> <span class="glyphicon glyphicon-pencil"></span></button></div>
+      <div class="col-sm-2 col-xs-6 col-sm-offset-5">
+      <button class="btn btn-default btn" id="add" data-toggle="modal" data-target="#myRoomModal"><span class="glyphicon glyphicon-plus"></span> Raum</button>
+      </div>
+      
+      </div>
+      
+      
+    
+    
+    <hr>
+      <div class="row">
+      <div class="col-sm-3 col-xs-6"><b>Raum 00.100</b></div>
+      <div class="col-sm-3 col-xs-6 col-sm-offset-3"> <button class="btn btn-default btn-sm" id="add" data-toggle="modal" data-target="#myRoomModal"><span class="glyphicon glyphicon-pencil"></span></button></div>
+      <div class="col-sm-3 col-xs-6"> <button class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove"></span> </button></div> 
+      </div>
 
+      <div class="row">
+      <div class="col-sm-3 col-xs-6"><b>Raum 00.100</b></div>
+      <div class="col-sm-3 col-xs-6 col-sm-offset-3"> <button class="btn btn-default btn-sm" id="add" data-toggle="modal" data-target="#myRoomModal"><span class="glyphicon glyphicon-pencil"></span></button></div>
+      <div class="col-sm-3 col-xs-6"> <button class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove"></span> </button></div> 
+      </div>
 
+        <div class="row">
+      <div class="col-sm-3 col-xs-6"><b>Raum 00.100</b></div>
+      <div class="col-sm-3 col-xs-6 col-sm-offset-3"> <button class="btn btn-default btn-sm" id="add" data-toggle="modal" data-target="#myRoomModal"><span class="glyphicon glyphicon-pencil"></span></button></div>
+      <div class="col-sm-3 col-xs-6"> <button class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove"></span> </button></div> 
+      </div>
 
-
-
-
-
-
-	
-			<div class="row myStudies_ListView">
-			<div class="col-sm-6 col-xs-6"><h4>BibSemZ</h4></div>
-			<div class="col-sm-3 col-xs-6"><button class="btn btn-default btn-sm" id="add" data-toggle="modal" data-target="#myRoomModal"><span class="glyphicon glyphicon-plus"></span> Standort Hinzufügen</button></div>
-			<div class="col-sm-3 col-xs-6">
-			<button class="btn btn-default btn" id="add" data-toggle="modal" data-target="#myMapModal"><span class="glyphicon glyphicon-map-marker"></span> Standort bearbeiten</button>
-			</div>
-			
-			</div>
-			
 		
-		<hr>
-			<div class="row">
-			<div class="col-sm-3 col-xs-6 col-sm-offset-2"><b>Raum 00.206</b></div>
-			<div class="col-sm-3 col-xs-6">	<button class="btn btn-default btn-sm" id="add" data-toggle="modal" data-target="#myRoomModal"><span class="glyphicon glyphicon-pencil"></span> Standort Beschreiben</button></div>
-			<div class="col-sm-3 col-xs-6">	<button class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove"></span> </button></div> 
-			</div>
-		
-			<div class="row">
-			<div class="col-sm-3 col-xs-6 col-sm-offset-2"><b>Raum 00.207</b></div>
-			<div class="col-sm-3 col-xs-6">	<button class="btn btn-default btn-sm" id="add" data-toggle="modal" data-target="#myRoomModal"><span class="glyphicon glyphicon-pencil"></span> Standort Beschreiben</button></div>
-			<div class="col-sm-3 col-xs-6">	<button class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove"></span> </button></div> 
-			</div>
-		
-			<div class="row">
-			<div class="col-sm-3 col-xs-6 col-sm-offset-2"><b>Raum 00.208</b></div>
-			<div class="col-sm-3 col-xs-6">	<button class="btn btn-default btn-sm" id="add" data-toggle="modal" data-target="#myRoomModal"><span class="glyphicon glyphicon-pencil"></span> Standort Beschreiben</button></div>
-			<div class="col-sm-3 col-xs-6">	<button class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove"></span> </button></div> 
-			</div>
-		
-		
-			<div class="row">
-			<div class="col-sm-3 col-xs-6 col-sm-offset-2"><b>Raum 00.209</b></div>
-			<div class="col-sm-3 col-xs-6">	<button class="btn btn-default btn-sm" id="add" data-toggle="modal" data-target="#myRoomModal"><span class="glyphicon glyphicon-pencil"></span> Standort Beschreiben</button></div>
-			<div class="col-sm-3 col-xs-6">	<button class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove"></span> </button></div> 
-			</div>
-		
-		
-			<div class="row">
-			<div class="col-sm-3 col-xs-6 col-sm-offset-2"><b>Raum 00.210</b></div>
-			<div class="col-sm-3 col-xs-6">	<button class="btn btn-default btn-sm" id="add" data-toggle="modal" data-target="#myRoomModal"><span class="glyphicon glyphicon-pencil"></span> Standort Beschreiben</button></div>
-			<div class="col-sm-3 col-xs-6">	<button class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove"></span> </button></div> 
-			</div>
-		
-		
-			<div class="row">
-			<div class="col-sm-3 col-xs-6 col-sm-offset-2"><b>Raum 00.305</b></div>
-			<div class="col-sm-3 col-xs-6">	<button class="btn btn-default btn-sm" id="add" data-toggle="modal" data-target="#myRoomModal"><span class="glyphicon glyphicon-pencil"></span> Standort Beschreiben</button></div>
-			<div class="col-sm-3 col-xs-6">	<button class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove"></span> </button></div> 
-			</div>
-		
-		
-			<div class="row">
-			<div class="col-sm-3 col-xs-6 col-sm-offset-2"><b>Raum 00.308</b></div>
-			<div class="col-sm-3 col-xs-6">	<button class="btn btn-default btn-sm" id="add" data-toggle="modal" data-target="#myRoomModal"><span class="glyphicon glyphicon-pencil"></span> Standort Beschreiben</button></div>
-			<div class="col-sm-3 col-xs-6">	<button class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove"></span> </button></div> 
-			</div>
-		
-		<hr>
-		
-</div>
 <!-- Ende container -->
 
 
@@ -338,19 +277,25 @@
     <div class="modal-dialog admin_map1">
         <div class="modal-content contains_map2">
             <div class="modal-header">
-            	Laborbezeichnung
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            	<h4 class="modal-title">Gebäude</h4>
                  </div>
+                 <div class="modal-body contains_map3">
                  <div class="row">
             					<div class="col-sm-3">
+                        <b>Bezeichnung</b>
+                      </div>
+                      <div class="col-sm-6">
             						<input class="form-control" type="text" placeholder="z.B. GameBox"/>
+                      </div>
             					</div>
             
-            			</div>  
 
 					<div class="row">
             					<div class="col-sm-3">
-            					<b>Location</b>
+            					<b>Ort</b>
+                    </div>
+                      <div class="col-sm-6">                    
             						<input id="pac-input" class="form-control" type="text"
 						        placeholder="z.B. Zentrum für Mediendidaktik"/>
             					</div>
@@ -359,11 +304,8 @@
             			
             					<b>Setzen Sie einen Marker auf der Karte.</b>
             
-            			</div>  
 
-            </div>
   
-   <div class="modal-body contains_map3">
                 <div class="container contains_map4">
                     <div class="row contains_map4">
                                  
@@ -373,10 +315,9 @@
                     </div>
                 </div>
             </div>
-            <div class="modal-footer" style="height:5%;">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
-            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Speichern</button>
+              </div>
         </div>
         <!-- /.modal-content -->
     </div>
@@ -393,13 +334,15 @@
     <div class="modal-dialog admin_map1">
         <div class="modal-content contains_map2">
             <div class="modal-header">
-            	
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+              <h4 class="modal-title">Raum</h4>
+            	</div>
+   <div class="modal-body">
                  
                  <div class="row">
-            					<div class="col-sm-3">
-            					<b>Raum</b>
-            						<input class="controls building-name" type="text"
+            					<div class="col-sm-8">
+            					<b>Bezeichnung</b>
+            						<input class="form-control" type="text"
             					
 						        placeholder="z.B. Raum 00.105"/>
             					</div>
@@ -407,34 +350,20 @@
             			</div>  
 
 					<div class="row">
-            					<div class="col-sm-3">
-            					<b>Location</b>
-            						<textarea class="field span12 desc-padding" id="textarea" cols="55" rows="15" placeholder="z.B. Der Raum 00.1XX befindet sich im oberen Stockwerk."></textarea>
+            					<div class="col-sm-8">
+            					<b>Beschreibung</b>
+            						<textarea class="form-control field span12" id="textarea" cols="55" rows="15" placeholder="z.B. Der Raum 00.1XX befindet sich im oberen Stockwerk."></textarea>
 						        	
             					</div>
             
             			</div> 
             			
-            		<div class="row">
-            					<div class="col-sm-12">
-            					<i>Diese Beschreibung wird den Studenten als MarkerText auf der Karte angezeigt </i>
-            					</div>
-            
-            			</div>  
+            	
 
-            </div>
   
-   <div class="modal-body contains_map3">
-                <div class="container contains_map4">
-                    <div class="row contains_map4">
-                                 
-						 
-						    <div id="map-canvas"></div>
-     					
-                    </div>
-                </div>
+                
             </div>
-            <div class="modal-footer" style="height:5%;">
+            <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
             </div>
