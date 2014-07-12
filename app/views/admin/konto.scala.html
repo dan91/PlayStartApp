@@ -15,6 +15,12 @@
 			</div>
 		</div>
 		<div class="form-group">
+			<label for="name" class="col-sm-3 control-label">E-Mail</label>
+			<div class="col-sm-6">
+			    <input type="text" name="name" class="form-control" id="name" value="Max[at]Mustermann.de" autofocus>
+			</div>
+		</div>
+		<div class="form-group">
 			<label for="name" class="col-sm-3 control-label">Studienbegin</label>
 			<div class="col-sm-6">
 				<select id="semesterFrom" class="form-control">
@@ -106,11 +112,22 @@ Links  </label>
   </label>
 </div>
 
+
+
 			</div>
 		</div>
 			
 
-           
+           <div class="form-group">
+			<label for="name" class="col-sm-3 control-label">E-Mail Neuigkeiten</label>
+			<div class="col-sm-6">
+				<select id="semesterFrom" class="form-control">
+										<option>Immer Sofort</option>
+										<option>Tägliche Zusammenfassung</option>
+										<option>Wöchentliche Zusammenfassung</option>
+									</select> 			
+			</div>
+		</div>
 	
 
 
@@ -118,7 +135,9 @@ Links  </label>
 	</form>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Save changes</button>
+                            <button type="button" class="btn btn-sm btn-danger">Account Löschen</button>
+
+                <button type="button" class="btn btn-primary">Änderungen Speichern</button>
             </div>
 
 }
