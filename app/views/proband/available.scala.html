@@ -1,4 +1,12 @@
-@main(null, null) {
+@scripts = {
+
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+<script src="@routes.Assets.at("javascripts/probandSimpleMap.js")" charset="UTF-8" type="text/javascript"></script>
+
+}
+
+
+@main(null, scripts) {
 <meta charset="utf-8"/>
 <div class="page-header">
 		<h3>Verfügbare Studien <span class="label label-default">4</span></h3>
@@ -24,7 +32,7 @@
 							<div class="panel-body">
 								<div class="row">
 								
-								<div class="col-sm-12 col-xs-12" style="text-align: center;"><span >Raum Raum | Gebäude Gebäude | Karte</span></div>
+								<div class="col-sm-12 col-xs-12" style="text-align: center;"><span >Raum Raum | Gebäude Gebäude </span> <button data-toggle="modal" data-target="#myMapModal" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-map-marker"></span></button></div>
 							</div>
 
 							<!-- START TERMINE -->
@@ -233,8 +241,8 @@
 							<div class="panel-body">
 								<div class="row">
 								
-								<div class="col-sm-12 col-xs-12" style="text-align: center;"><span >Game Box | Raum: 00.120 | Karte</span></div>
-							</div>
+								<div class="col-sm-12 col-xs-12" style="text-align: center;"><span >Raum Raum | Gebäude Gebäude </span> <button data-toggle="modal" data-target="#myMapModal" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-map-marker"></span></button></div>
+								</div>
 
 							<!-- START TERMINE -->
 
@@ -545,4 +553,38 @@
 		<!-- /.modal-content --> 
 	</div>
 	<!-- /.modal-dialog --> 
+	
+	
+	
+	
+	<!-- MAP MODAL -->
+	<div class="modal fade" id="myMapModal">
+    <div class="modal-dialog contains_map1">
+        <div class="modal-content contains_map2">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                 <h4 class="modal-title">Oswald Külpe Weg, Gebäude 82</h4>
+
+            </div>
+            <div class="modal-body contains_map3">
+                <div class="container contains_map4">
+                    <div class="row contains_map4">
+                    
+                        <div align="center" id="map-canvas"  class="contains_map4"></div>
+                      
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="height:5%;">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+	
+	
 }
