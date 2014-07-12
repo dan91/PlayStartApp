@@ -14,3 +14,4 @@ out
 conf/mail.conf
 conf/evolutions
 documentation/
+RUNNING_PID
