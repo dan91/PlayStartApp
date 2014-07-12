@@ -1,4 +1,4 @@
-$(document).ready(function(){
+ï»¿$(document).ready(function(){
     	
     	var myCenter=new google.maps.LatLng(49.785210, 9.976927);
     	var marker=new google.maps.Marker({
@@ -16,11 +16,11 @@ $(document).ready(function(){
     	var contentString = '<div id="content">'+
     	'<div id="siteNotice">'+
     	'</div>'+
-    	'<h2 id="firstHeading" class="firstHeading">Gebäude 82</h2>'+
+    	'<h2 id="firstHeading" class="firstHeading">GebÃ¤ude 82</h2>'+
     	'<div id="bodyContent">'+
     	'<p><h6>Raum: 00.120</h6> befindet sich im ersten Stock'+
-    	'</br>des Gebäudes 52. Sie durchqueren den Flur </br>im ersten Stock'+
-    	' und gehen durch die Glastür.</br> Der Raum befindet sich'+
+    	'</br>des GebÃ¤udes 52. Sie durchqueren den Flur </br>im ersten Stock'+
+    	' und gehen durch die GlastÃ¼r.</br> Der Raum befindet sich'+
     	'auf der rechten Seite.</p>'
 
     	'</div>'+
