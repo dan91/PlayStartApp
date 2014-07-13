@@ -60,8 +60,6 @@
 					<div class="col-sm-3">
 						<span class="glyphicon glyphicon-time"></span>
 						<select id="duration" class="form-control">
-							<option>5</option>
-							<option>10</option>
 							<option>15</option>
 							<option>20</option>								
 							<option>30</option>
@@ -354,6 +352,12 @@
 	<!-- /.modal-dialog --> 
 </div>
 <!-- /.modal --> 
+<div id="eventFrame">
+<button type="button" class="close" aria-hidden="true">&times;</button>
+<span class="datetime"></span>
+	<!-- <button type="button" class="btn btn-default btn-xs" id="changeProbands">2/3</button> -->
+</div>
+
 				<link rel="stylesheet" href="@routes.Assets.at("stylesheets/slider.css")"></script>
 				<script src="@routes.Assets.at("javascripts/bootstrap-slider.js")"></script> 
 				<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script> 
@@ -412,21 +416,31 @@ $('#searchStudies').on("click", function() {
 					}
 						$('#calendar').fullCalendar('unselect');
 					},
-					eventMouseover: function(calEvent, jsEvent, view) {
-						$(this).css('background-color', 'red');
-					},
+					// eventMouseover: function(calEvent, jsEvent, view) {
+					// 	$(this).css('background-color', 'red');
+					// },
 					eventMouseout: function(calEvent, jsEvent, view) {
 						$(this).css('background-color', 'none');
 					},
-					eventClick: function(calEvent, jsEvent, view) {
-						$('#calendar').fullCalendar('removeEvents',calEvent._id);
-					},
+					// eventClick: function(calEvent, jsEvent, view) {
+					// 	$('#calendar').fullCalendar('removeEvents',calEvent._id);
+					// },
 					eventDrop: function(event, dayDelta, minuteDelta, allDay, revertFunc) {
 						if (isOverlapping(event)) {revertFunc()};
 					},
 					eventResize: function(event, dayDelta, minuteDelta, revertFunc) {
 						if (isOverlapping(event)) {revertFunc()};
 					},
+					eventRender: function( event, element, view ) {
+						eventFrame = $('#eventFrame').clone();
+						$(element).children().remove();
+						datetime = event.start.format("h:mm")+"-"+event.end.format("h:mm");
+						$(element).prepend($(eventFrame));
+						eventFrame.find($('.datetime')).text(datetime);
+						eventFrame.find($('.close')).click(function() {
+							$('#calendar').fullCalendar('removeEvents',event._id);
+						});
+					}
 				});
 
 function isOverlapping(event){

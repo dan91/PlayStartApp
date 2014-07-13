@@ -4,6 +4,11 @@
 <script src='@routes.Assets.at("javascripts/jquery.ui.touch-punch.min.js")'></script>
 <script src='@routes.Assets.at("javascripts/moment-with-langs.min.js")'></script>
 <script src='@routes.Assets.at("javascripts/fullcalendar.min.js")'></script>
+<style type="text/css">
+.popover {
+	z-index: 100000
+}
+</style>
 }
 @main(null, scripts, "experimenter") {
 <div role="main" class="container main">
@@ -428,29 +433,29 @@
 		<!-- /.modal-content --> 
 <!-- /.modal-dialog --> 	
 
-<div class="modal fade" id="myModalTeilnehmer2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="myModalTeilnehmer2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-body">
-			<div>
+			<div id="regProbands">
 			<div class="modal title">Angemeldete Teilnehmer:	</div>
 		<div class="container">
 		<div class="row">	
             <div class="col-md-3">Max Mustermann </div> 
             <div class="col-md-1 text-center"><small>Anwesenheit: 93%</small></div>
             <div class="col-md-2"><button type="button" class="btn btn-danger" id="me"><span class="glyphicon glyphicon-remove"></span></button></div>
-		</div> <!-- row -->
+		</div> <!-- row 
 		<div class="row">	
             <div class="col-md-3">Melanie Mustermann </div> 
             <div class="col-md-1 text-center"><small>Anwesenheit: 97%</small></div>
             <div class="col-md-2"><button type="button" class="btn btn-danger" id="me"><span class="glyphicon glyphicon-remove"></span></button></div>
-		</div> <!-- row -->
+		</div> <!-- row 
 			<div class="row">	
             <div class="col-md-3">D Mustermann </div> 
             <div class="col-md-1 text-center"><small>Anwesenheit: 53%</small></div>
             <div class="col-md-2"><button type="button" class="btn btn-danger" id="me"><span class="glyphicon glyphicon-remove"></span></button></div>
 		</div> <!-- row -->
-		</div> <!--  container -->
+		</div> <!--  container 
 
 			<div class="col-sm-6">
 				<input type="text" name="name" class="form-control" id="name" placeholder="Name des Probands" autofocus>
@@ -464,6 +469,32 @@
 <!-- /.modal-dialog --> 
 
 
+<div id="regProbands" style="display:none">
+		<div class="row">	
+            <div class="col-md-9">Max Mustermann </div> 
+            <div class="col-md-3"><button type="button" class="btn btn-danger" id="me"><span class="glyphicon glyphicon-remove"></span></button></div>
+		</div> <!-- row -->
+		<div class="row">	
+            <div class="col-md-9">Melanie Mustermann </div> 
+            <div class="col-md-3"><button type="button" class="btn btn-danger" id="me"><span class="glyphicon glyphicon-remove"></span></button></div>
+		</div> <!-- row -->
+			<div class="row">	
+            <div class="col-md-9">D Mustermann </div> 
+            <div class="col-md-3"><button type="button" class="btn btn-danger" id="me"><span class="glyphicon glyphicon-remove"></span></button></div>
+		</div> <!-- row -->
+		<hr>
+		<div class="row">
+			<div class="col-sm-9">
+				<input type="text" name="name" class="form-control" id="name" placeholder="Name des Probands" autofocus>
+			</div>
+						<div class="col-sm-3">
+ <button type="button" class="btn btn-default" ><span class="glyphicon glyphicon-search"></span></button>		</div>	
+</div>
+				</div>
+
+
+
+
 				<div class="row" id="event" style="display:none">
 					<div class="col-xs-4"><span class="glyphicon glyphicon-calendar"></span> <span id="date"><span></div>
 					<div class="col-xs-3"><span class="glyphicon glyphicon-time"></span> <span id="time"><span></div>
@@ -472,6 +503,11 @@
 						<button type="button" class="btn btn-danger btn-sm eventdel"><span class="glyphicon glyphicon-remove"></span></button>
 					</div>
 				</div>
+
+				<div id="eventFrame">
+<button type="button" class="close" aria-hidden="true">&times;</button>
+<span class="datetime"></span>
+</div>
 				<link rel="stylesheet" href="@routes.Assets.at("stylesheets/slider.css")"></script>
 				<script src="@routes.Assets.at("javascripts/bootstrap-slider.js")"></script> 
 				<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script> 
@@ -489,11 +525,16 @@
 $('#searchStudies').on("click", function() {
 	$("#search").show()
 })
+
+$(document).ready(function(){
+
+
+    
+});
+
 $('.removeExp').on("click", function() {
 	$(this).remove()
 })
-
-
 				events = new Array();
 				$('#calendar').fullCalendar({
 					defaultView: 'agendaWeek',
@@ -509,8 +550,10 @@ $('.removeExp').on("click", function() {
 					maxTime: '19:00:00',
 					eventStartEditable: true,
 					selectable: true,
+					slotEventOverlap: false,
 					axisFormat: 'H:mm',
 					timeFormat: 'H:mm',
+					columnFormat: 'dd., D.M',
 					contentHeight: 1200,
 					events: [
 				        {
@@ -523,29 +566,51 @@ $('.removeExp').on("click", function() {
 				        }
 				    ],
 					select: function(start, end) {
+						
+						dur = parseInt($("#duration option:selected").text());
+						temp = start;
+						while($.fullCalendar.moment(temp).isBefore(end)) {
 						var eventData;
-						m =parseInt($("#duration option:selected").text());
-						end = $.fullCalendar.moment(start).add('m',m);
+						temp_end = $.fullCalendar.moment(temp).add('m',dur);
 						eventData = {
 							title: '',
-							start: start,
-							end: end,
-						};
-						//events.push(eventData);
-						$('#calendar').fullCalendar('unselect');
+							start: temp,
+							end: temp_end,
+						};						
+						temp = temp_end;
 						$('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+					}
+						$('#calendar').fullCalendar('unselect');
 					},
-					eventMouseover: function(calEvent, jsEvent, view) {
-						$(this).css('background-color', 'red');
+					eventMouseover: function(event, jsEvent, view) {
+						$(this).popover({
+				            title: 'Angemeldete Teilnehmer <button type="button" class="close">&times;</button>',
+				            placement: 'right',
+				            container: 'body',
+				            content: $('#regProbands').html(),
+				            trigger: 'click',
+				            html: true
+				        })
+				    },
+					
+					eventDrop: function(event, dayDelta, minuteDelta, allDay, revertFunc) {
+						if (isOverlapping(event)) {revertFunc()};
 					},
-					eventMouseout: function(calEvent, jsEvent, view) {
-						$(this).css('background-color', 'none');
+					eventResize: function(event, dayDelta, minuteDelta, revertFunc) {
+						if (isOverlapping(event)) {revertFunc()};
 					},
-					eventClick: function(calEvent, jsEvent, view) {
-						$('#calendar').fullCalendar('removeEvents',calEvent._id);
-					},
-
+					eventRender: function( event, element, view ) {
+						eventFrame = $('#eventFrame').clone();
+						$(element).children().remove();
+						datetime = event.start.format("H:mm")+"-"+event.end.format("H:mm");
+						$(element).prepend($(eventFrame));
+						eventFrame.find($('.datetime')).text(datetime);
+						eventFrame.find($('.close')).click(function() {
+							$('#calendar').fullCalendar('removeEvents',event._id);
+						});
+					}
 				});
+
 function listEvents() {
 	events = $('#calendar').fullCalendar( 'clientEvents');
 	$("#events").children().remove();
