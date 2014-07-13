@@ -6,15 +6,31 @@
 <script src='@routes.Assets.at("javascripts/fullcalendar.min.js")'></script>
 
 
+<script>
 $(document).ready(function(){
 
 
-	if($("#radio2").property()){
-	
-	
-	}
+	$('#option2').click(function() {
+  		 if($('#option2').is(':checked')) { 
+   
+   			$(".locationRadio").hide(); 
+   			
+   			}
+		});
 
-}
+	$("#option1").click(function(){
+		
+		if($("#option1").is(":checked")){
+ 			 
+ 			 $(".locationRadio").show();
+ 			 
+ 		 }
+		
+	});
+	
+	
+});
+</script>
 
 
 }
@@ -50,7 +66,7 @@ $(document).ready(function(){
 					</div>
 				</div>			
 				<hr>
-<div class="form-group inline">
+<div class="form-group inline locationRadio">
 					<label for="" class="col-sm-3 control-label">Ort</label>
 					<div class="col-sm-3">
 						<select id="" class="form-control">
@@ -67,7 +83,7 @@ $(document).ready(function(){
 						</select>
 					</div>
 				</div>
-				<hr>
+				<hr class="locationRadio">
 				<div class="form-group inline">
 					<label for="duration" class="col-sm-3 control-label">Dauer</label>
 					<div class="col-sm-3">
