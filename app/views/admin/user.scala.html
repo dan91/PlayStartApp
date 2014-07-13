@@ -48,7 +48,7 @@
 	</div> <!-- row -->
 	<div class="row">
 		<div class="col-sm-12">
-			<div class="panel panel-default" \>
+			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h4 class="panel-title">Versuchsleiter</h4>
 				</div>
@@ -57,8 +57,8 @@
 					<div class="panel-body"> 
 						<div class="row">
 							<div class="col-sm-3 col-xs-6">Versuchsleiter Nummer 1</div>
-							<div class="col-sm-3 col-xs-6">
-								<button type="submit" class="btn btn-edit btn-default" id="add" data-toggle="modal" data-target="#modalVersuchsleiter">Studien: 7</button></div>
+							<div class="col-sm-6 col-xs-6">
+								<button type="submit" class="btn btn-edit btn-default" id="add" data-toggle="modal" data-target="#modalVersuchsleiter">Studien: 2</button></div>
 							
 							<div class="col-sm-1 col-xs-6">    
 								<button type="submit" class="btn btn-edit btn-default" id="add" data-toggle="modal" data-target="#myModal1"><span class="glyphicon glyphicon-pencil"></span></button></div>
@@ -92,9 +92,9 @@
 							<div class="row">
 							<div class="col-sm-3 col-xs-6">Proband Nummer 1</div>
 							<div class="col-sm-2 col-xs-6">
-								<button type="submit" class="btn btn-edit btn-default" id="add" data-toggle="modal" data-target="#modalProbanden">Besucht: 7</button></div>
+								<button type="submit" class="btn btn-edit btn-default" id="add" data-toggle="modal" data-target="#modalHiwiStudie">Besucht: 7</button></div>
 							<div class="col-sm-2 col-xs-6">
-								<button type="submit" class="btn btn-edit btn-default" id="add" data-toggle="modal" data-target="#modalProbanden">Besucht: 7</button></div>
+								<button type="submit" class="btn btn-edit btn-default" id="add" data-toggle="modal" data-target="#modalHiwi">Rechte: 1</button></div>
 							<div class="col-sm-1 col-xs-6">N/A: 1</div>
 							<div class="col-sm-1 col-xs-6"> <span class="badge"><span class="glyphicon glyphicon-star"></span> 1.5 </span></div>
 							<div class="col-sm-1 col-xs-6">    
@@ -127,9 +127,9 @@
 
 						<div class="row">
 							<div class="col-sm-3 col-xs-6">Proband Nummer 1</div>
-							<div class="col-sm-3 col-xs-6">
+							<div class="col-sm-4 col-xs-6">
 								<button type="submit" class="btn btn-edit btn-default" id="add" data-toggle="modal" data-target="#modalProbanden">Studien: 7</button></div>
-							<div class="col-sm-2 col-xs-6">N/A: 1</div>
+							<div class="col-sm-1 col-xs-6">N/A: 1</div>
 							<div class="col-sm-1 col-xs-6"> <span class="badge"><span class="glyphicon glyphicon-star"></span> 1.5 </span></div>
 							<div class="col-sm-1 col-xs-6">    
 								<button type="submit" class="btn btn-edit btn-default" id="add" data-toggle="modal" data-target="#myModal1"><span class="glyphicon glyphicon-pencil"></span></button></div>
@@ -280,6 +280,36 @@
 												<h4 class="modal-title">Besuchte Studien</h4>
 											</div>
 											<div class="modal-body">
+											<p>Der Proband hat folgende Studien Erfolgreich Besucht</p>
+												<ul>
+													<li>Multitasking I</li>
+													<li>Multitasking II</li>
+													<li>Multitasking III</li>
+													<li>Multitasking IIII</li>
+													<li>Multitasking IIIII</li>
+													<li>Gestensteuerung</li>
+													<li>Radiostudie</li>
+												</ul>
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-primary" data-dismiss="modal">Schließen</button>
+											</div>
+										</div>
+										<!-- /.modal-content -->
+									</div>
+									<!-- /.modal-dialog -->	
+								</div> <!-- /.modal --> 
+
+
+								<div class="modal fade" id="modalHiwiStudie" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+									<div class="modal-dialog ">
+										<div class="modal-content ">
+											<div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+												<h4 class="modal-title">Verknüpfte Studien</h4>
+											</div>
+											<div class="modal-body">
+											<p>Der Proband hat folgende Studien Erfolgreich Besucht</p>
 												<ul>
 													<li>Multitasking I</li>
 													<li>Multitasking II</li>
@@ -323,6 +353,13 @@
 									</div>
 									<!-- /.modal-dialog -->	
 								</div> <!-- /.modal --> 
+
+
+
+
+
+
+
 
 								<div class="modal fade" id="modalVersuchsleiter" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 									<div class="modal-dialog ">
