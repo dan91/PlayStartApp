@@ -1,169 +1,132 @@
 @main(null, null, "experimenter") {
 
-         <div class="page-header">
-		<h3>Meine Studien</h3>
-	</div>
-	<h4>Laufende Studien <span class="label label-default">3</span></h4>
-		<hr>
-		<div class="row">
-			<div class="col-sm-3"><b>Multitasking I</b></div>
-			
-			<div class="col-sm-5 inline">
-				<span class="glyphicon glyphicon-user"></span> 30 Teilnahmen 	<span class="pull-right"><span class="glyphicon glyphicon-user">  	</span> 	65/100 Anmeldungen/Insgesamt		</span>
-	
-			<div class="progress">
-  			<span class="progress-value"></span>		
-  			<div class="progress">
-  <div class="progress-bar progress-bar-success" style="width: 35%">
-    <span class="sr-only">35% Complete (success)</span>
-  </div>
-  <div class="progress-bar progress-bar-warning progress-bar-striped" style="width: 20%">
-    <span class="sr-only">20% Complete (warning)</span>
-  </div>
-  <div class="progress-bar progress-bar-danger" style="width: 45%">
-    <span class="sr-only">10% Complete (danger)</span>
-  </div>
-
-  			</div>
-			</div>  
-			</div>
-			<div class="col-sm-3 col-sm-offset-1">
-					<a href="/completeStudy"><button class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Tooltip on top"><span class="glyphicon glyphicon-ok"></span> </button></a>
-				<a href="/completeStudy"><button class="btn btn-primary"><span class="glyphicon glyphicon-user"></span> </button></a>
-				<a href="/completeStudy"><button class="btn btn-primary"><span class="glyphicon glyphicon-calendar"></span> </button></a>
-				<a href="/edit"><button class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span> </button></a>
+<div class="page-header">
+	<h3>Meine Studien</h3>
 </div>
-		</div>
+<h4>Laufende Studien <span class="label label-default">3</span></h4>
+<hr>
+<div class="row">
+	<div class="col-sm-3"><b>Multitasking I</b></div>
+	<div class="col-sm-2"><span class="glyphicon glyphicon-user"></span> 30 Teilnahmen 
+	</div>
+	<div class="col-sm-3 inline">
+		<span class="pull-right"><span class="glyphicon glyphicon-user">  	</span> 	65/100 Anmeldungen/Verfügbar		</span>
 
-		<div class="row">
-			<div class="col-sm-3"><b>Multitasking II</b></div>
-			
-			<div class="col-sm-5 inline">
-<span class="glyphicon glyphicon-user"></span> 30 Teilnahmen 	<span class="pull-right"><span class="glyphicon glyphicon-user">  	</span> 	65/100 Anmeldungen/Insgesamt		</span>			<div class="progress">
-  			<span class="progress-value"></span>		
-  <div class="progress-bar progress-bar-success" style="width: 35%">
-    <span class="sr-only">35% Complete (success)</span>
-  </div>
-  <div class="progress-bar progress-bar-warning progress-bar-striped" style="width: 20%">
-    <span class="sr-only">20% Complete (warning)</span>
-  </div>
-  <div class="progress-bar progress-bar-danger" style="width: 45%">
-    <span class="sr-only">10% Complete (danger)</span>
-  			</div>
-			</div>  
-			</div>
-			<div class="col-sm-3 col-sm-offset-1">
-				<a href="/completeStudy"><button class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> </button></a>
-				<a href="/completeStudy"><button class="btn btn-primary"><span class="glyphicon glyphicon-user"></span> </button></a>
-				<a href="/completeStudy"><button class="btn btn-primary"><span class="glyphicon glyphicon-calendar"></span> </button></a>
-				<a href="/edit"><button class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span> </button></a>
-				</div>
-		</div>
+	</div>
+	<div class="col-sm-3 col-sm-offset-1">
+		<a href="/completeStudy"><button class="btn btn-primary tool" data-toggle="tooltip" data-placement="top" title="Sessions Abschließen"><span class="glyphicon glyphicon-ok"></span> </button></a>
+		<a href="/completeStudy"><button class="btn btn-primary tool" data-toggle="tooltip" data-placement="top" title="Kalender Anzeigen"><span class="glyphicon glyphicon-calendar"></span> </button></a>
+		<button class="btn btn-primary tool" data-toggle="modal" data-target=".invite" toggle="tooltip" data-placement="top" title="Einladungen Verschicken"><span class="glyphicon glyphicon-user" ></span></button>
+		<a href="/edit"><button class="btn btn-default tool" data-toggle="tooltip" data-placement="top" title="Studie Bearbeiten"><span class="glyphicon glyphicon-pencil"></span> </button></a>
 
-		<div class="row">
-			<div class="col-sm-3"><b>Schlafentzug</b></div>
-			
-			<div class="col-sm-5 inline">
-<span class="glyphicon glyphicon-user"></span> 30 Teilnahmen 	<span class="pull-right"><span class="glyphicon glyphicon-user">  	</span> 	65/100 Anmeldungen/Insgesamt		</span>			<div class="progress">
-  			<span class="progress-value"></span>		
-  <div class="progress-bar progress-bar-success" style="width: 35%">
-    <span class="sr-only">35% Complete (success)</span>
-  </div>
-  <div class="progress-bar progress-bar-warning progress-bar-striped" style="width: 20%">
-    <span class="sr-only">20% Complete (warning)</span>
-  </div>
-  <div class="progress-bar progress-bar-danger" style="width: 45%">
-    <span class="sr-only">10% Complete (danger)</span>
-      				
-  			</div>
-			</div>  
-			</div>
-			<div class="col-sm-3 col-sm-offset-1">
-					<a href="/completeStudy"><button class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> </button></a>
-				<a href="/completeStudy"><button class="btn btn-primary"><span class="glyphicon glyphicon-user"></span> </button></a>
-				<a href="/completeStudy"><button class="btn btn-primary"><span class="glyphicon glyphicon-calendar"></span> </button></a>
-				<a href="/edit"><button class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span> </button></a>
-				</div>
-		</div>
-		<h4>Abgeschlossene Studien <span class="label label-default">3</span></h4>
-		<hr>
-		<div class="row">
-			<div class="col-sm-3"><b>Multitasking I</b></div>
-			
-			<div class="col-sm-5 inline">
-<span class="glyphicon glyphicon-user"></span> 30 Teilnahmen 	<span class="pull-right"><span class="glyphicon glyphicon-user">  	</span> 	65/100 Anmeldungen/Insgesamt		</span>			<div class="progress">
-  			<span class="progress-value"></span>		
-  <div class="progress-bar progress-bar-success" style="width: 35%">
-    <span class="sr-only">35% Complete (success)</span>
-  </div>
-  <div class="progress-bar progress-bar-warning progress-bar-striped" style="width: 20%">
-    <span class="sr-only">20% Complete (warning)</span>
-  </div>
-  <div class="progress-bar progress-bar-danger" style="width: 45%">
-    <span class="sr-only">10% Complete (danger)</span>
-   				
-  			</div>
-			</div>  
-			</div>
-			<div class="col-sm-3 col-sm-offset-1">
-					<a href="/completeStudy"><button class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> </button></a>
-				<a href="/completeStudy"><button class="btn btn-primary"><span class="glyphicon glyphicon-user"></span> </button></a>
-				<a href="/completeStudy"><button class="btn btn-primary"><span class="glyphicon glyphicon-calendar"></span> </button></a>
-				<a href="/edit"><button class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span> </button></a>
-				</div>
-		</div>
+	</div>
 
-		<div class="row">
-			<div class="col-sm-3"><b>Multitasking II</b></div>
-			
-			<div class="col-sm-5 inline">
-<span class="glyphicon glyphicon-user"></span> 30 Teilnahmen 	<span class="pull-right"><span class="glyphicon glyphicon-user">  	</span> 	65/100 Anmeldungen/Insgesamt		</span>			<div class="progress">
-  			<span class="progress-value"></span>		
-  <div class="progress-bar progress-bar-success" style="width: 35%">
-    <span class="sr-only">35% Complete (success)</span>
-  </div>
-  <div class="progress-bar progress-bar-warning progress-bar-striped" style="width: 20%">
-    <span class="sr-only">20% Complete (warning)</span>
-  </div>
-  <div class="progress-bar progress-bar-danger" style="width: 45%">
-    <span class="sr-only">10% Complete (danger)</span>
-    				
-  			</div>
-			</div>  
-			</div>
-			<div class="col-sm-3 col-sm-offset-1">
-					<a href="/completeStudy"><button class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> </button></a>
-				<a href="/completeStudy"><button class="btn btn-primary"><span class="glyphicon glyphicon-user"></span> </button></a>
-				<a href="/completeStudy"><button class="btn btn-primary"><span class="glyphicon glyphicon-calendar"></span> </button></a>
-				<a href="/edit"><button class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span> </button></a>
-				
-				</div>
-		</div>
+</div>
+<h4>Abgeschlossene Studien <span class="label label-default">3</span></h4>
+<hr>
+<div class="row">
+	<div class="col-sm-3"><b>Multitasking I</b></div>
 
-		<div class="row">
-			<div class="col-sm-3"><b>Schlafentzug</b></div>
-			
-			<div class="col-sm-5 inline">
-<span class="glyphicon glyphicon-user"></span> 30 Teilnahmen 	<span class="pull-right"><span class="glyphicon glyphicon-user">  	</span> 	65/100 Anmeldungen/Insgesamt		</span>			<div class="progress">
-  			<span class="progress-value"></span>		
-  <div class="progress-bar progress-bar-success" style="width: 35%">
-    <span class="sr-only">35% Complete (success)</span>
-  </div>
-  <div class="progress-bar progress-bar-warning progress-bar-striped" style="width: 20%">
-    <span class="sr-only">20% Complete (warning)</span>
-  </div>
-  <div class="progress-bar progress-bar-danger" style="width: 45%">
-    <span class="sr-only">10% Complete (danger)</span>
-   				
-  			</div>
-			</div>  
-			</div>
-			<div class="col-sm-3 col-sm-offset-1">
-					<a href="/completeStudy"><button class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> </button></a>
-				<a href="/completeStudy"><button class="btn btn-primary"><span class="glyphicon glyphicon-user"></span> </button></a>
-				<a href="/completeStudy"><button class="btn btn-primary"><span class="glyphicon glyphicon-calendar"></span> </button></a>
-				<a href="/edit"><button class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span> </button></a>
-				</div>
+	<div class="col-sm-5 inline">
+		<span class="glyphicon glyphicon-user"></span> 30 Teilnahmen 	<span class="pull-right"><span class="glyphicon glyphicon-user">  	</span> 	65/100 Anmeldungen/Insgesamt		</span>			<div class="progress">
+		<span class="progress-value"></span>		
+		<div class="progress-bar progress-bar-success" style="width: 35%">
+			<span class="sr-only">35% Complete (success)</span>
 		</div>
-		
+		<div class="progress-bar progress-bar-warning progress-bar-striped" style="width: 20%">
+			<span class="sr-only">20% Complete (warning)</span>
+		</div>
+		<div class="progress-bar progress-bar-danger" style="width: 45%">
+			<span class="sr-only">10% Complete (danger)</span>
+
+		</div>
+	</div>  
+</div>
+<div class="col-sm-3 col-sm-offset-1">
+	<a href="/completeStudy"><button class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> </button></a>
+	<a href="/completeStudy"><button class="btn btn-primary"><span class="glyphicon glyphicon-user"></span> </button></a>
+	<a href="/completeStudy"><button class="btn btn-primary"><span class="glyphicon glyphicon-calendar"></span> </button></a>
+	<a href="/edit"><button class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span> </button></a>
+</div>
+</div>
+
+<div class="row">
+	<div class="col-sm-3"><b>Multitasking II</b></div>
+
+	<div class="col-sm-5 inline">
+		<span class="glyphicon glyphicon-user"></span> 30 Teilnahmen 	<span class="pull-right"><span class="glyphicon glyphicon-user">  	</span> 	65/100 Anmeldungen/Insgesamt		</span>			<div class="progress">
+		<span class="progress-value"></span>		
+		<div class="progress-bar progress-bar-success" style="width: 35%">
+			<span class="sr-only">35% Complete (success)</span>
+		</div>
+		<div class="progress-bar progress-bar-warning progress-bar-striped" style="width: 20%">
+			<span class="sr-only">20% Complete (warning)</span>
+		</div>
+		<div class="progress-bar progress-bar-danger" style="width: 45%">
+			<span class="sr-only">10% Complete (danger)</span>
+
+		</div>
+	</div>  
+</div>
+<div class="col-sm-3 col-sm-offset-1">
+	<a href="/completeStudy"><button class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> </button></a>
+	<a href="/completeStudy"><button class="btn btn-primary"><span class="glyphicon glyphicon-user"></span> </button></a>
+	<a href="/completeStudy"><button class="btn btn-primary"><span class="glyphicon glyphicon-calendar"></span> </button></a>
+	<a href="/edit"><button class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span> </button></a>
+
+</div>
+</div>
+
+<div class="row">
+	<div class="col-sm-3"><b>Schlafentzug</b></div>
+
+	<div class="col-sm-5 inline">
+		<span class="glyphicon glyphicon-user"></span> 30 Teilnahmen 	<span class="pull-right"><span class="glyphicon glyphicon-user">  	</span> 	65/100 Anmeldungen/Insgesamt		</span>			<div class="progress">
+		<span class="progress-value"></span>		
+		<div class="progress-bar progress-bar-success" style="width: 35%">
+			<span class="sr-only">35% Complete (success)</span>
+		</div>
+		<div class="progress-bar progress-bar-warning progress-bar-striped" style="width: 20%">
+			<span class="sr-only">20% Complete (warning)</span>
+		</div>
+		<div class="progress-bar progress-bar-danger" style="width: 45%">
+			<span class="sr-only">10% Complete (danger)</span>
+
+		</div>
+	</div>  
+</div>
+<div class="col-sm-3 col-sm-offset-1">
+	<a href="/completeStudy"><button class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> </button></a>
+	<a href="/completeStudy"><button class="btn btn-primary"><span class="glyphicon glyphicon-user"></span> </button></a>
+	<a href="/completeStudy"><button class="btn btn-primary"><span class="glyphicon glyphicon-calendar"></span> </button></a>
+	<a href="/edit"><button class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span> </button></a>
+</div>
+</div>
+<script type="text/javascript"> $(".tool").tooltip() </script>
+
+
+
+
+
+<!-- Large modal -->
+
+<div class="modal fade invite" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+ <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Email Einladungen</h4>
+      </div>
+      <div class="modal-body">
+        <p>Für die Studie <b>Multitasking I</b> haben sie schon <b>2</b> mal Email Einladungen Verschickt</p>
+        <p>Die Filterkriterien der Probanden sind unter Studie Bearbeiten.</p>
+        <p><b>764 Email Einladungen</b> für diese Studie bisher versendet.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Zurück</button>
+        <button type="button" class="btn btn-primary">Nochmals Verschicken</button>
+      </div>    </div>
+  </div>
+</div><!-- /Modal -->
+
 }
