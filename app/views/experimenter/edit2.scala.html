@@ -80,7 +80,6 @@
 					<div class="col-sm-3">
 						<span class="glyphicon glyphicon-star"></span>
 						<select id="vps" class="form-control">
-							<option>0</option>
 							<option>0.5</option>
 							<option selected>1.0</option>
 							<option>1.5</option>
@@ -584,7 +583,7 @@ $('.removeExp').on("click", function() {
 					},
 					eventMouseover: function(event, jsEvent, view) {
 						$(this).popover({
-				            title: 'Angemeldete Teilnehmer <button type="button" class="close">&times;</button>',
+				            title: 'Angemeldete Teilnehmer <button type="button" class="closePop">&times;</button>',
 				            placement: 'right',
 				            container: 'body',
 				            content: $('#regProbands').html(),
@@ -610,7 +609,7 @@ $('.removeExp').on("click", function() {
 						});
 					}
 				});
-
+$(".closePop").popover('hide');
 function listEvents() {
 	events = $('#calendar').fullCalendar( 'clientEvents');
 	$("#events").children().remove();
