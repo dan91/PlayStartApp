@@ -18,9 +18,9 @@
     	'</div>'+
     	'<h2 id="firstHeading" class="firstHeading">Gebäude 82</h2>'+
     	'<div id="bodyContent">'+
-    	'<p><h6>Raum: 00.120</h6> befindet sich im ersten Stock'+
-    	'</br>des Gebäudes 52. Sie durchqueren den Flur </br>im ersten Stock'+
-    	' und gehen durch die Glastür.</br> Der Raum befindet sich'+
+    	'<p><b>Raum: 00.120</b> befindet sich im ersten Stock'+
+    	'</br>des Gebäudes 82. Sie durchqueren den Flur </br>im ersten Stock'+
+    	' und gehen durch die Glastür.</br> Der Raum befindet sich '+
     	'auf der rechten Seite.</p>'
 
     	'</div>'+
