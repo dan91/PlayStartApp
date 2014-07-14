@@ -1,11 +1,22 @@
 
 
 @main(null, null, "admin") {
+<style type="text/css">
+.popover {
+width: 20em
+}
+</style>
 <div id="searchPop" style="display:none">
 <div class="row" id="prob">
-					<div class="col-xs-9">Max Mustermann</div>
-					<div class="col-xs-3">
-						<button type="button" class="btn btn-primary" id="addExp"><span class="glyphicon glyphicon-plus"></span></button>
+					<div class="col-xs-8">Markus Müller</div>
+					<div class="col-xs-2">
+						<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-pencil" data-toggle="modal" data-target="#myModal1"></span></button>
+					</div>
+</div>
+<div class="row" id="prob">
+					<div class="col-xs-8">Christian Schmidt</div>
+					<div class="col-xs-2">
+						<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-pencil" data-toggle="modal" data-target="#myModal1"></span></button>
 					</div>
 </div>
 </div>
@@ -385,14 +396,21 @@
 
 							</div>
 							<script type="text/javascript">
+	
+$('#search').on('keypress', function () {
 	$('#search').popover({
 				            title: 'Treffer',
 				            placement: 'bottom',
 				            container: 'body',
 				            content: $('#searchPop').html(),
-				            trigger: 'click',
+				            trigger: 'focus',
 				            html: true
 				        })
+	if($('#search').val().length == 1) {
+		$('#search').popover('show');
+		
+		}
+	})
 
 </script>
 						}
