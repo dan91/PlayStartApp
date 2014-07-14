@@ -37,7 +37,7 @@
 					</div>
 				</div>			
 				<hr>
-<div class="form-group inline">
+<div class="form-group inline locationRadio">
 					<label for="" class="col-sm-3 control-label">Ort</label>
 					<div class="col-sm-3">
 						<select id="" class="form-control">
@@ -54,7 +54,7 @@
 						</select>
 					</div>
 				</div>
-				<hr>
+				<hr class="locationRadio">
 				<div class="form-group inline">
 					<label for="duration" class="col-sm-3 control-label">Dauer</label>
 					<div class="col-sm-3">
@@ -376,7 +376,29 @@ $('#searchStudies').on("click", function() {
 	$("#search").show()
 })
 
+$(document).ready(function(){
 
+
+	$('#option2').click(function() {
+  		 if($('#option2').is(':checked')) { 
+   
+   			$(".locationRadio").hide(); 
+   			
+   			}
+		});
+
+	$("#option1").click(function(){
+		
+		if($("#option1").is(":checked")){
+ 			 
+ 			 $(".locationRadio").show();
+ 			 
+ 		 }
+		
+	});
+	
+	
+});
 
 
 				events = new Array();

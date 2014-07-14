@@ -4,12 +4,7 @@
 <script src='@routes.Assets.at("javascripts/jquery.ui.touch-punch.min.js")'></script>
 <script src='@routes.Assets.at("javascripts/moment-with-langs.min.js")'></script>
 <script src='@routes.Assets.at("javascripts/fullcalendar.min.js")'></script>
-<style type="text/css">
-.popover {
-	z-index: 100000
-}
-</style>
-}
+
 @main(null, scripts, "experimenter") {
 <div role="main" class="container main">
 	<div class="page-header">
@@ -432,40 +427,7 @@
 		<!-- /.modal-content --> 
 <!-- /.modal-dialog --> 	
 
-<!-- <div class="modal fade" id="myModalTeilnehmer2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-body">
-			<div id="regProbands">
-			<div class="modal title">Angemeldete Teilnehmer:	</div>
-		<div class="container">
-		<div class="row">	
-            <div class="col-md-3">Max Mustermann </div> 
-            <div class="col-md-1 text-center"><small>Anwesenheit: 93%</small></div>
-            <div class="col-md-2"><button type="button" class="btn btn-danger" id="me"><span class="glyphicon glyphicon-remove"></span></button></div>
-		</div> <!-- row 
-		<div class="row">	
-            <div class="col-md-3">Melanie Mustermann </div> 
-            <div class="col-md-1 text-center"><small>Anwesenheit: 97%</small></div>
-            <div class="col-md-2"><button type="button" class="btn btn-danger" id="me"><span class="glyphicon glyphicon-remove"></span></button></div>
-		</div> <!-- row 
-			<div class="row">	
-            <div class="col-md-3">D Mustermann </div> 
-            <div class="col-md-1 text-center"><small>Anwesenheit: 53%</small></div>
-            <div class="col-md-2"><button type="button" class="btn btn-danger" id="me"><span class="glyphicon glyphicon-remove"></span></button></div>
-		</div> <!-- row -->
-		</div> <!--  container 
 
-			<div class="col-sm-6">
-				<input type="text" name="name" class="form-control" id="name" placeholder="Name des Probands" autofocus>
-			</div>
- <button type="button" class="btn btn-default" ><span class="glyphicon glyphicon-plus"></span>Teilnehmer Hinzufügen</button>		<hr>		
-				</div></div>
-				</div>
-			</div>
-		</div>
-		<!-- /.modal-content --> 
-<!-- /.modal-dialog --> 
 
 
 <div id="regProbands" style="display:none">
@@ -592,9 +554,8 @@ $('.removeExp').on("click", function() {
 				            html: true
 				        })
 				        $(this).on('show.bs.popover', function() {
-				        	alert('test')
+				        	alert($('.popover'));
 					        $('#addProb').on('keypress', function () {
-					        	alert('test')
 								if($('#addProb').val().length == 1) {
 									$('#prob').show();
 									}
