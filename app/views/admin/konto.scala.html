@@ -5,7 +5,11 @@
 		<h3>Konto bearbeiten</h3>
 	</div>
 
-
+<div class="alert alert-success fade in" role="alert" style="display:none">
+      <button type="button" class="close"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+      <p>Änderungen gespeichert.</p>
+ 
+    </div>
 
 <form class="form-horizontal" role="form">
 		<div class="form-group">
@@ -88,7 +92,14 @@ Links  </label>
 
 
 	</form>
-
+<script type="text/javascript">
+$('.alert .close').on('click', function(e) {
+    $(this).parent().hide();
+});
+$('.btn-lg').click(function() {
+	$('.alert').show()
+})
+</script>
                            
 
 }
