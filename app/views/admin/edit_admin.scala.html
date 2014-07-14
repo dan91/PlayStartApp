@@ -1,0 +1,673 @@
+@scripts = {
+<link rel='stylesheet' href='@routes.Assets.at("stylesheets/fullcalendar.css")' />
+<script src='@routes.Assets.at("javascripts/jquery-ui.custom.min.js")'></script>
+<script src='@routes.Assets.at("javascripts/jquery.ui.touch-punch.min.js")'></script>
+<script src='@routes.Assets.at("javascripts/moment-with-langs.min.js")'></script>
+<script src='@routes.Assets.at("javascripts/fullcalendar.min.js")'></script>
+<style type="text/css">
+.popover {
+	z-index: 100000
+}
+</style>
+}
+
+@main(null, scripts, "admin") {
+<div role="main" class="container main">
+	<div class="page-header">
+		<h2>Studie bearbeiten</h2>
+	</div>
+	<form class="form-horizontal" role="form" action="/sessions">
+		<div class="form-group">
+			<label for="name" class="col-sm-3 control-label">Name</label>
+			<div class="col-sm-7">
+				<input type="text" name="name" class="form-control" id="name" value="Multitasking III" autofocus>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="description" class="col-sm-3 control-label">Beschreibung</label>
+			<div class="col-sm-7">
+				<textarea class="form-control" name="description" rows="4" id="description" placeholder="Beschreibung der Studie">In diesem Experiment soll die Aufmerksamkeit...</textarea>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="description" class="col-sm-3 control-label">Typ</span></label>
+			<div class="col-sm-6">
+				<div class="btn-group">
+					<label class="btn btn-default">
+						<input type="radio" name="options" id="option1" checked>
+						Labor </label>
+						<label class="btn btn-default">
+							<input type="radio" name="options" id="option2">
+							Internet </label>
+						</div>
+					</div>
+				</div>			
+				<hr>
+<div class="form-group inline">
+					<label for="" class="col-sm-3 control-label">Ort</label>
+					<div class="col-sm-3">
+						<select id="" class="form-control">
+							<option>Gebäude 82</option>
+							<option>ZfM</option>
+							<option>Institut für Informatik</option>
+						</select> 
+					</div>
+					<div class="col-sm-3">
+						<select id="" class="form-control">
+							<option>1.005</option>
+							<option>2.006</option>
+							<option>Black Box</option>
+						</select>
+					</div>
+				</div>
+				<hr>
+				<div class="form-group inline">
+					<label for="duration" class="col-sm-3 control-label">Dauer</label>
+					<div class="col-sm-3">
+						<span class="glyphicon glyphicon-time"></span>
+						<select id="duration" class="form-control">
+							<option>5</option>
+							<option>10</option>
+							<option>15</option>
+							<option>20</option>								
+							<option>30</option>
+							<option>45</option>
+							<option selected>60</option>
+							<option>75</option>
+							<option>90</option>
+							<option>120</option>
+						</select> Minuten
+					</div>
+					<div class="col-sm-3">
+						<span class="glyphicon glyphicon-star"></span>
+						<select id="vps" class="form-control">
+							<option>0.5</option>
+							<option selected>1.0</option>
+							<option>1.5</option>
+							<option>2.0</option>								
+							<option>2.5</option>
+							<option>3.0</option>
+						</select> VP-Stunden
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="description" class="col-sm-3 control-label">Sitzungen</label>
+					<div class="col-sm-8">
+						<div class="row">
+							<div class="col-sm-4">
+								<button type="button" class="btn btn-default" id="add" data-toggle="modal" data-target="#sessionCalendar"><span class="glyphicon glyphicon-calendar"></span> Kalender</button>
+							</div>
+						</div>
+						<div id="events">
+												
+				
+<div class="row" id="_fc1" style="">
+					<div class="col-xs-4"><span class="glyphicon glyphicon-calendar"></span> <span id="date">Donnerstag, 10. Juli 2014</span></div>
+					<div class="col-xs-3"><span class="glyphicon glyphicon-time"></span> <span id="time">14:00-15:00</span></div>
+					<div class="col-xs-3"><span class="glyphicon glyphicon-user"></span> 3 <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModalTeilnehmer2"><span class="glyphicon glyphicon-pencil"></span></button></div>
+					<div class="col-xs-2">
+						<button type="button" class="btn btn-danger btn-sm eventdel"><span class="glyphicon glyphicon-remove"></span></button>
+					</div>
+				</div><div class="row" id="_fc2" style="">
+					<div class="col-xs-4"><span class="glyphicon glyphicon-calendar"></span> <span id="date">Donnerstag, 10. Juli 2014</span></div>
+					<div class="col-xs-3"><span class="glyphicon glyphicon-time"></span> <span id="time">12:00-13:00</span></div>
+					<div class="col-xs-3"><span class="glyphicon glyphicon-user"></span> 3 <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModalTeilnehmer2"><span class="glyphicon glyphicon-pencil"></span></button></div>
+					<div class="col-xs-2">
+						<button type="button" class="btn btn-danger btn-sm eventdel"><span class="glyphicon glyphicon-remove"></span></button>
+					</div>
+				</div>
+				
+</div>
+					</div>
+				</div>
+				<hr>
+				<div class="form-group inline">
+					<label for="description" class="col-sm-3 control-label">Probanden</label>
+			<div class="col-sm-3">
+				pro Session: <select id="hour" class="form-control noBreak">
+									<option>1</option>
+									<option>2</option>
+									<option>3</option>
+									<option>4</option>
+									<option>5</option>
+									<option>6</option>
+									<option>7</option>
+									<option>8</option>
+									<option>9</option>
+									<option>10</option>
+								</select> Teilnehmer
+					</div>
+					<div class="col-sm-2">
+								<button type="button" class="btn btn-default" data-toggle="modal" data-target="#probands"><span class="glyphicon glyphicon-filter"></span> Filtern</button>
+					</div>
+					<div class="col-sm-2">
+						<div class="checkbox">
+								<label><input type="checkbox" class="form-control" checked>Einladungen senden</label>
+					</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="description" class="col-sm-3 control-label">Versuchsleiter</span></label>
+					<div class="col-sm-6">
+						<button type="button" class="btn btn-default" id="me" disabled>Ich</button>
+						
+<button type="button" class="btn btn-default removeExp" style="display:none">Max Mustermann <span class="glyphicon glyphicon-remove"></span></button>
+  </div>
+						<div class="col-sm-3">
+						<button type="button" class="btn btn-default" id="add" data-toggle="modal" data-target="#modalAddPersons"><span class="glyphicon glyphicon-user"> <span class="glyphicon glyphicon-plus"></span></button>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-8" style="margin-top:1em; border-top:1px solid #eee; padding-top:1em">
+						<button type="submit" class="btn btn-primary btn-lg pull-right"><span class="glyphicon glyphicon-ok"></span> Speichern</button>
+																<button type="button" class="btn btn-danger pull-left">Studie löschen</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="modal fade" id="sessionCalendar">
+		<div class="modal-dialog modal-lg mo">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Speichern</button>
+					<h4 class="modal-title">Sitzungen</h4>
+						<!-- <div class="row sessionsAuto">
+							<div class="col-sm-4" style="width:30%"><h4 class="modal-title">Termine hinzufügen</h4></div>
+							<div class="col-sm-3" style="width:20%">
+								<label for="hour">von: </label>
+								<select id="hour" class="form-control noBreak">
+									<option>08</option>
+									<option>09</option>
+									<option>10</option>
+									<option>11</option>
+									<option>12</option>
+									<option>13</option>
+									<option>14</option>
+									<option>15</option>
+									<option>16</option>
+									<option>17</option>
+									<option>18</option>
+								</select>
+								<select id="minute" class="form-control noBreak">
+									<option>00</option>
+									<option>15</option>
+									<option>30</option>
+									<option>45</option>
+								</select>
+							</div>
+
+							<div class="col-sm-3"  style="width:20%">
+								<label for="hour2">bis: </label>
+								<select id="hour2" class="form-control noBreak">
+									<option>08</option>
+									<option>09</option>
+									<option>10</option>
+									<option>11</option>
+									<option>12</option>
+									<option>13</option>
+									<option>14</option>
+									<option>15</option>
+									<option>16</option>
+									<option selected>17</option>
+									<option>18</option>
+								</select>
+								<select id="minute2" class="form-control noBreak">
+									<option>00</option>
+									<option>15</option>
+									<option>30</option>
+									<option>45</option>
+								</select>
+							</div>
+
+							<div class="col-sm-3">
+								<label for="break">Pause: </label>
+								<select id="break" class="form-control noBreak">
+									<option>15 Minuten</option>
+									<option>30 Minuten</option>
+									<option>45 Minuten</option>
+									<option>60 Minuten</option>
+								</select>
+							</div>
+						</div> -->
+					</div>
+					<div class="modal-body">
+						<div id="calendar"></div>
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-dismiss="modal">Speichern</button>
+					</div>
+				</div>
+				<!-- /.modal-content --> 
+			</div>
+			<!-- /.modal-dialog --> 
+		</div>
+		<!-- /.modal --> 
+
+
+		<div class="modal fade" id="probands">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title">Probanden auswählen</h4>
+
+					</div>
+					<div class="modal-body">
+
+						<form class="form-horizontal" role="form" action="/sessions">
+							<div class="form-group">
+								<label for="name" class="col-sm-3 control-label">Probandenpool</label>
+								<div class="col-sm-8">
+									<div class="btn-group">
+										<label class="btn btn-default">
+											<input type="checkbox" name="options" id="option1" checked>
+											Studenten </label>
+											<label class="btn btn-default">
+												<input type="checkbox" name="options" id="option2" checked>
+												Externe </label>
+											</div>
+										</div>
+									</div>
+									<div class="form-group">
+								<label for="name" class="col-sm-3 control-label">Geschlecht</label>
+								<div class="col-sm-8">
+									<div class="btn-group">
+										<label class="btn btn-default">
+											<input type="checkbox" name="options" id="option1" checked>
+											männlich </label>
+											<label class="btn btn-default">
+												<input type="checkbox" name="options" id="option2" checked>
+												weiblich </label>
+											</div>
+										</div>
+									</div>
+							<div class="form-group inline">
+								<label for="duration" class="col-sm-3 control-label">Semester</label>
+								<div class="col-sm-5">
+									von: <select id="semesterFrom" class="form-control">
+										<option>unbegrenzt</option>
+										<option>1</option>
+										<option>2</option>
+										<option>3</option>								
+										<option>4</option>
+										<option>5</option>
+										<option>6</option>
+										<option>7</option>
+										<option>8</option>
+									</select> 
+									bis: <select id="semesterUntil" class="form-control">
+										<option>unbegrenzt</option>
+										<option>1</option>
+										<option>2</option>
+										<option>3</option>								
+										<option>4</option>
+										<option>5</option>
+										<option>6</option>
+										<option>7</option>
+										<option>8</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="name" class="col-sm-3 control-label">Vorherige Studien</label>
+								<div class="col-sm-8">
+									<div class="btn-group">
+										<label class="btn btn-default">
+											<input type="checkbox" name="options" id="option1" checked>
+											Meine Studien </label>
+											<label class="btn btn-default">
+												<input type="checkbox" name="options" id="option2" checked>
+											Mein Lehrstuhl </label>
+											<button type="button" id="searchStudies" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+											</div>
+
+									</div>
+								</form>
+							</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-primary" data-dismiss="modal">Speichern</button>
+							</div>
+						</div>
+						<!-- /.modal-content --> 
+					</div>
+					<!-- /.modal-dialog --> 
+				</div>
+				<!-- /.modal --> 
+
+
+<div class="modal fade" id="modalAddPersons">
+	<div class="modal-dialog mo">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Versuchsleiter hinzufügen</h4>
+			</div>
+			<div class="modal-body">
+		<div class="row">
+			<div class="col-sm-12">
+				<input type="text" name="name" class="form-control" id="expSearch" placeholder="Name des Versuchsleiter" autofocus>
+				</div>
+				</div>
+				<div class="row" id="exp" style="display:none">
+					<div class="col-xs-9">Max Mustermann</div>
+					<div class="col-xs-3">
+						<button type="button" class="btn btn-primary" id="addExp"><span class="glyphicon glyphicon-plus"></span></button>
+					</div>
+				</div>
+				</div>
+
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" data-dismiss="modal">Speichern</button>
+			</div>
+		</div>
+		<!-- /.modal-content --> 
+	</div>
+	<!-- /.modal-dialog --> 
+</div>
+<!-- /.modal --> 
+
+
+		
+<!-- hier die paar dummen modaltabs fuer dummycontent -->		
+<div class="modal fade" id="myModalTeilnehmer1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog mo">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Sitzungs-Teilnehmer Bearbeiten</h4>
+			</div>
+				<div class="modal-body">
+			<div class="container">
+		<div class="row">	
+            <div class="col-md-3">Kein Eingetragene Teilnehmer</div> 
+            <div class="col-md-1 text-center"><small></small></div>
+            <div class="col-md-2"><button type="button" class="btn btn-danger" id="me"></button></div>
+		</div> <!-- row -->
+	</div> <!-- container -->
+			<div class="col-sm-6">
+				<input type="text" name="name" class="form-control" id="name" placeholder="Name des Probands" autofocus>
+			</div>
+ <button type="button" class="btn btn-default" ><span class="glyphicon glyphicon-plus"></span> Teilnehmer Hinzufügen</button>		<hr>		
+				</div></div>
+				</div>
+			</div>
+		</div>
+		<!-- /.modal-content --> 
+<!-- /.modal-dialog --> 		
+
+<div class="modal fade" id="myModalTeilnehmer2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body">
+			<div>
+			<div class="modal title">Angemeldete Teilnehmer:	</div>
+		<div class="container">
+		<div class="row">	
+            <div class="col-md-3">Max Mustermann </div> 
+            <div class="col-md-1 text-center"><small>Anwesenheit: 93%</small></div>
+            <div class="col-md-2"><button type="button" class="btn btn-danger" id="me"><span class="glyphicon glyphicon-remove"></span></button></div>
+		</div> <!-- row -->
+		<div class="row">	
+            <div class="col-md-3">Melanie Mustermann </div> 
+            <div class="col-md-1 text-center"><small>Anwesenheit: 97%</small></div>
+            <div class="col-md-2"><button type="button" class="btn btn-danger" id="me"><span class="glyphicon glyphicon-remove"></span></button></div>
+		</div> <!-- row -->
+			<div class="row">	
+            <div class="col-md-3">D Mustermann </div> 
+            <div class="col-md-1 text-center"><small>Anwesenheit: 53%</small></div>
+            <div class="col-md-2"><button type="button" class="btn btn-danger" id="me"><span class="glyphicon glyphicon-remove"></span></button></div>
+		</div> <!-- row -->
+		</div> <!--  container -->
+
+			<div class="col-sm-6">
+				<input type="text" name="name" class="form-control" id="name" placeholder="Name des Probands" autofocus>
+			</div>
+ <button type="button" class="btn btn-default" ><span class="glyphicon glyphicon-del"></span>Teilnehmer Hinzufügen</button>		<hr>		
+				</div></div>
+				</div>
+			</div>
+		</div>
+		<!-- /.modal-content --> 
+<!-- /.modal-dialog --> 	
+
+
+
+
+<div id="regProbands" style="display:none">
+		<div class="row">	
+            <div class="col-md-9">Max Mustermann </div> 
+            <div class="col-md-3"><button type="button" class="btn btn-danger" id="me"><span class="glyphicon glyphicon-remove"></span></button></div>
+		</div> <!-- row -->
+		<div class="row">	
+            <div class="col-md-9">Melanie Mustermann </div> 
+            <div class="col-md-3"><button type="button" class="btn btn-danger" id="me"><span class="glyphicon glyphicon-remove"></span></button></div>
+		</div> <!-- row -->
+			<div class="row">	
+            <div class="col-md-9">D Mustermann </div> 
+            <div class="col-md-3"><button type="button" class="btn btn-danger" id="me"><span class="glyphicon glyphicon-remove"></span></button></div>
+		</div> <!-- row -->
+		<hr>
+		<b>Probanden hinzufügen</b>
+		<div class="row">
+			<div class="col-sm-12">
+				<input type="text" class="form-control" id="addProb" placeholder="Name des Probands" autofocus>
+			</div>
+						
+</div>
+		<div class="row" id="prob" style="display:none">
+					<div class="col-xs-9">Max Mustermann</div>
+					<div class="col-xs-3">
+						<button type="button" class="btn btn-primary" id="addExp"><span class="glyphicon glyphicon-plus"></span></button>
+					</div>
+				</div>
+				</div>
+
+
+
+
+				<div class="row" id="event" style="display:none">
+					<div class="col-xs-4"><span class="glyphicon glyphicon-calendar"></span> <span id="date"><span></div>
+					<div class="col-xs-3"><span class="glyphicon glyphicon-time"></span> <span id="time"><span></div>
+					<div class="col-xs-3"><span class="glyphicon glyphicon-user"></span> 3 <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModalTeilnehmer2"><span class="glyphicon glyphicon-pencil"></span></div>
+					<div class="col-xs-2">
+						<button type="button" class="btn btn-danger btn-sm eventdel"><span class="glyphicon glyphicon-remove"></span></button>
+					</div>
+				</div>
+
+				<div id="eventFrame">
+<button type="button" class="close" aria-hidden="true">&times;</button>
+<span class="datetime"></span>
+</div>
+				<link rel="stylesheet" href="@routes.Assets.at("stylesheets/slider.css")"></script>
+				<script src="@routes.Assets.at("javascripts/bootstrap-slider.js")"></script> 
+				<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script> 
+				<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/localization/messages_de.js"></script> 
+				<script>
+
+				$('#duration').on('change', function() {
+					h = parseInt($(this).val())/60;
+					h = (Math.round(h * 2) / 2).toFixed(1);
+					if(h == 0)
+						h = 0.5;
+					$("#vps").val(h);
+				});
+				
+$('#searchStudies').on("click", function() {
+	$("#search").show()
+})
+
+$
+$('.removeExp').on("click", function() {
+	$(this).remove()
+})
+				events = new Array();
+				$('#calendar').fullCalendar({
+					defaultView: 'agendaWeek',
+					header: {
+						left:   '',
+						center: '',
+						right:  'today prev,next'
+					},
+					lang: 'de',
+					allDaySlot: false,
+					slotDuration: '00:15:00',
+					minTime: '08:00:00',
+					maxTime: '19:00:00',
+					eventStartEditable: true,
+					selectable: true,
+					slotEventOverlap: false,
+					axisFormat: 'H:mm',
+					timeFormat: 'H:mm',
+					columnFormat: 'dd., D.M',
+					contentHeight: 1200,
+					events: [
+				        {
+				            start  : '2014-07-10T14:00',
+				            end  : '2014-07-10T15:00'
+				        },
+				        {
+				            start  : '2014-07-10T12:00',
+				            end  : '2014-07-10T13:00'
+				        }
+				    ],
+					select: function(start, end) {
+						
+						dur = parseInt($("#duration option:selected").text());
+						temp = start;
+						while($.fullCalendar.moment(temp).isBefore(end)) {
+						var eventData;
+						temp_end = $.fullCalendar.moment(temp).add('m',dur);
+						eventData = {
+							title: '',
+							start: temp,
+							end: temp_end,
+						};						
+						temp = temp_end;
+						$('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+					}
+						$('#calendar').fullCalendar('unselect');
+					},
+					eventMouseover: function(event, jsEvent, view) {
+						$(this).popover({
+				            title: 'Angemeldete Probanden',
+				            placement: 'right',
+				            container: 'body',
+				            content: $('#regProbands').html(),
+				            trigger: 'click',
+				            html: true
+				        })
+				   //      $(this).on('show.bs.popover', function() {
+				   //      	alert($('.popover'));
+					  //       $('#addProb').on('keypress', function () {
+							// 	if($('#addProb').val().length == 1) {
+							// 		$('#prob').show();
+							// 		}
+							// });
+				   //  	})
+				    },
+					
+					eventDrop: function(event, dayDelta, minuteDelta, allDay, revertFunc) {
+						if (isOverlapping(event)) {revertFunc()};
+					},
+					eventResize: function(event, dayDelta, minuteDelta, revertFunc) {
+						if (isOverlapping(event)) {revertFunc()};
+					},
+					eventRender: function( event, element, view ) {
+						eventFrame = $('#eventFrame').clone();
+						$(element).children().remove();
+						datetime = event.start.format("H:mm")+"-"+event.end.format("H:mm");
+						$(element).prepend($(eventFrame));
+						eventFrame.find($('.datetime')).text(datetime);
+						eventFrame.find($('.close')).click(function() {
+							$('#calendar').fullCalendar('removeEvents',event._id);
+						});
+					}
+				});
+function listEvents() {
+	events = $('#calendar').fullCalendar( 'clientEvents');
+	$("#events").children().remove();
+	$.each(events, function (key, value) {
+		e = $("#event").clone();
+		date = value.start.format("dddd, Do MMMM YYYY");
+		time = value.start.format("H:mm")+"-"+value.end.format("H:mm");
+		e.find("#date").text(date);
+		e.find("#time").text(time);
+		e.prop("id",value._id);
+		$("#events").append(e);
+		e.show();
+	});
+
+	$(".eventdel").on("click", function() {
+		id = $(this).parent().parent().prop('id');
+		$(this).parent().parent().remove();
+		$('#calendar').fullCalendar('removeEvents',id);
+		$('#calendar').fullCalendar('rerenderEvents');
+	})
+};			
+$('#calendar').fullCalendar('render');
+$('#sessionCalendar').on('shown.bs.modal', function () {
+	$('#calendar').fullCalendar('render');
+});
+$('#modalAddPersons').on('shown.bs.modal', function () {
+	$('#addExp').click(function () {
+		$(this).attr('disabled',true);
+		$('.removeExp').show()
+	})
+	$('#expSearch').on('keypress', function () {
+	if($('#expSearch').val().length == 1) {
+		$('#exp').show();
+		
+		}
+	})
+});
+
+
+$('#sessionCalendar').on('hidden.bs.modal', function() {
+	listEvents();
+});
+
+
+$('body').on('click', function (e) {
+    
+    //buttons and icons within buttons
+    
+    if ($(e.target).data('toggle') !== 'popover'
+        && $(e.target).parents('[data-toggle="popover"]').length === 0
+        && $(e.target).parents('.popover.in').length === 0) { 
+        $('[data-toggle="popover"]').popover('hide');
+    }
+    
+});
+	$(document).ready(function(){
+	$('.form-horizontal').validate(
+	{
+		rules: {
+			name: {
+				minlength: 6,
+				required: true
+			},
+			description: {
+				minlength: 6,
+				required: true,
+			},
+			duration: {
+				required: true,
+				digits:true,
+				range: [15,600]
+			}
+		},
+		highlight: function(element) {
+			$(element).closest('.form-group').addClass('has-error');
+		},
+		unhighlight: function(element) {
+			$(element).closest('.form-group').removeClass('has-error');
+
+		}
+	});
+});
+</script>
+}

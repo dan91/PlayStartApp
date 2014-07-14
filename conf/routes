@@ -51,6 +51,7 @@ GET		/admin   				controllers.Admin.admin()
 GET		/lab					controllers.Admin.alab()
 GET		/user					controllers.Admin.auser()
 GET		/allStudies				controllers.Admin.astudies()
+GET		/admin_edit				controllers.Admin.edit()
 
 #Account
 GET		/konto					controllers.Admin.konto()

@@ -53,6 +53,16 @@ public class Admin extends Controller {
     public static Result auser() {  
         return ok(views.html.admin.user.render());
     }
+
+     /**
+     * Displays the admin edit page
+     *
+     * @return
+     */
+    public static Result edit() {  
+        return ok(views.html.admin.edit_admin.render());
+    }
+
         /**
      * Displays the admin lab
      *
