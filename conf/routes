@@ -39,6 +39,7 @@ GET     /assets/*file               controllers.Assets.at(path="/public", file)
 GET     /registered                 controllers.Proband.registered()
 GET     /available                 controllers.Proband.available()
 GET     /completed                 controllers.Proband.completed()
+GET		/registerExt			   controllers.Proband.registerExt()
 
 # Experimenter
 GET     /create                 controllers.Experimenter.create()

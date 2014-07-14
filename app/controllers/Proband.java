@@ -43,6 +43,16 @@ public class Proband extends Controller {
         return ok(views.html.proband.completed.render());
     }
 
+    
+    /**
+     * Registration form for people who are no students,
+     * but want to participate in studies.
+     * 
+     */
+    
+    public static Result registerExt() {  
+        return ok(views.html.proband.registerExt.render());
+    }
    
 
 }
