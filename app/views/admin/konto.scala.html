@@ -2,7 +2,7 @@
 @main(null, null) {
 <meta charset="utf-8"/>
 <div class="page-header">
-		<h3>Konto Bearbeiten</h3>
+		<h3>Konto bearbeiten</h3>
 	</div>
 
 
@@ -30,19 +30,7 @@
 									</select> 			
 			</div>
 		</div>
-			<div class="form-group">
-			<label for="name" class="col-sm-3 control-label">Accounttyp</label>
-			<div class="col-sm-6">
-<div class="radio">
-  <label>
-    <input type="radio" name="options1" id="optionsRadios2" value="option2" checked>
-Uni Würzburg  </label>
-</div>	<div class="radio">
-  <label>
-    <input type="radio" name="options1" id="optionsRadios2" value="option2">
-Extern  </label>
-</div>				</div>
-		</div>
+			
 			<div class="form-group">
 			<label for="name" class="col-sm-3 control-label">Studiengang</label>
 			<div class="col-sm-6">
@@ -58,7 +46,7 @@ MK  </label>
 </div>		<div class="radio">
   <label>
     <input type="radio" name="options2" id="optionsRadios2" value="option2" checked>
-Sonstiger  </label>
+Sonstige  </label>
 </div>		</div>
 		</div>
 		<div class="form-group">
@@ -81,63 +69,26 @@ Links  </label>
 	<div class="form-group">
 			<label for="name" class="col-sm-3 control-label">Rechte</label>
 			<div class="col-sm-6">
-<div class="checkbox">
-  <label>
-    <input type="checkbox" value="" disabled> Anwesenheit von Probanden bestätigen
-  </label>
-</div>
-<div class="checkbox">
-  <label>
-    <input type="checkbox" value="" disabled> Sitzungen erstellen
-  </label>
-</div>
-<div class="checkbox">
-  <label>
-    <input type="checkbox" value="" disabled> Studien erstellen
-  </label>
-</div>
-<div class="checkbox">
-  <label>
-    <input type="checkbox" value="" disabled> Rechte für eigene Studien vergeben
-  </label>
-</div>
-<div class="checkbox">
-  <label>
-    <input type="checkbox" value="" disabled> Gebäude / Räume verwalten
-  </label>
-</div>
-<div class="checkbox">
-  <label>
-    <input type="checkbox" value="" disabled> <span class="text-danger">Administrator</span>
-  </label>
-</div>
-
-
-
+ <p class="form-control-static">Proband</p>
 			</div>
 		</div>
 			
 
-           <div class="form-group">
-			<label for="name" class="col-sm-3 control-label">E-Mail Neuigkeiten</label>
-			<div class="col-sm-6">
-				<select id="semesterFrom" class="form-control">
-										<option>Immer Sofort</option>
-										<option>Tägliche Zusammenfassung</option>
-										<option>Wöchentliche Zusammenfassung</option>
-									</select> 			
-			</div>
-		</div>
-	
+          
+		<hr>
+<div class="form-group">
+<div class="col-sm-4">
+ <button type="button" class="btn btn-sm btn-danger">Account Löschen</button>
+</div>
+<div class="col-sm-4 col-sm-offset-4">
+
+                <button type="button" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-ok"></span> Speichern</button></div>
+</div>	
 
 
 
 	</form>
 
-            <div class="modal-footer">
-                            <button type="button" class="btn btn-sm btn-danger">Account Löschen</button>
-
-                <button type="button" class="btn btn-primary">Änderungen Speichern</button>
-            </div>
+                           
 
 }
