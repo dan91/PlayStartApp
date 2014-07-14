@@ -1,18 +1,27 @@
-@main(null, null, "admin") {
 
+
+@main(null, null, "admin") {
+<div id="searchPop" style="display:none">
+<div class="row" id="prob">
+					<div class="col-xs-9">Max Mustermann</div>
+					<div class="col-xs-3">
+						<button type="button" class="btn btn-primary" id="addExp"><span class="glyphicon glyphicon-plus"></span></button>
+					</div>
+</div>
+</div>
 <div class="panel-group" id="accordion">
 	<div class="row">
 		<div class="col-sm-6 ">
 			<div class="panel panel-default" \>
 				<div class="panel-heading">
-					<h4 class="panel-title">Benutzer Suchen</h4>
+					<h4 class="panel-title">Benutzer suchen</h4>
 				</div>
 
 				<div id="collapseOne" class="panel-collapse collapse in">
 					<div class="panel-body"> 
 
 						<form class="navbar-form navbar-left" role="search">
-							<input type="text" class="form-control" placeholder="">
+							<input type="text" class="form-control" placeholder="" id="search">
 							<button type="submit" class="btn btn-default">Suchen</button>
 						</form>
 
@@ -57,8 +66,8 @@
 					<div class="panel-body"> 
 						<div class="row">
 							<div class="col-sm-3 col-xs-6">Versuchsleiter Nummer 1</div>
-							<div class="col-sm-6 col-xs-6">
-								<button type="submit" class="btn btn-edit btn-default" id="add" data-toggle="modal" data-target="#modalVersuchsleiter">Studien: 2</button></div>
+							<div class="col-sm-4 col-xs-6 col-sm-offset-2">
+								<button type="submit" class="btn btn-edit btn-default" id="add" data-toggle="modal" data-target="#modalVersuchsleiter">Rechte: 2</button></div>
 							
 							<div class="col-sm-1 col-xs-6">    
 								<button type="submit" class="btn btn-edit btn-default" id="add" data-toggle="modal" data-target="#myModal1"><span class="glyphicon glyphicon-pencil"></span></button></div>
@@ -163,6 +172,12 @@
 						</div>
 					</div>
 					<div class="form-group">
+						<label for="name" class="col-sm-3 control-label">E-Mail</label>
+						<div class="col-sm-6">
+							<input type="text" name="name" class="form-control" id="name" value="max@@mustermann.de">
+						</div>
+					</div>
+					<div class="form-group">
 						<label for="name" class="col-sm-3 control-label">Studienbegin</label>
 						<div class="col-sm-6">
 							<select id="semesterFrom" class="form-control">
@@ -172,19 +187,7 @@
 							</select> 			
 						</div>
 					</div>
-					<div class="form-group">
-						<label for="name" class="col-sm-3 control-label">Accounttyp</label>
-						<div class="col-sm-6">
-							<div class="radio">
-								<label>
-									<input type="radio" name="options1" id="optionsRadios2" value="option2" checked>
-									Uni Würzburg  </label>
-								</div>	<div class="radio">
-								<label>
-									<input type="radio" name="options1" id="optionsRadios2" value="option2">
-									Extern  </label>
-								</div>				</div>
-							</div>
+					
 							<div class="form-group">
 								<label for="name" class="col-sm-3 control-label">Studiengang</label>
 								<div class="col-sm-6">
@@ -200,7 +203,7 @@
 											</div>		<div class="radio">
 											<label>
 												<input type="radio" name="options2" id="optionsRadios2" value="option2" checked>
-												Sonstiger  </label>
+												Sonstige  </label>
 											</div>		</div>
 										</div>
 										<div class="form-group">
@@ -225,17 +228,17 @@
 													<div class="col-sm-6">
 														<div class="radio">
 															<label>
-																<input type="radio" name="options4" value="" checked> Proband (Nur Studien Besuchen)
+																<input type="radio" name="options4" value="" checked> Proband (Nur Studien besuchen)
 															</label>
 														</div>
 														<div class="radio">
 															<label>
-																<input type="radio" name="options4"  value=""> HiWi (Sessions Erstellen und Teilnahmen Abhacken)
+																<input type="radio" name="options4"  value=""> Hilfskraft (Sessions erstellen und Teilnahmen bestätigen)
 															</label>
 														</div>
 														<div class="radio">
 															<label>
-																<input type="radio" name="options4"  value=""> Versuchsleiter (Versuche Erstellen)
+																<input type="radio" name="options4"  value=""> Versuchsleiter (Versuche erstellen)
 															</label>
 														</div>
 														
@@ -260,7 +263,7 @@
 
 											</form>
 											<div class="modal-footer">
-												<button type="button" class="btn btn-primary">Save changes</button>
+												<button type="button" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-ok"></span> Speichern</button>
 											</div>
 										</div>
 										<!-- /.modal-content -->
@@ -280,7 +283,6 @@
 												<h4 class="modal-title">Besuchte Studien</h4>
 											</div>
 											<div class="modal-body">
-											<p>Der Proband hat folgende Studien Erfolgreich Besucht</p>
 												<ul>
 													<li>Multitasking I</li>
 													<li>Multitasking II</li>
@@ -309,7 +311,6 @@
 												<h4 class="modal-title">Verknüpfte Studien</h4>
 											</div>
 											<div class="modal-body">
-											<p>Der Proband hat folgende Studien Erfolgreich Besucht</p>
 												<ul>
 													<li>Multitasking I</li>
 													<li>Multitasking II</li>
@@ -339,7 +340,6 @@
 												<h4 class="modal-title">Verknüpfte Studien</h4>
 											</div>
 											<div class="modal-body">
-											<p>Der Proband hat die Rechte Sessions zu erstellen und Teilnehmer einzuladen</p>
 												<ul>
 													<li>Multitasking I</li>
 													<li>Multitasking II</li>
@@ -369,7 +369,6 @@
 												<h4 class="modal-title">Verknüpfte Studien</h4>
 											</div>
 											<div class="modal-body">
-											<p>Der Versuchsleiter ist mit folgenden Studien Assoziiert</p>
 												<ul>
 													<li>Multitasking I</li>
 													<li>Multitasking II</li>
@@ -385,4 +384,15 @@
 								</div> <!-- /.modal --> 
 
 							</div>
+							<script type="text/javascript">
+	$('#search').popover({
+				            title: 'Treffer',
+				            placement: 'bottom',
+				            container: 'body',
+				            content: $('#searchPop').html(),
+				            trigger: 'click',
+				            html: true
+				        })
+
+</script>
 						}

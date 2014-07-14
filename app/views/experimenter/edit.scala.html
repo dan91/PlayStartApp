@@ -4,6 +4,11 @@
 <script src='@routes.Assets.at("javascripts/jquery.ui.touch-punch.min.js")'></script>
 <script src='@routes.Assets.at("javascripts/moment-with-langs.min.js")'></script>
 <script src='@routes.Assets.at("javascripts/fullcalendar.min.js")'></script>
+<style type="text/css">
+.popover {
+	z-index: 100000
+}
+</style>
 }
 
 @main(null, scripts, "experimenter") {
@@ -554,14 +559,14 @@ $('.removeExp').on("click", function() {
 				            trigger: 'click',
 				            html: true
 				        })
-				        $(this).on('show.bs.popover', function() {
-				        	alert($('.popover'));
-					        $('#addProb').on('keypress', function () {
-								if($('#addProb').val().length == 1) {
-									$('#prob').show();
-									}
-							});
-				    	})
+				   //      $(this).on('show.bs.popover', function() {
+				   //      	alert($('.popover'));
+					  //       $('#addProb').on('keypress', function () {
+							// 	if($('#addProb').val().length == 1) {
+							// 		$('#prob').show();
+							// 		}
+							// });
+				   //  	})
 				    },
 					
 					eventDrop: function(event, dayDelta, minuteDelta, allDay, revertFunc) {
@@ -624,7 +629,19 @@ $('#sessionCalendar').on('hidden.bs.modal', function() {
 	listEvents();
 });
 
-$(document).ready(function(){
+
+$('body').on('click', function (e) {
+    
+    //buttons and icons within buttons
+    
+    if ($(e.target).data('toggle') !== 'popover'
+        && $(e.target).parents('[data-toggle="popover"]').length === 0
+        && $(e.target).parents('.popover.in').length === 0) { 
+        $('[data-toggle="popover"]').popover('hide');
+    }
+    
+});
+	$(document).ready(function(){
 	$('.form-horizontal').validate(
 	{
 		rules: {
