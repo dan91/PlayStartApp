@@ -559,9 +559,13 @@ $('.removeExp').on("click", function() {
 				            trigger: 'click',
 				            html: true
 				        })
-				        $(this).on('show.bs.popover', function () {
-				        	$("*").popover('hide')
-				        });				    
+				    
+				        //$(this).on('show.bs.popover', function () {
+				         	pop = $(this);
+					        $('.popover-title').click(function () {
+					        	$(pop).popover('hide');
+					        })
+				        //});				    
 				    },
 					
 					eventDrop: function(event, dayDelta, minuteDelta, allDay, revertFunc) {
@@ -576,8 +580,9 @@ $('.removeExp').on("click", function() {
 						datetime = event.start.format("H:mm")+"-"+event.end.format("H:mm");
 						$(element).prepend($(eventFrame));
 						eventFrame.find($('.datetime')).text(datetime);
-						eventFrame.find($('.close')).click(function() {
+						eventFrame.find($('.close')).click(function(event) {
 							$('#calendar').fullCalendar('removeEvents',event._id);
+							event.stopPropagation();
 						});
 					}
 				});
