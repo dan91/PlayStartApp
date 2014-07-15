@@ -4,11 +4,6 @@
 <script src='@routes.Assets.at("javascripts/jquery.ui.touch-punch.min.js")'></script>
 <script src='@routes.Assets.at("javascripts/moment-with-langs.min.js")'></script>
 <script src='@routes.Assets.at("javascripts/fullcalendar.min.js")'></script>
-<style type="text/css">
-.popover {
-	z-index: 100000
-}
-</style>
 }
 
 @main(null, scripts, "experimenter") {
@@ -428,7 +423,7 @@
 					</div>
 				</div>
 
-				<div id="eventFrame">
+				<div id="eventFrame" style="display:none">
 <button type="button" class="close" aria-hidden="true">&times;</button>
 <span class="datetime"></span>
 </div>
@@ -436,37 +431,9 @@
 				<script src="@routes.Assets.at("javascripts/bootstrap-slider.js")"></script> 
 				<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script> 
 				<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/localization/messages_de.js"></script> 
-				<style type="text/css">
-.popover {
-	width: 20em
-}
-				</style>
-				<script>
-$("#showSessions").click(function () {
-	if($(this).text() == 'Anzeigen')
-		$(this).text('Ausblenden')
-	else
-		$(this).text('Anzeigen')
-	$("#events").fadeToggle();
-})
-				$('#duration').on('change', function() {
-					h = parseInt($(this).val())/60;
-					h = (Math.round(h * 2) / 2).toFixed(1);
-					if(h == 0)
-						h = 0.5;
-					$("#vps").val(h);
-				});
-				
-$('#searchStudies').on("click", function() {
-	$("#search").show()
-})
-
-$
-$('.removeExp').on("click", function() {
-	$(this).remove()
-})
-				events = new Array();
-				$('#calendar').fullCalendar({
+			<script type="text/javascript" src="@routes.Assets.at("javascripts/calendar.js")"></script>
+			<script type="text/javascript">
+$('#calendar').fullCalendar({
 					defaultView: 'agendaWeek',
 					header: {
 						left:   '',
@@ -485,18 +452,7 @@ $('.removeExp').on("click", function() {
 					timeFormat: 'H:mm',
 					columnFormat: 'dd., D.M',
 					contentHeight: 1200,
-					events: [
-				        {				        	
-				        	title: '',
-				            start  : '2014-07-16T14:00',
-				            end  : '2014-07-16T15:00'
-				        },
-				        {
-				        	title: '',
-				            start  : '2014-07-16T12:00',
-				            end  : '2014-07-16T13:00'
-				        }
-				    ],
+				
 					select: function(start, end) {
 						
 						dur = parseInt($("#duration option:selected").text());
@@ -537,6 +493,7 @@ $('.removeExp').on("click", function() {
 				        	//e.stopPropagation();
 				        });
 						eventFrame = $('#eventFrame').clone();
+						eventFrame.show();
 						$(element).children().remove();
 						datetime = event.start.format("H:mm")+"-"+event.end.format("H:mm");
 						$(element).prepend($(eventFrame));
@@ -547,80 +504,5 @@ $('.removeExp').on("click", function() {
 						});
 					}
 				});
-$('#calendar').fullCalendar('render');
-function listEvents() {
-	events = $('#calendar').fullCalendar( 'clientEvents');
-	$("#amount").text(events.length)
-	$("#events").children().remove();
-	$.each(events, function (key, value) {
-		e = $("#event").clone();
-		date = value.start.format("dddd, Do MMMM YYYY");
-		time = value.start.format("H:mm")+"-"+value.end.format("H:mm");
-		e.find("#date").text(date);
-		e.find("#time").text(time);
-		e.prop("id",value._id);
-		$("#events").append(e);
-		e.show();
-	});
-
-	$(".eventdel").on("click", function() {
-		id = $(this).parent().parent().prop('id');
-		$(this).parent().parent().remove();
-		$('#calendar').fullCalendar('removeEvents',id);
-		$('#calendar').fullCalendar('rerenderEvents');
-	})
-};			
-$('#sessionCalendar').on('shown.bs.modal', function () {
-	$('#calendar').fullCalendar('render');
-	$("div").css('overflow','visible');
-});
-$('#modalAddPersons').on('shown.bs.modal', function () {
-	$('#addExp').click(function () {
-		$(this).attr('disabled',true);
-		$('.removeExp').show()
-	})
-	$('#expSearch').on('keypress', function () {
-	if($('#expSearch').val().length == 1) {
-		$('#exp').show();
-		
-		}
-	})
-});
-
-
-$('#sessionCalendar').on('hidden.bs.modal', function() {
-	listEvents();
-});
-
-
-
-	$(document).ready(function(){
-
-	$('.form-horizontal').validate(
-	{
-		rules: {
-			name: {
-				minlength: 6,
-				required: true
-			},
-			description: {
-				minlength: 6,
-				required: true,
-			},
-			duration: {
-				required: true,
-				digits:true,
-				range: [15,600]
-			}
-		},
-		highlight: function(element) {
-			$(element).closest('.form-group').addClass('has-error');
-		},
-		unhighlight: function(element) {
-			$(element).closest('.form-group').removeClass('has-error');
-
-		}
-	});
-});
-</script>
+			</script>
 }

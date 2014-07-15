@@ -1,5 +1,12 @@
-@main(null, null, "experimenter") {
+@scripts = {
+<link rel='stylesheet' href='@routes.Assets.at("stylesheets/fullcalendar.css")' />
+<script src='@routes.Assets.at("javascripts/jquery-ui.custom.min.js")'></script>
+<script src='@routes.Assets.at("javascripts/jquery.ui.touch-punch.min.js")'></script>
+<script src='@routes.Assets.at("javascripts/moment-with-langs.min.js")'></script>
+<script src='@routes.Assets.at("javascripts/fullcalendar.min.js")'></script>
+}
 
+@main(null, scripts, "experimenter") {
 <div class="page-header">
 	<h3>Meine Studien</h3>
 </div>
@@ -22,7 +29,7 @@
 
 	<div class="col-sm-4">
 		<a href="/completeStudy"><button class="btn btn-warning tool" data-toggle="tooltip" data-placement="top" title="Sessions Abschließen - 1 Neue"><span class="glyphicon glyphicon-ok"></span> </button></a>
-		<a href="/completeStudy"><button class="btn btn-default tool" data-toggle="tooltip" data-placement="top" title="Kalender Anzeigen"><span class="glyphicon glyphicon-calendar"></span> </button></a>
+		<a href="#"><button class="btn btn-default tool" data-toggle="modal" data-target="#sessionCalendar" data-toggle="tooltip" data-placement="top" title="Kalender Anzeigen"><span class="glyphicon glyphicon-calendar"></span> </button></a>
 		<button class="btn btn-default tool" data-toggle="modal" data-target=".invite" toggle="tooltip" data-placement="top" title="Einladungen Verschicken"><span class="glyphicon glyphicon-envelope" ></span></button>
 		<a href="/edit"><button class="btn  btn-default tool" data-toggle="tooltip" data-placement="top" title="Studie Bearbeiten"><span class="glyphicon glyphicon-pencil"></span> </button></a>
 
@@ -170,4 +177,103 @@
   </div>
 </div><!-- /Modal -->
 
+
+
+	<div class="modal fade" id="sessionCalendar">
+		<div class="modal-dialog modal-lg mo">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Speichern</button>
+					<h4 class="modal-title">Sitzungen</h4>
+					</div>
+					<div class="modal-body">
+						<div id="calendar"></div>
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-dismiss="modal">Speichern</button>
+					</div>
+				</div>
+				<!-- /.modal-content --> 
+			</div>
+			<!-- /.modal-dialog --> 
+		</div>
+		<!-- /.modal --> 
+
+
+
+
+<div id="regProbands" style="display:none">
+		<div class="row">	
+            <div class="col-md-9">Ralph Obermaier</div> 
+            <div class="col-md-3"><button type="button" class="btn btn-danger btn-sm" id="me"><span class="glyphicon glyphicon-remove"></span></button></div>
+		</div> <!-- row -->
+			<div class="row">	
+            <div class="col-md-9">Tanja Mangold</div> 
+            <div class="col-md-3"><button type="button" class="btn btn-danger btn-sm" id="me"><span class="glyphicon glyphicon-remove"></span></button></div>
+		</div> <!-- row -->
+		<hr>
+		<b>Probanden hinzufügen</b>
+		<div class="row">
+			<div class="col-sm-12">
+				<input type="text" class="form-control" id="addProb" placeholder="Name des Probands" autofocus>
+			</div>
+						
+</div>
+		<div class="row" id="prob" style="display:none">
+					<div class="col-xs-9">Max Mustermann</div>
+					<div class="col-xs-3">
+						<button type="button" class="btn btn-primary" id="addExp"><span class="glyphicon glyphicon-plus"></span></button>
+					</div>
+				</div>
+				</div>
+
+
+
+
+				<div class="row" id="event" style="display:none">
+					<div class="col-xs-4"><span class="glyphicon glyphicon-calendar"></span> <span id="date"><span></div>
+					<div class="col-xs-3"><span class="glyphicon glyphicon-time"></span> <span id="time"><span></div>
+					<div class="col-xs-3"><span class="glyphicon glyphicon-user"></span> 3 <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModalTeilnehmer2"><span class="glyphicon glyphicon-pencil"></span></div>
+					<div class="col-xs-2">
+						<button type="button" class="btn btn-danger btn-sm eventdel"><span class="glyphicon glyphicon-remove"></span></button>
+					</div>
+				</div>
+
+				<div id="eventFrame" style="display:none">
+<button type="button" class="close" aria-hidden="true">&times;</button>
+<span class="datetime"></span>
+</div>
+				<link rel="stylesheet" href="@routes.Assets.at("stylesheets/slider.css")"></script>
+				<script src="@routes.Assets.at("javascripts/bootstrap-slider.js")"></script> 
+				<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script> 
+				<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/localization/messages_de.js"></script> 
+			<script type="text/javascript" src="@routes.Assets.at("javascripts/calendar.js")"></script>
+<script type="text/javascript">
+
+$('#calendar').fullCalendar({
+					defaultView: 'agendaWeek',
+					header: {
+						left:   '',
+						center: '',
+						right:  'today prev,next'
+					},
+					lang: 'de',
+					allDaySlot: false,
+					slotDuration: '00:15:00',
+					minTime: '08:00:00',
+					maxTime: '19:00:00',
+					eventStartEditable: false,
+					selectable: false,
+					slotEventOverlap: false,
+					axisFormat: 'H:mm',
+					timeFormat: 'H:mm',
+					columnFormat: 'dd., D.M',
+					contentHeight: 1200,
+				
+					
+				});
+
+</script>
 }
