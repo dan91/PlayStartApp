@@ -62,6 +62,31 @@
 				</div>
 				<hr>
 				<div class="form-group inline">
+					<label for="description" class="col-sm-3 control-label">Probanden</label>
+			<div class="col-sm-3">
+				pro Session: <select id="hour" class="form-control noBreak">
+									<option>1</option>
+									<option>2</option>
+									<option>3</option>
+									<option>4</option>
+									<option>5</option>
+									<option>6</option>
+									<option>7</option>
+									<option>8</option>
+									<option>9</option>
+									<option>10</option>
+								</select> Teilnehmer
+					</div>
+					<div class="col-sm-2">
+								<button type="button" class="btn btn-default" data-toggle="modal" data-target="#probands"><span class="glyphicon glyphicon-filter"></span> Filtern</button>
+					</div>
+					<div class="col-sm-2">
+						<div class="checkbox">
+								<label><input type="checkbox" class="form-control" checked>Einladungen senden</label>
+					</div>
+					</div>
+				</div>
+				<div class="form-group inline">
 					<label for="duration" class="col-sm-3 control-label">Dauer</label>
 					<div class="col-sm-3">
 						<span class="glyphicon glyphicon-time"></span>
@@ -94,11 +119,12 @@
 					<label for="description" class="col-sm-3 control-label">Sitzungen</label>
 					<div class="col-sm-8">
 						<div class="row">
-							<div class="col-sm-4">
+							<div class="col-sm-12">
 								<button type="button" class="btn btn-default" id="add" data-toggle="modal" data-target="#sessionCalendar"><span class="glyphicon glyphicon-calendar"></span> Kalender</button>
+								<span class="badge" id="amount">2</span> <a href="#" id="showSessions">Anzeigen</a>
 							</div>
 						</div>
-						<div id="events">
+						<div id="events" style="display:none">
 												
 				
 <div class="row" id="_fc1" style="">
@@ -121,31 +147,6 @@
 					</div>
 				</div>
 				<hr>
-				<div class="form-group inline">
-					<label for="description" class="col-sm-3 control-label">Probanden</label>
-			<div class="col-sm-3">
-				pro Session: <select id="hour" class="form-control noBreak">
-									<option>1</option>
-									<option>2</option>
-									<option>3</option>
-									<option>4</option>
-									<option>5</option>
-									<option>6</option>
-									<option>7</option>
-									<option>8</option>
-									<option>9</option>
-									<option>10</option>
-								</select> Teilnehmer
-					</div>
-					<div class="col-sm-2">
-								<button type="button" class="btn btn-default" data-toggle="modal" data-target="#probands"><span class="glyphicon glyphicon-filter"></span> Filtern</button>
-					</div>
-					<div class="col-sm-2">
-						<div class="checkbox">
-								<label><input type="checkbox" class="form-control" checked>Einladungen senden</label>
-					</div>
-					</div>
-				</div>
 				<div class="form-group">
 					<label for="description" class="col-sm-3 control-label">Versuchsleiter</span></label>
 					<div class="col-sm-6">
@@ -371,83 +372,50 @@
 
 
 		
-<!-- hier die paar dummen modaltabs fuer dummycontent -->		
-<div class="modal fade" id="myModalTeilnehmer1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog mo">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<h4 class="modal-title">Sitzungs-Teilnehmer Bearbeiten</h4>
-			</div>
-				<div class="modal-body">
-			<div class="container">
-		<div class="row">	
-            <div class="col-md-3">Kein Eingetragene Teilnehmer</div> 
-            <div class="col-md-1 text-center"><small></small></div>
-            <div class="col-md-2"><button type="button" class="btn btn-danger" id="me"></button></div>
-		</div> <!-- row -->
-	</div> <!-- container -->
-			<div class="col-sm-6">
-				<input type="text" name="name" class="form-control" id="name" placeholder="Name des Probands" autofocus>
-			</div>
- <button type="button" class="btn btn-default" ><span class="glyphicon glyphicon-plus"></span> Teilnehmer Hinzufügen</button>		<hr>		
-				</div></div>
-				</div>
-			</div>
-		</div>
-		<!-- /.modal-content --> 
-<!-- /.modal-dialog --> 		
 
 <div class="modal fade" id="myModalTeilnehmer2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
+				<div class="modal-header"><h4 class="modal-title">Angemeldete Teilnehmer</h4></div>
 				<div class="modal-body">
-			<div>
-			<div class="modal title">Angemeldete Teilnehmer:	</div>
-		<div class="container">
 		<div class="row">	
-            <div class="col-md-3">Max Mustermann </div> 
-            <div class="col-md-1 text-center"><small>Anwesenheit: 93%</small></div>
-            <div class="col-md-2"><button type="button" class="btn btn-danger" id="me"><span class="glyphicon glyphicon-remove"></span></button></div>
-		</div> <!-- row -->
-		<div class="row">	
-            <div class="col-md-3">Melanie Mustermann </div> 
-            <div class="col-md-1 text-center"><small>Anwesenheit: 97%</small></div>
-            <div class="col-md-2"><button type="button" class="btn btn-danger" id="me"><span class="glyphicon glyphicon-remove"></span></button></div>
+            <div class="col-md-9">Ralph Obermaier</div> 
+            <div class="col-md-3"><button type="button" class="btn btn-danger btn-sm" id="me"><span class="glyphicon glyphicon-remove"></span></button></div>
 		</div> <!-- row -->
 			<div class="row">	
-            <div class="col-md-3">D Mustermann </div> 
-            <div class="col-md-1 text-center"><small>Anwesenheit: 53%</small></div>
-            <div class="col-md-2"><button type="button" class="btn btn-danger" id="me"><span class="glyphicon glyphicon-remove"></span></button></div>
+            <div class="col-md-9">Tanja Mangold</div> 
+            <div class="col-md-3"><button type="button" class="btn btn-danger btn-sm" id="me"><span class="glyphicon glyphicon-remove"></span></button></div>
 		</div> <!-- row -->
-		</div> <!--  container -->
-
-			<div class="col-sm-6">
-				<input type="text" name="name" class="form-control" id="name" placeholder="Name des Probands" autofocus>
+		<hr>
+		<b>Probanden hinzufügen</b>
+		<div class="row">
+			<div class="col-sm-12">
+				<input type="text" class="form-control" id="addProb" placeholder="Name des Probands" autofocus>
 			</div>
- <button type="button" class="btn btn-default" ><span class="glyphicon glyphicon-del"></span>Teilnehmer Hinzufügen</button>		<hr>		
-				</div></div>
+						
+</div>
+	
+</div>
+<div class="modal-footer">
+				<button type="button" class="btn btn-primary" data-dismiss="modal">Speichern</button>
+			</div>
+			</div>
 				</div>
 			</div>
-		</div>
-		<!-- /.modal-content --> 
-<!-- /.modal-dialog --> 	
+	
+
 
 
 
 
 <div id="regProbands" style="display:none">
 		<div class="row">	
-            <div class="col-md-9">Max Mustermann </div> 
-            <div class="col-md-3"><button type="button" class="btn btn-danger" id="me"><span class="glyphicon glyphicon-remove"></span></button></div>
-		</div> <!-- row -->
-		<div class="row">	
-            <div class="col-md-9">Melanie Mustermann </div> 
-            <div class="col-md-3"><button type="button" class="btn btn-danger" id="me"><span class="glyphicon glyphicon-remove"></span></button></div>
+            <div class="col-md-9">Ralph Obermaier</div> 
+            <div class="col-md-3"><button type="button" class="btn btn-danger btn-sm" id="me"><span class="glyphicon glyphicon-remove"></span></button></div>
 		</div> <!-- row -->
 			<div class="row">	
-            <div class="col-md-9">D Mustermann </div> 
-            <div class="col-md-3"><button type="button" class="btn btn-danger" id="me"><span class="glyphicon glyphicon-remove"></span></button></div>
+            <div class="col-md-9">Tanja Mangold</div> 
+            <div class="col-md-3"><button type="button" class="btn btn-danger btn-sm" id="me"><span class="glyphicon glyphicon-remove"></span></button></div>
 		</div> <!-- row -->
 		<hr>
 		<b>Probanden hinzufügen</b>
@@ -485,8 +453,19 @@
 				<script src="@routes.Assets.at("javascripts/bootstrap-slider.js")"></script> 
 				<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script> 
 				<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/localization/messages_de.js"></script> 
+				<style type="text/css">
+.popover {
+	width: 20em
+}
+				</style>
 				<script>
-
+$("#showSessions").click(function () {
+	if($(this).text() == 'Anzeigen')
+		$(this).text('Ausblenden')
+	else
+		$(this).text('Anzeigen')
+	$("#events").fadeToggle();
+})
 				$('#duration').on('change', function() {
 					h = parseInt($(this).val())/60;
 					h = (Math.round(h * 2) / 2).toFixed(1);
@@ -524,13 +503,15 @@ $('.removeExp').on("click", function() {
 					columnFormat: 'dd., D.M',
 					contentHeight: 1200,
 					events: [
-				        {
-				            start  : '2014-07-10T14:00',
-				            end  : '2014-07-10T15:00'
+				        {				        	
+				        	title: '',
+				            start  : '2014-07-16T14:00',
+				            end  : '2014-07-16T15:00'
 				        },
 				        {
-				            start  : '2014-07-10T12:00',
-				            end  : '2014-07-10T13:00'
+				        	title: '',
+				            start  : '2014-07-16T12:00',
+				            end  : '2014-07-16T13:00'
 				        }
 				    ],
 					select: function(start, end) {
@@ -544,50 +525,49 @@ $('.removeExp').on("click", function() {
 							title: '',
 							start: temp,
 							end: temp_end,
+							color: '#428bca'
 						};						
 						temp = temp_end;
 						$('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
 					}
 						$('#calendar').fullCalendar('unselect');
 					},
-					eventMouseover: function(event, jsEvent, view) {
-						$(this).popover({
+					
+					
+					eventDrop: function(event, dayDelta, minuteDelta, allDay, revertFunc) {
+								$('#calendar').fullCalendar('rerenderEvents');
+					},
+					eventResize: function(event, dayDelta, minuteDelta, revertFunc) {
+						//if (isOverlapping(event)) {revertFunc()};
+					},
+					eventRender: function( event, element, view ) {
+						$(element).popover({
 				            title: 'Angemeldete Probanden',
-				            placement: 'right',
-				            container: 'body',
+				            placement: 'auto',
+				            //container: 'body',
 				            content: $('#regProbands').html(),
 				            trigger: 'click',
 				            html: true
 				        })
-				    
-				        //$(this).on('show.bs.popover', function () {
-				         	pop = $(this);
-					        $('.popover-title').click(function () {
-					        	$(pop).popover('hide');
-					        })
-				        //});				    
-				    },
-					
-					eventDrop: function(event, dayDelta, minuteDelta, allDay, revertFunc) {
-						if (isOverlapping(event)) {revertFunc()};
-					},
-					eventResize: function(event, dayDelta, minuteDelta, revertFunc) {
-						if (isOverlapping(event)) {revertFunc()};
-					},
-					eventRender: function( event, element, view ) {
+				        $(element).on('show.bs.popover', function (e) {
+				        	$('.fc-event').not(this).popover('hide');
+				        	//e.stopPropagation();
+				        });
 						eventFrame = $('#eventFrame').clone();
 						$(element).children().remove();
 						datetime = event.start.format("H:mm")+"-"+event.end.format("H:mm");
 						$(element).prepend($(eventFrame));
-						eventFrame.find($('.datetime')).text(datetime);
-						eventFrame.find($('.close')).click(function(event) {
+						eventFrame.find($('.datetime')).html(datetime+' <br><span class="glyphicon glyphicon-user"></span> 2/3');
+						eventFrame.find($('.close')).click(function(e) {
 							$('#calendar').fullCalendar('removeEvents',event._id);
-							event.stopPropagation();
+							e.stopPropagation();
 						});
 					}
 				});
+$('#calendar').fullCalendar('render');
 function listEvents() {
 	events = $('#calendar').fullCalendar( 'clientEvents');
+	$("#amount").text(events.length)
 	$("#events").children().remove();
 	$.each(events, function (key, value) {
 		e = $("#event").clone();
@@ -607,9 +587,9 @@ function listEvents() {
 		$('#calendar').fullCalendar('rerenderEvents');
 	})
 };			
-$('#calendar').fullCalendar('render');
 $('#sessionCalendar').on('shown.bs.modal', function () {
 	$('#calendar').fullCalendar('render');
+	$("div").css('overflow','visible');
 });
 $('#modalAddPersons').on('shown.bs.modal', function () {
 	$('#addExp').click(function () {
@@ -632,6 +612,7 @@ $('#sessionCalendar').on('hidden.bs.modal', function() {
 
 
 	$(document).ready(function(){
+
 	$('.form-horizontal').validate(
 	{
 		rules: {
