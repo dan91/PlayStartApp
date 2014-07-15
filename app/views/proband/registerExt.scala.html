@@ -6,20 +6,16 @@
 @main(null,scripts,null){
 
 <div class="container">
-<div class="page-header"><h3>Registrierung für Externe:</h3></div>
+<div class="page-header"><h3>Registrierung</h3></div>
 </div>
 
 
 
-<div class="container">
-
-
-
-<form role="form" class="form-horizontal">
+<form role="form" class="form-horizontal" action="/">
 
  <div class="form-group">
  
-    <label class="col-sm-3 control-label">Email:</label>
+    <label class="col-sm-2 control-label">Email</label>
     
     <div class="col-sm-4">
     <input type="email" class="form-control" id="email" placeholder="Max.Muster@@example.de">
@@ -28,28 +24,28 @@
 					
 <div class="form-group">
 
-    <label class="col-sm-3 control-label">Vorname:</label>
+    <label class="col-sm-2 control-label">Vorname</label>
     <div class="col-sm-4">
     <input type="text" class="form-control" id="firstname" placeholder="Max">
     </div>
   </div>
 
 <div class="form-group">
-    <label class="col-sm-3 control-label">Nachname:</label>
+    <label class="col-sm-2 control-label">Nachname</label>
     <div class="col-sm-4">
     <input type="text" class="form-control" id="lastname" placeholder="Muster">
     </div>
   </div>
   
  <div class="form-group">
-    <label class="col-sm-3 control-label">Passwort:</label>
+    <label class="col-sm-2 control-label">Passwort</label>
     <div class="col-sm-4">
     <input type="password" class="form-control" id="password" placeholder="Passwort">
     </div>
   </div> 
 
 <div class="form-group">
-			<label for="description" class="col-sm-3 control-label">Geschlecht:</span></label>
+			<label for="description" class="col-sm-2 control-label">Geschlecht</span></label>
 			<div class="col-sm-4">
 				<div class="btn-group">
 					<label class="btn btn-default">
@@ -63,37 +59,36 @@
 				</div>	
 
 <div class="form-group">
-			<label for="description" class="col-sm-3 control-label">Händigkeit:</span></label>
+			<label for="description" class="col-sm-2 control-label">Händigkeit</span></label>
 			<div class="col-sm-4">
 				<div class="btn-group">
 					<label class="btn btn-default">
-						<input type="radio" name="options" id="option1" checked>
-						rechts </label>
+						<input type="radio" name="options" id="option1">
+						links </label>
 						<label class="btn btn-default">
-							<input type="radio" name="options" id="option2">
-							links </label>
+							<input type="radio" name="options" id="option2" checked>
+							rechts </label>
 						</div>
 					</div>
 				</div>
 
 <div class="form-group">
 
-<div class="col-sm-2 col-sm-offset-5">
-<button class="btn btn-primary pull-right">Registrieren</button>
+<div class="col-sm-2 col-sm-offset-4">
+<button type="submit" class="btn btn-primary btn-lg pull-right"><span class="glyphicon glyphicon-ok"></span> Registrieren</button>
 </div>
 </div>
 
 <div class="form-group">
-			<div class="col-sm-3 col-sm-offset-4">
-<span class='light pull-right'>Doch schon registriert?</span>
+			<div class="col-sm-3 col-sm-offset-3">
+<span class='light pull-right'>Doch schon registriert? <a href="/">Hier anmelden</a>	
+</span>
 
-<a href="/">Hier anmelden</a>	
 </div>							
 
 </div>	
 
 
 </form>
-</div>
 
 }

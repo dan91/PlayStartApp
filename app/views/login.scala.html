@@ -18,17 +18,16 @@
  <fieldset >
         @inputText(
             loginForm("user"),
-            'placeholder -> Messages("s12345"),
-            '_label -> Messages("signin.novell"),
+            'placeholder -> "s12345",
+            '_label -> "Novell-Kennung",
             '_help -> "",
             'class -> "form-control",
             'autofocus -> 1
         )
         @inputPassword(
             loginForm("password"),
-            '_label -> Messages("signin.pw"),
+            '_label -> "Passwort",
             '_help -> "",
-            'placeholder -> Messages("password"),
             'class -> "form-control"
         )
     </fieldset>
@@ -46,22 +45,21 @@
  <fieldset >
         @inputText(
             loginForm("user"),
-            'placeholder -> Messages("s12345"),
-            '_label -> Messages("signin.email"),
+            'placeholder -> "E-Mail",
+            '_label -> "E-Mail",
             'class -> "form-control",
 			'_help -> "",
             'required -> None
         )
         @inputPassword(
             loginForm("password"),
-            '_label -> Messages("signin.pw"),
+            '_label -> "Passwort",
 			'_help -> "",
-            'placeholder -> Messages("password"),
             'class -> "form-control"
         )
         @checkbox(
         	loginForm("checkbox"),
-            '_label -> Messages("signin.remember"),
+            '_label -> "Erinnern?",
             '_help -> "",
             'class -> "form-control"	
         )
@@ -76,8 +74,8 @@
 <div>
 <hr>
 <p>
-<span class='light'>Did not receive confirmation email?</span>
-<a href="/users/confirmation/new">Send again</a>
+<span class='light'>Noch kein Konto?</span>
+<a href="/registerExt">Registrieren</a>
 </p>
 </div>
 
