@@ -271,6 +271,9 @@ $('#calendar').fullCalendar({
 					timeFormat: 'H:mm',
 					columnFormat: 'dd., D.M',
 					contentHeight: 1200,
+					eventDrop: function(event, dayDelta, minuteDelta, allDay, revertFunc) {
+								$('#calendar').fullCalendar('rerenderEvents');
+					},
 					events: [
 				       
 				        {				        	
