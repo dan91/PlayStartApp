@@ -32,10 +32,11 @@ width: 20em
 					<div class="panel-body"> 
 
 						<form class="navbar-form navbar-left" role="search">
-							<input type="text" class="form-control" placeholder="" id="search">
-							<button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span> Suchen</button>
+						<button type="button" class="btn btn-default" data-toggle="modal" data-target="#probands"><span class="glyphicon glyphicon-filter"></span></button>
+							<input type="text" class="form-control" placeholder="Benutzer suchen" id="search">
+							<button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
 						</form>
-
+	
 					</div>
 				</div>
 			</div>
@@ -414,4 +415,97 @@ $('#search').on('keypress', function () {
 	})
 
 </script>
+
+
+<div class="modal fade" id="probands">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title">Probanden auswählen</h4>
+
+					</div>
+					<div class="modal-body">
+
+						<form class="form-horizontal" role="form" action="/sessions">
+							<div class="form-group">
+								<label for="name" class="col-sm-3 control-label">Probandenpool</label>
+								<div class="col-sm-8">
+									<div class="btn-group">
+										<label class="btn btn-default">
+											<input type="checkbox" name="options" id="option1" checked>
+											Studenten </label>
+											<label class="btn btn-default">
+												<input type="checkbox" name="options" id="option2" checked>
+												Externe </label>
+											</div>
+										</div>
+									</div>
+									<div class="form-group">
+								<label for="name" class="col-sm-3 control-label">Geschlecht</label>
+								<div class="col-sm-8">
+									<div class="btn-group">
+										<label class="btn btn-default">
+											<input type="checkbox" name="options" id="option1" checked>
+											männlich </label>
+											<label class="btn btn-default">
+												<input type="checkbox" name="options" id="option2" checked>
+												weiblich </label>
+											</div>
+										</div>
+									</div>
+							<div class="form-group inline">
+								<label for="duration" class="col-sm-3 control-label">Semester</label>
+								<div class="col-sm-5">
+									von: <select id="semesterFrom" class="form-control">
+										<option>unbegrenzt</option>
+										<option>1</option>
+										<option>2</option>
+										<option>3</option>								
+										<option>4</option>
+										<option>5</option>
+										<option>6</option>
+										<option>7</option>
+										<option>8</option>
+									</select> 
+									bis: <select id="semesterUntil" class="form-control">
+										<option>unbegrenzt</option>
+										<option>1</option>
+										<option>2</option>
+										<option>3</option>								
+										<option>4</option>
+										<option>5</option>
+										<option>6</option>
+										<option>7</option>
+										<option>8</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="name" class="col-sm-3 control-label">Vorherige Studien</label>
+								<div class="col-sm-8">
+									<div class="btn-group">
+										<label class="btn btn-default">
+											<input type="checkbox" name="options" id="option1" checked>
+											Meine Studien </label>
+											<label class="btn btn-default">
+												<input type="checkbox" name="options" id="option2" checked>
+											Mein Lehrstuhl </label>
+											<button type="button" id="searchStudies" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+											</div>
+
+									</div>
+								</form>
+							</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-primary" data-dismiss="modal">Speichern</button>
+							</div>
+						</div>
+						<!-- /.modal-content --> 
+					</div>
+					<!-- /.modal-dialog --> 
+				</div>
+				<!-- /.modal --> 
+
 						}
