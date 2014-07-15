@@ -1,44 +1,6 @@
 
 @scripts = {
-<style>
-      #map-canvas {
-       /* height: 100%;*/
-        width:500px;
-        height:300px;
-        margin: 0px;
-        padding: 0px
-      }
-     
 
-      
-    .building-name{
-        font-family: Roboto;
-        border-color: #4d90fe;
-        margin-left: -1px;
-        padding-left: 14px;  /* Regular padding-left + 1. */
-        width: 301px;
-    }
-        
-      
-      .pac-container {
-        font-family: Roboto;
-        z-index: 10000 !important;
-      }
-
-      #type-selector {
-        color: #fff;
-        background-color: #4d90fe;
-        padding: 5px 11px 0px 11px;
-      }
-
-      #type-selector label {
-        font-family: Roboto;
-        font-size: 13px;
-        font-weight: 300;
-      }
-
-
-    </style>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
 
     <script type="text/javascript">
@@ -46,6 +8,7 @@
     $(document).ready(function(){
     
         var markersArray = [];
+        var ZFM = new google.maps.LatLng(49.782264, 9.974931);
         
         $('#myMapModal').on('shown.bs.modal', function() {
             resizeShit();
@@ -54,14 +17,16 @@
         function resizeShit(){  
             var center = map.getCenter();
             google.maps.event.trigger(map, "resize");
-            map.setCenter(center); 
+            
+            /** vorher: "center"*/
+            map.setCenter(ZFM); 
             
         }
         
         
         
         
-        var ZFM = new google.maps.LatLng(49.782264, 9.974931);
+        
         
         
         /** autocomplete stuff*/
@@ -282,13 +247,13 @@
 
 <!-- Beginn Map-Modal -->
 <div class="modal fade" id="myMapModal">
-    <div class="modal-dialog admin_map1">
-        <div class="modal-content contains_map2">
+    <div class="modal-dialog">
+        <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
             	<h4 class="modal-title">Gebäude</h4>
                  </div>
-                 <div class="modal-body contains_map3">
+                 <div class="modal-body">
                  <div class="row">
             					<div class="col-sm-3">
                         <b>Bezeichnung</b>
@@ -314,8 +279,8 @@
             
 
   
-                <div class="container contains_map4">
-                    <div class="row contains_map4">
+                <div class="container">
+                    <div class="row">
                                  
 						 
 						    <div id="map-canvas"></div>
