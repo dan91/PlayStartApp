@@ -4,7 +4,50 @@
 <script src='@routes.Assets.at("javascripts/jquery.ui.touch-punch.min.js")'></script>
 <script src='@routes.Assets.at("javascripts/moment-with-langs.min.js")'></script>
 <script src='@routes.Assets.at("javascripts/fullcalendar.min.js")'></script>
+
+<script>
+$(document).ready(function () {
+	
+$( "#openPreview" ).click(function() {
+	
+	 $('#myPreviewModal').on('shown.bs.modal', function() {
+		 
+		 
+		 var description = $("textarea#description").val();
+		 
+		 if(description == "" || description == " ")
+			 description = "Penis!";
+		 
+		 
+		 var previewContent = 
+			 "Lieber #Name,"
+				+"\n\nWir haben eine interessante Studie für dich!\n"
+				
+				+description
+				
+				+"\n\nVielleicht sehen wir uns ja demnächst!"
+				+"\nBis bald!" 
+				+"\n#Versuchsleitername";
+		 
+		 $("textarea#preview").text(previewContent);
+	    
+	 });
+	 
+	 
+	  
+	
+	
+	
+	});
+	
+});	
+
+
+</script>
+
 }
+
+
 @main(null, scripts, "experimenter") {
 <div role="main" class="container main">
 	<div class="page-header">
@@ -25,7 +68,7 @@
 		</div>
 		<div class="form-group">
 			<label for="description" class="col-sm-3 control-label">Typ</span></label>
-			<div class="col-sm-6">
+			<div class="col-sm-4">
 				<div class="btn-group">
 					<label class="btn btn-default">
 						<input type="radio" name="options" id="option1" checked>
@@ -34,8 +77,16 @@
 							<input type="radio" name="options" id="option2">
 							Internet </label>
 						</div>
-					</div>
-				</div>			
+			</div>			
+			<div class="col-sm-3">
+			<button type="button" class="btn btn-default pull-right" id="openPreview" data-toggle="modal" data-target="#myPreviewModal"><span class="glyphicon glyphicon-envelope"></span> Email Vorschau</button>
+					</div>	
+					
+							
+					
+				</div>	
+		
+					
 				<hr>
 <div class="form-group inline locationRadio">
 					<label for="" class="col-sm-3 control-label">Ort</label>
@@ -122,6 +173,9 @@
 					</div>
 					</div>
 				</div>
+				
+				<hr>
+				
 				<div class="form-group">
 					<label for="description" class="col-sm-3 control-label">Versuchsleiter</span></label>
 					<div class="col-sm-6">
@@ -130,9 +184,20 @@
 <button type="button" class="btn btn-default removeExp" style="display:none">Max Mustermann <span class="glyphicon glyphicon-remove"></span></button>
   </div>
 						<div class="col-sm-3">
-						<button type="button" class="btn btn-default" id="add" data-toggle="modal" data-target="#modalAddPersons"><span class="glyphicon glyphicon-user"> <span class="glyphicon glyphicon-plus"></span></button>
+						<button type="button" class="btn btn-default" id="add" data-toggle="modal" data-target="#modalAddPersons"><span class="glyphicon glyphicon-user"></span> <span class="glyphicon glyphicon-plus"></span></button>
 					</div>
 				</div>
+				
+	<!-- Toms Code -->
+				<div class="form-group">
+					<label for="description" class="col-sm-3 control-label">Email-Vorschau:</label>
+							<div class="col-sm-7">
+				<textarea class="form-control" name="description" rows="4" id="preview" placeholder="Beschreibung der Studie"></textarea>
+							</div>
+				
+				</div>
+	<!-- Ende Toms Code -->
+				
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-8" style="margin-top:1em; border-top:1px solid #eee; padding-top:1em">
 						<button type="submit" class="btn btn-primary btn-lg pull-right"><span class="glyphicon glyphicon-ok"></span> Speichern</button>
@@ -141,6 +206,43 @@
 			</form>
 		</div>
 	</div>
+	
+	
+	<div class="modal fade" id="myPreviewModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                 <h4 class="modal-title">E-mail Vorschau</h4>
+
+            </div>
+            <div class="modal-body">
+               
+                    
+                    
+                        <div class="form-group">
+                 
+				<textarea class="form-control" name="preview" rows="4" id="preview" placeholder="Beschreibung der Studie"></textarea>
+		
+                        </div>
+                      
+                    
+                
+            </div>
+            <div class="modal-footer" style="height:5%;">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Schließen</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+	
+	
+	
+	
+	
 	<div class="modal fade" id="sessionCalendar">
 		<div class="modal-dialog modal-lg mo">
 			<div class="modal-content">
