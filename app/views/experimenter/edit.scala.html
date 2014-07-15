@@ -81,7 +81,7 @@ $( "#openPreview" ).click(function() {
 				
 						
 				<hr>
-<div class="form-group inline">
+<div class="form-group inline locationRadio">
 					<label for="" class="col-sm-3 control-label">Ort</label>
 					<div class="col-sm-3">
 						<select id="" class="form-control">
@@ -98,7 +98,7 @@ $( "#openPreview" ).click(function() {
 						</select>
 					</div>
 				</div>
-				<hr>
+				<hr class="locationRadio">
 				<div class="form-group inline">
 					<label for="description" class="col-sm-3 control-label">Probanden</label>
 			<div class="col-sm-3">
@@ -506,6 +506,27 @@ $( "#openPreview" ).click(function() {
 				<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/localization/messages_de.js"></script> 
 			<script type="text/javascript" src="@routes.Assets.at("javascripts/calendar.js")"></script>
 			<script type="text/javascript">
+		$(document).on('ready', function () {
+
+
+	$('#option2').click(function() {
+  		 if($('#option2').is(':checked')) { 
+   
+   			$(".locationRadio").hide(); 
+   			
+   			}
+		});
+
+	$("#option1").click(function(){
+		
+		if($("#option1").is(":checked")){
+ 			 
+ 			 $(".locationRadio").show();
+ 			 
+ 		 }
+		
+	});
+		})
 $('#calendar').fullCalendar({
 					defaultView: 'agendaWeek',
 					header: {
