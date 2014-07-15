@@ -559,14 +559,9 @@ $('.removeExp').on("click", function() {
 				            trigger: 'click',
 				            html: true
 				        })
-				   //      $(this).on('show.bs.popover', function() {
-				   //      	alert($('.popover'));
-					  //       $('#addProb').on('keypress', function () {
-							// 	if($('#addProb').val().length == 1) {
-							// 		$('#prob').show();
-							// 		}
-							// });
-				   //  	})
+				        $(this).on('show.bs.popover', function () {
+				        	$("*").popover('hide')
+				        });				    
 				    },
 					
 					eventDrop: function(event, dayDelta, minuteDelta, allDay, revertFunc) {
@@ -630,17 +625,7 @@ $('#sessionCalendar').on('hidden.bs.modal', function() {
 });
 
 
-$('body').on('click', function (e) {
-    
-    //buttons and icons within buttons
-    
-    if ($(e.target).data('toggle') !== 'popover'
-        && $(e.target).parents('[data-toggle="popover"]').length === 0
-        && $(e.target).parents('.popover.in').length === 0) { 
-        $('[data-toggle="popover"]').popover('hide');
-    }
-    
-});
+
 	$(document).ready(function(){
 	$('.form-horizontal').validate(
 	{
