@@ -49,7 +49,14 @@ function listEvents() {
 };			
 $('#sessionCalendar').on('shown.bs.modal', function () {
 	$('#calendar').fullCalendar('render');
-	$("div").css('overflow','visible');
+	$(".fc-view-agendaWeek").css('overflow','visible');
+	$("div").each(function () {
+		if($(this).css('overflow-x') == 'hidden') {
+			$(this).css('overflow-x','visible')
+			$(this).css('overflow-y','visible')
+		}
+
+	})
 });
 $('#modalAddPersons').on('shown.bs.modal', function () {
 	$('#addExp').click(function () {
