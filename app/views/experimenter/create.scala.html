@@ -16,12 +16,12 @@ $( "#openPreview" ).click(function() {
 		 var description = $("textarea#description").val();
 		 
 		 if(description.trim() == "")
-			 description = '"\nBeschreibungstext editieren!\nWird HIER eingefügt!"';
+			 description = '"Beschreibungstext editieren!\nWird HIER eingefügt!"';
 		 
 		 
 		 var previewContent = 
 			 "Lieber #Name,"
-				+"\n\nWir haben eine interessante Studie für dich!\n\n"
+				+"\n\nWir haben eine interessante Studie für dich!\n"
 				
 				+description
 				
@@ -32,7 +32,7 @@ $( "#openPreview" ).click(function() {
 		 $("textarea#preview").text(previewContent);
 	    
 	 });
-	 });
+	});
 	
 });	
 

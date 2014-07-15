@@ -16,12 +16,12 @@ $( "#openPreview" ).click(function() {
 		 var description = $("textarea#description").val();
 		 
 		 if(description.trim() == "")
-			 description = '"\nBeschreibungstext editieren!\nWird HIER eingefügt!"';
+			 description = '"Beschreibungstext editieren!\nWird HIER eingefügt!"';
 		 
 		 
 		 var previewContent = 
 			 "Lieber #Name,"
-				+"\n\nWir haben eine interessante Studie für dich!\n\n"
+				+"\n\nWir haben eine interessante Studie für dich!\n"
 				
 				+description
 				
@@ -62,7 +62,7 @@ $( "#openPreview" ).click(function() {
 		</div>
 		<div class="form-group">
 			<label for="description" class="col-sm-3 control-label">Typ</span></label>
-			<div class="col-sm-4">
+			<div class="col-sm-6">
 				<div class="btn-group">
 					<label class="btn btn-default">
 						<input type="radio" name="options" id="option1" checked>
@@ -71,13 +71,16 @@ $( "#openPreview" ).click(function() {
 							<input type="radio" name="options" id="option2">
 							Internet </label>
 						</div>
-			</div>			
-			<div class="col-sm-3">
-			<button type="button" class="btn btn-default pull-right" id="openPreview" data-toggle="modal" data-target="#myPreviewModal"><span class="glyphicon glyphicon-envelope"></span> Email Vorschau</button>
-					</div>	
-			</div>		
-							
+					</div>
+				</div>
 					
+		<div class="form-group">
+					<label for="description" class="col-sm-3 control-label">Email-Vorschau:</label>
+							<div class="col-sm-7">
+				<textarea class="form-control" name="description" rows="4" id="preview" placeholder="Beschreibung der Studie"></textarea>
+							</div>
+				
+				</div>	
 				
 						
 				<hr>
