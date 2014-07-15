@@ -4,6 +4,42 @@
 <script src='@routes.Assets.at("javascripts/jquery.ui.touch-punch.min.js")'></script>
 <script src='@routes.Assets.at("javascripts/moment-with-langs.min.js")'></script>
 <script src='@routes.Assets.at("javascripts/fullcalendar.min.js")'></script>
+
+<script>
+$(document).ready(function () {
+	
+$( "#openPreview" ).click(function() {
+	
+	 $('#myPreviewModal').on('shown.bs.modal', function() {
+		 
+		 
+		 var description = $("textarea#description").val();
+		 
+		 if(description.trim() == "")
+			 description = '"Beschreibungstext editieren!\nWird HIER eingefügt!"';
+		 
+		 
+		 var previewContent = 
+			 "Lieber #Name,"
+				+"\n\nWir haben eine interessante Studie für dich!\n"
+				
+				+description
+				
+				+"\n\nVielleicht sehen wir uns ja demnächst!"
+				+"\nBis bald!" 
+				+"\n#Versuchsleitername";
+		 
+		 $("textarea#preview").text(previewContent);
+	    
+	 });
+	});
+	
+});	
+
+
+</script>
+
+
 }
 
 @main(null, scripts, "experimenter") {
@@ -36,7 +72,17 @@
 							Internet </label>
 						</div>
 					</div>
-				</div>			
+				</div>
+					
+		<div class="form-group">
+					<label for="description" class="col-sm-3 control-label">Email-Vorschau:</label>
+							<div class="col-sm-7">
+				<textarea class="form-control" name="description" rows="4" id="preview" placeholder="Beschreibung der Studie"></textarea>
+							</div>
+				
+				</div>	
+				
+						
 				<hr>
 <div class="form-group inline">
 					<label for="" class="col-sm-3 control-label">Ort</label>
@@ -144,6 +190,36 @@
 			</form>
 		</div>
 	</div>
+	
+	
+	<!-- Email Vorschau Modal Tom -->
+	<div class="modal fade" id="myPreviewModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                 <h4 class="modal-title">E-mail Vorschau</h4>
+
+            </div>
+            <div class="modal-body">
+                        <div class="form-group" >
+				<textarea class="form-control" name="preview" rows="30" id="preview" placeholder="Beschreibung der Studie"></textarea>
+		
+                        </div>
+            </div>
+            <div class="modal-footer" style="height:5%;">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Schließen</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+	
+	
+	
+	
 	<div class="modal fade" id="sessionCalendar">
 		<div class="modal-dialog modal-lg mo">
 			<div class="modal-content">
