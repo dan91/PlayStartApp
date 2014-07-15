@@ -15,8 +15,8 @@ $( "#openPreview" ).click(function() {
 		 
 		 var description = $("textarea#description").val();
 		 
-		 if(description == "" || description == " ")
-			 description = "Penis!";
+		 if(description.trim() == "")
+			 description = '"Beschreibungstext editieren!\nWird HIER eingefügt!"';
 		 
 		 
 		 var previewContent = 
