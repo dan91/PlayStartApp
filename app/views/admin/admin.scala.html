@@ -29,16 +29,16 @@
 					<h3 class="panel-title">Neue Benutzer <span class="pull-right"><a href="/user"><button type="button" class="btn  btn-default btn-sm">Alle Benutzer</button></a></span></h3>
 	
 <hr>
-				<p>Daniel Neuangemeldet <span class="pull-right">12.12.2014</span></p>
-				<p>Felix Musterman <span class="pull-right">11.12.2014</span></p>
-				<p>Paul Musterman <span class="pull-right">9.12.2014</span></p>
-				<p>Max Musterman <span class="pull-right">9.12.2014</span></p>
-				<p>Stephan Musterman <span class="pull-right">6.12.2014</span></p>
-<p>Daniel Neuangemeldet <span class="pull-right">12.12.2014</span></p>
-				<p>Felix Musterman <span class="pull-right">11.12.2014</span></p>
-				<p>Paul Musterman <span class="pull-right">9.12.2014</span></p>
-				<p>Max Musterman <span class="pull-right">9.12.2014</span></p>
-				<p>Stephan Musterman <span class="pull-right">6.12.2014</span></p>
+				<p>Daniel Neuangemeldet <span class="pull-right">12.12.2014 <button type="submit" class="btn btn-xs btn-edit btn-default" id="add" data-toggle="modal" data-target="#myModal1"><span class="glyphicon glyphicon-pencil"></span></button></span></p>
+				<p>Felix Musterman <span class="pull-right">11.12.2014 <button type="submit" class="btn btn-xs btn-edit btn-default" id="add" data-toggle="modal" data-target="#myModal1"><span class="glyphicon glyphicon-pencil"></span></button></span></p>
+				<p>Paul Musterman <span class="pull-right">9.12.2014 <button type="submit" class="btn btn-xs btn-edit btn-default" id="add" data-toggle="modal" data-target="#myModal1"><span class="glyphicon glyphicon-pencil"></span></button></span></p>
+				<p>Max Musterman <span class="pull-right">9.12.2014 <button type="submit" class="btn btn-xs btn-edit btn-default" id="add" data-toggle="modal" data-target="#myModal1"><span class="glyphicon glyphicon-pencil"></span></button></span></p>
+				<p>Stephan Musterman <span class="pull-right">6.12.2014 <button type="submit" class="btn btn-xs btn-edit btn-default" id="add" data-toggle="modal" data-target="#myModal1"><span class="glyphicon glyphicon-pencil"></span></button></span></p>
+<p>Daniel Neuangemeldet <span class="pull-right">12.12.2014 <button type="submit" class="btn btn-xs btn-edit btn-default" id="add" data-toggle="modal" data-target="#myModal1"><span class="glyphicon glyphicon-pencil"></span></button></span></p>
+				<p>Felix Musterman <span class="pull-right">11.12.2014 <button type="submit" class="btn btn-xs btn-edit btn-default" id="add" data-toggle="modal" data-target="#myModal1"><span class="glyphicon glyphicon-pencil"></span></button></span></p>
+				<p>Paul Musterman <span class="pull-right">9.12.2014 <button type="submit" class="btn btn-xs btn-edit btn-default" id="add" data-toggle="modal" data-target="#myModal1"><span class="glyphicon glyphicon-pencil"></span></button></span></p>
+				<p>Max Musterman <span class="pull-right">9.12.2014 <button type="submit" class="btn btn-xs btn-edit btn-default" id="add" data-toggle="modal" data-target="#myModal1"><span class="glyphicon glyphicon-pencil"></span></button></span></p>
+				<p>Stephan Musterman <span class="pull-right">6.12.2014 <button type="submit" class="btn btn-xs btn-edit btn-default" id="add" data-toggle="modal" data-target="#myModal1"><span class="glyphicon glyphicon-pencil"></span></button></span></p>
 
 		</div>
 </div>
@@ -126,8 +126,8 @@
 
 						<table class="table table-hover">					  <tbody>
 								<tr>
-					  		<td class="col-sm-8">Benutzer > 25VPS</td>
-					  		<td>75 (link liste)</td>
+					  		<td class="col-sm-8">Probanden > 25VPS</td>
+					  		<td>70</td>
 					  		</tr>
 					  </tbody>
 					</table>
@@ -210,5 +210,130 @@
 
 
 </div>
+
+
+
+
+	<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+		<div class="modal-dialog ">
+			<div class="modal-content ">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					<h4 class="modal-title">Benutzer bearbeiten</h4>
+
+				</div>
+				<p></p>
+
+				<form class="form-horizontal" role="form">
+					<div class="form-group">
+						<label for="name" class="col-sm-3 control-label">Name</label>
+						<div class="col-sm-6">
+							<input type="text" name="name" class="form-control" id="name" value="Max Mustermann" autofocus>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="name" class="col-sm-3 control-label">E-Mail</label>
+						<div class="col-sm-6">
+							<input type="text" name="name" class="form-control" id="name" value="max@@mustermann.de">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="name" class="col-sm-3 control-label">Studienbegin</label>
+						<div class="col-sm-6">
+							<select id="semesterFrom" class="form-control">
+								<option>Wintersemester 2012/13</option>
+								<option>Sommersemester 2013</option>
+								<option>Wintersemester 2014/15</option>
+							</select> 			
+						</div>
+					</div>
+					
+							<div class="form-group">
+								<label for="name" class="col-sm-3 control-label">Studiengang</label>
+								<div class="col-sm-6">
+									<div class="radio">
+										<label>
+											<input type="radio" name="options2" id="optionsRadios1" value="option1">
+											MCS  </label>
+										</div>
+										<div class="radio">
+											<label>
+												<input type="radio" name="options2" id="optionsRadios2" value="option2">
+												MK  </label>
+											</div>		<div class="radio">
+											<label>
+												<input type="radio" name="options2" id="optionsRadios2" value="option2" checked>
+												Sonstige  </label>
+											</div>		</div>
+										</div>
+										<div class="form-group">
+											<label for="name" class="col-sm-3 control-label">Händigkeit</label>
+											<div class="col-sm-6">
+
+
+												<div class="radio">
+													<label>
+														<input type="radio" name="options3" id="optionsRadios1" value="option1" checked>
+														Rechts  </label>
+													</div>
+													<div class="radio">
+														<label>
+															<input type="radio" name="options3" id="optionsRadios2" value="option2">
+															Links  </label>
+														</div>
+													</div>
+												</div>
+												<div class="form-group">
+													<label for="name" class="col-sm-3 control-label">Rechte</label>
+													<div class="col-sm-6">
+														<div class="radio">
+															<label>
+																<input type="radio" name="options4" value="" checked> Proband (Nur Studien besuchen)
+															</label>
+														</div>
+														<div class="radio">
+															<label>
+																<input type="radio" name="options4"  value=""> Hilfskraft (Sessions erstellen und Teilnahmen bestätigen)
+															</label>
+														</div>
+														<div class="radio">
+															<label>
+																<input type="radio" name="options4"  value=""> Versuchsleiter (Versuche erstellen)
+															</label>
+														</div>
+														
+														<div class="radio">
+															<label>
+																<input type="radio" name="options4"  value=""> <span class="text-danger">Administrator</span>
+															</label>
+														</div>
+
+													</div>
+												</div>
+
+												<div class="form-group">
+													<label for="name" class="col-sm-3 control-label">VPS</label>
+													<div class="col-sm-6">
+														<input type="text" name="name" class="form-control" id="name" value="25" autofocus>
+													</div>
+												</div>
+
+
+
+
+											</form>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-ok"></span> Speichern</button>
+												<button type="button" class="btn btn-danger pull-left"><span class="glyphicon glyphicon-remove"></span> Benutzer löschen</button>
+											</div>
+										</div>
+										<!-- /.modal-content -->
+									</div>
+									<!-- /.modal-dialog -->	
+
+
+
+								</div>
 
 }
