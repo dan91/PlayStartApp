@@ -27,7 +27,7 @@
     	'</div>';
 
     	var infowindow = new google.maps.InfoWindow({
-    	    content: '<div id="infodiv" style="width: 20px">300px wide infowindow!  if the mouse is not here, will close after 3 seconds</div>'
+    	    content: '<div id="infodiv">'+contentString+'</div>'
     	});
     
     $('#myMapModal').on('shown.bs.modal', function() {
