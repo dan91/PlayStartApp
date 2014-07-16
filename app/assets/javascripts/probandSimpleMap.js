@@ -13,7 +13,7 @@
     	
     	marker.setMap(map);
     
-    	var contentString = '<div id="contentProbandMap">'+
+    	var contentString = '<div id="content">'+
     	'<div id="siteNotice">'+
     	'</div>'+
     	'<h2 id="firstHeading" class="firstHeading">Gebäude 82</h2>'+
@@ -27,7 +27,7 @@
     	'</div>';
 
     	var infowindow = new google.maps.InfoWindow({
-    	    content: contentString
+    	    content: '<div id="infodiv" style="width: 20px">300px wide infowindow!  if the mouse is not here, will close after 3 seconds</div>'
     	});
     
     $('#myMapModal').on('shown.bs.modal', function() {
