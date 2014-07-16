@@ -565,7 +565,12 @@ $('#calendar').fullCalendar({
 					}
 						$('#calendar').fullCalendar('unselect');
 					},
-					
+					eventMouseover: function () {
+				    	$(this).css('background-color','rgb(55, 114, 165)')
+				    },
+				    eventMouseout: function () {
+				    	$(this).css('background-color','rgb(66, 139, 202)')
+				    },
 					
 					eventDrop: function(event, dayDelta, minuteDelta, allDay, revertFunc) {
 								$('#calendar').fullCalendar('rerenderEvents');

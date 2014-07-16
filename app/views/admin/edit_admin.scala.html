@@ -546,7 +546,8 @@ $('#calendar').fullCalendar({
 					timeFormat: 'H:mm',
 					columnFormat: 'dd., D.M',
 					contentHeight: 1200,
-				
+					eventColor: '#428bca',
+
 					select: function(start, end) {
 						
 						dur = parseInt($("#duration option:selected").text());
@@ -573,6 +574,12 @@ $('#calendar').fullCalendar({
 					eventResize: function(event, dayDelta, minuteDelta, revertFunc) {
 						//if (isOverlapping(event)) {revertFunc()};
 					},
+					eventMouseover: function () {
+				    	$(this).css('background-color','rgb(55, 114, 165)')
+				    },
+				    eventMouseout: function () {
+				    	$(this).css('background-color','rgb(66, 139, 202)')
+				    },
 					eventRender: function( event, element, view ) {
 						$(element).popover({
 				            title: 'Angemeldete Probanden',

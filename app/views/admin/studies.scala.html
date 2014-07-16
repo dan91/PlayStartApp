@@ -293,6 +293,12 @@ $('#calendar').fullCalendar({
 				            end  : '2014-07-16T13:00'
 				        }
 				    ],
+				    eventMouseover: function () {
+				    	$(this).css('background-color','rgb(55, 114, 165)')
+				    },
+				    eventMouseout: function () {
+				    	$(this).css('background-color','rgb(66, 139, 202)')
+				    },
 				    eventRender: function( event, element, view ) {
 						$(element).popover({
 				            title: 'Angemeldete Probanden',
