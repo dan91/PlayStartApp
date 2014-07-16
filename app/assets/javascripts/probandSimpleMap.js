@@ -13,7 +13,7 @@
     	
     	marker.setMap(map);
     
-    	var contentString = '<div id="content">'+
+    	var contentString = '<div id="contentProbandMap">'+
     	'<div id="siteNotice">'+
     	'</div>'+
     	'<h2 id="firstHeading" class="firstHeading">Gebäude 82</h2>'+
