@@ -54,5 +54,11 @@ GET		/user					controllers.Admin.auser()
 GET		/allStudies				controllers.Admin.astudies()
 GET		/admin_edit				controllers.Admin.edit()
 
+
+
+POST    /java                   controllers.Application.save()
+
+
+
 #Account
 GET		/konto					controllers.Admin.konto()
