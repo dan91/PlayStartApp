@@ -2,7 +2,7 @@ package controllers;
 
 import java.util.Map;
 
-import models.LatLng;
+// import models.LatLng;
 import models.User;
 import models.utils.AppException;
 import play.Logger;

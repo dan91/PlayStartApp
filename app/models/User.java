@@ -40,6 +40,8 @@ public class User extends Model {
 
     public Date enrollment_date;
 
+    public String course;
+
     public int proband_pools_id;
     
     

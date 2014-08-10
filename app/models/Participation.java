@@ -13,37 +13,25 @@ import com.avaje.ebean.*;
  * User entity managed by Ebean
  */
 @Entity 
-public class Experiment extends Model {
+public class Participation extends Model {
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    public Long id;
+    @Constraints.Required
+    public Long user_id;
     
     @Constraints.Required
-    public String name;
+    public Long session_id;
     
-    public String description;
+    public Boolean was_present;
 
-    public float duration;
-
-    public float proband_hours;
-
-    public Boolean finished;
-
-    public String email_notifications;
-
-    public int experiment_type_id;
+    public Boolean got_invitation;
     
     
     /**
      * Generic query helper for entity User with id
      */
-    public static Finder<Long,Experiment> find = new Finder<Long,Experiment>(Long.class, Experiment.class); 
-
-    public static List<Experiment> all() {
-        return find.all();
-    }
+    public static Finder<Long,Participation> find = new Finder<Long,Participation>(Long.class, Participation.class); 
     
     // /**
     //  * Return a page of computer

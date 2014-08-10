@@ -1,3 +1,4 @@
+@(experiments: List[Experiment])
 @scripts = {
 <link rel='stylesheet' href='@routes.Assets.at("stylesheets/fullcalendar.css")' />
 <script src='@routes.Assets.at("javascripts/jquery-ui.custom.min.js")'></script>
@@ -12,6 +13,13 @@
 </div>
 <h4>Laufende Studien <span class="label label-default">3</span></h4>
 <hr>
+@for(experiment <- experiments) {
+            <li>
+                @experiment.name
+                
+               
+            </li>
+        }
 <div class="row">
 	<div class="col-sm-3"><b>Multitasking II</b></div>
 	<div class="col-sm-2"><span class="glyphicon glyphicon-user"></span> 30 Teilnahmen 

@@ -1,5 +1,6 @@
 package controllers;
 
+import models.Experiment;
 import models.User;
 import models.utils.AppException;
 import play.Logger;
@@ -9,7 +10,6 @@ import play.i18n.Messages;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.index;
-
 import static play.data.Form.form;
 
 /**
@@ -45,7 +45,7 @@ public class Experimenter extends Controller {
      * @return
      */
     public static Result myStudies() {  
-        return ok(views.html.experimenter.myStudies.render());
+        return ok(views.html.experimenter.myStudies.render(Experiment.all()));
     }
     
     /**
