@@ -18,13 +18,7 @@ import static play.data.Form.form;
  */
 public class Proband extends Controller {
 
-    public static Result GO_HOME = redirect(
-            routes.Application.index()
-    );
-
-    public static Result GO_DASHBOARD = redirect(
-            routes.Dashboard.index()
-    );
+  
 
     /**
      * Displays the registered experiments
@@ -50,9 +44,6 @@ public class Proband extends Controller {
      * 
      */
     
-    public static Result registerExt() {  
-        return ok(views.html.proband.registerExt.render());
-    }
    
 
 }

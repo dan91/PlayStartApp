@@ -18,7 +18,7 @@ public class User extends Model {
     private static final long serialVersionUID = 1L;
 
     @Id
-    public int id;
+    public Long id;
     
     @Constraints.Required
     public String name;
@@ -46,7 +46,7 @@ public class User extends Model {
     /**
      * Generic query helper for entity User with id
      */
-    public static Finder<int,User> find = new Finder<int,User>(Integer.class, User.class); 
+    public static Finder<Long,User> find = new Finder<Long,User>(Long.class, User.class); 
     
     // /**
     //  * Return a page of computer
