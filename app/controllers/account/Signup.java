@@ -39,6 +39,10 @@ public class Signup extends Controller {
         return ok(create.render(form(Application.Register.class)));
     }
 
+    public static Result register() {
+        return ok(views.html.account.signup.register.render());
+    }
+
     /**
      * Display the create form only (for the index page).
      *

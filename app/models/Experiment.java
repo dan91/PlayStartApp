@@ -12,8 +12,8 @@ import com.avaje.ebean.*;
 /**
  * User entity managed by Ebean
  */
-@Entity 
-public class User extends Model {
+@Entity Experiment
+public class Experiment extends Model {
 
     private static final long serialVersionUID = 1L;
 
@@ -23,30 +23,27 @@ public class User extends Model {
     @Constraints.Required
     public String name;
     
-    @Constraints.Required
-    public String email;
+    public String description;
 
     public String language;
 
-    public int rights_id;
+    public float duration;
 
-    public int chair_id;
+    public float proband_hours;
 
-    public String phone;
+    public Boolean proband_hours;
 
-    public Date birthday;
+    public Boolean finished;
 
-    public String handedness;
+    public String email_notifications;
 
-    public Date enrollment_date;
-
-    public int proband_pools_id;
+    public int experiment_type_id;
     
     
     /**
      * Generic query helper for entity User with id
      */
-    public static Finder<int,User> find = new Finder<int,User>(Integer.class, User.class); 
+    public static Finder<int,Experiment> find = new Finder<int,User>(Integer.class, Experiment.class); 
     
     // /**
     //  * Return a page of computer
