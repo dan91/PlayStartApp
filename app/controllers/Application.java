@@ -22,14 +22,6 @@ import static play.data.Form.form;
 public class Application extends Controller {
 
 
-    public static Result GO_HOME = redirect(
-            routes.Application.index()
-    );
-
-    public static Result GO_DASHBOARD = redirect(
-            routes.Dashboard.index()
-    );
-    
     
 
     public static Result save(){
