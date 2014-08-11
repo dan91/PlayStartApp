@@ -2,9 +2,6 @@ package controllers.account;
 
 import controllers.Application;
 import models.User;
-import models.utils.AppException;
-import models.utils.Hash;
-import models.utils.Mail;
 import org.apache.commons.mail.EmailException;
 import play.Configuration;
 import play.Logger;

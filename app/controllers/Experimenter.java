@@ -2,7 +2,6 @@ package controllers;
 
 import models.Experiment;
 import models.User;
-import models.utils.AppException;
 import play.Logger;
 import play.data.Form;
 import play.data.validation.Constraints;
@@ -35,7 +34,7 @@ public class Experimenter extends Controller {
      *
      * @return
      */
-    public static Result edit() {  
+    public static Result edit(Long id) {  
         return ok(views.html.experimenter.edit.render());
     }
     

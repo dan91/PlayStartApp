@@ -1,7 +1,6 @@
 package controllers;
 
 import models.User;
-import models.utils.AppException;
 import play.Logger;
 import play.data.Form;
 import play.data.validation.Constraints;

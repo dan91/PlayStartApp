@@ -14,14 +14,11 @@
 <h4>Laufende Studien <span class="label label-default">3</span></h4>
 <hr>
 @for(experiment <- experiments) {
-            <li>
-                @experiment.name
-                
-               
-            </li>
-        }
+            
+              
+
 <div class="row">
-	<div class="col-sm-3"><b>Multitasking II</b></div>
+	<div class="col-sm-3"><b>@experiment.name</b></div>
 	<div class="col-sm-2"><span class="glyphicon glyphicon-user"></span> 30 Teilnahmen 
 	</div>
 	
@@ -33,19 +30,18 @@
     		<span class="sr-only">65% Complete (success)</span>
   		</div>
   	</div>	
-  		
 
 	<div class="col-sm-4">
 		<a href="/completeStudy"><button class="btn btn-warning tool" data-toggle="tooltip" data-placement="top" title="Teilnahmen bestätigen - 4 Neue"><span class="glyphicon glyphicon-ok"></span> </button></a>
 		<a href="#"><button class="btn btn-default tool" data-toggle="modal" data-target="#sessionCalendar" data-toggle="modal" data-target="#sessionCalendar" data-toggle="tooltip" data-placement="top" title="Kalender Anzeigen"><span class="glyphicon glyphicon-calendar"></span> </button></a>
 		<button class="btn btn-default tool" data-toggle="modal" data-target=".invite" toggle="tooltip" data-placement="top" title="Einladungen Verschicken"><span class="glyphicon glyphicon-envelope" ></span></button>
-		<a href="/edit"><button class="btn  btn-default tool" data-toggle="tooltip" data-placement="top" title="Studie Bearbeiten"><span class="glyphicon glyphicon-pencil"></span> </button></a>
+		<a href="/edit/@experiment.id"><button class="btn btn-default tool" data-toggle="tooltip" data-placement="top" title="Studie Bearbeiten"><span class="glyphicon glyphicon-pencil"></span> </button></a>
 
 	</div>
 
 </div>
-
-<div class="row">
+}
+<!-- <div class="row">
 	<div class="col-sm-3"><b>Filmstudie</b></div>
 	<div class="col-sm-2"><span class="glyphicon glyphicon-user"></span> 35 Teilnahmen 
 	</div>
@@ -102,7 +98,7 @@
 
 
 
-<div class="row">  <!-- abgeschlossene studie -->
+<div class="row"> 
 	<div class="col-sm-4"><b>Multitasking I</b></div>
 	<div class="col-sm-4"><span class="glyphicon glyphicon-user"></span> 30 Teilnahmen </div>	
 	<div class="col-sm-3">
@@ -111,11 +107,11 @@
 	
 		<a href="/edit"><button class="btn  btn-default tool" data-toggle="tooltip" data-placement="top" title="Studie Bearbeiten"><span class="glyphicon glyphicon-pencil"></span> </button></a>
 	</div>
-</div>    <!-- / abgeschlossene studie -->
+</div>    <!-- / abgeschlossene studie
 
 
 
-<div class="row">  <!-- abgeschlossene studie -->
+<div class="row">  <!-- abgeschlossene studie 
 	<div class="col-sm-4"><b>Gestenerkennung I</b></div>
 	<div class="col-sm-4"><span class="glyphicon glyphicon-user"></span> 30 Teilnahmen </div>	
 	<div class="col-sm-3">
@@ -124,11 +120,11 @@
 	
 		<a href="/edit"><button class="btn  btn-default tool" data-toggle="tooltip" data-placement="top" title="Studie Bearbeiten"><span class="glyphicon glyphicon-pencil"></span> </button></a>
 	</div>
-</div>    <!-- / abgeschlossene studie -->
+</div>    <!-- / abgeschlossene studie 
 
 
 
-<div class="row">  <!-- abgeschlossene studie -->
+<div class="row">  <!-- abgeschlossene studie 
 	<div class="col-sm-4"><b>Reaktionsfähigkeit I</b></div>
 	<div class="col-sm-4"><span class="glyphicon glyphicon-user"></span> 58 Teilnahmen </div>	
 	<div class="col-sm-3">
@@ -137,11 +133,11 @@
 	
 		<a href="/edit"><button class="btn  btn-default tool" data-toggle="tooltip" data-placement="top" title="Studie Bearbeiten"><span class="glyphicon glyphicon-pencil"></span> </button></a>
 	</div>
-</div>    <!-- / abgeschlossene studie -->
+</div>    <!-- / abgeschlossene studie
 
 
 
-<div class="row">  <!-- abgeschlossene studie -->
+<div class="row">  <!-- abgeschlossene studie 
 	<div class="col-sm-4"><b>Reaktionsfähigkeit II</b></div>
 	<div class="col-sm-4"><span class="glyphicon glyphicon-user"></span> 30 Teilnahmen </div>	
 	<div class="col-sm-3">
@@ -150,7 +146,7 @@
 	
 		<a href="/edit"><button class="btn  btn-default tool" data-toggle="tooltip" data-placement="top" title="Studie Bearbeiten"><span class="glyphicon glyphicon-pencil"></span> </button></a>
 	</div>
-</div>    <!-- / abgeschlossene studie -->
+</div>    <!-- / abgeschlossene studie --> 
 
 
 

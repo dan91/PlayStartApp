@@ -4,7 +4,6 @@ import java.util.Map;
 
 // import models.LatLng;
 import models.User;
-import models.utils.AppException;
 import play.Logger;
 import play.data.Form;
 import play.data.validation.Constraints;

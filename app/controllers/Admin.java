@@ -5,7 +5,6 @@ import java.util.Map;
 import models.Building;
 import models.Experiment;
 import models.User;
-import models.utils.AppException;
 import play.Logger;
 import play.data.Form;
 import play.data.validation.Constraints;

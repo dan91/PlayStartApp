@@ -16,7 +16,7 @@ GET		/register			   controllers.account.Signup.register()
 
 # Experimenter
 GET     /create                 controllers.Experimenter.create()
-GET     /edit                   controllers.Experimenter.edit()
+GET     /edit:id                   controllers.Experimenter.edit(id: Long)
 GET     /myStudies				controllers.Experimenter.myStudies()
 GET     /completeStudy			controllers.Experimenter.completeStudy()
 

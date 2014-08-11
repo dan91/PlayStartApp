@@ -45,6 +45,10 @@ public class Experiment extends Model {
         return find.all();
     }
     
+//    public static List<Experiment> byUserId() {
+//        return find.where().eq(arg0, arg1)
+//    }
+    
     // /**
     //  * Return a page of computer
     //  *
