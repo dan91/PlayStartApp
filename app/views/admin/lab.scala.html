@@ -1,3 +1,4 @@
+@(building: List[Buildings])
 
 @scripts = {
 
@@ -160,11 +161,35 @@
 
 
 
+
+
 <div class="page-header">
 <h3>Labore <span class="label label-default">16</span>      
             <button data-toggle="modal" data-target="#myMapModal" class="btn btn-default loc pull-right" ><span class="glyphicon glyphicon-plus"></span> Gebäude</button>
         </h3>    </div>
 	
+	
+	@for(buildings<-building){
+
+<!--  
+<h1>  buildings.name</h1>
+<h2>  buildings.description</h2>
+<hr>
+-->
+
+<div class="row myStudies_ListView">
+			<div class="col-sm-8 col-xs-6"><h4>@buildings.name</h4></div>
+			<div class="col-sm-4 col-xs-6 text-right">
+			<button class="btn btn-default" id="add" data-toggle="modal" data-target="#myRoomModal"><span class="glyphicon glyphicon-plus"></span> Raum</button>
+			<button class="btn btn-default" id="add" data-toggle="modal" data-target="#myMapModal"> <span class="glyphicon glyphicon-pencil"></span></button>
+      <button class="btn btn-danger" id="add"> <span class="glyphicon glyphicon-remove"></span></button>
+      </div>
+			
+			</div>
+
+}
+	
+	<!--  DUMMY CONTENT----------------------------------------------------------
 
 	<div class="row myStudies_ListView">
 			<div class="col-sm-8 col-xs-6"><h4>Gebäude 82</h4></div>
@@ -237,8 +262,15 @@
       </div> 
       </div>
 </div>
+	
+	
+	
+	---------------------------------------------       DUMMY CONTENT-->
+	
 		
 <!-- Ende container -->
+
+
 
 
 <!-- Beginn Map-Modal -->
@@ -286,7 +318,7 @@
             </div>
             <div class="modal-footer">
             
-            		<form action="@routes.Application.save()" method="POST">
+            		<form action="@routes.Admin.save()" method="POST">
 			                
 			           	
 			             	
@@ -299,7 +331,9 @@
            		 	<script>
            		 	$(document).ready(function(){
            		 			$('#newBuildingSubmit').click(function(){
-           		 				alert("sfvdsfdsf");
+           		 				/** on click wird das modal versteckt und
+           		 				der User bekommt wieder die neugeladene lab Seite zu sehen*/
+           		 				$('#myMapModal').modal('hide');
            		 			});
            		 	});
            		 	
@@ -356,7 +390,7 @@
                 
             </div>
             <div class="modal-footer">
-            <form action="@routes.Application.save()" method="POST">
+            <form action="@routes.Admin.save()" method="POST">
                 <button type="submit" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-ok"></span> Speichern</button>
            	</form>
            		

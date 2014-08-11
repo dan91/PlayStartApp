@@ -1,5 +1,9 @@
 package controllers;
 
+import java.util.Map;
+
+import models.Buildings;
+import models.Experiment;
 import models.User;
 import models.utils.AppException;
 import play.Logger;
@@ -9,7 +13,7 @@ import play.i18n.Messages;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.index;
-
+import views.html.admin.lab;
 import static play.data.Form.form;
 
 /**
@@ -62,9 +66,29 @@ public class Admin extends Controller {
      *
      * @return
      */
-    public static Result alab() {  
-        return ok(views.html.admin.lab.render());
+    public static Result lab() {  
+        return ok(views.html.admin.lab.render(Buildings.all()));
     }
+
+/**
+*Gets the coordinates from client (admin) for a new room
+*
+*@return
+*/
+    public static Result save(){
+        
+        final Map<String, String[]> values = request().body().asFormUrlEncoded();
+        final String lat = values.get("latFld")[0];;
+        final String fld = values.get("lngFld")[0];
+        
+        String created = "Lat: "+lat+"  Lng: "+fld;
+         
+        //return ok(submit.render(created));
+        
+        return ok(lab.render(Buildings.all()));
+    }
+
+
     
     /**
      * Displays the admin lmap

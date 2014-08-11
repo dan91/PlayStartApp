@@ -22,14 +22,14 @@ GET     /completeStudy			controllers.Experimenter.completeStudy()
 
 # Admin
 GET		/admin   				controllers.Admin.admin()
-GET		/lab					controllers.Admin.alab()
+GET		/lab					controllers.Admin.lab()
 GET		/user					controllers.Admin.auser()
 GET		/allStudies				controllers.Admin.astudies()
 GET		/admin_edit				controllers.Admin.edit()
 
 
 
-POST    /java                   controllers.Application.save()
+POST    /lab                  	controllers.Admin.save()
 
 
 

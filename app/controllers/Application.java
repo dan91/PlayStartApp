@@ -24,17 +24,7 @@ public class Application extends Controller {
 
     
 
-    public static Result save(){
-    	
-    	final Map<String, String[]> values = request().body().asFormUrlEncoded();
-        final String lat = values.get("latFld")[0];;
-        final String fld = values.get("lngFld")[0];
-        
-        String created = "Lat: "+lat+"  Lng: "+fld;
-         
-        return ok(submit.render(created));
- 
-    }
+    
     
     
     /**
