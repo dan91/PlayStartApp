@@ -28,7 +28,7 @@ public class User extends Model {
 
     public String language;
 
-    public int rights_id;
+    public int privilege_id;
 
     public int chair_id;
 
