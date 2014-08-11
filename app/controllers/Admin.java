@@ -2,7 +2,7 @@ package controllers;
 
 import java.util.Map;
 
-import models.Buildings;
+import models.Building;
 import models.Experiment;
 import models.User;
 import models.utils.AppException;
@@ -67,7 +67,7 @@ public class Admin extends Controller {
      * @return
      */
     public static Result lab() {  
-        return ok(views.html.admin.lab.render(Buildings.all()));
+        return ok(views.html.admin.lab.render(Building.all()));
     }
 
 /**
@@ -85,7 +85,7 @@ public class Admin extends Controller {
          
         //return ok(submit.render(created));
         
-        return ok(lab.render(Buildings.all()));
+        return ok(lab.render(Building.all()));
     }
 
 
