@@ -1,4 +1,4 @@
-@(building: List[Building])
+@(buildings: List[Building])
 
 @scripts = {
 
@@ -169,7 +169,7 @@
         </h3>    </div>
 	
 	
-	@for(buildings<-building){
+	@for(building<-buildings){
 
 <!--  
 <h1>  buildings.name</h1>
@@ -178,7 +178,7 @@
 -->
 
 <div class="row myStudies_ListView">
-			<div class="col-sm-8 col-xs-6"><h4>@buildings.name</h4></div>
+			<div class="col-sm-8 col-xs-6"><h4>@building.name</h4></div>
 			<div class="col-sm-4 col-xs-6 text-right">
 			<button class="btn btn-default" id="add" data-toggle="modal" data-target="#myRoomModal"><span class="glyphicon glyphicon-plus"></span> Raum</button>
 			<button class="btn btn-default" id="add" data-toggle="modal" data-target="#myMapModal"> <span class="glyphicon glyphicon-pencil"></span></button>
