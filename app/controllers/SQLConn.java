@@ -12,10 +12,10 @@ public class SQLConn {
 	
 	Connection conn = null;
 
-	public static void main(String[] args) {
+	public SQLConn() {
 		SQLConn instance = new SQLConn();
 		try {
-			instance.connect("d01b49f3", "QZFUeJbWBp85KX6T", "d01b49f3");
+			instance.connect();
 			instance.doStuff();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -29,7 +29,7 @@ public class SQLConn {
 		// ------------------------------
 		// your code goes here
 		// ------------------------------
-		ResultSet result = stmt.executeQuery("SELECT * FROM Buildings");
+		ResultSet result = stmt.executeQuery("SELECT * FROM Building");
 		while (result.next()){
 			System.out.println(result.getString("name"));
 			
@@ -40,14 +40,14 @@ public class SQLConn {
 
 
 
-	protected void connect(String userName, String password, String db) throws SQLException{
+	protected void connect() throws SQLException{
 		disconnect();
 		Properties connectionProps = new Properties();
-		connectionProps.put("user", userName);
-		connectionProps.put("password", password);
+		connectionProps.put("user", "d01b49f3");
+		connectionProps.put("password", "QZFUeJbWBp85KX6T");
 
 		conn = DriverManager.getConnection(
-				"jdbc:mysql://webased.de:3306/" + db,    
+				"jdbc:mysql://webased.de:3306/" + "d01b49f3",    
 				
 				/** *****hier wird für "db" der db name eingefügt,
 				klappt aber auch mit username ?! ****   */
