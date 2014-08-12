@@ -1,12 +1,17 @@
 package models;
 
+import java.sql.Connection;
 import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
 import play.data.validation.Constraints;
+import play.db.DB;
 import play.db.ebean.Model;
 
 @Entity 
@@ -26,13 +31,13 @@ public class Session extends Model {
     public Long experiment_id;
   
    
-    /**
-     * Generic query helper for entity User with id
-     */
-    public static Finder<Long,Session> find = new Finder<Long,Session>(Long.class, Session.class); 
-
-    public static List<Session> all() {
-        return find.all();
+    public static int registeredAmountByExperimentId(Long id) throws SQLException {
+    	Connection con = DB.getConnection();
+        Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+		ResultSet rs = stmt
+				.executeQuery("SELECT COUNT(*) AS amount FROM Partcipation, Session, Experiment WHERE Participation.session_id = Session.id AND Session.experiment_id = Experiment.id AND Experiment.id = "+id+" AND Session.datetime > NOW");
+		rs.next();
+		return rs.getInt("amount");
     }
     
     // /**

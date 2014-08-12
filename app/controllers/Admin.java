@@ -1,5 +1,6 @@
 package controllers;
 
+import java.sql.SQLException;
 import java.util.Map;
 
 import models.Building;
@@ -66,7 +67,12 @@ public class Admin extends Controller {
      * @return
      */
     public static Result lab() {  
-        return ok(views.html.admin.lab.render(Building.all()));
+        try {
+			return ok(views.html.admin.lab.render(Building.all()));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			return badRequest(e.toString());
+		}
     }
 
 /**
@@ -84,7 +90,12 @@ public class Admin extends Controller {
          
         //return ok(submit.render(created));
         
-        return ok(lab.render(Building.all()));
+        try {
+			return ok(lab.render(Building.all()));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			return badRequest(e.toString());
+		}
     }
 
 

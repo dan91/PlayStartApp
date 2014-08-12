@@ -48,11 +48,12 @@ public class Experiment extends Model {
     	Connection con = DB.getConnection();
         Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 		ResultSet rs = stmt
-				.executeQuery("SELECT id FROM Experiment");
+				.executeQuery("SELECT id, name FROM Experiment");
 		List<Experiment> list = new ArrayList<Experiment>();
 		while(rs.next()) {
 			Experiment e = new Experiment();
 			e.id = rs.getLong("id");
+			e.name = rs.getString("name");
 			list.add(e);
 		}
 		return list;

@@ -1,9 +1,14 @@
 package models;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.*;
 
 import javax.persistence.*;
 
+import play.db.DB;
 import play.db.ebean.*;
 import play.data.format.*;
 import play.data.validation.*;
@@ -31,18 +36,16 @@ public class Participation extends Model {
 
     public Boolean got_invitation;
     
-    
-    /**
-     * Generic query helper for entity User with id
-     */
-    public static Finder<Long,Participation> find = new Finder<Long,Participation>(Long.class, Participation.class); 
+ 
+ 
 
-    public static List<Participation> all() {
-    	return find.all();
-    }
-
-    public static List<Participation> byExperimentId(Long user_id) {
-        return find.fetch("session").findList();
+    public static int amountByExperimentId(Long id) throws SQLException {
+    	Connection con = DB.getConnection();
+        Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+		ResultSet rs = stmt
+				.executeQuery("SELECT COUNT(*) AS amount FROM Participation, Session, Experiment WHERE Participation.session_id = Session.id AND Session.experiment_id = Experiment.id AND Experiment.id = "+id+"");
+		rs.next();
+		return rs.getInt("amount");
     }
     // /**
     //  * Return a page of computer
