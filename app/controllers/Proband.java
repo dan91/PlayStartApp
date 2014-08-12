@@ -1,10 +1,5 @@
 package controllers;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-
-import org.joda.time.DateTime;
-
 import models.User;
 import play.Logger;
 import play.data.Form;
@@ -13,6 +8,7 @@ import play.i18n.Messages;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.index;
+
 import static play.data.Form.form;
 
 /**
@@ -47,45 +43,6 @@ public class Proband extends Controller {
      * 
      */
     
-//   public static void main(String args[]) {
-//	   Calendar start = new GregorianCalendar();
-//	   // Zum Überblick das Format:
-//	   
-//	   //Achtung der Monat beginnt bei 0 = Januar :D :D :D
-//	   //YYYY-M-D-H-M
-//	   start.set(2014, 7,15,17, 0);
-//	   
-//	   Calendar end=new GregorianCalendar();
-//	   end.set(2014, 7,15,23, 55);
-//	   
-//	   DateTime startTime=new DateTime(start.getTime());
-//	   DateTime endTime=new DateTime(end.getTime());
-//	   
-//	   //Create event
-//	   VEvent eightHourEvent=new VEvent(startTime,endTime,"Ende Teaminterne Deadline");
-//	   
-//	   net.fortuna.ical4j.model.Calendar cal = new net.fortuna.ical4j.model.Calendar();
-//	   //add product Id
-//	   cal.getProperties().add(new ProdId("-//Mozilla.org/NONSGML Mozilla Calendar V1.1//EN"));
-//	   cal.getProperties().add(Version.VERSION_2_0);
-//	   cal.getProperties().add(CalScale.GREGORIAN);
-//	   
-//	   //generate unique identifier
-//	   UidGenerator ug = new UidGenerator("uidGen");
-//	   Uid uid = ug.generateUid();
-//	   
-//	   eightHourEvent.getProperties().add(uid);
-//
-//	   //add event in ical4j calendar
-//	   cal.getComponents().add(eightHourEvent);
-//	   System.out.println(cal.toString());
-//	   
-//	   
-//	   //save event in test.ics file
-//	  
-//	   // play hat es sonst nicht erkannt
-//	   net.fortuna.ical4j.data.CalendarOutputter out=new net.fortuna.ical4j.data.CalendarOutputter();
-//	    out.output(cal, new FileOutputStream("C:\\TeaminterneDeadline.ics"));
-//   }
+   
 
 }

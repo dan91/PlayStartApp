@@ -1,26 +1,19 @@
 package models;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.*;
-
 import javax.persistence.*;
 
-import play.db.*;
+import play.db.ebean.*;
 import play.data.format.*;
 import play.data.validation.*;
 
 import com.avaje.ebean.*;
 
-import controllers.SQLConn;
-
 /**
  * User entity managed by Ebean
  */
 @Entity 
-public class Experiment {
+public class Experiment extends Model {
 
     private static final long serialVersionUID = 1L;
 
@@ -45,22 +38,12 @@ public class Experiment {
     
     /**
      * Generic query helper for entity User with id
-     * @throws SQLException 
      */
+    public static Finder<Long,Experiment> find = new Finder<Long,Experiment>(Long.class, Experiment.class); 
 
-    public static List<Experiment> all() throws SQLException {
-        Connection con = DB.getConnection();
-		Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-		ResultSet rs = stmt.executeQuery("SELECT * FROM experiment");
-		List<Experiment> list = new ArrayList<Experiment>();
-		while(rs.next()) {
-			Experiment e = new Experiment();
-			e.id = rs.getLong("id");
-			list.add(e);
-		}
-		return list;
+    public static List<Experiment> all() {
+        return find.all();
     }
-    
     
 //    public static List<Experiment> byUserId() {
 //        return find.where().eq(arg0, arg1)

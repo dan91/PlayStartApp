@@ -14,7 +14,7 @@ import com.avaje.ebean.*;
  * User entity managed by Ebean
  */
 @Entity 
-public class Participation {
+public class Participation extends Model {
 
     private static final long serialVersionUID = 1L;
 
@@ -35,8 +35,15 @@ public class Participation {
     /**
      * Generic query helper for entity User with id
      */
-    
+    public static Finder<Long,Participation> find = new Finder<Long,Participation>(Long.class, Participation.class); 
 
+    public static List<Participation> all() {
+    	return find.all();
+    }
+
+    public static List<Participation> byExperimentId(Long user_id) {
+        return find.fetch("session").findList();
+    }
     // /**
     //  * Return a page of computer
     //  *
