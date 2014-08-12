@@ -34,7 +34,7 @@ for (int i = 0; i<11; i++){
 <hr>
 
 for (10 most recent new user){
-	<p>@user.name <span class="pull-right">@user.enrollment_date <button type="submit" class="btn btn-xs btn-edit btn-default" id="add" data-toggle="modal" data-target="#myModal1 +userid? "><span class="glyphicon glyphicon-pencil"></span></button></span></p>
+	<p>@user.name <span class="pull-right">@user.enrollment_date <button type="submit" class="btn btn-xs btn-edit btn-default" id="add" data-toggle="modal" data-target="#myModal1 +userid????? "><span class="glyphicon glyphicon-pencil"></span></button></span></p>
 }
 
 				
@@ -175,11 +175,11 @@ for (10 most recent new user){
 					  <tbody>
 					  	<tr >
 					  		<td class="col-sm-8"><b>Studien Insgesamt</b></td>
-					  		<td>100</td>
+					  		<td>SELECT COUNT(*) FROM Experiment</td>
 					  	</tr>
 					  	<tr>
 					  		<td class="col-sm-8">Abgeschlossene Studien</td>
-					  		<td>80</td>
+					  		<td>SELECT COUNT(*) FROM Experiment WHERE finished=true</td>
 					  	</tr>
 					
 					  	  </tbody>
@@ -187,18 +187,18 @@ for (10 most recent new user){
 					<table class="table table-hover">					  <tbody>
 							<tr>
 					  		<td class="col-sm-8">Sessions Insgesamt</td>
-					  		<td>600</td>
+					  		<td>SELECT COUNT(*) FROM Session</td>
 					  		<tr>
 					  		<td class="col-sm-8">Anzahl Anmeldungen</td>
-					  		<td>1400</td>
+					  		<td>SELECT COUNT(*) FROM Participation</td>
 					  	</tr>
 					  		<tr>
 					  		<td class="col-sm-8">Nicht Anwesend</td>
-					  		<td>2,453%</td>
+					  		<td>(SELECT COUNT(*) FROM Participation WHERE was_present=false / SELECT COUNT(*) FROM Participation WHERE was_present=false)*100%</td>
 					  	</tr>
 					  		<tr>
 					  		<td class="col-sm-8">Verteilte VPS</td>
-					  		<td>6000</td>
+					  		<td>Kompliziert gerade über Participation * Session * proband_hours zu kommen?!</td>
 					  	</tr>
 					  </tbody>
 					</table>
@@ -237,19 +237,22 @@ for (10 most recent new user){
 					<div class="form-group">
 						<label for="name" class="col-sm-3 control-label">Name</label>
 						<div class="col-sm-6">
-							<input type="text" name="name" class="form-control" id="name" value="Max Mustermann" autofocus>
+							<input type="text" name="name" class="form-control" id="name" value="@user.name" autofocus>
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="name" class="col-sm-3 control-label">E-Mail</label>
 						<div class="col-sm-6">
-							<input type="text" name="name" class="form-control" id="name" value="max@@mustermann.de">
+							<input type="text" name="name" class="form-control" id="name" value="@user.email">
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="name" class="col-sm-3 control-label">Studienbegin</label>
 						<div class="col-sm-6">
 							<select id="semesterFrom" class="form-control">
+
+@user.start_with_uni
+
 								<option>Wintersemester 2012/13</option>
 								<option>Sommersemester 2013</option>
 								<option>Wintersemester 2014/15</option>
@@ -262,16 +265,17 @@ for (10 most recent new user){
 								<div class="col-sm-6">
 									<div class="radio">
 										<label>
-											<input type="radio" name="options2" id="optionsRadios1" value="option1">
+											<input type="radio" name="options2" id="optionsRadios1" value="MCS">
 											MCS  </label>
 										</div>
 										<div class="radio">
 											<label>
-												<input type="radio" name="options2" id="optionsRadios2" value="option2">
+												<input type="radio" name="options2" id="optionsRadios2" value="MK">
 												MK  </label>
 											</div>		<div class="radio">
 											<label>
-												<input type="radio" name="options2" id="optionsRadios2" value="option2" checked>
+	mmh wie funktiononiert das mit dem checked?
+												<input type="radio" name="options2" id="optionsRadios2" value="Sonstige" checked>
 												Sonstige  </label>
 											</div>		</div>
 										</div>
@@ -282,12 +286,12 @@ for (10 most recent new user){
 
 												<div class="radio">
 													<label>
-														<input type="radio" name="options3" id="optionsRadios1" value="option1" checked>
+														<input type="radio" name="options3" id="optionsRadios1" value="rechts" checked>
 														Rechts  </label>
 													</div>
 													<div class="radio">
 														<label>
-															<input type="radio" name="options3" id="optionsRadios2" value="option2">
+															<input type="radio" name="options3" id="optionsRadios2" value="links">
 															Links  </label>
 														</div>
 													</div>
@@ -296,24 +300,26 @@ for (10 most recent new user){
 													<label for="name" class="col-sm-3 control-label">Rechte</label>
 													<div class="col-sm-6">
 														<div class="radio">
+@privilige.level = 1 2 3 4 ?
+
 															<label>
-																<input type="radio" name="options4" value="" checked> Proband (Nur Studien besuchen)
+																<input type="radio" name="options4" value="@privilige.level = 1" checked> Proband (Nur Studien besuchen)
 															</label>
 														</div>
 														<div class="radio">
 															<label>
-																<input type="radio" name="options4"  value=""> Hilfskraft (Sessions erstellen und Teilnahmen bestätigen)
+																<input type="radio" name="options4"  value="@privilige.level = 2"> Hilfskraft (Sessions erstellen und Teilnahmen bestätigen)
 															</label>
 														</div>
 														<div class="radio">
 															<label>
-																<input type="radio" name="options4"  value=""> Versuchsleiter (Versuche erstellen)
+																<input type="radio" name="options4"  value="@privilige.level = 3"> Versuchsleiter (Versuche erstellen)
 															</label>
 														</div>
 														
 														<div class="radio">
 															<label>
-																<input type="radio" name="options4"  value=""> <span class="text-danger">Administrator</span>
+																<input type="radio" name="options4"  value="@privilige.level = 4"> <span class="text-danger">Administrator</span>
 															</label>
 														</div>
 
@@ -323,7 +329,9 @@ for (10 most recent new user){
 												<div class="form-group">
 													<label for="name" class="col-sm-3 control-label">VPS</label>
 													<div class="col-sm-6">
-														<input type="text" name="name" class="form-control" id="name" value="25" autofocus>
+														<input type="text" name="name" class="form-control" id="name" value="
+				!!!!	Kompliziert gerade über Participation * Session * proband_hours zu kommen?!
+														" autofocus>
 													</div>
 												</div>
 
