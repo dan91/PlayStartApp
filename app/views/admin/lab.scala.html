@@ -274,6 +274,8 @@
 
 
 <!-- Beginn Map-Modal -->
+
+<form action="@routes.Admin.save()" method="POST">
 <div class="modal fade" id="myMapModal">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -287,7 +289,7 @@
                         <b>Bezeichnung</b>
                       </div>
                       <div class="col-sm-6">
-            						<input class="form-control" type="text" placeholder="z.B. GameBox"/>
+            						<input class="form-control"  id="buildingName" name="buildingName" type="text" placeholder="z.B. GameBox"/>
                       </div>
             					</div>
             
@@ -297,7 +299,7 @@
             					<b>Ort</b>
                     </div>
                       <div class="col-sm-6">                    
-            						<input id="pac-input" class="form-control" type="text"
+            						<input id="pac-input" name="pac-input" class="form-control" type="text"
 						        placeholder="z.B. Zentrum für Mediendidaktik"/>
             					</div>
             
@@ -317,17 +319,22 @@
                 </div>
             </div>
             <div class="modal-footer">
-            
-            		<form action="@routes.Admin.save()" method="POST">
-			                
-			           	
-			             	
-			            java name: <input name="latFld" id="latFld"/>
-  						java surname: <input name="lngFld" id="lngFld"/>
+
+			<!-- Verstecktes Feld für LAT -->
+			            <input name="latFld" id="latFld" style="display:none;"/>
+			<!-- Verstecktes Feld für LNG -->            
+  						<input name="lngFld" id="lngFld" style="display:none;"/>
 			            
-			          <button id="newBuildingSubmit" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Speichern</button>
-           		 	</form> 
-           		 	
+			           <!-- ÜBERGIBT DIE DATEN AN DEN SERVER --> 
+			          <button id="newBuildingSubmit" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Speichern</button>	 	
+			</div>
+        </div>
+    </div>
+    </div>
+    
+    </form> 
+    
+    <!-- SCHLIEßt MODAL OHNE DATEN ZU VERSCHLUCKEN, wie es data-dismiss tut -->
            		 	<script>
            		 	$(document).ready(function(){
            		 			$('#newBuildingSubmit').click(function(){
@@ -336,20 +343,7 @@
            		 				$('#myMapModal').modal('hide');
            		 			});
            		 	});
-           		 	
-           		 		
-           		 	
            		 	</script>
-           		 	
-			</div>
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-    </div>
-    <!-- /.modal -->
-    
-    
     
     
     
