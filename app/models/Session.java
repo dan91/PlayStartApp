@@ -31,14 +31,7 @@ public class Session extends Model {
     public Long experiment_id;
   
    
-    public static int registeredAmountByExperimentId(Long id) throws SQLException {
-    	Connection con = DB.getConnection();
-        Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-		ResultSet rs = stmt
-				.executeQuery("SELECT COUNT(*) AS amount FROM Partcipation, Session, Experiment WHERE Participation.session_id = Session.id AND Session.experiment_id = Experiment.id AND Experiment.id = "+id+" AND Session.datetime > NOW");
-		rs.next();
-		return rs.getInt("amount");
-    }
+    
     
     // /**
     //  * Return a page of computer
