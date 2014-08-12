@@ -1,5 +1,7 @@
 package controllers;
 
+import java.sql.SQLException;
+
 import models.Experiment;
 import models.User;
 import play.Logger;
@@ -44,7 +46,14 @@ public class Experimenter extends Controller {
      * @return
      */
     public static Result myStudies() {  
-        return ok(views.html.experimenter.myStudies.render(Experiment.all()));
+        try {
+			return ok(views.html.experimenter.myStudies.render(Experiment.all()));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return badRequest(e.toString());
+		}
+		
     }
     
     /**
