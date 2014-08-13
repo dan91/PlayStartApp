@@ -36,8 +36,15 @@ public class Experimenter extends Controller {
      *
      * @return
      */
-    public static Result edit(Long id) {  
-        return ok(views.html.experimenter.edit.render());
+    public static Result edit(Long id) { 
+    	Form<Experiment> editForm = form(Experiment.class);
+    	try {
+    		return ok(views.html.experimenter.edit.render(Experiment.byId(id)));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			return badRequest(e.toString());
+		}
+        
     }
     
     /**

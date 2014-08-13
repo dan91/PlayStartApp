@@ -28,22 +28,37 @@ public class Experiment extends Model {
     
     public String description;
 
-    public float duration;
+    public int duration;
 
     public float proband_hours;
-
-    public Boolean finished;
 
     public String email_notifications;
 
     public int experiment_type_id;
     
-    
+    public int max_probands;
+
     /**
      * Generic query helper for entity User with id
      */
-    public static Finder<Long,Experiment> find = new Finder<Long,Experiment>(Long.class, Experiment.class); 
-
+    public static Experiment byId(Long id) throws SQLException {
+    	Connection con = DB.getConnection();
+        Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+		ResultSet rs = stmt
+				.executeQuery("SELECT * FROM Experiment WHERE id = "+id+"");
+		rs.next();
+		Experiment e = new Experiment();
+		e.id = rs.getLong("id");
+		e.name = rs.getString("name");
+		e.description = rs.getString("description");
+		e.duration = rs.getInt("duration");
+		e.proband_hours = rs.getFloat("proband_hours");
+		e.email_notifications = rs.getString("email_notifications");
+		e.experiment_type_id = rs.getInt("experiment_type_id");
+		e.max_probands = rs.getInt("max_probands");
+		return e;
+    }
+    
     public static List<Experiment> all() throws SQLException {
     	Connection con = DB.getConnection();
         Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -59,29 +74,6 @@ public class Experiment extends Model {
 		return list;
     }
     
-//    public static List<Experiment> byUserId() {
-//        return find.where().eq(arg0, arg1)
-//    }
-    
-    // /**
-    //  * Return a page of computer
-    //  *
-    //  * @param page Page to display
-    //  * @param pageSize Number of computers per page
-    //  * @param sortBy Computer property used for sorting
-    //  * @param order Sort order (either or asc or desc)
-    //  * @param filter Filter applied on the name column
-    //  */
-    // public static Page<Computer> page(int page, int pageSize, String sortBy, String order, String filter) {
-    //     return 
-    //         find.where()
-    //             .ilike("name", "%" + filter + "%")
-    //             .orderBy(sortBy + " " + order)
-    //             .fetch("company")
-    //             .findPagingList(pageSize)
-    //             .setFetchAhead(false)
-    //             .getPage(page);
-    // }
     
 }
 

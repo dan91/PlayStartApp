@@ -41,6 +41,7 @@ public class Building extends Model {
 		while(rs.next()) {
 			Building e = new Building();
 			e.id = rs.getLong("id");
+			e.name = rs.getString("name");
 			list.add(e);
 		}
 		return list;

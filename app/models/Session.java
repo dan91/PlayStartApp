@@ -24,14 +24,19 @@ public class Session extends Model {
     
     public Date datetime;
 
-    public int max_probands;
-
     public Long room_id;
 
     public Long experiment_id;
   
    
-    
+    public static int availableAmountByExperimentId(Long id) throws SQLException {
+    	Connection con = DB.getConnection();
+        Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+		ResultSet rs = stmt
+				.executeQuery("SELECT COUNT(*) AS amount FROM Session, Experiment WHERE Session.experiment_id = Experiment.id AND Experiment.id = "+id+" AND Session.datetime > NOW()");
+		rs.next();
+		return rs.getInt("amount");
+    }
     
     // /**
     //  * Return a page of computer
