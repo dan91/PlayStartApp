@@ -1,5 +1,6 @@
 package controllers;
 
+import java.sql.SQLException;
 import java.util.Map;
 
 import models.Building;
@@ -66,7 +67,12 @@ public class Admin extends Controller {
      * @return
      */
     public static Result lab() {  
-        return ok(views.html.admin.lab.render(Building.all()));
+        try {
+			return ok(views.html.admin.lab.render(Building.all()));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			return badRequest(e.toString());
+		}
     }
 
 /**
@@ -77,14 +83,28 @@ public class Admin extends Controller {
     public static Result save(){
         
         final Map<String, String[]> values = request().body().asFormUrlEncoded();
-        final String lat = values.get("latFld")[0];;
-        final String fld = values.get("lngFld")[0];
+        final String name = values.get("buildingName")[0];
+        final String description = values.get("pac-input")[0];
+        final float lat = Float.parseFloat(values.get("latFld")[0]);
+        final float lng = Float.parseFloat(values.get("lngFld")[0]);
         
-        String created = "Lat: "+lat+"  Lng: "+fld;
-         
-        //return ok(submit.render(created));
+        String created = "Lat: "+lat+"  Lng: "+lng;
         
-        return ok(lab.render(Building.all()));
+        
+        // zeigt in der console an ob der server es bekommen hat
+        Logger.info(created);
+        
+        
+       
+        
+        try {
+        	Building.add(name, description, lat, lng);
+        	
+			return ok(lab.render(Building.all()));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			return badRequest(e.toString());
+		}
     }
 
 

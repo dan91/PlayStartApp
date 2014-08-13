@@ -1,9 +1,14 @@
 package models;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.*;
 
 import javax.persistence.*;
 
+import play.db.DB;
 import play.db.ebean.*;
 import play.data.format.*;
 import play.data.validation.*;
@@ -31,38 +36,29 @@ public class Participation extends Model {
 
     public Boolean got_invitation;
     
+ 
+ 
+
+    public static int completedAmountByExperimentId(Long id) throws SQLException {
+    	Connection con = DB.getConnection();
+        Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+		ResultSet rs = stmt
+				.executeQuery("SELECT COUNT(*) AS amount FROM Participation, Session, Experiment WHERE Participation.session_id = Session.id AND Session.experiment_id = Experiment.id AND Experiment.id = "+id+" AND was_present = 1");
+		rs.next();
+		return rs.getInt("amount");
+    }
     
-    /**
-     * Generic query helper for entity User with id
-     */
-    public static Finder<Long,Participation> find = new Finder<Long,Participation>(Long.class, Participation.class); 
-
-    public static List<Participation> all() {
-    	return find.all();
+    public static int registeredAmountByExperimentId(Long id) throws SQLException {
+    	Connection con = DB.getConnection();
+        Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+		ResultSet rs = stmt
+				.executeQuery("SELECT COUNT(*) AS amount FROM Participation, Session, Experiment WHERE Participation.session_id = Session.id AND Session.experiment_id = Experiment.id AND Experiment.id = "+id+" AND Session.datetime > NOW()");
+		rs.next();
+		return rs.getInt("amount");
     }
-
-    public static List<Participation> byExperimentId(Long user_id) {
-        return find.fetch("session").findList();
-    }
-    // /**
-    //  * Return a page of computer
-    //  *
-    //  * @param page Page to display
-    //  * @param pageSize Number of computers per page
-    //  * @param sortBy Computer property used for sorting
-    //  * @param order Sort order (either or asc or desc)
-    //  * @param filter Filter applied on the name column
-    //  */
-    // public static Page<Computer> page(int page, int pageSize, String sortBy, String order, String filter) {
-    //     return 
-    //         find.where()
-    //             .ilike("name", "%" + filter + "%")
-    //             .orderBy(sortBy + " " + order)
-    //             .fetch("company")
-    //             .findPagingList(pageSize)
-    //             .setFetchAhead(false)
-    //             .getPage(page);
-    // }
+    
+   
+    
     
 }
 
