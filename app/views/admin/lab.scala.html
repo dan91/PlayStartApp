@@ -8,6 +8,13 @@
       
     $(document).ready(function(){
     
+    	var buildingName;
+    	var buildingDesc;
+    	var buildingLat;
+    	var buildingLng;
+    	
+    	
+    	
         var markersArray = [];
         var ZFM = new google.maps.LatLng(49.782264, 9.974931);
         
@@ -20,6 +27,9 @@
             google.maps.event.trigger(map, "resize");
             
             /** vorher: "center"*/
+            
+            
+            
             map.setCenter(ZFM); 
             
         }
@@ -148,7 +158,34 @@
                     }
                 }
   
+                
+                
+                $('.editableBuilding').click(function(e) {
+                	   e.preventDefault();
+                	   var statusCode = $(this).data('status');
+                	   
+                	   var felder = statusCode.split(',', 4);
+                	   
+                	   buildingName = felder[0];
+                	   buildingDesc = felder[1];
+                	   buildingLat =  felder[2];
+                	   buildingLng =  felder[3];
+
+                	   
+                	   var placeOfEditableBuilding = new google.maps.LatLng(buildingLat, buildingLng);
+                	   
+                	   /**placeMarker(placeOfEditableBuilding);*/
+                	   
+                	   
+                	 });
+                
+                
     });  
+    
+    
+   
+    
+    
     </script>
 
     
@@ -181,7 +218,7 @@
 			<div class="col-sm-8 col-xs-6"><h4>@building.name</h4></div>
 			<div class="col-sm-4 col-xs-6 text-right">
 			<button class="btn btn-default" id="add" data-toggle="modal" data-target="#myRoomModal"><span class="glyphicon glyphicon-plus"></span> Raum</button>
-			<button class="btn btn-default" id="add" data-toggle="modal" data-target="#myMapModal"> <span class="glyphicon glyphicon-pencil"></span></button>
+			<button data-status="@building.name, @building.description, @building.lat, @building.lng," class="btn btn-default editableBuilding" id="add" data-toggle="modal" data-target="#myMapModal"> <span class="glyphicon glyphicon-pencil"></span></button>
       <button class="btn btn-danger" id="add"> <span class="glyphicon glyphicon-remove"></span></button>
       </div>
 			
