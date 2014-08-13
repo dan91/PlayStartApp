@@ -40,7 +40,7 @@ public class SQLConn {
 
 
 
-	protected void connect(String userName, String password, String db) throws SQLException{
+	public void connect(String userName, String password, String db) throws SQLException{
 		disconnect();
 		Properties connectionProps = new Properties();
 		connectionProps.put("user", userName);
@@ -57,7 +57,7 @@ public class SQLConn {
 		System.out.println("Connected to database");		
 	}
 
-	protected void disconnect() throws SQLException{
+	public void disconnect() throws SQLException{
 		if (conn != null){
 			conn.close();
 			conn = null;

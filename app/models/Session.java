@@ -11,6 +11,8 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+import controllers.SQLConn;
+import play.api.Logger;
 import play.data.validation.Constraints;
 import play.db.DB;
 
@@ -22,7 +24,7 @@ public class Session {
     @Id
     public Long id;
     
-    public Date datetime;
+    public long datetime;
 
     public Long room_id;
 
@@ -37,7 +39,7 @@ public class Session {
 		return rs.getInt("amount");
     }
     
-    public static List<Session> byExperimentId(Long id) throws SQLException {
+    public static List<Session> byExperimentId(Long id) throws SQLException {	
     	Connection con = DB.getConnection();
         Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 		ResultSet rs = stmt
@@ -46,17 +48,10 @@ public class Session {
 		while(rs.next()) {
 			Session s = new Session();
 			s.id = rs.getLong("id");
-			s.datetime = rs.getDate("datetime");
-			System.out.println(rs.getDate("datetime"));
+			s.datetime = rs.getDate("datetime").getTime();
 			list.add(s);
 		}
 		return list;
-    }
-    
-    public static void main(String args[]) throws SQLException {
-    	List<Session> list = new ArrayList<Session>();
-    	Long id = (long) 1;
-    	list = Session.byExperimentId(id);
     }
     
 }

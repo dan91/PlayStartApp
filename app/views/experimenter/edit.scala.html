@@ -562,6 +562,11 @@ $( "#openPreview" ).click(function() {
 		})
 		dur = $("#duration option:selected").text();
 		dur = $.fullCalendar.moment.duration(dur, 'minutes');
+		times = [
+		@for((session, index) <- Session.byExperimentId(e.id).zipWithIndex) {
+			$.fullCalendar.moment.utc(@session.datetime)@if(index != Session.byExperimentId(e.id).size-1) { , }
+		}
+		]
 $('#calendar').fullCalendar({
 					defaultView: 'agendaWeek',
 					defaultTimedEventDuration: dur, 
@@ -574,7 +579,7 @@ $('#calendar').fullCalendar({
 					         @for((session, index) <- Session.byExperimentId(e.id).zipWithIndex) {
 					         {
 					             title  : '',
-					             start  : '@session.datetime'
+					             start  : times[@index]
 					             
 					         }@if(index != Session.byExperimentId(e.id).size-1) { , }
 					         }
