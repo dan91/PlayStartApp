@@ -27,6 +27,14 @@ public class Building extends Model {
     
     public String description;
     
+    public float lat;
+    
+    public float lng;
+    
+    
+    
+    
+    
     
     /**
      * Generic query helper for entity User with id
@@ -36,12 +44,16 @@ public class Building extends Model {
     	Connection con = DB.getConnection();
         Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 		ResultSet rs = stmt
-				.executeQuery("SELECT id, name FROM Building");
+				.executeQuery("SELECT id, name,description, lat,lng FROM Building");
 		List<Building> list = new ArrayList<Building>();
 		while(rs.next()) {
 			Building e = new Building();
 			e.id = rs.getLong("id");
 			e.name = rs.getString("name");
+			e.description = rs.getString("description");
+			e.lat = rs.getFloat("lat");
+			e.lng = rs.getFloat("lng");
+			
 			list.add(e);
 		}
 		return list;
