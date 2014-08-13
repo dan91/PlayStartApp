@@ -131,6 +131,8 @@
                     // display the lat/lng in your form's lat/lng fields
                     document.getElementById("latFld").value = event.latLng.lat();
                     document.getElementById("lngFld").value = event.latLng.lng();
+                    
+                    
                 });
                 
                 function placeMarker(location) {
@@ -145,7 +147,7 @@
                     // add marker in markers array
                     markersArray.push(marker);
 
-                    //map.setCenter(location);
+                    // map.setCenter(location);
                 }
 
                 // Deletes all markers in the array by removing references to them
@@ -174,7 +176,7 @@
                 	   
                 	   var placeOfEditableBuilding = new google.maps.LatLng(buildingLat, buildingLng);
                 	   
-                	   /**placeMarker(placeOfEditableBuilding);*/
+                	   placeMarker(placeOfEditableBuilding);
                 	   
                 	   
                 	 });
@@ -358,9 +360,9 @@
             <div class="modal-footer">
 
 			<!-- Verstecktes Feld für LAT -->
-			            <input name="latFld" id="latFld" style="display:none;"/>
+			            <input name="latFld" id="latFld"/>
 			<!-- Verstecktes Feld für LNG -->            
-  						<input name="lngFld" id="lngFld" style="display:none;"/>
+  						<input name="lngFld" id="lngFld"/>
 			            
 			           <!-- ÜBERGIBT DIE DATEN AN DEN SERVER --> 
 			          <button id="newBuildingSubmit" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Speichern</button>	 	

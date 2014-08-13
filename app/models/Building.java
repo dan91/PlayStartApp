@@ -27,9 +27,9 @@ public class Building extends Model {
     
     public String description;
     
-    public float lat;
+    public double lat;
     
-    public float lng;
+    public double lng;
     
     
     
@@ -51,15 +51,15 @@ public class Building extends Model {
 			e.id = rs.getLong("id");
 			e.name = rs.getString("name");
 			e.description = rs.getString("description");
-			e.lat = rs.getFloat("lat");
-			e.lng = rs.getFloat("lng");
+			e.lat = rs.getDouble("lat");
+			e.lng = rs.getDouble("lng");
 			
 			list.add(e);
 		}
 		return list;
     }
     
-    public static void add(String name, String description, float lat, float lng) throws SQLException {
+    public static void add(String name, String description, double lat, double lng) throws SQLException {
     	    	Connection con = DB.getConnection();
     	        Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
     			

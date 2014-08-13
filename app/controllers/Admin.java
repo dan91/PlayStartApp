@@ -85,10 +85,14 @@ public class Admin extends Controller {
         final Map<String, String[]> values = request().body().asFormUrlEncoded();
         final String name = values.get("buildingName")[0];
         final String description = values.get("pac-input")[0];
-        final float lat = Float.parseFloat(values.get("latFld")[0]);
-        final float lng = Float.parseFloat(values.get("lngFld")[0]);
         
-        String created = "Lat: "+lat+"  Lng: "+lng;
+        // Float ist zu klein, schneidet die Hälfte ab!!!
+        final double lat = Double.parseDouble(values.get("latFld")[0]);
+        final double lng = Double.parseDouble(values.get("lngFld")[0]);
+        
+        
+        
+        String created = "Lat: "+lat;
         
         
         // zeigt in der console an ob der server es bekommen hat
