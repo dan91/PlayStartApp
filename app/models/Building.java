@@ -46,4 +46,21 @@ public class Building extends Model {
 		}
 		return list;
     }
+    
+    public static void add(String name, String description, float lat, float lng) throws SQLException {
+    	    	Connection con = DB.getConnection();
+    	        Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+    			
+    	       
+    	        
+    	        String insert = String.format("INSERT INTO Building (name,description,lat,lng) "
+    					 +"VALUES ('%s','%s','%s','%s')",name,description,lat,lng );
+    	        
+    	        
+    	       stmt.executeUpdate(insert);
+    	        
+    	        // iwo muss das statement aber noch geschlossen werden!!!!
+    	        //   stmt.close();
+    	        
+    	    }
 }

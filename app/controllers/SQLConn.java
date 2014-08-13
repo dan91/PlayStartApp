@@ -29,7 +29,7 @@ public class SQLConn {
 		// ------------------------------
 		// your code goes here
 		// ------------------------------
-		ResultSet result = stmt.executeQuery("SELECT * FROM Buildings");
+		ResultSet result = stmt.executeQuery("SELECT * FROM Building");
 		while (result.next()){
 			System.out.println(result.getString("name"));
 			

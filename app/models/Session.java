@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -12,10 +13,9 @@ import javax.persistence.Id;
 
 import play.data.validation.Constraints;
 import play.db.DB;
-import play.db.ebean.Model;
 
 @Entity 
-public class Session extends Model {
+public class Session {
 
     private static final long serialVersionUID = 2L;
 
@@ -27,7 +27,6 @@ public class Session extends Model {
     public Long room_id;
 
     public Long experiment_id;
-  
    
     public static int availableAmountByExperimentId(Long id) throws SQLException {
     	Connection con = DB.getConnection();
@@ -38,24 +37,26 @@ public class Session extends Model {
 		return rs.getInt("amount");
     }
     
-    // /**
-    //  * Return a page of computer
-    //  *
-    //  * @param page Page to display
-    //  * @param pageSize Number of computers per page
-    //  * @param sortBy Computer property used for sorting
-    //  * @param order Sort order (either or asc or desc)
-    //  * @param filter Filter applied on the name column
-    //  */
-    // public static Page<Computer> page(int page, int pageSize, String sortBy, String order, String filter) {
-    //     return 
-    //         find.where()
-    //             .ilike("name", "%" + filter + "%")
-    //             .orderBy(sortBy + " " + order)
-    //             .fetch("company")
-    //             .findPagingList(pageSize)
-    //             .setFetchAhead(false)
-    //             .getPage(page);
-    // }
+    public static List<Session> byExperimentId(Long id) throws SQLException {
+    	Connection con = DB.getConnection();
+        Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+		ResultSet rs = stmt
+				.executeQuery("SELECT id, datetime FROM Session WHERE experiment_id = "+id+"");
+		List<Session> list = new ArrayList<Session>();
+		while(rs.next()) {
+			Session s = new Session();
+			s.id = rs.getLong("id");
+			s.datetime = rs.getDate("datetime");
+			System.out.println(rs.getDate("datetime"));
+			list.add(s);
+		}
+		return list;
+    }
+    
+    public static void main(String args[]) throws SQLException {
+    	List<Session> list = new ArrayList<Session>();
+    	Long id = (long) 1;
+    	list = Session.byExperimentId(id);
+    }
     
 }

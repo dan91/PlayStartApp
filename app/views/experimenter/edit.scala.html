@@ -560,13 +560,25 @@ $( "#openPreview" ).click(function() {
 		
 	});
 		})
+		dur = $("#duration option:selected").text();
+		dur = $.fullCalendar.moment.duration(dur, 'minutes');
 $('#calendar').fullCalendar({
 					defaultView: 'agendaWeek',
+					defaultTimedEventDuration: dur, 
 					header: {
 						left:   '',
 						center: '',
 						right:  'today prev,next'
 					},
+					events: [
+					         @for((session, index) <- Session.byExperimentId(e.id).zipWithIndex) {
+					         {
+					             title  : '',
+					             start  : '@session.datetime'
+					             
+					         }@if(index != Session.byExperimentId(e.id).size-1) { , }
+					         }
+					]
 					lang: 'de',
 					allDaySlot: false,
 					slotDuration: '00:15:00',
@@ -579,7 +591,7 @@ $('#calendar').fullCalendar({
 					timeFormat: 'H:mm',
 					columnFormat: 'dd., D.M',
 					contentHeight: 1200,
-				
+					
 					select: function(start, end) {
 						
 						dur = parseInt($("#duration option:selected").text());
