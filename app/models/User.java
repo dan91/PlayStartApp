@@ -65,10 +65,28 @@ public class User extends Model {
         Connection con = DB.getConnection();
         Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
         ResultSet rs = stmt
-                .executeQuery("SELECT COUNT(*) FROM User AS Amount");
+                .executeQuery("SELECT COUNT(*) AS Amount FROM User ");
         rs.next();
         return rs.getInt("Amount");
     }
+       
+       public static int allMen() throws SQLException {
+           Connection con = DB.getConnection();
+           Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+           ResultSet rs = stmt
+                   .executeQuery("SELECT COUNT(*) AS Amount FROM User WHERE gender='male' ");
+           rs.next();
+           return rs.getInt("Amount");
+       }
     
+       public static int allWomen() throws SQLException {
+           Connection con = DB.getConnection();
+           Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+           ResultSet rs = stmt
+                   .executeQuery("SELECT COUNT(*) AS Amount FROM User WHERE gender='female' ");
+           rs.next();
+           return rs.getInt("Amount");
+       }
+       
 }
 
