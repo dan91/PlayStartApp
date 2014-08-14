@@ -34,7 +34,8 @@ width: 20em
 						<form class="navbar-form navbar-left" role="search">
 						<button type="button" class="btn btn-default" data-toggle="modal" data-target="#probands"><span class="glyphicon glyphicon-filter"></span></button>
 							<input type="text" class="form-control" placeholder="Benutzer suchen" id="search">
-							<button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+							<button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button> 
+			<!--  SELECT * FROM Users WHERE name='suchbegriff';  --> 
 						</form>
 	
 					</div>
@@ -50,18 +51,16 @@ width: 20em
 
 				<div id="collapseOne" class="panel-collapse collapse in">
 					<div class="panel-body"> 
-
 						<div class="row">
 							<div class="col-sm-6 ">Martin Musterman</div>
-							<div class="col-sm-3 ">    <button type="submit" class="btn btn-default" id="add" data-toggle="modal" data-target="#myModal1"><span class="glyphicon glyphicon-pencil"></span></button></div>				<div class="col-sm-1 ">    <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-envelope"></span></button></div>
+					<!-- (for all schleife) SELECT * FROM Users WHERE privilige_id TO Privilige(ID) = Admin -->
+							<div class="col-sm-3 ">    <button type="submit" class="btn btn-default" id="add" data-toggle="modal" data-target="#myModal1"><span class="glyphicon glyphicon-pencil"></span></button></div>			<!-- modalaufruf um nutzer zu editieren; user.id -->
 
-						</div>
-						<div class="row">
-							<div class="col-sm-6 ">Admin Neuer</div>
-							<div class="col-sm-3 ">    <button type="submit" class="btn btn-default" id="add" data-toggle="modal" data-target="#myModal1"><span class="glyphicon glyphicon-pencil"></span></button></div>				<div class="col-sm-1 ">    <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-envelope"></span></button></div>
+							<div class="col-sm-1 ">   <a href="mailto:" <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-envelope"></span></button></a></div>
+													<!-- SELECT email FROM user WHERE id = id ? -->
 
+						</div> 
 
-						</div>
 					</div>
 				</div>
 			</div>
@@ -78,14 +77,18 @@ width: 20em
 					<div class="panel-body"> 
 						<div class="row">
 							<div class="col-sm-3 col-xs-6">Versuchsleiter Nummer 1</div>
+						<!-- (for all schleife) SELECT * FROM Users WHERE privilige_id TO Privilige(ID) = Versuchsleiter -->
+
 							<div class="col-sm-4 col-xs-6 col-sm-offset-2">
-								<button type="submit" class="btn btn-edit btn-default" id="add" data-toggle="modal" data-target="#modalVersuchsleiter">Rechte: 2</button></div>
-							
+								<button type="submit" class="btn btn-edit btn-default" id="add" data-toggle="modal" data-target="#modalVersuchsleiter">Rechte: 2</button></div> 
+								<!--SELECT * FROM Assignment WHERE Assignment (user_id) TO (ID) -->
 							<div class="col-sm-1 col-xs-6">    
 								<button type="submit" class="btn btn-edit btn-default" id="add" data-toggle="modal" data-target="#myModal1"><span class="glyphicon glyphicon-pencil"></span></button></div>
-							<div class="col-sm-2 col-xs-6"><button type="submit" class="btn btn-default">
-								<span class="glyphicon glyphicon-envelope"></span></button></div>
-						</div>
+								<!-- modalaufruf um nutzer zu editieren; user.id -->
+							<div class="col-sm-2 col-xs-6"><a href="mailto:"<button type="submit" class="btn btn-default">
+								<!-- SELECT email FROM user WHERE id = id ? -->
+								<span class="glyphicon glyphicon-envelope"></span></button></a></div>
+						</div> 
 					</div>
 				</div>
 			</div>
@@ -112,19 +115,31 @@ width: 20em
 
 							<div class="row">
 							<div class="col-sm-3 col-xs-6">Proband Nummer 1</div>
+						<!-- (for all schleife) SELECT * FROM Users WHERE privilige_id TO Privilige(ID) = Hilfskraft -->
+
 							<div class="col-sm-2 col-xs-6">
 								<button type="submit" class="btn btn-edit btn-default" id="add" data-toggle="modal" data-target="#modalHiwiStudie">Besucht: 7</button></div>
+							 <!-- SELECT COUNT(*) FROM Participation? session.user_id to User(id) ???-->
 							<div class="col-sm-2 col-xs-6">
 								<button type="submit" class="btn btn-edit btn-default" id="add" data-toggle="modal" data-target="#modalHiwi">Rechte: 1</button></div>
+							<!--SELECT COUNT(*) FROM Assignment WHERE Assignment (user_id) TO (ID) -->
+
 							<div class="col-sm-1 col-xs-6"><span class="badge mt5"><span class="glyphicon glyphicon-remove"> </span> 1</div>
+							<!--SELECT COUNT(*) FROM participation WHERE was_present=false -->
+
 							<div class="col-sm-1 col-xs-6"> <span class="badge mt5"><span class="glyphicon glyphicon-star"></span> 1.5 </span></div>
+							<!-- Kompliziert gerade über Participation * Session * proband_hours zu kommen?! -->
 							<div class="col-sm-1 col-xs-6">    
 								<button type="submit" class="btn btn-edit btn-default" id="add" data-toggle="modal" data-target="#myModal1"><span class="glyphicon glyphicon-pencil"></span></button></div>
-							<div class="col-sm-2 col-xs-6"><button type="submit" class="btn btn-default">
-								<span class="glyphicon glyphicon-envelope"></span></button></div>
+								<!-- modalaufruf um nutzer zu editieren; user.id -->
+
+							<div class="col-sm-2 col-xs-6"><a href ="mailto:" button type="submit" class="btn btn-default">
+								<!-- SELECT email FROM user WHERE id = id ? -->
+								<span class="glyphicon glyphicon-envelope"></span></button></a></div>
 						</div>
 					</div>
-				</div>
+				</div>					
+
 			</div>
 		</div>
 	</div>
@@ -165,7 +180,11 @@ width: 20em
 
 
 
-	<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+
+<!-- modal BENUTZER BEARBEITEN, von admin.scala.html kopieren -->
+
+<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 
 		<div class="modal-dialog ">
 			<div class="modal-content ">
@@ -288,7 +307,8 @@ width: 20em
 								</div>
 
 
-								<div class="modal fade" id="modalProbanden" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<!-- MODAL DER BESICHTEN STUDIEN  -->
+<div class="modal fade" id="modalProbanden" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 									<div class="modal-dialog ">
 										<div class="modal-content ">
 											<div class="modal-header">
@@ -306,6 +326,7 @@ width: 20em
 													<li>Radiostudie</li>
 												</ul>
 											</div>
+							 <!-- SELECT * FROM Participation? session.user_id to User(id) ???-->
 											<div class="modal-footer">
 												<button type="button" class="btn btn-primary" data-dismiss="modal">Schließen</button>
 											</div>
@@ -316,7 +337,8 @@ width: 20em
 								</div> <!-- /.modal --> 
 
 
-								<div class="modal fade" id="modalHiwiStudie" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+<div class="modal fade" id="modalHiwiStudie" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 									<div class="modal-dialog ">
 										<div class="modal-content ">
 											<div class="modal-header">
@@ -334,6 +356,7 @@ width: 20em
 													<li>Radiostudie</li>
 												</ul>
 											</div>
+							<!--SELECT COUNT(*) FROM Assignment WHERE Assignment (user_id) TO (ID) -->
 											<div class="modal-footer">
 												<button type="button" class="btn btn-primary" data-dismiss="modal">Schließen</button>
 											</div>
@@ -345,7 +368,7 @@ width: 20em
 
 
 
-								<div class="modal fade" id="modalHiwi" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalHiwi" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 									<div class="modal-dialog ">
 										<div class="modal-content ">
 											<div class="modal-header">
@@ -374,7 +397,7 @@ width: 20em
 
 
 
-								<div class="modal fade" id="modalVersuchsleiter" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalVersuchsleiter" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 									<div class="modal-dialog ">
 										<div class="modal-content ">
 											<div class="modal-header">

@@ -13,7 +13,7 @@
 
 
 <!-- diesen block mit 10 letzten queries der studies -->
-				<p><!-- @experiment.name --><span class="pull-right" <!-- @experiment.created_on  --> <a class="btn btn-xs btn-default" href="/edit"><span class="glyphicon glyphicon-pencil"></span></a></span></p>	
+				<p><!-- experiment.name --><span class="pull-right" <!-- experiment.created_on  --> <a class="btn btn-xs btn-default" href="/edit"><span class="glyphicon glyphicon-pencil"></span></a></span></p>	
 								
 
 		</div>
@@ -24,7 +24,7 @@
 	
 <hr>
 <!-- diesen block mit 10 letzten queries der benutzer -->
-				<p><!-- @user.name  --> <span class="pull-right"><!-- @user.enrollment_date  --><button type="submit" class="btn btn-xs btn-edit btn-default" id="add" data-toggle="modal" data-target="#myModal1"><span class="glyphicon glyphicon-pencil"></span></button></span></p>
+				<p><!-- user.name  --> <span class="pull-right"><!-- user.enrollment_date  --><button type="submit" class="btn btn-xs btn-edit btn-default" id="add" data-toggle="modal" data-target="#myModal1"><span class="glyphicon glyphicon-pencil"></span></button></span></p>
 		</div>
 </div>
 <div class="row">
@@ -198,7 +198,7 @@
 
 
 
-
+<!-- modal BENUTZER BEARBEITEN, das in an anderen stellen auch kopiert werden kann! -->
 	<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 
 		<div class="modal-dialog ">
@@ -215,13 +215,13 @@
 						<label for="name" class="col-sm-3 control-label">Name</label>
 						<div class="col-sm-6">
 							<input type="text" name="name" class="form-control" id="name" value="Max Mustermann" autofocus>
-						</div> <!-- @user.name -->
+						</div> <!-- user.name -->
 					</div>
 					<div class="form-group">
 						<label for="name" class="col-sm-3 control-label">E-Mail</label>
 						<div class="col-sm-6">
 							<input type="text" name="name" class="form-control" id="name" value="max@@mustermann.de">
-						</div> <!-- @user.email -->
+						</div> <!-- user.email -->
 					</div>
 					<div class="form-group">
 						<label for="name" class="col-sm-3 control-label">Studienbegin</label>
@@ -230,7 +230,7 @@
 								<option>Wintersemester 2012/13</option>
 								<option>Sommersemester 2013</option>
 								<option>Wintersemester 2014/15</option>
-							</select> 	<!-- @user.semesterstart -->		
+							</select> 	<!-- user.semesterstart -->		
 						</div>
 					</div>
 					
@@ -252,7 +252,7 @@
 												<input type="radio" name="options2" id="optionsRadios2" value="option2" checked>
 												Sonstige  </label>
 											</div>		
-									</div> <!-- @user.course -->
+									</div> <!-- user.course -->
 								</div>
 
 
@@ -271,7 +271,7 @@
 															<input type="radio" name="options3" id="optionsRadios2" value="option2">
 															Links  </label>
 														</div>
-										</div> <!-- @user.handedness -->
+										</div> <!-- user.handedness -->
 								</div>
 
 
@@ -300,14 +300,14 @@
 															</label>
 														</div>
 
-										</div> <!-- @user.privilege.id to ID  ???-->
+										</div> <!-- user.privilege.id to ID  ???-->
 								</div>
 
 								<div class="form-group">
 													<label for="name" class="col-sm-3 control-label">VPS</label>
 													<div class="col-sm-6">
 														<input type="text" name="name" class="form-control" id="name" value="25" autofocus>
-											</div> <!-- @session.user_id to User(id) ???-->
+											</div> <!-- session.user_id to User(id) ???-->
 								</div>
 
 
