@@ -24,8 +24,8 @@
 <hr>
 <!-- diesen block mit 10 letzten queries der benutzer -->
 @for(BeNutz <- User.TenUser){
-<p>BeNutz.name
-<span class="pull-right">BeNutz.date 
+<p>@BeNutz.name
+<span class="pull-right">@BeNutz.date 
 <button type="submit" class="btn btn-xs btn-edit btn-default" id="add" data-toggle="modal" data-target="#myModal1"><span class="glyphicon glyphicon-pencil"></span></button></span></p>
 
 }

@@ -57,6 +57,8 @@ public class User extends Model {
 		ResultSet rs = stmt
 				.executeQuery("SELECT name FROM User WHERE id = "+id+"");
 		rs.next();
+			stmt.close();
+
 		return rs.getString("name");
     }
     
