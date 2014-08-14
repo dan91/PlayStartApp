@@ -56,6 +56,7 @@ public class Experiment extends Model {
 		e.email_notifications = rs.getString("email_notifications");
 		e.experiment_type_id = rs.getInt("experiment_type_id");
 		e.max_probands = rs.getInt("max_probands");
+		stmt.close();
 		return e;
     }
     
@@ -71,6 +72,7 @@ public class Experiment extends Model {
 			e.name = rs.getString("name");
 			list.add(e);
 		}
+		stmt.close();
 		return list;
     }
     
