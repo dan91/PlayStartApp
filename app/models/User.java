@@ -44,7 +44,7 @@ public class User extends Model {
 
     public String handedness;
 
-    public Date enrollment_date;
+    public String enrollment_date;
 
     public String course;
 
@@ -67,8 +67,30 @@ public class User extends Model {
         ResultSet rs = stmt
                 .executeQuery("SELECT COUNT(*) AS Amount FROM User ");
         rs.next();
+			stmt.close();
         return rs.getInt("Amount");
     }
+       
+       public static List<User> TenUser() throws SQLException {
+           Connection con = DB.getConnection();
+           Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+           ResultSet rs = stmt
+                   .executeQuery("SELECT name, id, enrollment_date FROM User LIMIT 10 ");
+           		List<User> list = new ArrayList<User>();
+   			while(rs.next()) {
+   				User e = new User();
+   				e.id = rs.getLong("id");
+   				e.name = rs.getString("name");
+   				e.enrollment_date = rs.getString("enrollment_date");
+   				list.add(e);
+   		}
+   			stmt.close();
+   		return list;
+       } 
+       
+       
+       
+       
        
        public static int allMen() throws SQLException {
            Connection con = DB.getConnection();
@@ -76,6 +98,7 @@ public class User extends Model {
            ResultSet rs = stmt
                    .executeQuery("SELECT COUNT(*) AS Amount FROM User WHERE gender='male' ");
            rs.next();
+  			stmt.close();
            return rs.getInt("Amount");
        }
     
@@ -85,6 +108,7 @@ public class User extends Model {
            ResultSet rs = stmt
                    .executeQuery("SELECT COUNT(*) AS Amount FROM User WHERE gender='female' ");
            rs.next();
+  			stmt.close();
            return rs.getInt("Amount");
        }
        

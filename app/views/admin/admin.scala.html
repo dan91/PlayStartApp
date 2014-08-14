@@ -8,24 +8,29 @@
 	<div class="row">
 	<div class="col-sm-6 col-xs-12">
 		
-					<h3 class="panel-title">Neue Studien <span class="pull-right"><a href="/allStudies"><button type="button" class="btn  btn-default btn-sm">Alle Studien</button></a></span></h3>
+<h3 class="panel-title">Neue Studien <span class="pull-right"><a href="/allStudies"><button type="button" class="btn  btn-default btn-sm">Alle Studien</button></a></span></h3>
 <hr>
 
 
 
 <!-- diesen block mit 10 letzten queries der studies -->
-				<p><!-- experiment.name --><span class="pull-right" <!-- experiment.created_on  --> <a class="btn btn-xs btn-default" href="/edit"><span class="glyphicon glyphicon-pencil"></span></a></span></p>	
-								
-
+<p><!-- experiment.name --><span class="pull-right"> <!-- experiment.created_on  --> <a class="btn btn-xs btn-default" href="/edit"><span class="glyphicon glyphicon-pencil"></span></a></span></p>	
+							
 		</div>
 
 		<div class="col-sm-6 col-xs-12">
 		
-					<h3 class="panel-title">Neue Benutzer <span class="pull-right"><a href="/user"><button type="button" class="btn  btn-default btn-sm">Alle Benutzer</button></a></span></h3>
-	
+<h3 class="panel-title">Neue Benutzer <span class="pull-right"><a href="/user"><button type="button" class="btn  btn-default btn-sm">Alle Benutzer</button></a></span></h3>	
 <hr>
 <!-- diesen block mit 10 letzten queries der benutzer -->
-				<p><!-- user.name  --> <span class="pull-right"><!-- user.enrollment_date  --><button type="submit" class="btn btn-xs btn-edit btn-default" id="add" data-toggle="modal" data-target="#myModal1"><span class="glyphicon glyphicon-pencil"></span></button></span></p>
+@for(BeNutz <- User.TenUser){
+<p>BeNutz.name
+<span class="pull-right">BeNutz.date 
+<button type="submit" class="btn btn-xs btn-edit btn-default" id="add" data-toggle="modal" data-target="#myModal1"><span class="glyphicon glyphicon-pencil"></span></button></span></p>
+
+}
+
+
 		</div>
 </div>
 <div class="row">
