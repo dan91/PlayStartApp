@@ -36,8 +36,9 @@ public class Session {
 		ResultSet rs = stmt
 				.executeQuery("SELECT COUNT(*) AS amount FROM Session, Experiment WHERE Session.experiment_id = Experiment.id AND Experiment.id = "+id+" AND Session.datetime > NOW()");
 		rs.next();
+		int amount = rs.getInt("amount");
 		stmt.close();
-		return rs.getInt("amount");
+		return amount;
     }
     
     public static List<Session> byExperimentId(Long id) throws SQLException {	
