@@ -60,6 +60,8 @@ public class Building extends Model {
 		
 		
 		stmt.close();
+		con.close();
+		
 		return list;
     }
     
@@ -78,6 +80,8 @@ public class Building extends Model {
     	        // iwo muss das statement aber noch geschlossen werden!!!!
     	        //   stmt.close();
     	        
+    	       con.close();
+    	       
     	    }
     
     public static void update(Long id, String name, String description, double lat, double lng) throws SQLException {
@@ -90,7 +94,9 @@ public class Building extends Model {
         
         
        stmt.executeUpdate(update);
-       stmt.close(); 
+       stmt.close();
+       
+       con.close();
         // iwo muss das statement aber noch geschlossen werden!!!!
         //   stmt.close();
         
