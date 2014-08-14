@@ -74,7 +74,7 @@
                 marker.setVisible(false);
                 
                 /** EDITBUILDING MARKER */
-                markerE.setVisible(false);
+              /**  markerE.setVisible(false); */
                 
                 var place = autocomplete.getPlace();
                 if (!place.geometry) {
@@ -137,18 +137,10 @@
                 });
             
             
-                google.maps.event.addListener(mapE, "click", function(event)
-                        {
-                            // place a marker
-                            placeMarkerE(event.latLng);
-
-                            // display the lat/lng in your form's lat/lng fields
-                            document.getElementById("latFld").value = event.latLng.lat();
-                            document.getElementById("lngFld").value = event.latLng.lng();
-                            
-                            
-                        });
-                
+            
+            
+            
+                /** NEW BUILDING MARKER */
                 function placeMarker(location) {
                     // first remove all markers if there are any
                     deleteOverlays();
@@ -163,6 +155,24 @@
 
                     // map.setCenter(location);
                 }
+                
+                /** EDIT BUILDING MARKER */
+                function placeMarkerE(location) {
+                    // first remove all markers if there are any
+                    deleteOverlays();
+
+                    var marker = new google.maps.Marker({
+                        position: location, 
+                        map: mapE
+                    });
+
+                    // add marker in markers array
+                    markersArray.push(markerE);
+
+                    // map.setCenter(location);
+                }
+                
+                
 
                 // Deletes all markers in the array by removing references to them
                 function deleteOverlays() {
@@ -225,15 +235,21 @@
                     // add marker in markers array
                     markersArray.push(markerE);
                     
-                    /** Nach oben geklatscht
-                    $('#editBuildingModal').on('shown.bs.modal', function() {
-             		   /** CENTERS MAP ON DATABASE COORDINATES */
-             		  /* mapE.setCenter(placeOfEditableBuilding);
-             		   google.maps.event.trigger(mapE, 'resize');
-                        });
-                     /* ----------------------------- */
+                    // add a click event handler to the map object
+                    google.maps.event.addListener(mapE, "click", function(event)
+                    {
+                        // place a marker
+                        placeMarkerE(event.latLng);
+
+                        // display the lat/lng in your form's lat/lng fields
+                        document.getElementById("latFld").value = event.latLng.lat();
+                        document.getElementById("lngFld").value = event.latLng.lng();
+                        
+                        
+                    });
                 	   
-                	 });
+              
+              });
                 /**------------------------------------------------------- */
                 
                 
