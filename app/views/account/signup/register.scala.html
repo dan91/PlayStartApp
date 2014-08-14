@@ -10,7 +10,10 @@
 </div>
 
 
-
+<!--
+INSERT INTO user (email, name, Passwort?, female, handedness, enrolement_date) Fehlt: Birthday, language, privilige_id, semesterstart, phone
+VALUES ('email','firstname + lastname (oder einfach konsolidieren)','Passwort???','Geschlecht','Händigkeit', 'aktueller_tag');
+-->
 <form role="form" class="form-horizontal" action="/">
 
  <div class="form-group">
@@ -50,10 +53,10 @@
 				<div class="btn-group">
 					<label class="btn btn-default">
 						<input type="radio" name="gender" id="gender1" checked>
-						männlich </label>
+						männlich </label><!-- female = false-->
 						<label class="btn btn-default">
 							<input type="radio" name="gender" id="gender2">
-							weiblich </label>
+							weiblich </label> <!-- female = true -->
 						</div>
 					</div>
 				</div>	
@@ -63,10 +66,10 @@
 			<div class="col-sm-4">
 				<div class="btn-group">
 					<label class="btn btn-default">
-						<input type="radio" name="options" id="option1">
-						links </label>
+						<input type="radio" name="options" id="links">
+						links </label> <!-- ist ein varchar -->
 						<label class="btn btn-default">
-							<input type="radio" name="options" id="option2" checked>
+							<input type="radio" name="options" id="rechts" checked>
 							rechts </label>
 						</div>
 					</div>

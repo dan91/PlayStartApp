@@ -60,6 +60,15 @@ public class User extends Model {
 		return rs.getString("name");
     }
     
+
+       public static String allUsers(Long id) throws SQLException {
+        Connection con = DB.getConnection();
+        Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        ResultSet rs = stmt
+                .executeQuery("SELECT COUNT(*) FROM User AS Amount");
+        rs.next();
+        return rs.getInt("Amount");
+    }
     
 }
 
