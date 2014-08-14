@@ -38,6 +38,7 @@ public class Session {
 		rs.next();
 		int amount = rs.getInt("amount");
 		stmt.close();
+		con.close();
 		return amount;
     }
     
@@ -55,6 +56,7 @@ public class Session {
 			list.add(s);
 		}
 		stmt.close();
+		con.close();
 		return list;
     }    
 }

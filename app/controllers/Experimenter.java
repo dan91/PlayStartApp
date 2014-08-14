@@ -39,7 +39,6 @@ public class Experimenter extends Controller {
     public static Result edit(Long id) throws SQLException { 
     	Form<Experiment> editForm = form(Experiment.class);
     	return ok(views.html.experimenter.edit.render(Experiment.byId(id)));
-        
     }
     
     /**

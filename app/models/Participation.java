@@ -8,6 +8,7 @@ import java.util.*;
 
 import javax.persistence.*;
 
+import play.Logger;
 import play.db.DB;
 import play.db.ebean.*;
 import play.data.format.*;
@@ -46,6 +47,7 @@ public class Participation extends Model {
 				.executeQuery("SELECT COUNT(*) AS amount FROM Participation, Session, Experiment WHERE Participation.session_id = Session.id AND Session.experiment_id = Experiment.id AND Experiment.id = "+id+" AND was_present = 1");
 		rs.next();
 		stmt.close();
+		con.close();
 		return rs.getInt("amount");
     }
     
@@ -56,10 +58,26 @@ public class Participation extends Model {
 				.executeQuery("SELECT COUNT(*) AS amount FROM Participation, Session, Experiment WHERE Participation.session_id = Session.id AND Session.experiment_id = Experiment.id AND Experiment.id = "+id+" AND Session.datetime > NOW()");
 		rs.next();
 		stmt.close();
+		con.close();
 		return rs.getInt("amount");
     }
     
-   
+    public static List<Participation> byExperimentId(Long id) throws SQLException {	
+    	Connection con = DB.getConnection();
+        Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+		ResultSet rs = stmt
+				.executeQuery("SELECT Participation.id, user_id FROM Participation, Session WHERE Participation.session_id = Session.id AND Session.experiment_id = "+id+" AND Session.datetime < NOW()");
+		List<Participation> list = new ArrayList<Participation>();
+		while(rs.next()) {
+			Participation p = new Participation();
+			p.id = rs.getLong("id");
+			p.user_id = rs.getLong("user_id");
+			list.add(p);
+		}
+		stmt.close();
+		con.close();
+		return list;
+    }    
     
     
 }
