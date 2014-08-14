@@ -20,6 +20,7 @@
     	
     	
         var markersArray = [];
+        var markersArrayE = [];
         
         /** NEW BUILDING */
         /** RESIZED DIE KARTE, SETZT CENTER DER MAP AUF ZFM DES LEHRSTUHLS MCM - UNI WÜRZBURG*/
@@ -137,6 +138,8 @@
                     
                 });
             
+                
+            
                
             
             
@@ -160,7 +163,7 @@
                 /** EDIT BUILDING MARKER */
                 function placeMarkerE(location) {
                     // first remove all markers if there are any
-                    deleteOverlays();
+                    deleteOverlaysE();
 
                     var marker = new google.maps.Marker({
                         position: location, 
@@ -168,7 +171,7 @@
                     });
 
                     // add marker in markers array
-                    markersArray.push(markerE);
+                    markersArrayE.push(markerE);
 
                     // map.setCenter(location);
                 }
@@ -185,7 +188,15 @@
                     }
                 }
   
-                
+             // Deletes all markers in the array by removing references to them
+                function deleteOverlaysE() {
+                    if (markersArrayE) {
+                        for (i in markersArrayE) {
+                            markersArrayE[i].setMap(null);
+                        }
+                    markersArrayE.length = 0;
+                    }
+                }
                 
                 
                 
@@ -214,18 +225,10 @@
 
                     placeOfEditableBuilding =   new google.maps.LatLng(buildingLat, buildingLng);
                     // add marker in markers array
-                    google.maps.event.addListener(mapE, "click", function(event)
-                            {
-                              
-                            	// place a marker
-                                placeMarkerE(event.latLng);
-
-                                // display the lat/lng in your form's lat/lng fields
-//                                document.getElementById("latFld").value = event.latLng.lat();
-          //                      document.getElementById("lngFld").value = event.latLng.lng();
-                                
-                                
-                            });
+                    
+                    placeMarkerE(placeOfEditableBuilding);
+                    
+                    
                     
                 	   
               
