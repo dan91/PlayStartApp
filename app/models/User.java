@@ -61,7 +61,7 @@ public class User extends Model {
     }
     
 
-       public static String allUsers(Long id) throws SQLException {
+       public static int allUsers() throws SQLException {
         Connection con = DB.getConnection();
         Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
         ResultSet rs = stmt

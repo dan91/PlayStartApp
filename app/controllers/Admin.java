@@ -30,7 +30,11 @@ public class Admin extends Controller {
      * @return
      */
     public static Result admin() {  
+    	try {
         return ok(views.html.admin.admin.render(User.allUsers()));
+    	} catch (SQLException e) {
+    		return badRequest("SQL Error");
+    	}
     }
 
 
