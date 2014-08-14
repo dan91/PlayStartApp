@@ -58,8 +58,8 @@ public class User extends Model {
 				.executeQuery("SELECT name FROM User WHERE id = "+id+"");
 		rs.next();
 			stmt.close();
-
-		return rs.getString("name");
+		String name = rs.getString("name");
+		return name;
     }
     
 
