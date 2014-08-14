@@ -30,7 +30,7 @@ public class Admin extends Controller {
      * @return
      */
     public static Result admin() {  
-        return ok(views.html.admin.admin.render());
+        return ok(views.html.admin.admin.render(User.allUsers()));
     }
 
 

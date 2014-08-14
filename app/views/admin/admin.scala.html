@@ -1,4 +1,4 @@
-@(users: List[Users])
+@(allUsers: Integer)
 
 @main(null, null, "admin") {
 
@@ -53,7 +53,7 @@
 					  <tbody>
 					  	<tr >
 					  		<td class="col-sm-8"><b>Benutzer Insgesamt</b></td>
-					  		<td>400</td> <!-- SELECT COUNT(*) FROM User; -->
+					  		<td>@allUsers</td> <!-- SELECT COUNT(*) FROM User; -->
 					  	</tr>
 					  	<tr>
 					  		<td class="col-sm-8">Männer</td>
