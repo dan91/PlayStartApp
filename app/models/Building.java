@@ -75,4 +75,21 @@ public class Building extends Model {
     	        //   stmt.close();
     	        
     	    }
+    
+    public static void update(Long id, String name, String description, double lat, double lng) throws SQLException {
+    	Connection con = DB.getConnection();
+        Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+		
+       
+        
+        String update = String.format("UPDATE Building SET "
+        		+ "name='%s',description='%s',lat='%s',lng='%s') WHERE id='%s';" ,name,description,lat,lng,id );
+        
+        
+       stmt.executeUpdate(update);
+        
+        // iwo muss das statement aber noch geschlossen werden!!!!
+        //   stmt.close();
+        
+    }
 }

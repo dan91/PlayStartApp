@@ -16,49 +16,35 @@
     	
     	
         var markersArray = [];
+        
+        /** NEW BUILDING */
+        /** SETZT CENTER DER MAP AUF ZFM DES LEHRSTUHLS MCM - UNI WÜRZBURG*/
         var ZFM = new google.maps.LatLng(49.782264, 9.974931);
-        
-        /**
-        $('#myMapModal').on('shown.bs.modal', function() {
-            resizeShit();
-            });*/
-        
-        function resizeShit(location){  
-            /**var center = map.getCenter();*/
-            
-            
-            /** vorher: "center"*/
-            
-           
-           	map.setCenter(location);
-           	google.maps.event.trigger(map, "resize");
-        }
-        
+        $('#newBuildingModal').on('shown.bs.modal', function() {
+           map.setCenter(marker.getPosition());	
+ 		   google.maps.event.trigger(map, 'resize');
+          });
+        /** -----------------------------------------------*/
    
         
-        /** autocomplete stuff*/
+        
         var mapOptions = {
-                
                 /** Startwert ist hier das Zentrum für Mediendidaktik (ZFM) der Uni Würzburg*/
-                center: new google.maps.LatLng(49.782264, 9.974931),
-                zoom: 17
+        		zoom: 17,
+                center: ZFM,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
               };
         
         
               var map = new google.maps.Map(document.getElementById('map-canvas'),mapOptions);
               placeMarker(ZFM);
-              /** in dem Fall lat + lng =  null!!! */
               
 
               var input = (document.getElementById('pac-input'));
                 
-              
-              
                 /** bindet die autocomplete vorschläge an die Bounds der vorher gesuchten Eingabe!
-                
                 Wichtig, damit nicht zentren in anderen Städten, sondern immer die die lokal 
-                am nächsten sind, zuerst angezeigt werden.
-                
+                am nächsten sind, zuerst angezeigt werden.  
                 */
               var autocomplete = new google.maps.places.Autocomplete(input);
               autocomplete.bindTo('bounds', map);
@@ -69,7 +55,7 @@
               var infowindow = new google.maps.InfoWindow();
               var marker = new google.maps.Marker({
                 map: map,
-                anchorPoint: new google.maps.Point(0, -29)
+               /** anchorPoint: new google.maps.Point(0, -29)*/
               });
 
               google.maps.event.addListener(autocomplete, 'place_changed', function() {
@@ -161,38 +147,100 @@
                 }
   
                 
-                
-                $('.editableBuilding').click(function(e) {
+                /** EDIT BUILDING --> SHOWS COORDINATES FROM DATABASE*/
+                /*11111$('.editableBuilding').click(function(e) {
                 	   e.preventDefault();
                 	   var statusCode = $(this).data('status');
-                	   var felder = statusCode.split(',', 4);
                 	   
-                	   buildingName = felder[0];
-                	   buildingDesc = felder[1];
-                	   buildingLat =  felder[2];
-                	   buildingLng =  felder[3];
-
+                	   /*
+                	   var felder = statusCode.split(',', 5);
+                	   
+                	   buildingId 	= felder[0];
+                	   buildingName = felder[1];
+                	   buildingDesc = felder[2];
+                	   buildingLat =  felder[3];
+                	   buildingLng =  felder[4];
+						*/
+						
+					/*1111	var felder = statusCode.split(',', 4);
+	                	   
+	                	   
+	                	   buildingName = felder[0];
+	                	   buildingDesc = felder[1];
+	                	   buildingLat =  felder[2];
+	                	   buildingLng =  felder[3];
                 	   
                 	   var placeOfEditableBuilding = new google.maps.LatLng(buildingLat, buildingLng);
                 	   
-                      /** setzt Marker auf neue Map*/		
-                	   placeMarker(placeOfEditableBuilding);
+                      /**SETS MARKER ON DATABASE COORDINATES*/		
+                	/*11111   placeMarker(placeOfEditableBuilding);
                       
-                	   $('#myMapModal').on('shown.bs.modal', function() {
-                		   
-
-                		   map.setCenter(placeOfEditableBuilding);
+                	 /*11111  $('#editBuildingModal').on('shown.bs.modal', function() {
+                		   /** CENTERS MAP ON DATABASE COORDINATES */
+                	/*11111	   map.setCenter(placeOfEditableBuilding);
                 		   google.maps.event.trigger(map, 'resize');
-                           /**resizeShit(placeOfEditableBuilding);*/
                            });
                 	   
-                	   /**$(window).resize(function() {
-                	        google.maps.event.trigger(map, 'resize');
-                	    });*/
-
                 	 });
+                /**------------------------------------------------------- */
                 
-                /**google.maps.event.trigger(map, 'resize');*/
+                
+                
+                
+                /** EDIT BUILDING --> SHOWS COORDINATES FROM DATABASE*/
+                $('.editableBuilding').click(function(e) {
+                	   e.preventDefault();
+                	   var statusCode = $(this).data('status');
+                	   
+                	   /*
+                	   var felder = statusCode.split(',', 5);
+                	   
+                	   buildingId 	= felder[0];
+                	   buildingName = felder[1];
+                	   buildingDesc = felder[2];
+                	   buildingLat =  felder[3];
+                	   buildingLng =  felder[4];
+						*/
+						
+						var felder = statusCode.split(',', 4);
+	                	   
+	                	   
+	                	   buildingName = felder[0];
+	                	   buildingDesc = felder[1];
+	                	   buildingLat =  felder[2];
+	                	   buildingLng =  felder[3];
+                	   
+	                	   
+                	   var mapOptionsE = {
+                			      zoom: 12,
+                			      mapTypeId: google.maps.MapTypeId.ROADMAP,
+                			      center: new google.maps.LatLng(buildingLat, buildingLng)
+                			    };
+                	   
+                	   mapE = new google.maps.Map(document.getElementById("map_canvas"), mapOptionsE);
+                	   
+                      /**SETS MARKER ON DATABASE COORDINATES*/		
+                	deleteOverlays();
+
+                    var marker = new google.maps.Marker({
+                        position: new google.maps.LatLng(buildingLat, buildingLng), 
+                        map: mapE
+                    });
+
+                    // add marker in markers array
+                    markersArray.push(marker);
+                      
+                	   $('#editBuildingModal').on('shown.bs.modal', function() {
+                		   /** CENTERS MAP ON DATABASE COORDINATES */
+                		   mapE.setCenter(placeOfEditableBuilding);
+                		   google.maps.event.trigger(mapE, 'resize');
+                           });
+                	 });
+                /**------------------------------------------------------- */
+                
+                
+                google.maps.event.trigger(map, 'resize');
+                
     });  
     
     
@@ -215,7 +263,7 @@
 
 <div class="page-header">
 <h3>Labore <span class="label label-default">16</span>      
-            <button data-toggle="modal" data-target="#myMapModal" class="btn btn-default loc pull-right" ><span class="glyphicon glyphicon-plus"></span> Gebäude</button>
+            <button data-toggle="modal" data-target="#newBuildingModal" class="btn btn-default loc pull-right" ><span class="glyphicon glyphicon-plus"></span> Gebäude</button>
         </h3>    </div>
 	
 	
@@ -231,7 +279,7 @@
 			<div class="col-sm-8 col-xs-6"><h4>@building.name</h4></div>
 			<div class="col-sm-4 col-xs-6 text-right">
 			<button class="btn btn-default" id="add" data-toggle="modal" data-target="#myRoomModal"><span class="glyphicon glyphicon-plus"></span> Raum</button>
-			<button data-status="@building.name, @building.description, @building.lat, @building.lng," class="btn btn-default editableBuilding" id="add" data-toggle="modal" data-target="#myMapModal"> <span class="glyphicon glyphicon-pencil"></span></button>
+			<button data-status="@building.name, @building.description, @building.lat, @building.lng," class="btn btn-default editableBuilding" id="add" data-toggle="modal" data-target="#editBuildingModal"> <span class="glyphicon glyphicon-pencil"></span></button>
       <button class="btn btn-danger" id="add"> <span class="glyphicon glyphicon-remove"></span></button>
       </div>
 			
@@ -287,31 +335,6 @@
       
       </div>
       
-      
-    
-    <div>
-    <hr>
-        <div class="row">
-      <div class="col-sm-3 col-xs-6"><b>Raum 00.100</b></div>
-      <div class="col-sm-2 col-xs-7 col-sm-offset-7 text-right"> 
-<button class="btn  btn-sm btn-default"><span class="glyphicon glyphicon-pencil" data-toggle="modal" data-target="#myRoomModal"></span><button class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-remove"></span></button></a>
-      </div> 
-      </div>
-
-       <div class="row">
-      <div class="col-sm-3 col-xs-6"><b>Raum 00.100</b></div>
-      <div class="col-sm-2 col-xs-7 col-sm-offset-7 text-right"> 
-<button class="btn  btn-sm btn-default"><span class="glyphicon glyphicon-pencil" data-toggle="modal" data-target="#myRoomModal"></span><button class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-remove"></span></button></a>
-      </div> 
-      </div>
-
-        <div class="row">
-      <div class="col-sm-3 col-xs-6"><b>Raum 00.100</b></div>
-      <div class="col-sm-2 col-xs-7 col-sm-offset-7 text-right"> 
-<button class="btn  btn-sm btn-default"><span class="glyphicon glyphicon-pencil" data-toggle="modal" data-target="#myRoomModal"></span><button class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-remove"></span></button></a>
-      </div> 
-      </div>
-</div>
 	
 	
 	
@@ -323,10 +346,10 @@
 
 
 
-<!-- Beginn Map-Modal -->
+<!-- NEW BUILDING-Modal -->
 
 <form action="@routes.Admin.save()" method="POST">
-<div class="modal fade" id="myMapModal">
+<div class="modal fade" id="newBuildingModal">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -390,10 +413,90 @@
            		 			$('#newBuildingSubmit').click(function(){
            		 				/** on click wird das modal versteckt und
            		 				der User bekommt wieder die neugeladene lab Seite zu sehen*/
-           		 				$('#myMapModal').modal('hide');
+           		 				$('#newBuildingModal').modal('hide');
            		 			});
            		 	});
            		 	</script>
+           		 	
+     
+     
+     
+     
+     <!-- Beginn EDIT-BUILDING-Modal -->
+
+<form action="@routes.Admin.saveEditBuilding()" method="POST">
+<div class="modal fade" id="editBuildingModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            	<h4 class="modal-title">Gebäude</h4>
+                 </div>
+                 <div class="modal-body">
+                 <div class="row">
+            					<div class="col-sm-3">
+                        <b>Bezeichnung</b>
+                      </div>
+                      <div class="col-sm-6">
+            						<input class="form-control"  id="buildingName" name="buildingName" type="text" placeholder="z.B. GameBox"/>
+                      </div>
+            					</div>
+            
+
+					<div class="row">
+            					<div class="col-sm-3">
+            					<b>Ort</b>
+                    </div>
+                      <div class="col-sm-6">                    
+            						<input id="pac-input" name="pac-input" class="form-control" type="text"
+						        placeholder="z.B. Zentrum für Mediendidaktik"/>
+            					</div>
+            
+            			</div> 
+            			
+            					<b>Setzen Sie einen Marker auf der Karte.</b>
+            
+
+  
+                <div class="container">
+                    <div class="row">
+                                 
+						 
+						    <div id="map_canvas"></div>
+     					
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+
+			<!-- Verstecktes Feld für LAT -->
+			            <input name="latFld" id="latFld"/>
+			<!-- Verstecktes Feld für LNG -->            
+  						<input name="lngFld" id="lngFld"/>
+			            
+			           <!-- ÜBERGIBT DIE DATEN AN DEN SERVER --> 
+			          <button id="editBuildingSubmit" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Speichern</button>	 	
+			</div>
+        </div>
+    </div>
+    </div>
+    
+    </form> 
+    
+    <!-- SCHLIEßt MODAL OHNE DATEN ZU VERSCHLUCKEN, wie es data-dismiss tut -->
+           		 	<script>
+           		 	$(document).ready(function(){
+           		 			$('#editBuildingSubmit').click(function(){
+           		 				/** on click wird das modal versteckt und
+           		 				der User bekommt wieder die neugeladene lab Seite zu sehen*/
+           		 				$('#editBuildingModal').modal('hide');
+           		 			});
+           		 	});
+           		 	</script>      		 	
+           		 	
+           		 	
+           		 	
+           		 	
     
     
     
