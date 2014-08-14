@@ -30,7 +30,7 @@ GET		/admin_edit				controllers.Admin.edit()
 
 
 POST    /lab                  	controllers.Admin.save()
-POST    /lab                  	controllers.Admin.saveEditBuilding()
+POST    /lab1                  	controllers.Admin.saveEditBuilding()
 
 
 

@@ -120,18 +120,20 @@ public class Admin extends Controller {
         
         final Map<String, String[]> values = request().body().asFormUrlEncoded();
         
-        final Long id = Long.parseLong(values.get("buildingId")[0]);
-        final String name = values.get("buildingName")[0];
-        final String description = values.get("pac-input")[0];
+        final Long id = Long.parseLong(values.get("editId")[0]);
+        final String name = values.get("buildingNameEdit")[0];
+        final String description = values.get("pac-inputEdit")[0];
         
         // Float ist zu klein, schneidet die Hälfte ab!!!
-        final double lat = Double.parseDouble(values.get("latFld")[0]);
-        final double lng = Double.parseDouble(values.get("lngFld")[0]);
+        final double lat = Double.parseDouble(values.get("latFldEdit")[0]);
+        final double lng = Double.parseDouble(values.get("lngFldEdit")[0]);
         
 
         // zeigt in der console an ob der server es bekommen hat
         Logger.info("Building with ID: "+id +" will be updated with 'Name:' "+
         name+", 'Description:' "+description+", 'Lat:' "+lat+", 'Lng:' "+lng);
+        
+        
         
       
         try {

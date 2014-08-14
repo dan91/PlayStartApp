@@ -213,6 +213,8 @@
 	                	   document.getElementById("pac-inputEdit").value = buildingDesc;
 	                	   document.getElementById("latFldEdit").value = buildingLat;
 	                	   document.getElementById("lngFldEdit").value = buildingLng;
+	                	   
+	                	 
                 	   
                 	   var mapOptionsE = {
                 			      zoom: 12,
@@ -546,7 +548,7 @@
                 
             </div>
             <div class="modal-footer">
-            <form action="@routes.Admin.save()" method="POST">
+            <form  method="POST">
                 <button type="submit" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-ok"></span> Speichern</button>
            	</form>
            		

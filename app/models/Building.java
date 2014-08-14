@@ -10,6 +10,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+import play.Logger;
 import play.data.validation.Constraints;
 import play.db.DB;
 import play.db.ebean.Model;
@@ -84,9 +85,8 @@ public class Building extends Model {
         Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 		
        
-        
         String update = String.format("UPDATE Building SET "
-        		+ "name='%s',description='%s',lat='%s',lng='%s') WHERE id='%s';" ,name,description,lat,lng,id );
+        		+ "name='%s',description='%s',lat='%s',lng='%s' WHERE id=%s;" ,name,description,lat,lng,id );
         
         
        stmt.executeUpdate(update);
