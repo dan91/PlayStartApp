@@ -42,6 +42,7 @@ public class Assignment extends Model {
 			a.notifications_only = rs.getBoolean("notifications_only");
 			list.add(a);
 		}
+		stmt.close();
 		return list;
     }
     

@@ -564,7 +564,7 @@ $( "#openPreview" ).click(function() {
 		//dur = $.fullCalendar.moment.duration(dur, 'minutes');
 		times = [
 		@for((session, index) <- Session.byExperimentId(e.id).zipWithIndex) {
-			$.fullCalendar.moment.utc(@session.datetime)@if(index != Session.byExperimentId(e.id).size-1) { , }
+			$.fullCalendar.moment.utc('@session.datetime')@if(index != Session.byExperimentId(e.id).size-1) { , }
 		}
 		]
 $('#calendar').fullCalendar({
@@ -579,7 +579,7 @@ $('#calendar').fullCalendar({
 					         @for((session, index) <- Session.byExperimentId(e.id).zipWithIndex) {
 					         {
 					             title  : '',
-					             start  : @session.datetime
+					             start  : '@session.datetime'
 					             
 					         }@if(index != Session.byExperimentId(e.id).size-1) { , }
 					         }

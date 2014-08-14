@@ -45,6 +45,7 @@ public class Room extends Model {
 			e.name = rs.getString("name");
 			list.add(e);
 		}
+		stmt.close();
 		return list;
     }
     

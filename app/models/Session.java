@@ -36,6 +36,7 @@ public class Session {
 		ResultSet rs = stmt
 				.executeQuery("SELECT COUNT(*) AS amount FROM Session, Experiment WHERE Session.experiment_id = Experiment.id AND Experiment.id = "+id+" AND Session.datetime > NOW()");
 		rs.next();
+		stmt.close();
 		return rs.getInt("amount");
     }
     
@@ -52,6 +53,7 @@ public class Session {
 			s.datetime = rs.getString("datetime");
 			list.add(s);
 		}
+		stmt.close();
 		return list;
     }    
 }
