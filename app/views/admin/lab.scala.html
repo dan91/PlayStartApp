@@ -134,13 +134,7 @@
                     // display the lat/lng in your form's lat/lng fields
                     document.getElementById("latFld").value = event.latLng.lat();
                     document.getElementById("lngFld").value = event.latLng.lng();
-                    
-                    
                 });
-            
-                
-            
-               
             
             
             
@@ -165,7 +159,7 @@
                     // first remove all markers if there are any
                     deleteOverlaysE();
 
-                    var marker = new google.maps.Marker({
+                    var markerE = new google.maps.Marker({
                         position: location, 
                         map: mapE
                     });
@@ -228,11 +222,21 @@
                     
                     placeMarkerE(placeOfEditableBuilding);
                     
-                    
+                    google.maps.event.addListener(mapE, "click", function(eventEdit)
+                            {
+                            	// place a marker
+                                placeMarkerE(eventE.latLng); 
+                                document.getElementById("latFldEdit").value = eventEdit.latLng.lat();
+                                document.getElementById("lngFldEdit").value = eventEdit.latLng.lng();
+                    }); 
                     
                 	   
               
               });
+                
+                 
+                
+                
                 /**------------------------------------------------------- */
                 
                 
@@ -467,9 +471,9 @@
             <div class="modal-footer">
 
 			<!-- Verstecktes Feld für LAT -->
-			            <input name="latFld" id="latFld"/>
+			            <input name="latFldEdit" id="latFldEdit"/>
 			<!-- Verstecktes Feld für LNG -->            
-  						<input name="lngFld" id="lngFld"/>
+  						<input name="lngFldEdit" id="lngFldEdit"/>
 			            
 			           <!-- ÜBERGIBT DIE DATEN AN DEN SERVER --> 
 			          <button id="editBuildingSubmit" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Speichern</button>	 	
