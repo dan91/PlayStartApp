@@ -18,20 +18,20 @@
         var markersArray = [];
         var ZFM = new google.maps.LatLng(49.782264, 9.974931);
         
+        /**
         $('#myMapModal').on('shown.bs.modal', function() {
             resizeShit();
-            });
+            });*/
         
-        function resizeShit(){  
-            var center = map.getCenter();
-            google.maps.event.trigger(map, "resize");
+        function resizeShit(location){  
+            /**var center = map.getCenter();*/
+            
             
             /** vorher: "center"*/
             
-            
-            
-            map.setCenter(ZFM); 
-            
+           
+           	map.setCenter(location);
+           	google.maps.event.trigger(map, "resize");
         }
         
    
@@ -41,7 +41,7 @@
                 
                 /** Startwert ist hier das Zentrum für Mediendidaktik (ZFM) der Uni Würzburg*/
                 center: new google.maps.LatLng(49.782264, 9.974931),
-                zoom: 13
+                zoom: 17
               };
         
         
@@ -165,7 +165,6 @@
                 $('.editableBuilding').click(function(e) {
                 	   e.preventDefault();
                 	   var statusCode = $(this).data('status');
-                	   
                 	   var felder = statusCode.split(',', 4);
                 	   
                 	   buildingName = felder[0];
@@ -176,12 +175,24 @@
                 	   
                 	   var placeOfEditableBuilding = new google.maps.LatLng(buildingLat, buildingLng);
                 	   
+                      /** setzt Marker auf neue Map*/		
                 	   placeMarker(placeOfEditableBuilding);
+                      
+                	   $('#myMapModal').on('shown.bs.modal', function() {
+                		   
+
+                		   map.setCenter(placeOfEditableBuilding);
+                		   google.maps.event.trigger(map, 'resize');
+                           /**resizeShit(placeOfEditableBuilding);*/
+                           });
                 	   
-                	   
+                	   /**$(window).resize(function() {
+                	        google.maps.event.trigger(map, 'resize');
+                	    });*/
+
                 	 });
                 
-                
+                /**google.maps.event.trigger(map, 'resize');*/
     });  
     
     
