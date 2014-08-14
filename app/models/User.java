@@ -101,8 +101,10 @@ public class User extends Model {
            ResultSet rs = stmt
                    .executeQuery("SELECT COUNT(*) AS Amount FROM User WHERE gender='male' ");
            rs.next();
+           int amount = rs.getInt("Amount");
+
   			stmt.close();
-           return rs.getInt("Amount");
+           return amount;
        }
     
        public static int allWomen() throws SQLException {
@@ -111,8 +113,10 @@ public class User extends Model {
            ResultSet rs = stmt
                    .executeQuery("SELECT COUNT(*) AS Amount FROM User WHERE gender='female' ");
            rs.next();
+           int amount = rs.getInt("Amount");
+
   			stmt.close();
-           return rs.getInt("Amount");
+           return amount;
        }
        
 }
