@@ -200,12 +200,15 @@
                 $('.editableBuilding').click(function(e) {
                 	   e.preventDefault();
                 	   var statusCode = $(this).data('status');	
-					   var felder = statusCode.split(',', 4);
+					   var felder = statusCode.split(',', 5);
 	                	   
-	                	   buildingName = felder[0];
-	                	   buildingDesc = felder[1];
-	                	   buildingLat =  felder[2];
-	                	   buildingLng =  felder[3];
+					   	   buildingId  = felder[0];
+	                	   buildingName = felder[1];
+	                	   buildingDesc = felder[2];
+	                	   buildingLat =  felder[3];
+	                	   buildingLng =  felder[4];
+	                	   
+	                	   document.getElementById("buildingNameEdit").value =
                 	   
                 	   var mapOptionsE = {
                 			      zoom: 12,
@@ -221,7 +224,6 @@
                     // add marker in markers array
                     
                     placeMarkerE(placeOfEditableBuilding);
-                    
                     google.maps.event.addListener(mapE, "click", function(eventEdit)
                             {
                             	// place a marker
@@ -280,7 +282,7 @@
 			<div class="col-sm-8 col-xs-6"><h4>@building.name</h4></div>
 			<div class="col-sm-4 col-xs-6 text-right">
 			<button class="btn btn-default" id="add" data-toggle="modal" data-target="#myRoomModal"><span class="glyphicon glyphicon-plus"></span> Raum</button>
-			<button data-status="@building.name, @building.description, @building.lat, @building.lng," class="btn btn-default editableBuilding" id="add" data-toggle="modal" data-target="#editBuildingModal"> <span class="glyphicon glyphicon-pencil"></span></button>
+			<button data-status="@building.id,@building.name, @building.description, @building.lat, @building.lng," class="btn btn-default editableBuilding" id="add" data-toggle="modal" data-target="#editBuildingModal"> <span class="glyphicon glyphicon-pencil"></span></button>
       <button class="btn btn-danger" id="add"> <span class="glyphicon glyphicon-remove"></span></button>
       </div>
 			
@@ -439,7 +441,7 @@
                         <b>Bezeichnung</b>
                       </div>
                       <div class="col-sm-6">
-            						<input class="form-control"  id="buildingName" name="buildingName" type="text" placeholder="z.B. GameBox"/>
+            						<input class="form-control"  id="buildingNameEdit" name="buildingNameEdit" type="text" placeholder="z.B. GameBox"/>
                       </div>
             					</div>
             
@@ -449,7 +451,7 @@
             					<b>Ort</b>
                     </div>
                       <div class="col-sm-6">                    
-            						<input id="pac-input" name="pac-input" class="form-control" type="text"
+            						<input id="pac-inputEdit" name="pac-inputEdit" class="form-control" type="text"
 						        placeholder="z.B. Zentrum für Mediendidaktik"/>
             					</div>
             
@@ -470,6 +472,8 @@
             </div>
             <div class="modal-footer">
 
+			<!-- Verstecktes Feld für Id -->
+			            <input name="editId" id="editId" value=""/>
 			<!-- Verstecktes Feld für LAT -->
 			            <input name="latFldEdit" id="latFldEdit"/>
 			<!-- Verstecktes Feld für LNG -->            
