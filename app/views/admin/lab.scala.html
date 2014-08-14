@@ -15,6 +15,7 @@
     	
     	var mapE;
     	var placeOfEditableBuilding;
+    	var markerE;
     	
     	
     	
@@ -27,6 +28,7 @@
         	/** erst resizen und dann Zentrum setzen, sonst verschiebt sich alles -.-   */
         	google.maps.event.trigger(map, 'resize');
             map.setCenter(ZFM);	
+            placeMarker(ZFM);
           });
         /** -----------------------------------------------*/
    
@@ -47,7 +49,6 @@
         
         
               var map = new google.maps.Map(document.getElementById('map-canvas'),mapOptions);
-              placeMarker(ZFM);
               
 
               var input = (document.getElementById('pac-input'));
@@ -71,6 +72,10 @@
               google.maps.event.addListener(autocomplete, 'place_changed', function() {
                 infowindow.close();
                 marker.setVisible(false);
+                
+                /** EDITBUILDING MARKER */
+                markerE.setVisible(false);
+                
                 var place = autocomplete.getPlace();
                 if (!place.geometry) {
                   return;
@@ -130,6 +135,19 @@
                     
                     
                 });
+            
+            
+                google.maps.event.addListener(mapE, "click", function(event)
+                        {
+                            // place a marker
+                            placeMarkerE(event.latLng);
+
+                            // display the lat/lng in your form's lat/lng fields
+                            document.getElementById("latFld").value = event.latLng.lat();
+                            document.getElementById("lngFld").value = event.latLng.lng();
+                            
+                            
+                        });
                 
                 function placeMarker(location) {
                     // first remove all markers if there are any
@@ -199,13 +217,13 @@
 
                     placeOfEditableBuilding =   new google.maps.LatLng(buildingLat, buildingLng);
                       
-                    var marker = new google.maps.Marker({
+                    markerE = new google.maps.Marker({
                         position: placeOfEditableBuilding, 
                         map: mapE
                     });
 
                     // add marker in markers array
-                    markersArray.push(marker);
+                    markersArray.push(markerE);
                     
                     /** Nach oben geklatscht
                     $('#editBuildingModal').on('shown.bs.modal', function() {
