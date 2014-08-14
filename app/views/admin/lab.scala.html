@@ -13,19 +13,29 @@
     	var buildingLat;
     	var buildingLng;
     	
+    	var mapE;
+    	var placeOfEditableBuilding;
+    	
     	
     	
         var markersArray = [];
         
         /** NEW BUILDING */
-        /** SETZT CENTER DER MAP AUF ZFM DES LEHRSTUHLS MCM - UNI WÜRZBURG*/
+        /** RESIZED DIE KARTE, SETZT CENTER DER MAP AUF ZFM DES LEHRSTUHLS MCM - UNI WÜRZBURG*/
         var ZFM = new google.maps.LatLng(49.782264, 9.974931);
         $('#newBuildingModal').on('shown.bs.modal', function() {
-           map.setCenter(marker.getPosition());	
- 		   google.maps.event.trigger(map, 'resize');
+        	/** erst resizen und dann Zentrum setzen, sonst verschiebt sich alles -.-   */
+        	google.maps.event.trigger(map, 'resize');
+            map.setCenter(ZFM);	
           });
         /** -----------------------------------------------*/
    
+        $('#editBuildingModal').on('shown.bs.modal', function() {
+             		   /** CENTERS MAP ON DATABASE COORDINATES */
+             		   google.maps.event.trigger(mapE, 'resize');
+             		   mapE.setCenter(placeOfEditableBuilding);
+          });
+        
         
         
         var mapOptions = {
@@ -55,7 +65,7 @@
               var infowindow = new google.maps.InfoWindow();
               var marker = new google.maps.Marker({
                 map: map,
-               /** anchorPoint: new google.maps.Point(0, -29)*/
+               anchorPoint: new google.maps.Point(0, -29)
               });
 
               google.maps.event.addListener(autocomplete, 'place_changed', function() {
@@ -68,7 +78,7 @@
 
                 // If the place has a geometry, then present it on a map.
                 if (place.geometry.viewport) {
-                  map.fitBounds(place.geometry.viewport);
+                  /*map.fitBounds(place.geometry.viewport);*/
                 } else {
                   placeMarker(place.geometry.location)  
                   map.setCenter(place.geometry.location);
@@ -147,42 +157,7 @@
                 }
   
                 
-                /** EDIT BUILDING --> SHOWS COORDINATES FROM DATABASE*/
-                /*11111$('.editableBuilding').click(function(e) {
-                	   e.preventDefault();
-                	   var statusCode = $(this).data('status');
-                	   
-                	   /*
-                	   var felder = statusCode.split(',', 5);
-                	   
-                	   buildingId 	= felder[0];
-                	   buildingName = felder[1];
-                	   buildingDesc = felder[2];
-                	   buildingLat =  felder[3];
-                	   buildingLng =  felder[4];
-						*/
-						
-					/*1111	var felder = statusCode.split(',', 4);
-	                	   
-	                	   
-	                	   buildingName = felder[0];
-	                	   buildingDesc = felder[1];
-	                	   buildingLat =  felder[2];
-	                	   buildingLng =  felder[3];
-                	   
-                	   var placeOfEditableBuilding = new google.maps.LatLng(buildingLat, buildingLng);
-                	   
-                      /**SETS MARKER ON DATABASE COORDINATES*/		
-                	/*11111   placeMarker(placeOfEditableBuilding);
-                      
-                	 /*11111  $('#editBuildingModal').on('shown.bs.modal', function() {
-                		   /** CENTERS MAP ON DATABASE COORDINATES */
-                	/*11111	   map.setCenter(placeOfEditableBuilding);
-                		   google.maps.event.trigger(map, 'resize');
-                           });
-                	   
-                	 });
-                /**------------------------------------------------------- */
+                
                 
                 
                 
@@ -222,19 +197,24 @@
                       /**SETS MARKER ON DATABASE COORDINATES*/		
                 	deleteOverlays();
 
+                    placeOfEditableBuilding =   new google.maps.LatLng(buildingLat, buildingLng);
+                      
                     var marker = new google.maps.Marker({
-                        position: new google.maps.LatLng(buildingLat, buildingLng), 
+                        position: placeOfEditableBuilding, 
                         map: mapE
                     });
 
                     // add marker in markers array
                     markersArray.push(marker);
-                      
-                	   $('#editBuildingModal').on('shown.bs.modal', function() {
-                		   /** CENTERS MAP ON DATABASE COORDINATES */
-                		   mapE.setCenter(placeOfEditableBuilding);
-                		   google.maps.event.trigger(mapE, 'resize');
-                           });
+                    
+                    /** Nach oben geklatscht
+                    $('#editBuildingModal').on('shown.bs.modal', function() {
+             		   /** CENTERS MAP ON DATABASE COORDINATES */
+             		  /* mapE.setCenter(placeOfEditableBuilding);
+             		   google.maps.event.trigger(mapE, 'resize');
+                        });
+                     /* ----------------------------- */
+                	   
                 	 });
                 /**------------------------------------------------------- */
                 
