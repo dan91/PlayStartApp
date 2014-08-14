@@ -56,6 +56,9 @@ public class Building extends Model {
 			
 			list.add(e);
 		}
+		
+		
+		stmt.close();
 		return list;
     }
     
@@ -70,7 +73,7 @@ public class Building extends Model {
     	        
     	        
     	       stmt.executeUpdate(insert);
-    	        
+    	       stmt.close(); 
     	        // iwo muss das statement aber noch geschlossen werden!!!!
     	        //   stmt.close();
     	        
@@ -87,7 +90,7 @@ public class Building extends Model {
         
         
        stmt.executeUpdate(update);
-        
+       stmt.close(); 
         // iwo muss das statement aber noch geschlossen werden!!!!
         //   stmt.close();
         

@@ -36,6 +36,7 @@
              		   /** CENTERS MAP ON DATABASE COORDINATES */
              		   google.maps.event.trigger(mapE, 'resize');
              		   mapE.setCenter(placeOfEditableBuilding);
+             		   placeMarkerE(placeOfEditableBuilding)
           });
         
         
@@ -136,7 +137,7 @@
                     
                 });
             
-            
+               
             
             
             
@@ -193,27 +194,14 @@
                 /** EDIT BUILDING --> SHOWS COORDINATES FROM DATABASE*/
                 $('.editableBuilding').click(function(e) {
                 	   e.preventDefault();
-                	   var statusCode = $(this).data('status');
-                	   
-                	   /*
-                	   var felder = statusCode.split(',', 5);
-                	   
-                	   buildingId 	= felder[0];
-                	   buildingName = felder[1];
-                	   buildingDesc = felder[2];
-                	   buildingLat =  felder[3];
-                	   buildingLng =  felder[4];
-						*/
-						
-						var felder = statusCode.split(',', 4);
-	                	   
+                	   var statusCode = $(this).data('status');	
+					   var felder = statusCode.split(',', 4);
 	                	   
 	                	   buildingName = felder[0];
 	                	   buildingDesc = felder[1];
 	                	   buildingLat =  felder[2];
 	                	   buildingLng =  felder[3];
                 	   
-	                	   
                 	   var mapOptionsE = {
                 			      zoom: 12,
                 			      mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -222,31 +210,23 @@
                 	   
                 	   mapE = new google.maps.Map(document.getElementById("map_canvas"), mapOptionsE);
                 	   
-                      /**SETS MARKER ON DATABASE COORDINATES*/		
-                	deleteOverlays();
+                
 
                     placeOfEditableBuilding =   new google.maps.LatLng(buildingLat, buildingLng);
-                      
-                    markerE = new google.maps.Marker({
-                        position: placeOfEditableBuilding, 
-                        map: mapE
-                    });
-
                     // add marker in markers array
-                    markersArray.push(markerE);
-                    
-                    // add a click event handler to the map object
                     google.maps.event.addListener(mapE, "click", function(event)
-                    {
-                        // place a marker
-                        placeMarkerE(event.latLng);
+                            {
+                              
+                            	// place a marker
+                                placeMarkerE(event.latLng);
 
-                        // display the lat/lng in your form's lat/lng fields
-                        document.getElementById("latFld").value = event.latLng.lat();
-                        document.getElementById("lngFld").value = event.latLng.lng();
-                        
-                        
-                    });
+                                // display the lat/lng in your form's lat/lng fields
+//                                document.getElementById("latFld").value = event.latLng.lat();
+          //                      document.getElementById("lngFld").value = event.latLng.lng();
+                                
+                                
+                            });
+                    
                 	   
               
               });
