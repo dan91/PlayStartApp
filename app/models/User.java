@@ -69,8 +69,9 @@ public class User extends Model {
         ResultSet rs = stmt
                 .executeQuery("SELECT COUNT(*) AS Amount FROM User ");
         rs.next();
-			stmt.close();
-        return rs.getInt("Amount");
+        int amount = rs.getInt("Amount");
+        stmt.close();
+        return amount;
     }
        
        public static List<User> TenUser() throws SQLException {
