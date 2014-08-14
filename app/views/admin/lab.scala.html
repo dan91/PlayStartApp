@@ -225,7 +225,7 @@
                     google.maps.event.addListener(mapE, "click", function(eventEdit)
                             {
                             	// place a marker
-                                placeMarkerE(eventE.latLng); 
+                                placeMarkerE(eventEdit.latLng); 
                                 document.getElementById("latFldEdit").value = eventEdit.latLng.lat();
                                 document.getElementById("lngFldEdit").value = eventEdit.latLng.lng();
                     }); 
