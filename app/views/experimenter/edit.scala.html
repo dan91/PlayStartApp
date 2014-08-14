@@ -561,7 +561,7 @@ $( "#openPreview" ).click(function() {
 	});
 		})
 		dur = $("#duration option:selected").text();
-		dur = $.fullCalendar.moment.duration(dur, 'minutes');
+		//dur = $.fullCalendar.moment.duration(dur, 'minutes');
 		times = [
 		@for((session, index) <- Session.byExperimentId(e.id).zipWithIndex) {
 			$.fullCalendar.moment.utc(@session.datetime)@if(index != Session.byExperimentId(e.id).size-1) { , }
@@ -569,7 +569,7 @@ $( "#openPreview" ).click(function() {
 		]
 $('#calendar').fullCalendar({
 					defaultView: 'agendaWeek',
-					defaultTimedEventDuration: dur, 
+					defaultTimedEventDuration: '12:00:00', 
 					header: {
 						left:   '',
 						center: '',
@@ -579,11 +579,11 @@ $('#calendar').fullCalendar({
 					         @for((session, index) <- Session.byExperimentId(e.id).zipWithIndex) {
 					         {
 					             title  : '',
-					             start  : times[@index]
+					             start  : @session.datetime,
 					             
 					         }@if(index != Session.byExperimentId(e.id).size-1) { , }
 					         }
-					]
+					],
 					lang: 'de',
 					allDaySlot: false,
 					slotDuration: '00:15:00',

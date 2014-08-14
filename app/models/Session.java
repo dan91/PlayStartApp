@@ -12,7 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 import controllers.SQLConn;
-import play.api.Logger;
+import play.Logger;
 import play.data.validation.Constraints;
 import play.db.DB;
 
@@ -48,10 +48,10 @@ public class Session {
 		while(rs.next()) {
 			Session s = new Session();
 			s.id = rs.getLong("id");
+			Logger.info(rs.getDate("datetime").toString());
 			s.datetime = rs.getDate("datetime").getTime();
 			list.add(s);
 		}
 		return list;
-    }
-    
+    }    
 }
