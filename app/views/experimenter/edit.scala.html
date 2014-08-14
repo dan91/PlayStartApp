@@ -579,7 +579,7 @@ $('#calendar').fullCalendar({
 					         @for((session, index) <- Session.byExperimentId(e.id).zipWithIndex) {
 					         {
 					             title  : '',
-					             start  : @session.datetime,
+					             start  : @session.datetime
 					             
 					         }@if(index != Session.byExperimentId(e.id).size-1) { , }
 					         }

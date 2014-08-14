@@ -24,7 +24,7 @@ public class Session {
     @Id
     public Long id;
     
-    public long datetime;
+    public String datetime;
 
     public Long room_id;
 
@@ -48,8 +48,8 @@ public class Session {
 		while(rs.next()) {
 			Session s = new Session();
 			s.id = rs.getLong("id");
-			Logger.info(rs.getDate("datetime").toString());
-			s.datetime = rs.getDate("datetime").getTime();
+			Logger.info(rs.getString("datetime"));
+			s.datetime = rs.getString("datetime");
 			list.add(s);
 		}
 		return list;
