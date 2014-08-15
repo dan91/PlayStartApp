@@ -147,9 +147,9 @@ public class Admin extends Controller {
     public static Result deleteBuilding(){
     	
     	final Map<String, String[]> values = request().body().asFormUrlEncoded();
-        final Long idToDelete = Long.parseLong(values.get("idOfBuild")[0]);
+        final Long idToDelete = Long.parseLong(values.get("id")[0]);
         
-        final String nameToDelete = values.get("nameOfBuild")[0];
+        final String nameToDelete = values.get("name")[0];
         
     	String message="Deleted on server, row with id: "+idToDelete+"\n "
     			+"Building with name: "
@@ -158,7 +158,7 @@ public class Admin extends Controller {
     	try {
         	Building.delete(idToDelete);
 			return ok(message);
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			return badRequest(e.toString());
 		}
