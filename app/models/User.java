@@ -59,7 +59,22 @@ public class User extends Model {
 		rs.next();
 		String name = rs.getString("name");
 			stmt.close();
+			con.close();
 		return name;
+    }
+    
+    public static User byId(Long id) throws SQLException {
+    	Connection con = DB.getConnection();
+        Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+		ResultSet rs = stmt
+				.executeQuery("SELECT id, name FROM User WHERE id = "+id+"");
+		rs.next();
+		User u = new User();
+		u.id = rs.getLong("id");
+		u.name = rs.getString("name");
+			stmt.close();
+		con.close();
+		return u;
     }
     
 
@@ -71,6 +86,7 @@ public class User extends Model {
         rs.next();
         int amount = rs.getInt("Amount");
         stmt.close();
+        con.close();
         return amount;
     }
        
@@ -88,6 +104,7 @@ public class User extends Model {
    				list.add(e);
    		}
    			stmt.close();
+   			con.close();
    		return list;
        } 
        
@@ -104,6 +121,7 @@ public class User extends Model {
            int amount = rs.getInt("Amount");
 
   			stmt.close();
+  			con.close();
            return amount;
        }
     
@@ -116,6 +134,7 @@ public class User extends Model {
            int amount = rs.getInt("Amount");
 
   			stmt.close();
+  			con.close();
            return amount;
        }
        

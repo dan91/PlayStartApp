@@ -62,11 +62,11 @@ public class Participation extends Model {
 		return rs.getInt("amount");
     }
     
-    public static List<Participation> byExperimentId(Long id) throws SQLException {	
+    public static List<Participation> bySessionId(Long id) throws SQLException {	
     	Connection con = DB.getConnection();
         Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 		ResultSet rs = stmt
-				.executeQuery("SELECT Participation.id, user_id FROM Participation, Session WHERE Participation.session_id = Session.id AND Session.experiment_id = "+id+" AND Session.datetime < NOW()");
+				.executeQuery("SELECT Participation.id, user_id FROM Participation, Session WHERE Participation.session_id = Session.id AND Session.id = "+id+" AND Session.datetime < NOW()");
 		List<Participation> list = new ArrayList<Participation>();
 		while(rs.next()) {
 			Participation p = new Participation();

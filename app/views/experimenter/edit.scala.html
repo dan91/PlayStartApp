@@ -1,6 +1,6 @@
 @(e: Experiment)
 @import java.math.BigInteger; var index=1 
-
+@import java.math.BigInteger; var index2=1 
 @scripts = {
 <link rel='stylesheet' href='@routes.Assets.at("stylesheets/fullcalendar.css")' />
 <script src='@routes.Assets.at("javascripts/jquery-ui.custom.min.js")'></script>
@@ -95,11 +95,13 @@ $( "#openPreview" ).click(function() {
 					</div>
 					<div class="col-sm-3">
 						@for(Build <- Building.all()) {
-						<select id="id-@Build.id" class="form-control buildingSelects">
-							@for(R <- Room.byId(Build.id)) {
-							<option>@R.name</option>
+							@if(Room.byId(Build.id) != null) {
+							<select id="id-@Build.id" class="form-control buildingSelects">
+								@for(R <- Room.byId(Build.id)) {
+								<option>@R.name</option>
+								}
+							</select>
 							}
-						</select>
 						}
 					</div>
 				</div>
@@ -167,7 +169,7 @@ $( "#openPreview" ).click(function() {
 						<div class="row">
 							<div class="col-sm-12">
 								<button type="button" class="btn btn-default" id="add" data-toggle="modal" data-target="#sessionCalendar"><span class="glyphicon glyphicon-calendar"></span> Kalender</button>
-								<span class="badge" id="amount">0</span> <a href="#" id="showSessions">Anzeigen</a>
+								<span class="badge" id="amount">0</span> <button type="button" id="showSessions">Anzeigen</button>
 							</div>
 						</div>
 						<div id="events" style="display:none">
@@ -582,11 +584,19 @@ $('#calendar').fullCalendar({
 					         @for((session, index) <- Session.byExperimentId(e.id).zipWithIndex) {
 					         {
 					             title  : '',
-					             start  : sessions[@index][0],
-					             end: sessions[@index][1]
-					             
+					             start  : $.fullCalendar.moment.utc('@session.datetime'),
+					 			 end    : $.fullCalendar.moment.utc('@session.datetime').add('minutes',dur),
+					             participations: {
+					            	 @for((p, index2) <- Participation.bySessionId(session.id).zipWithIndex) {
+					             	 
+					            	 id: @(p.id),
+					            	 user_id: @User.byId(p.user_id).id,
+					            	 user_name: @User.byId(p.user_id).name					            	 
+					             	 }
+					             }@if(index2 != Participation.bySessionId(session.id).size-1) {, }
+					             }
 					         }@if(index != Session.byExperimentId(e.id).size-1) { , }
-					         }
+					         
 					],
 					lang: 'de',
 					allDaySlot: false,
