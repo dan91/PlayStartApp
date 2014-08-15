@@ -254,10 +254,10 @@
                 	   var statusCode = $(this).data('status');	
                 	   
                 	   
-                	   var felder = statusCode.split(',', 1);
+                	   var felder = statusCode.split(',', 2);
                 	   
 				   	   var buildingId  = felder[0];
-                	   var nameOfBu = "TESTESTESNAMEOFB";
+                	   var nameOfBuilding = felder[1];
                 	  
                 		    
                 		    var idToGet = statusCode;
@@ -265,7 +265,7 @@
                 		        type : 'POST',
                 		        url : '@routes.Admin.deleteBuilding()',
                 		        data : {
-                		            id: buildingId, nameOfB: " "
+                		            id: buildingId, nameOfB: nameOfBuilding
                 		        },
                 		        success : function(data) {
                 		            // ... some code on success
