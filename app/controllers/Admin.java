@@ -101,10 +101,6 @@ public class Admin extends Controller {
         
         // zeigt in der console an ob der server es bekommen hat
         Logger.info(created);
-        
-        
-       
-        
         try {
         	Building.add(name, description, lat, lng);
         	
@@ -138,6 +134,27 @@ public class Admin extends Controller {
       
         try {
         	Building.update(id, name, description, lat, lng);
+			return ok(lab.render(Building.all()));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			return badRequest(e.toString());
+		}
+    }
+    
+ public static Result deleteBuilding(){
+        
+        final Map<String, String[]> values = request().body().asFormUrlEncoded();
+        
+        /*final Long id = Long.parseLong(values.get("editId")[0]);
+        // zeigt in der console an ob der server es bekommen hat
+       /* Logger.info("Building with ID: "+id +" will be updated with 'Name:' "+
+        name+", 'Description:' "+description+", 'Lat:' "+lat+", 'Lng:' "+lng);
+        
+        */
+        
+      
+        try {
+        	/*Building.update(id, name, description, lat, lng);*/
 			return ok(lab.render(Building.all()));
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

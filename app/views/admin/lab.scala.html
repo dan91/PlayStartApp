@@ -247,6 +247,21 @@
                 
                 /**------------------------------------------------------- */
                 
+                 $('.removableBuilding').click(function(w) {
+                	   w.preventDefault();
+                	   var statusCode = $(this).data('status');	
+                	   
+                	   $.post('/labDelete',
+                			   /**   {'foo':'bar'},*/
+                			   {statusCode},
+                			      function(data) {
+                			          window.alert(data);
+                			      });
+
+                	   
+                 });
+                
+                
                 
                 google.maps.event.trigger(map, 'resize');
                 
@@ -289,7 +304,7 @@
 			<div class="col-sm-4 col-xs-6 text-right">
 			<button class="btn btn-default" id="add" data-toggle="modal" data-target="#myRoomModal"><span class="glyphicon glyphicon-plus"></span> Raum</button>
 			<button data-status="@building.id,@building.name,@building.description,@building.lat,@building.lng," class="btn btn-default editableBuilding" id="add" data-toggle="modal" data-target="#editBuildingModal"> <span class="glyphicon glyphicon-pencil"></span></button>
-      <button class="btn btn-danger" id="add"> <span class="glyphicon glyphicon-remove"></span></button>
+      <button data-status="@building.id" class="btn btn-danger removableBuilding" id="add"> <span class="glyphicon glyphicon-remove"></span></button>
       </div>
 			
 			</div>

@@ -72,7 +72,7 @@ public class Building extends Model {
     	       
     	        
     	        String insert = String.format("INSERT INTO Building (name,description,lat,lng) "
-    					 +"VALUES ('%s','%s','%s','%s')",name,description,lat,lng );
+    					 +"VALUES ('%s','%s',%s,%s)",name,description,lat,lng );
     	        
     	        
     	       stmt.executeUpdate(insert);
@@ -101,4 +101,25 @@ public class Building extends Model {
         //   stmt.close();
         
     }
+    
+    
+    public static void delete(Long id) throws SQLException{
+    	
+    	Connection con = DB.getConnection();
+        Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+		
+       
+//        String update = String.format("UPDATE Building SET "
+//        		+ "name='%s',description='%s',lat='%s',lng='%s' WHERE id=%s;" ,name,description,lat,lng,id );
+        
+        
+//       stmt.executeUpdate(update);
+       stmt.close();
+       
+       con.close();
+    	
+    	
+    	
+    }
+    
 }
