@@ -109,7 +109,7 @@ public class Building extends Model {
         Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 		
        
-//        String update = String.format("UPDATE Building SET "
+//        String delete = String.format("UPDATE Building SET "
 //        		+ "name='%s',description='%s',lat='%s',lng='%s' WHERE id=%s;" ,name,description,lat,lng,id );
         
         

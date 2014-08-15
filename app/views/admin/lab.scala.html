@@ -253,17 +253,19 @@
                 	   w.preventDefault();
                 	   var statusCode = $(this).data('status');	
                 	   
-                	   alert("statusCodestatusCode");
                 	   
+                	   var felder = statusCode.split(',', 1);
+                	   
+				   	   var buildingId  = felder[0];
+                	   var nameOfBu = "TESTESTESNAMEOFB";
                 	  
-                		    /*var idToGet = $("#someField").val();*/
                 		    
                 		    var idToGet = statusCode;
                 		    $.ajax({
                 		        type : 'POST',
                 		        url : '@routes.Admin.deleteBuilding()',
                 		        data : {
-                		            id: idToGet
+                		            id: buildingId, nameOfB: " "
                 		        },
                 		        success : function(data) {
                 		            // ... some code on success
@@ -333,7 +335,7 @@
 			<button class="btn btn-default" id="add" data-toggle="modal" data-target="#myRoomModal"><span class="glyphicon glyphicon-plus"></span> Raum</button>
 			<button data-status="@building.id,@building.name,@building.description,@building.lat,@building.lng," class="btn btn-default editableBuilding" id="add" data-toggle="modal" data-target="#editBuildingModal"> <span class="glyphicon glyphicon-pencil"></span></button>
       <form id="ajax_form">
-      <button type="submit" data-status="@building.id" class="btn btn-danger removableBuilding" id="add"> <span class="glyphicon glyphicon-remove"></span></button>
+      <button type="submit" data-status="@building.id,@building.name" class="btn btn-danger removableBuilding" id="add"> <span class="glyphicon glyphicon-remove"></span></button>
       </form>
       
       </div>

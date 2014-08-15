@@ -147,13 +147,13 @@ public class Admin extends Controller {
     public static Result deleteBuilding(){
     	
     	final Map<String, String[]> values = request().body().asFormUrlEncoded();
-        final Long ad = Long.parseLong(values.get("id")[0]);
+        Long idToDelete = Long.parseLong(values.get("id")[0]);
         
+        String nameToDelete = values.get("nameOfB")[0];
         
-        
-        
-    	String message="Deleted on server, row with id: "+ad;
-    	
+    	String message="Deleted on server, row with id: "+idToDelete+"\n "
+    			+"Building with name: "
+    			+nameToDelete+" has been deleted.";
     	try {
 //        	Building.delete(id);
 			return ok(message);
