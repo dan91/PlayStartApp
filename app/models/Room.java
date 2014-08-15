@@ -31,9 +31,12 @@ public class Room extends Model {
   
    
     /**
-     * Generic query helper for entity User with id
+     * liefert eine Liste von Räumen für ein Gebäude
+     * @param id: Building-ID
+     * @return
+     * @throws SQLException
      */
-    public static List<Room> byId(long id) throws SQLException {
+    public static List<Room> byBuildingId(long id) throws SQLException {
     	Connection con = DB.getConnection();
         Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 		ResultSet rs = stmt

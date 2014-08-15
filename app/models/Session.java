@@ -30,6 +30,12 @@ public class Session {
 
     public Long experiment_id;
    
+    /**
+     * liefert die Anzahl von verfügbaren Sessions für ein Experiment
+     * @param id
+     * @return
+     * @throws SQLException
+     */
     public static int availableAmountByExperimentId(Long id) throws SQLException {
     	Connection con = DB.getConnection();
         Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -42,6 +48,12 @@ public class Session {
 		return amount;
     }
     
+    /**
+     * liefert eine Liste von Sessions für ein Experiment
+     * @param id
+     * @return
+     * @throws SQLException
+     */
     public static List<Session> byExperimentId(Long id) throws SQLException {	
     	Connection con = DB.getConnection();
         Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -51,7 +63,6 @@ public class Session {
 		while(rs.next()) {
 			Session s = new Session();
 			s.id = rs.getLong("id");
-			Logger.info(rs.getString("datetime"));
 			s.datetime = rs.getString("datetime");
 			list.add(s);
 		}

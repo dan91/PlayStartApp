@@ -95,9 +95,9 @@ $( "#openPreview" ).click(function() {
 					</div>
 					<div class="col-sm-3">
 						@for(Build <- Building.all()) {
-							@if(Room.byId(Build.id) != null) {
+							@if(Room.byBuildingId(Build.id) != null) {
 							<select id="id-@Build.id" class="form-control buildingSelects">
-								@for(R <- Room.byId(Build.id)) {
+								@for(R <- Room.byBuildingId(Build.id)) {
 								<option>@R.name</option>
 								}
 							</select>
@@ -193,7 +193,7 @@ $( "#openPreview" ).click(function() {
 											nur Benachrichtigungen </label>
 										<label class="btn btn-default">
 											<input type="radio" name="options" id="option2" checked>
-											Verwaltung </label>
+											Bearbeiten </label>
 								</div>
 						  	</div>
 						  	<div class="col-sm-1">
@@ -201,9 +201,7 @@ $( "#openPreview" ).click(function() {
 						  	</div>
 						</div>
 						}
-<button type="button" class="btn btn-default removeExp" style="display:none">Max Mustermann <span class="glyphicon glyphicon-remove"></span></button>
-  </div>
-						
+  					</div>		
 				</div>
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-8" style="margin-top:1em; border-top:1px solid #eee; padding-top:1em">
@@ -220,8 +218,8 @@ $( "#openPreview" ).click(function() {
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">��</button>
-                 <h4 class="modal-title">E-mail Vorschau</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                 <h4 class="modal-title">Email-Vorschau</h4>
 
             </div>
             <div class="modal-body">
@@ -250,64 +248,7 @@ $( "#openPreview" ).click(function() {
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					<button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Speichern</button>
 					<h4 class="modal-title">Sitzungen</h4>
-						<!-- <div class="row sessionsAuto">
-							<div class="col-sm-4" style="width:30%"><h4 class="modal-title">Termine hinzuf��gen</h4></div>
-							<div class="col-sm-3" style="width:20%">
-								<label for="hour">von: </label>
-								<select id="hour" class="form-control noBreak">
-									<option>08</option>
-									<option>09</option>
-									<option>10</option>
-									<option>11</option>
-									<option>12</option>
-									<option>13</option>
-									<option>14</option>
-									<option>15</option>
-									<option>16</option>
-									<option>17</option>
-									<option>18</option>
-								</select>
-								<select id="minute" class="form-control noBreak">
-									<option>00</option>
-									<option>15</option>
-									<option>30</option>
-									<option>45</option>
-								</select>
-							</div>
-
-							<div class="col-sm-3"  style="width:20%">
-								<label for="hour2">bis: </label>
-								<select id="hour2" class="form-control noBreak">
-									<option>08</option>
-									<option>09</option>
-									<option>10</option>
-									<option>11</option>
-									<option>12</option>
-									<option>13</option>
-									<option>14</option>
-									<option>15</option>
-									<option>16</option>
-									<option selected>17</option>
-									<option>18</option>
-								</select>
-								<select id="minute2" class="form-control noBreak">
-									<option>00</option>
-									<option>15</option>
-									<option>30</option>
-									<option>45</option>
-								</select>
-							</div>
-
-							<div class="col-sm-3">
-								<label for="break">Pause: </label>
-								<select id="break" class="form-control noBreak">
-									<option>15 Minuten</option>
-									<option>30 Minuten</option>
-									<option>45 Minuten</option>
-									<option>60 Minuten</option>
-								</select>
-							</div>
-						</div> -->
+						
 					</div>
 					<div class="modal-body">
 						<div id="calendar"></div>
@@ -329,7 +270,7 @@ $( "#openPreview" ).click(function() {
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-						<h4 class="modal-title">Probanden ausw��hlen</h4>
+						<h4 class="modal-title">Probanden auswählen</h4>
 
 					</div>
 					<div class="modal-body">
@@ -486,14 +427,11 @@ $( "#openPreview" ).click(function() {
 
 
 <div id="regProbands" style="display:none">
-		<div class="row">	
-            <div class="col-md-9">Ralph Obermaier</div> 
-            <div class="col-md-3"><button type="button" class="btn btn-danger btn-sm" id="me"><span class="glyphicon glyphicon-remove"></span></button></div>
+		<div class="row" id="rowPartic">	
+            <div class="col-md-9" id="name"></div> 
+            <div class="col-md-3"><button type="button" class="btn btn-danger btn-sm remPartic" id=""><span class="glyphicon glyphicon-remove"></span></button></div>
 		</div> <!-- row -->
-			<div class="row">	
-            <div class="col-md-9">Tanja Mangold</div> 
-            <div class="col-md-3"><button type="button" class="btn btn-danger btn-sm" id="me"><span class="glyphicon glyphicon-remove"></span></button></div>
-		</div> <!-- row -->
+			
 		<hr>
 		<b>Probanden hinzuf��gen</b>
 		<div class="row">
@@ -555,6 +493,10 @@ $( "#openPreview" ).click(function() {
 	Rufe beim Laden selectRooms() auf, damit für vorausgewähltes Gebäude Räume ausgwählt werden
 	**/
 	selectRooms();
+	
+	/**
+	Blendet die Ortsinformationen bei Internetstudien aus
+	**/
 	$('#option2').click(function() {
   		 if($('#option2').is(':checked')) { 
    
@@ -574,16 +516,18 @@ $( "#openPreview" ).click(function() {
 		
 	});
 		})
+		
+		// Session-Dauer aus Eingabefeld
 		dur = $("#duration option:selected").text();
-
 $('#calendar').fullCalendar({
 					defaultView: 'agendaWeek',
-					defaultTimedEventDuration: '12:00:00', 
 					header: {
 						left:   '',
 						center: '',
 						right:  'today prev,next'
 					},
+					// Hier wird dem fullcalendar events array ein Participations array hinzugefügt. 
+					// Somit werden den Sessions Teilnehmer zugewiesen
 					events: [
 					         @for((session, index) <- Session.byExperimentId(e.id).zipWithIndex) {
 					         {
@@ -595,13 +539,13 @@ $('#calendar').fullCalendar({
 					            	{
 					            	 id: @(p.id),
 					            	 user_id: @User.byId(p.user_id).id,
-					            	 user_name: @User.byId(p.user_id).name	
-					            	}
+					            	 user_name: '@User.byId(p.user_id).name'
+					            	}@if(index2 != Participation.bySessionId(session.id).size-1) {, } // participation
 					             } //for end
-					             ]@if(index2 != Participation.bySessionId(session.id).size-1) {, } // participation
+					             ]
 					         	
-					         }
 					         }@if(index != Session.byExperimentId(e.id).size-1) {, }
+					         }
 					         
 					],
 					lang: 'de',
@@ -617,6 +561,9 @@ $('#calendar').fullCalendar({
 					columnFormat: 'dd., D.M',
 					contentHeight: 1200,
 					
+					/**
+					Bei Click & Drag werden im ausgewählten Zeitraum Sessions erstellt
+					**/
 					select: function(start, end) {
 						
 						dur = parseInt($("#duration option:selected").text());
@@ -635,6 +582,7 @@ $('#calendar').fullCalendar({
 					}
 						$('#calendar').fullCalendar('unselect');
 					},
+					
 					eventMouseover: function () {
 				    	$(this).css('background-color','rgb(55, 114, 165)')
 				    },
@@ -648,8 +596,16 @@ $('#calendar').fullCalendar({
 					eventResize: function(event, dayDelta, minuteDelta, revertFunc) {
 						//if (isOverlapping(event)) {revertFunc()};
 					},
+					
+					/**
+					Beim Erstellen von einem Event wird diesem ein popover mit den Teilnahmen zugewiesen
+					**/
 					eventRender: function( event, element, view ) {
-						//for(event.participations.size)
+						for (var key in event.participations) {
+							   alert(event.participations[key])
+						}
+							        
+							   
 						$(element).popover({
 				            title: 'Angemeldete Probanden',
 				            placement: 'auto',

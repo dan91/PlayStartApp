@@ -37,9 +37,12 @@ public class Participation extends Model {
 
     public Boolean got_invitation;
     
- 
- 
-
+    /**
+     * liefert die Anzahl der abgeschlossenen Sessions für ein Experiment
+     * @param id Experiment-ID
+     * @return
+     * @throws SQLException
+     */
     public static int completedAmountByExperimentId(Long id) throws SQLException {
     	Connection con = DB.getConnection();
         Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -51,6 +54,12 @@ public class Participation extends Model {
 		return rs.getInt("amount");
     }
     
+    /**
+     * liefert die Anzahl der Anmeldungen für ein Experiment
+     * @param id: Experiment-ID
+     * @return
+     * @throws SQLException
+     */
     public static int registeredAmountByExperimentId(Long id) throws SQLException {
     	Connection con = DB.getConnection();
         Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -62,6 +71,12 @@ public class Participation extends Model {
 		return rs.getInt("amount");
     }
     
+    /**
+     * liefert eine Liste von Teilnahmen für eine Session
+     * @param id: Session-ID
+     * @return
+     * @throws SQLException
+     */
     public static List<Participation> bySessionId(Long id) throws SQLException {	
     	Connection con = DB.getConnection();
         Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
