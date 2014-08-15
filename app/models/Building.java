@@ -107,18 +107,16 @@ public class Building extends Model {
     	
     	Connection con = DB.getConnection();
         Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-		
        
-//        String delete = String.format("UPDATE Building SET "
-//        		+ "name='%s',description='%s',lat='%s',lng='%s' WHERE id=%s;" ,name,description,lat,lng,id );
+        String delete = String.format("DELETE FROM Building WHERE id=%s;",id);
+        stmt.executeUpdate(delete);
+        stmt.close();
         
+        con.close();
         
-//       stmt.executeUpdate(update);
-       stmt.close();
-       
-       con.close();
-    	
-    	
+        String message="Deleted on server, row with id: "+id+"\n "
+    			+"has been deleted.";
+        Logger.info(message);
     	
     }
     

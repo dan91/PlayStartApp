@@ -149,13 +149,14 @@ public class Admin extends Controller {
     	final Map<String, String[]> values = request().body().asFormUrlEncoded();
         Long idToDelete = Long.parseLong(values.get("id")[0]);
         
-        String nameToDelete = values.get("nameOfB")[0];
+        String nameToDelete = values.get("name")[0];
         
     	String message="Deleted on server, row with id: "+idToDelete+"\n "
     			+"Building with name: "
     			+nameToDelete+" has been deleted.";
+    	
     	try {
-//        	Building.delete(id);
+        	Building.delete(idToDelete);
 			return ok(message);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
