@@ -46,6 +46,7 @@ public class Room extends Model {
 			list.add(e);
 		}
 		stmt.close();
+		con.close();
 		return list;
     }
     

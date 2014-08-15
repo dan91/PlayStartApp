@@ -534,15 +534,26 @@ $( "#openPreview" ).click(function() {
 			<script type="text/javascript">
 		$(document).on('ready', function () {
 
-	
+	/**
+	Funktion zeigt nur die Räume zum aktuell ausgeählten Gebäude
+	NOCH NICHT FERTIG
+	**/
 	function selectRooms() {
 		$(".buildingSelects").hide();
 		id = $("#buildings option:selected").attr('id');
 		$(".buildingSelects").find("#id-"+id+"").show();
 	};
+	
+	/**
+	Falls Gebäude geändert wird, rufe selectRooms() auf
+	**/
 	$("#buildings").on('change', function() {
 		selectRooms();
 	});
+	
+	/**
+	Rufe beim Laden selectRooms() auf, damit für vorausgewähltes Gebäude Räume ausgwählt werden
+	**/
 	selectRooms();
 	$('#option2').click(function() {
   		 if($('#option2').is(':checked')) { 
@@ -552,6 +563,7 @@ $( "#openPreview" ).click(function() {
    			}
 		});
 
+	
 	$("#option1").click(function(){
 		
 		if($("#option1").is(":checked")){
@@ -563,15 +575,7 @@ $( "#openPreview" ).click(function() {
 	});
 		})
 		dur = $("#duration option:selected").text();
-		//dur = $.fullCalendar.moment.duration(dur, 'minutes');
-		sessions = [
-		@for((session, index) <- Session.byExperimentId(e.id).zipWithIndex) {
-			[
-			$.fullCalendar.moment.utc('@session.datetime'),
-			$.fullCalendar.moment.utc('@session.datetime').add('minutes',dur)
-			]@if(index != Session.byExperimentId(e.id).size-1) { , }
-		}
-		]
+
 $('#calendar').fullCalendar({
 					defaultView: 'agendaWeek',
 					defaultTimedEventDuration: '12:00:00', 
@@ -586,16 +590,18 @@ $('#calendar').fullCalendar({
 					             title  : '',
 					             start  : $.fullCalendar.moment.utc('@session.datetime'),
 					 			 end    : $.fullCalendar.moment.utc('@session.datetime').add('minutes',dur),
-					             participations: {
-					            	 @for((p, index2) <- Participation.bySessionId(session.id).zipWithIndex) {
-					             	 
+					             participations: [
+					            	 @for((p, index2) <- Participation.bySessionId(session.id).zipWithIndex) {	
+					            	{
 					            	 id: @(p.id),
 					            	 user_id: @User.byId(p.user_id).id,
-					            	 user_name: @User.byId(p.user_id).name					            	 
-					             	 }
-					             }@if(index2 != Participation.bySessionId(session.id).size-1) {, }
-					             }
-					         }@if(index != Session.byExperimentId(e.id).size-1) { , }
+					            	 user_name: @User.byId(p.user_id).name	
+					            	}
+					             } //for end
+					             ]@if(index2 != Participation.bySessionId(session.id).size-1) {, } // participation
+					         	
+					         }
+					         }@if(index != Session.byExperimentId(e.id).size-1) {, }
 					         
 					],
 					lang: 'de',
@@ -643,6 +649,7 @@ $('#calendar').fullCalendar({
 						//if (isOverlapping(event)) {revertFunc()};
 					},
 					eventRender: function( event, element, view ) {
+						//for(event.participations.size)
 						$(element).popover({
 				            title: 'Angemeldete Probanden',
 				            placement: 'auto',
