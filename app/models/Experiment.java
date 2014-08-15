@@ -77,5 +77,22 @@ public class Experiment extends Model {
     }
     
     
+    public static List<Experiment> TenExp() throws SQLException {
+        Connection con = DB.getConnection();
+        Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        ResultSet rs = stmt
+                .executeQuery("SELECT name, id FROM Experiment LIMIT 10 ");
+        		List<Experiment> list = new ArrayList<Experiment>();
+			while(rs.next()) {
+				Experiment e = new Experiment();
+				e.id = rs.getLong("id");
+				e.name = rs.getString("name");
+				list.add(e);
+		}
+			stmt.close();
+		return list;
+    }  
+    
+    
 }
 

@@ -14,27 +14,25 @@
 
 
 <!-- diesen block mit 10 letzten queries der studies -->
-<p><!-- experiment.name --><span class="pull-right"> <!-- experiment.created_on  --> <a class="btn btn-xs btn-default" href="/edit"><span class="glyphicon glyphicon-pencil"></span></a></span></p>	
-							
+@for(StuDies <- Experiment.TenExp){
+<p>@StuDies.name
+<span class="pull-right">
+<a class="btn btn-xs btn-default" href="/edit/@StuDies.id"><span class="glyphicon glyphicon-pencil"></span></a></span></p>	
+}							
 		</div>
 
-		<div class="col-sm-6 col-xs-12">
-		
+
+		<div class="col-sm-6 col-xs-12">		
 <h3 class="panel-title">Neue Benutzer <span class="pull-right"><a href="/user"><button type="button" class="btn  btn-default btn-sm">Alle Benutzer</button></a></span></h3>	
 <hr>
 <!-- diesen block mit 10 letzten queries der benutzer -->
 @for(BeNutz <- User.TenUser){
-<p>@BeNutz.name
-<span class="pull-right">@BeNutz.enrollment_date
-<button 
-data-status="@BeNutz.id"
-type="submit" 
-class="btn btn-xs btn-edit btn-default @BeNutz.id" 
-id="add" data-toggle="modal" data-target="#benutzerbearbeiten"><span class="glyphicon glyphicon-pencil"></span></button></span></p>
-
+	<p>@BeNutz.name
+	<span class="pull-right">@BeNutz.enrollment_date
+	<button 
+	data-status="@BeNutz.id"
+	type="submit" class="btn btn-xs btn-edit btn-default" id="add" data-toggle="modal" data-target="#benutzerbearbeiten"><span class="glyphicon glyphicon-pencil"></span></button></span></p>
 }
-
-
 		</div>
 </div>
 <div class="row">
@@ -64,7 +62,7 @@ id="add" data-toggle="modal" data-target="#benutzerbearbeiten"><span class="glyp
 					  		<td>@User.allUsers()</td>
 					  	</tr>
 					  	<tr>
-					  		<td class="col-sm-8">M��nner</td>
+					  		<td class="col-sm-8">Männer</td>
 					  		<td>@User.allMen()</td>
 					  	</tr>
 					  	<tr>
@@ -101,7 +99,7 @@ id="add" data-toggle="modal" data-target="#benutzerbearbeiten"><span class="glyp
 
 						<table class="table table-hover">					  <tbody>
 							 		<tr>
-					  		<td class="col-sm-8">Studieng������nge</td>
+					  		<td class="col-sm-8">Studiengänge</td>
 					  		<td></td>
 					  	</tr>
 					  		<tr>
@@ -214,7 +212,7 @@ id="add" data-toggle="modal" data-target="#benutzerbearbeiten"><span class="glyp
 		<div class="modal-dialog ">
 			<div class="modal-content ">
 				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">������</button>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">Schliessen</button>
 					<h4 class="modal-title">Benutzer bearbeiten</h4>
 
 				</div>
@@ -267,7 +265,7 @@ id="add" data-toggle="modal" data-target="#benutzerbearbeiten"><span class="glyp
 
 
 							<div class="form-group">
-											<label for="name" class="col-sm-3 control-label">H������ndigkeit</label>
+											<label for="name" class="col-sm-3 control-label">Händigkeit</label>
 											<div class="col-sm-6">
 
 
