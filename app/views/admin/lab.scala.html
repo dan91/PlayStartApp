@@ -19,7 +19,6 @@
     	var markerE;
     	
     	
-    	
         var markersArray = [];
         var markersArrayE = [];
         
@@ -63,8 +62,6 @@
               var autocomplete = new google.maps.places.Autocomplete(input);
               autocomplete.bindTo('bounds', map);
 
-              
-              
               
               var infowindow = new google.maps.InfoWindow();
               var marker = new google.maps.Marker({
@@ -122,9 +119,6 @@
                 infowindow.open(map, marker);
               });
  
-             
-        
-              
               
             // add a click event handler to the map object
                 google.maps.event.addListener(map, "click", function(event)
@@ -171,7 +165,6 @@
                     // map.setCenter(location);
                 }
                 
-                
 
                 // Deletes all markers in the array by removing references to them
                 function deleteOverlays() {
@@ -194,9 +187,6 @@
                 }
                 
                 
-                
-                
-                
                 /** EDIT BUILDING --> SHOWS COORDINATES FROM DATABASE*/
                 $('.editableBuilding').click(function(e) {
                 	   e.preventDefault();
@@ -215,8 +205,6 @@
 	                	   document.getElementById("latFldEdit").value = buildingLat;
 	                	   document.getElementById("lngFldEdit").value = buildingLng;
 	                	   
-	                	 
-                	   
                 	   var mapOptionsE = {
                 			      zoom: 12,
                 			      mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -225,7 +213,6 @@
                 	   
                 	   mapE = new google.maps.Map(document.getElementById("map_canvas"), mapOptionsE);
                 	   
-                
 
                     placeOfEditableBuilding =   new google.maps.LatLng(buildingLat, buildingLng);
                     // add marker in markers array
@@ -238,14 +225,7 @@
                                 document.getElementById("latFldEdit").value = eventEdit.latLng.lat();
                                 document.getElementById("lngFldEdit").value = eventEdit.latLng.lng();
                     }); 
-                    
-                	   
-              
               });
-                
-                 
-                
-                
                 /**------------------------------------------------------- */
                 
                 
@@ -303,26 +283,6 @@
                		    		return true;
                 	});
                 	   
-                	  
-                	  /** Wenn ein gebäude kein Raum enthält würde es ohne die if-Abfrage
-                	  sonst das nächste Gebäude mitlöschen ! */
-                	  /*if( $( "#amountRooms" ).html() == "")
-                		  $(this).parent().parent().fadeOut()
-                	  else
-                		  $(this).parent().parent().fadeOut().next().fadeOut();
-                	   
-                	 
-                		    
-                		    /*jsRoutes.controllers.Users.addToShortList(id).ajax({
-                	            success : function(data) {
-
-                	                alert(data);
-                	            },
-                	            error : function(err) {
-                	                //code always ends up here, with the err giving no eerror message at all!
-                	                alert(err);             
-                	            }
-                	        });*/
                 	  
 
                 	   
