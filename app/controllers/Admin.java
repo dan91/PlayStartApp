@@ -7,6 +7,7 @@ import models.Building;
 import models.Experiment;
 import models.User;
 import play.Logger;
+import play.Routes;
 import play.data.Form;
 import play.data.validation.Constraints;
 import play.i18n.Messages;
@@ -141,25 +142,35 @@ public class Admin extends Controller {
 		}
     }
     
- public static Result deleteBuilding(){
+    
+    
+    public static Result deleteBuilding(){
+    	
+    	final Map<String, String[]> values = request().body().asFormUrlEncoded();
+        final Long ad = Long.parseLong(values.get("id")[0]);
         
-        final Map<String, String[]> values = request().body().asFormUrlEncoded();
         
-        /*final Long id = Long.parseLong(values.get("editId")[0]);
-        // zeigt in der console an ob der server es bekommen hat
-       /* Logger.info("Building with ID: "+id +" will be updated with 'Name:' "+
-        name+", 'Description:' "+description+", 'Lat:' "+lat+", 'Lng:' "+lng);
         
-        */
         
-      
-        try {
-        	/*Building.update(id, name, description, lat, lng);*/
-			return ok(lab.render(Building.all()));
-		} catch (SQLException e) {
+    	String message="Deleted on server, row with id: "+ad;
+    	
+    	try {
+//        	Building.delete(id);
+			return ok(message);
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			return badRequest(e.toString());
 		}
+    	
+    }
+    
+    public static Result javascriptRoutes() {
+        response().setContentType("text/javascript");
+        return ok(
+            Routes.javascriptRouter("myJsRoutes",
+                routes.javascript.Admin.deleteBuilding()
+            )
+        );
     }
 
 

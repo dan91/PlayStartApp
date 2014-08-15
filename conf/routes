@@ -31,7 +31,8 @@ GET		/admin_edit				controllers.Admin.edit()
 
 POST    /lab                  	controllers.Admin.save()
 POST    /labEdit                controllers.Admin.saveEditBuilding()
-POST    /labDelete              controllers.Admin.deleteBuilding()
+POST    /labDelete/             controllers.Admin.deleteBuilding()
+GET     /javascriptRoutes       controllers.Admin.javascriptRoutes
 
 
 
