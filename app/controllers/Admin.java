@@ -160,7 +160,11 @@ public class Admin extends Controller {
 			return ok(message);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			return badRequest(e.toString());
+			final String badMessage = e.toString();
+			
+			Logger.error(badMessage);
+			
+			return badRequest(badMessage);
 		}
     	
     }
