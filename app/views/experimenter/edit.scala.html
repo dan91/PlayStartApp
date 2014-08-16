@@ -468,12 +468,13 @@ $( "#openPreview" ).click(function() {
     		if ($(this).val().length >= 3) {
     			myJsRoutes.controllers.Experimenter.userSearch($(this).val(), "exp").ajax({
     				success : function(data) {
-    					$("#resultsExp").html(data).$(".addExp").on('click', function() {
-    					   var el = $(".rowExp").first().clone();
- 						   el.find("#name").text($(this).data('user-name'));
- 						   el.find("#expRem").attr("id",$(this).attr("id"));
- 						   el.show();
- 						   $("#rowsExp").append(el);
+    					$("#resultsExp").html(data);
+    					$(".addExp").on('click', function() {
+    					   row = $(".rowExp").first().clone();
+    					   row.find("#name").text($(this).data('user-name'));
+    					   row.find("#expRem").attr("id",$(this).attr("id"));
+    					   row.show();
+ 						   $("#rowsExp").append(row);
     					})
     				},
     			})
@@ -610,7 +611,9 @@ $('#calendar').fullCalendar({
 					
 					
 					eventRender: function( event, element, view ) {
-						
+						if(event.participations == 'undefined') {
+							event.participations = [];
+						}
 			        	el = $("#regProbands").clone().first();
 			        	
 						 /**
@@ -688,7 +691,7 @@ $('#calendar').fullCalendar({
 						$(element).children().remove();
 						datetime = event.start.format("H:mm")+"-"+event.end.format("H:mm");
 						$(element).prepend($(eventFrame));
-						eventFrame.find($('.datetime')).html(datetime+' <br><span class="glyphicon glyphicon-user"></span>'+
+						eventFrame.find($('.datetime')).html(datetime+' <br><span class="glyphicon glyphicon-user"></span> '+
 						event.participations.length+'/'+$("#probandAmount").val());
 						eventFrame.find($('.close')).click(function(e) {
 							$('#calendar').fullCalendar('removeEvents',event._id);
