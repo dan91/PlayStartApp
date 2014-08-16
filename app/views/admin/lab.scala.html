@@ -344,17 +344,20 @@
               	 
          });    
                 
-                
-                /* $('.addNewRoom').click(function(w) {
+                 /** Übergibt die Building id an einen <input> Tag */
+                $('.addNewRoom').click(function(w) {
               	   w.preventDefault();
-              	   //var statusCode = $(this).data('status');	
+              	   var statusCode = $(this).data('status');	
+
+              	   $('#building_id').val(statusCode);
               	   
-              	   alert("dsfsdfdsf");
-              	   
-              	   //$('#building_id').val(statusCode);
-              	   
-              	   )};
-                */
+              	 $('#newRoomSubmit').click(function(){
+		 				/** on click wird das modal versteckt und
+		 				der User bekommt wieder die neugeladene lab Seite zu sehen*/
+		 				$('#myRoomModal').modal('hide');
+		 			});
+              	 });
+                
                 
                 google.maps.event.trigger(map, 'resize');
                 
@@ -626,7 +629,7 @@
                 
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-ok"></span> Speichern</button>
+                <button type="submit" id="newRoomSubmit" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Speichern</button>
         
            		
 			</div>
