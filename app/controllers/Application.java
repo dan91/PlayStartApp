@@ -29,7 +29,8 @@ public class Application extends Controller {
         response().setContentType("text/javascript");
         return ok(
             Routes.javascriptRouter("myJsRoutes",
-                routes.javascript.Admin.deleteBuilding()
+                routes.javascript.Admin.deleteBuilding(),
+                routes.javascript.Experimenter.expSearch()
             )
         );
     }

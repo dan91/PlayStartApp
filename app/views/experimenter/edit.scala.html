@@ -437,7 +437,7 @@ $( "#openPreview" ).click(function() {
 		<b>Probanden hinzuf��gen</b>
 		<div class="row">
 			<div class="col-sm-12">
-				<input type="text" class="form-control" id="addProb" placeholder="Name des Probands" autofocus>
+				<input type="text" class="form-control addProb" id="" placeholder="Name des Probands" autofocus>
 			</div>
 						
 </div>
@@ -626,25 +626,27 @@ $('#calendar').fullCalendar({
 						        	id = parseInt($(this).attr("id"));
 					        		delete event.participations[id];
 					        		$(this).parent().parent().fadeOut();
-					        	})
+					        	});
+						        $(".addProb").on('keyup',function() {
+						        	console.log("keyup ausgelöst");
+						    		if ($(this).val().length >= 3) {
+						    			console.log("länge größer gleich 3");
+						    			myJsRoutes.controllers.Experimenter.expSearch($(this).val()).ajax({
+						    				success : function(data) {
+						    					console.log("ajax sucess");
+						    					$("#results").html(data);
+						    					
+						    				},
+						    			})
+						    		}
+						    	});
 				        });
 				        $(element).on('show.bs.popover', function (e) {
 				        	$('.fc-event').not(this).popover('hide');
 
 				        });
 				        
-				        $(".addProb").keyup(function() {
-				        	console.log("keyup ausgelöst");
-				    		if ($(this).val().length >= 3) {
-				    			console.log("länge größer gleich 3");
-				    			jsRoutes.controllers.Experimenter.expSearch($(this).val()).ajax({
-				    				success : function(data) {
-				    					console.log("ajax sucess");
-				    					$("#results").html(data);
-				    				},
-				    			})
-				    		}
-				    	})
+				        
 				        
 						eventFrame = $('#eventFrame').clone();
 						eventFrame.show();

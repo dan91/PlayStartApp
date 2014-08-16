@@ -8,6 +8,7 @@ import java.util.*;
 
 import javax.persistence.*;
 
+import play.Logger;
 import play.db.DB;
 import play.db.ebean.*;
 import play.data.format.*;
@@ -94,7 +95,9 @@ public class User extends Model {
            Connection con = DB.getConnection();
            Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
            ResultSet rs = stmt
-                   .executeQuery("SELECT id, name FROM User, Privilege WHERE User.name LIKE '%"+name+"%' AND User.privilege_id = Privilege.id AND Privilege.level > 1");
+                   .executeQuery("SELECT User.id, User.name FROM User, Privilege "
+                   		+ "WHERE User.name LIKE '%"+name+"%' AND User.privilege_id = Privilege.id AND Privilege.level > 1 "
+                   				+ "LIMIT 3");
            		List<User> list = new ArrayList<User>();
    			while(rs.next()) {
    				User e = new User();
