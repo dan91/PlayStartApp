@@ -190,7 +190,7 @@
                 $('.editableBuilding').click(function(e) {
                 	   e.preventDefault();
                 	   var statusCode = $(this).data('status');	
-					   var felder = statusCode.split(',', 5);
+					   var felder = statusCode.split(';', 5);
 	                	   
 					   	   buildingId  = felder[0];
 	                	   buildingName = felder[1];
@@ -234,7 +234,7 @@
                 	   
                 	   var reference = $(this);
                 	   
-                	   var felder = statusCode.split(',', 2);
+                	   var felder = statusCode.split(';', 2);
                 	   
 				   	   var idOfBuild  = felder[0];
                 	   var nameOfBuild = felder[1];
@@ -329,8 +329,8 @@
 			<div class="col-sm-4 col-xs-6 text-right">
 			<!-- data-target="#myRoomModal" -->
 			<button class="btn btn-default" id="add" data-toggle="modal" data-target="#myRoomModal"><span class="glyphicon glyphicon-plus"></span> Raum</button>
-			<button data-status="@building.id,@building.name,@building.description,@building.lat,@building.lng," class="btn btn-default editableBuilding" id="add" data-toggle="modal" data-target="#editBuildingModal"> <span class="glyphicon glyphicon-pencil"></span></button>
-      <button type="submit" data-status="@building.id,@building.name" data-toggle="modal" data-target="#confirmDelete" class="btn btn-danger removableBuilding" id="add"> <span class="glyphicon glyphicon-remove"></span></button>
+			<button data-status="@building.id;@building.name;@building.description;@building.lat;@building.lng;" class="btn btn-default editableBuilding" id="add" data-toggle="modal" data-target="#editBuildingModal"> <span class="glyphicon glyphicon-pencil"></span></button>
+      <button type="submit" data-status="@building.id;@building.name" data-toggle="modal" data-target="#confirmDelete" class="btn btn-danger removableBuilding" id="add"> <span class="glyphicon glyphicon-remove"></span></button>
       
       </div>
 			
