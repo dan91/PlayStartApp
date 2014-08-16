@@ -113,27 +113,7 @@ public class Admin extends Controller {
 		}
     }
     
-    public static Result saveNewRoom(){
-        
-        final Map<String, String[]> values = request().body().asFormUrlEncoded();
-        final String name = values.get("roomName")[0];
-        final String description = values.get("roomDescription")[0];
-        final Long building_id = Long.parseLong(values.get("building_id")[0]);
-        
-        String created = name+"  ;  "+building_id+"  ;  "+description;
-        
-        
-        // zeigt in der console an ob der server es bekommen hat
-        Logger.info(created);
-        try {
-        	Room.add(name, description, building_id);
-        	
-			return ok(lab.render(Building.all(),Room.all()));
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			return badRequest(e.toString());
-		}
-    }
+    
     
     
     public static Result saveEditBuilding(){
@@ -165,8 +145,6 @@ public class Admin extends Controller {
 		}
     }
     
-    
-    
     public static Result deleteBuilding(){
     	
     	final Map<String, String[]> values = request().body().asFormUrlEncoded();
@@ -192,6 +170,49 @@ public class Admin extends Controller {
 		}
     	
     }
+    
+    
+    public static Result saveNewRoom(){
+        
+        final Map<String, String[]> values = request().body().asFormUrlEncoded();
+        final String name = values.get("roomName")[0];
+        final String description = values.get("roomDescription")[0];
+        final Long building_id = Long.parseLong(values.get("building_id")[0]);
+        
+        String created = name+"  ;  "+building_id+"  ;  "+description;
+        
+        
+        // zeigt in der console an ob der server es bekommen hat
+        Logger.info(created);
+        try {
+        	Room.add(name, description, building_id);
+        	
+			return ok(lab.render(Building.all(),Room.all()));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			return badRequest(e.toString());
+		}
+    }
+    
+    public static Result saveEditRoom(){
+        
+        final Map<String, String[]> values = request().body().asFormUrlEncoded();
+        
+        final Long id = Long.parseLong(values.get("roomEdit_id")[0]);
+
+        final String name = values.get("roomEditName")[0];
+        final String description = values.get("roomEditDescription")[0];
+        
+        
+        try {
+        	Room.update(id, name, description);
+			return ok(lab.render(Building.all(),Room.all()));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			return badRequest(e.toString());
+		}
+    }
+    
     
     public static Result deleteRoom(){
     	

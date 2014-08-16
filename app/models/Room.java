@@ -93,6 +93,24 @@ public class Room extends Model {
        
     }
     
+    public static void update(Long id, String name, String description) throws SQLException {
+    	Connection con = DB.getConnection();
+        Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+		
+       
+        String update = String.format("UPDATE Room SET "
+        		+ "name='%s',description='%s' WHERE id=%s;" ,name,description,id );
+        
+        
+       stmt.executeUpdate(update);
+       stmt.close();
+       
+       con.close();
+        // iwo muss das statement aber noch geschlossen werden!!!!
+        //   stmt.close();
+        
+    }
+    
     public static void delete(Long id) throws SQLException{
     	
     	Connection con = DB.getConnection();

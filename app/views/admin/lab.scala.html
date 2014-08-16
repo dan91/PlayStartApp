@@ -357,6 +357,29 @@
 		 				$('#myRoomModal').modal('hide');
 		 			});
               	 });
+                 
+                 
+                $('.editableRoom').click(function(w) {
+               	   w.preventDefault();
+               	   var statusCode = $(this).data('status');	
+
+               	   var felder = statusCode.split(';', 3);
+               	   
+               	   alert(felder[0]);
+               	   alert(felder[1]);
+               	   alert(felder[2]);
+               	   
+               	   $('#roomEdit_id').val(felder[0]);
+               	   $('#roomEditName').val(felder[1]);
+               	   $('#roomEditDescription').html(felder[2]);
+               	   
+               	   
+               	 $('#editRoomSubmit').click(function(){
+		 				/** on click wird das modal versteckt und
+		 				der User bekommt wieder die neugeladene lab Seite zu sehen*/
+		 				$('#roomEditModal').modal('hide');
+		 			});
+                });
                 
                 
                 google.maps.event.trigger(map, 'resize');
@@ -412,7 +435,7 @@
 			   <div class="row">
       <div class="col-sm-3 col-xs-6"><b>@room.name</b></div>
       <div class="col-sm-2 col-xs-7 col-sm-offset-7 text-right"> 
-<button class="btn  btn-sm btn-default"><span class="glyphicon glyphicon-pencil" data-toggle="modal" data-target="#myRoomModal"></span></button>
+<button class="btn  btn-sm btn-default editableRoom" data-status="@room.id;@room.name;@room.description;" data-toggle="modal" data-target="#roomEditModal"><span class="glyphicon glyphicon-pencil"></span></button>
 <button class="btn btn-sm btn-danger removableRoom" data-status="@room.id;@room.name" data-toggle="modal" data-target="#confirmRoomDelete"><span class="glyphicon glyphicon-remove"></span></button>
       </div> 
       </div>
@@ -640,6 +663,66 @@
     </div>
     <!-- /.modal -->
 </form>
+
+
+
+
+
+<!-- Raumbeschreibungs-modal -->
+<form action="@routes.Admin.saveEditRoom()" method="POST">   
+    <div class="modal fade" id="roomEditModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+              <h4 class="modal-title">Raum</h4>
+            	</div>
+   <div class="modal-body">
+                 
+                 <div class="row">
+            					<div class="col-sm-3">
+            					<b>Bezeichnung</b>
+                    </div>
+                    <div class="col-sm-9">
+            						<input class="form-control" id="roomEditName" name="roomEditName" type="text" placeholder="z.B. Raum 00.105"/>
+            					</div>
+            
+            			</div>  
+
+					<div class="row">
+            					<div class="col-sm-3">
+            					<b>Beschreibung</b>
+                      </div>
+                    <div class="col-sm-9">
+            						<textarea class="form-control field span12" name="roomEditDescription" id="roomEditDescription" cols="55" rows="15" placeholder="z.B. Der Raum 00.1XX befindet sich im oberen Stockwerk."></textarea>
+						        	
+						        	
+						        	<input class="form-control" id="roomEdit_id" name="roomEdit_id" type="text" value="" />
+						        	
+            					</div>
+            
+            			</div> 
+            			
+            	
+
+  
+                
+            </div>
+            <div class="modal-footer">
+                <button type="submit" id="editRoomSubmit" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Speichern</button>
+        
+			</div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+</form>
+
+
+
+
 
 
 <!-- Confirm Building Delete Modal -->

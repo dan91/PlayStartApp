@@ -33,7 +33,10 @@ GET		/admin_edit				controllers.Admin.edit()
 POST    /lab                  	controllers.Admin.save()
 POST    /labEdit                controllers.Admin.saveEditBuilding()
 POST    /labDelete/             controllers.Admin.deleteBuilding()
+
+
 POST    /labNewRoom             controllers.Admin.saveNewRoom()
+POST    /labEditRoom            controllers.Admin.saveEditRoom()
 POST    /labDeleteR/            controllers.Admin.deleteRoom()
 GET     /javascriptRoutes       controllers.Application.javascriptRoutes()
 
