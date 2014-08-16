@@ -5,6 +5,7 @@ import java.util.Map;
 
 import models.Building;
 import models.Experiment;
+import models.Room;
 import models.User;
 import play.Logger;
 import play.Routes;
@@ -73,7 +74,7 @@ public class Admin extends Controller {
      */
     public static Result lab() {  
         try {
-			return ok(views.html.admin.lab.render(Building.all()));
+			return ok(views.html.admin.lab.render(Building.all(),Room.all()));
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			return badRequest(e.toString());
@@ -85,62 +86,62 @@ public class Admin extends Controller {
 *
 *@return
 */
-    public static Result save(){
-        
-        final Map<String, String[]> values = request().body().asFormUrlEncoded();
-        final String name = values.get("buildingName")[0];
-        final String description = values.get("pac-input")[0];
-        
-        // Float ist zu klein, schneidet die Hälfte ab!!!
-        final double lat = Double.parseDouble(values.get("latFld")[0]);
-        final double lng = Double.parseDouble(values.get("lngFld")[0]);
-        
-        
-        
-        String created = "Lat: "+lat;
-        
-        
-        // zeigt in der console an ob der server es bekommen hat
-        Logger.info(created);
-        try {
-        	Building.add(name, description, lat, lng);
-        	
-			return ok(lab.render(Building.all()));
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			return badRequest(e.toString());
-		}
-    }
-    
-    
-    public static Result saveEditBuilding(){
-        
-        final Map<String, String[]> values = request().body().asFormUrlEncoded();
-        
-        final Long id = Long.parseLong(values.get("editId")[0]);
-        final String name = values.get("buildingNameEdit")[0];
-        final String description = values.get("pac-inputEdit")[0];
-        
-        // Float ist zu klein, schneidet die Hälfte ab!!!
-        final double lat = Double.parseDouble(values.get("latFldEdit")[0]);
-        final double lng = Double.parseDouble(values.get("lngFldEdit")[0]);
-        
-
-        // zeigt in der console an ob der server es bekommen hat
-        Logger.info("Building with ID: "+id +" will be updated with 'Name:' "+
-        name+", 'Description:' "+description+", 'Lat:' "+lat+", 'Lng:' "+lng);
-        
-        
-        
-      
-        try {
-        	Building.update(id, name, description, lat, lng);
-			return ok(lab.render(Building.all()));
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			return badRequest(e.toString());
-		}
-    }
+//    public static Result save(){
+//        
+//        final Map<String, String[]> values = request().body().asFormUrlEncoded();
+//        final String name = values.get("buildingName")[0];
+//        final String description = values.get("pac-input")[0];
+//        
+//        // Float ist zu klein, schneidet die Hälfte ab!!!
+//        final double lat = Double.parseDouble(values.get("latFld")[0]);
+//        final double lng = Double.parseDouble(values.get("lngFld")[0]);
+//        
+//        
+//        
+//        String created = "Lat: "+lat;
+//        
+//        
+//        // zeigt in der console an ob der server es bekommen hat
+//        Logger.info(created);
+//        try {
+//        	Building.add(name, description, lat, lng);
+//        	
+//			return ok(lab.render(Building.all()));
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			return badRequest(e.toString());
+//		}
+//    }
+//    
+//    
+//    public static Result saveEditBuilding(){
+//        
+//        final Map<String, String[]> values = request().body().asFormUrlEncoded();
+//        
+//        final Long id = Long.parseLong(values.get("editId")[0]);
+//        final String name = values.get("buildingNameEdit")[0];
+//        final String description = values.get("pac-inputEdit")[0];
+//        
+//        // Float ist zu klein, schneidet die Hälfte ab!!!
+//        final double lat = Double.parseDouble(values.get("latFldEdit")[0]);
+//        final double lng = Double.parseDouble(values.get("lngFldEdit")[0]);
+//        
+//
+//        // zeigt in der console an ob der server es bekommen hat
+//        Logger.info("Building with ID: "+id +" will be updated with 'Name:' "+
+//        name+", 'Description:' "+description+", 'Lat:' "+lat+", 'Lng:' "+lng);
+//        
+//        
+//        
+//      
+//        try {
+//        	Building.update(id, name, description, lat, lng);
+//			return ok(lab.render(Building.all()));
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			return badRequest(e.toString());
+//		}
+//    }
     
     
     

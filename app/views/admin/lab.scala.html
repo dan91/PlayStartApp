@@ -1,4 +1,4 @@
-@(buildings: List[Building])
+@(buildings: List[Building],rooms: List[Room])
 
 @scripts = {
 
@@ -336,7 +336,25 @@
 			
 			</div>
 
-<div id="amountRooms"></div>
+<div id="amountRooms">
+
+
+
+@for(room <- rooms){
+
+@if(room.building_id == building.id){
+<hr>
+			   <div class="row">
+      <div class="col-sm-3 col-xs-6"><b>@room.name</b></div>
+      <div class="col-sm-2 col-xs-7 col-sm-offset-7 text-right"> 
+<button class="btn  btn-sm btn-default"><span class="glyphicon glyphicon-pencil" data-toggle="modal" data-target="#myRoomModal"></span><button class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-remove"></span></button></button>
+      </div> 
+      </div>
+}
+
+}
+
+</div>
       
       
 
