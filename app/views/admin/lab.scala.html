@@ -288,6 +288,74 @@
                  });
                 
                 
+                /** REMOVE BUILDING */
+                 $('.removableRoom').click(function(w) {
+              	   w.preventDefault();
+              	   
+              	   var statusCode = $(this).data('status');	
+              	   var reference = $(this);
+              	   var felder = statusCode.split(';', 2);
+              	   
+				   var idOfRoom  = felder[0];
+              	   var nameOfRoom = felder[1];
+              	  
+              	   $( "#roomNameToDelete" ).html(nameOfRoom);
+              	 
+              	   
+              	 $("#deleteRoomConfirm").click(function(q){
+          		   $('#confirmRoomDelete').modal('hide');
+          		   
+          		 $.ajax({
+        		        type : 'POST',
+        		        url : '@routes.Admin.deleteRoom()',
+        		        data : {
+        		            id: idOfRoom, name: nameOfRoom
+        		        },
+        		        success : function(data) {
+        		            
+        		            
+        		          alert(data);
+        		          
+        		          var infoDelete = reference.parent().parent();
+        		          
+        		          
+        		          /**
+        		          infoDelete.html("<div class='row'> <div class='col-sm-11 col-xs-11 bg-success' > gelöscht</div></div>");
+        		          
+        		          setTimeout(function(){ 
+        		        	  infoDelete.hide(); 
+        		          }, 3000);
+        		          */
+        		          
+                   	  
+        		        },
+            		     error : function(err) {
+      	                //code always ends up here, with the err giving no eerror message at all!
+      	                
+      	                
+      	                alert(err);             
+      	            	}
+      	            	
+            		    });
+         		   
+        		    		return true;
+          		   
+              	 });
+              	 
+         });    
+                
+                
+                /* $('.addNewRoom').click(function(w) {
+              	   w.preventDefault();
+              	   //var statusCode = $(this).data('status');	
+              	   
+              	   alert("dsfsdfdsf");
+              	   
+              	   //$('#building_id').val(statusCode);
+              	   
+              	   )};
+                */
+                
                 google.maps.event.trigger(map, 'resize');
                 
     });  
@@ -318,19 +386,13 @@
 	
 	@for(building<-buildings){
 
-<!--  
-<h1>  buildings.name</h1>
-<h2>  buildings.description</h2>
-<hr>
--->
-
 <div class="row myStudies_ListView">
 			<div class="col-sm-8 col-xs-6"><h4>@building.name</h4></div>
 			<div class="col-sm-4 col-xs-6 text-right">
 			<!-- data-target="#myRoomModal" -->
-			<button class="btn btn-default" id="add" data-toggle="modal" data-target="#myRoomModal"><span class="glyphicon glyphicon-plus"></span> Raum</button>
-			<button data-status="@building.id;@building.name;@building.description;@building.lat;@building.lng;" class="btn btn-default editableBuilding" id="add" data-toggle="modal" data-target="#editBuildingModal"> <span class="glyphicon glyphicon-pencil"></span></button>
-      <button type="submit" data-status="@building.id;@building.name" data-toggle="modal" data-target="#confirmDelete" class="btn btn-danger removableBuilding" id="add"> <span class="glyphicon glyphicon-remove"></span></button>
+			<button class="btn btn-default addNewRoom"  data-status="@building.id" data-toggle="modal" data-target="#myRoomModal"><span class="glyphicon glyphicon-plus"></span> Raum</button>
+			<button data-status="@building.id;@building.name;@building.description;@building.lat;@building.lng;" class="btn btn-default editableBuilding" data-toggle="modal" data-target="#editBuildingModal"> <span class="glyphicon glyphicon-pencil"></span></button>
+      <button type="submit" data-status="@building.id;@building.name" data-toggle="modal" data-target="#confirmDelete" class="btn btn-danger removableBuilding" > <span class="glyphicon glyphicon-remove"></span></button>
       
       </div>
 			
@@ -339,17 +401,22 @@
 <div id="amountRooms">
 
 
-
+<hr>
 @for(room <- rooms){
 
 @if(room.building_id == building.id){
-<hr>
+
 			   <div class="row">
       <div class="col-sm-3 col-xs-6"><b>@room.name</b></div>
       <div class="col-sm-2 col-xs-7 col-sm-offset-7 text-right"> 
-<button class="btn  btn-sm btn-default"><span class="glyphicon glyphicon-pencil" data-toggle="modal" data-target="#myRoomModal"></span><button class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-remove"></span></button></button>
+<button class="btn  btn-sm btn-default"><span class="glyphicon glyphicon-pencil" data-toggle="modal" data-target="#myRoomModal"></span></button>
+<button class="btn btn-sm btn-danger removableRoom" data-status="@room.id;@room.name" data-toggle="modal" data-target="#confirmRoomDelete"><span class="glyphicon glyphicon-remove"></span></button>
       </div> 
       </div>
+      
+      
+       
+     
 }
 
 }
@@ -360,63 +427,6 @@
 
 }
 	
-	<!--  DUMMY CONTENT----------------------------------------------------------
-
-	<div class="row myStudies_ListView">
-			<div class="col-sm-8 col-xs-6"><h4>Gebäude 82</h4></div>
-			<div class="col-sm-4 col-xs-6 text-right">
-			<button class="btn btn-default" id="add" data-toggle="modal" data-target="#myRoomModal"><span class="glyphicon glyphicon-plus"></span> Raum</button>
-			<button class="btn btn-default" id="add" data-toggle="modal" data-target="#myMapModal"> <span class="glyphicon glyphicon-pencil"></span></button>
-      <button class="btn btn-danger" id="add"> <span class="glyphicon glyphicon-remove"></span></button>
-      </div>
-			
-			</div>
-			
-			
-		
-		<div>
-		<hr>
-			   <div class="row">
-      <div class="col-sm-3 col-xs-6"><b>Raum 00.100</b></div>
-      <div class="col-sm-2 col-xs-7 col-sm-offset-7 text-right"> 
-<button class="btn  btn-sm btn-default"><span class="glyphicon glyphicon-pencil" data-toggle="modal" data-target="#myRoomModal"></span><button class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-remove"></span></button></a>
-      </div> 
-      </div>
-
-		   <div class="row">
-      <div class="col-sm-3 col-xs-6"><b>Raum 00.100</b></div>
-      <div class="col-sm-2 col-xs-7 col-sm-offset-7 text-right"> 
-<button class="btn  btn-sm btn-default"><span class="glyphicon glyphicon-pencil" data-toggle="modal" data-target="#myRoomModal"></span><button class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-remove"></span></button></a>
-      </div> 
-      </div>
-
-   <div class="row">
-      <div class="col-sm-3 col-xs-6"><b>Raum 00.100</b></div>
-      <div class="col-sm-2 col-xs-7 col-sm-offset-7 text-right"> 
-<button class="btn  btn-sm btn-default"><span class="glyphicon glyphicon-pencil" data-toggle="modal" data-target="#myRoomModal"></span><button class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-remove"></span></button></a>
-      </div> 
-      </div>
-</div>
-
-<div class="row myStudies_ListView">
-      <div class="col-sm-8 col-xs-6"><h4>Zentrum für Mediendidaktik</h4></div>
-      <div class="col-sm-4 col-xs-6 text-right">
-      <button class="btn btn-default" id="add" data-toggle="modal" data-target="#myRoomModal"><span class="glyphicon glyphicon-plus"></span> Raum</button>
-      <button class="btn btn-default" id="add" data-toggle="modal" data-target="#myMapModal"> <span class="glyphicon glyphicon-pencil"></span></button>
-      <button class="btn btn-danger" id="add"> <span class="glyphicon glyphicon-remove"></span></button>
-      </div>
-      
-      </div>
-      
-	
-	
-	
-	---------------------------------------------       DUMMY CONTENT-->
-	
-		
-<!-- Ende container -->
-
-
 
 
 <!-- NEW BUILDING-Modal -->
@@ -576,6 +586,7 @@
     
     
     <!-- Raumbeschreibungs-modal -->
+<form action="@routes.Admin.saveNewRoom()" method="POST">   
     <div class="modal fade" id="myRoomModal">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -590,7 +601,7 @@
             					<b>Bezeichnung</b>
                     </div>
                     <div class="col-sm-9">
-            						<input class="form-control" type="text" placeholder="z.B. Raum 00.105"/>
+            						<input class="form-control" id="roomName" name="roomName" type="text" placeholder="z.B. Raum 00.105"/>
             					</div>
             
             			</div>  
@@ -600,7 +611,10 @@
             					<b>Beschreibung</b>
                       </div>
                     <div class="col-sm-9">
-            						<textarea class="form-control field span12" id="textarea" cols="55" rows="15" placeholder="z.B. Der Raum 00.1XX befindet sich im oberen Stockwerk."></textarea>
+            						<textarea class="form-control field span12" name="roomDescription" id="roomDescription" cols="55" rows="15" placeholder="z.B. Der Raum 00.1XX befindet sich im oberen Stockwerk."></textarea>
+						        	
+						        	
+						        	<input class="form-control" id="building_id" name="building_id" type="text" value=""/>
 						        	
             					</div>
             
@@ -612,9 +626,8 @@
                 
             </div>
             <div class="modal-footer">
-            <form  method="POST">
                 <button type="submit" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-ok"></span> Speichern</button>
-           	</form>
+        
            		
 			</div>
         </div>
@@ -623,7 +636,7 @@
     <!-- /.modal-dialog -->
     </div>
     <!-- /.modal -->
-
+</form>
 
 
 <!-- Confirm Building Delete Modal -->
@@ -631,11 +644,26 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body">
-                Wollen Sie <span id="nameToDelete"></span> wirklich löschen?
+                Wollen Sie "<span id="nameToDelete"></span>" wirklich löschen?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                 <button id="deleteBuildingConfirm" class="btn btn-danger danger">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Confirm Room Delete Modal -->
+<div class="modal fade" id="confirmRoomDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                Wollen Sie "<span id="roomNameToDelete"></span>" wirklich löschen?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button id="deleteRoomConfirm" class="btn btn-danger danger">Delete</button>
             </div>
         </div>
     </div>

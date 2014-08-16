@@ -10,6 +10,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+import play.Logger;
 import play.data.validation.Constraints;
 import play.db.DB;
 import play.db.ebean.Model;
@@ -71,6 +72,42 @@ public class Room extends Model {
 		stmt.close();
 		con.close();
 		return list;
+    }
+    
+    public static void add(String name, String description, Long building_id) throws SQLException {
+    	Connection con = DB.getConnection();
+        Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+		
+       
+        
+        String insert = String.format("INSERT INTO Room (name,description,building_id) "
+				 +"VALUES ('%s','%s',%s)",name,description,building_id );
+        
+        
+       stmt.executeUpdate(insert);
+       stmt.close(); 
+        // iwo muss das statement aber noch geschlossen werden!!!!
+        //   stmt.close();
+        
+       con.close();
+       
+    }
+    
+    public static void delete(Long id) throws SQLException{
+    	
+    	Connection con = DB.getConnection();
+        Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+       
+        String delete = String.format("DELETE FROM Room WHERE id=%s;",id);
+        stmt.executeUpdate(delete);
+        stmt.close();
+        
+        con.close();
+        
+        String message="Deleted on server, row with id: "+id+"\n "
+    			+"has been deleted.";
+        Logger.info(message);
+    	
     }
     
 }
