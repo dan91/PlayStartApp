@@ -431,7 +431,7 @@ $( "#openPreview" ).click(function() {
 		</div> <!-- row -->
 		</div>
 		<hr>
-		<b>Probanden hinzuf��gen</b>
+		<b>Probanden hinzufügen</b>
 		<div class="row">
 			<div class="col-sm-12">
 				<input type="text" class="form-control addProb" id="" placeholder="Name des Probands" autofocus>
@@ -462,28 +462,19 @@ $( "#openPreview" ).click(function() {
 			<script type="text/javascript" src="@routes.Assets.at("javascripts/calendar.js")"></script>
 			<script type="text/javascript">
 
-	$("#modalAddPersons").on("bs.modal.shown", function() {
+	$("#modalAddPersons").on("shown.bs.modal", function() {
 		$("#expSearch").on('keyup',function() {
     		if ($(this).val().length >= 3) {
-    			myJsRoutes.controllers.Experimenter.userSearch($(this).val(), "user").ajax({
+    			myJsRoutes.controllers.Experimenter.userSearch($(this).val(), "exp").ajax({
     				success : function(data) {
     					$("#resultsExp").html(data);
     					$(".addExp").on('click', function() {
-<<<<<<< HEAD
     						alert('click');
     					   row = $(".rowExp").first().clone();
     					   row.find("#name").text($(this).data('user-name'));
     					   row.find("#expRem").attr("id",$(this).attr("id"));
     					   row.show();
  						   $("#rowsExp").append(row);
-=======
-    						el = $(".rowExp").first().clone();
- 						   el.find("#name").text($(this).data('user-name'));
- 						   el.find("#expRem").attr("id",$(this).attr("id"));
- 						   el.show();
- 						   $("#rowsExp").append(el);
- 						   
->>>>>>> FETCH_HEAD
     					})
     				},
     			})
@@ -620,7 +611,6 @@ $('#calendar').fullCalendar({
 					
 					
 					eventRender: function( event, element, view ) {
-<<<<<<< HEAD
 						if(typeof event.participations === 'undefined') {
 							event.participations = [];
 						}
@@ -633,27 +623,6 @@ $('#calendar').fullCalendar({
 							console.log("öffne popover");
 					        $('.fc-event').not(this).popover('hide');
 					        
-=======
-						
-							        
-							   
-						/**
-						Wenn Popover angezeigt ist, füge Event-Handler für Proband hinzufügen & löschen
-						**/
-				        
-				        $(element).popover({
-				            title: 'Angemeldete Probanden',
-				            placement: 'auto',
-				            content: el.html(),
-				            trigger: 'click',
-				            html: true
-				        })
-				        $(element).on('show.bs.popover', function (e) {
-				        	$('.fc-event').not(this).popover('hide');
-				        	el = $("#regProbands").clone().first();
-							partic_dr = el.find(".rowPartic").first().clone();
-							el.attr('id', event.id);
->>>>>>> FETCH_HEAD
 							el.find(".partics").html("");
 							console.log("gehe participations durch für");
 							console.log(event)
@@ -671,7 +640,6 @@ $('#calendar').fullCalendar({
 							   console.log(partic)
 							   el.find(".partics").append(partic);
 							}
-<<<<<<< HEAD
 								el.show();
 								console.log('el element:')
 								console.log(el);
@@ -690,14 +658,10 @@ $('#calendar').fullCalendar({
 
 
 					        $(".remPartic").on('click', function () {
-=======
-
-				        });
-				        $(element).on('shown.bs.popover', function (e) {
-					        $(".remPartic").on('click', function () {					
->>>>>>> FETCH_HEAD
 					        	id = parseInt($(this).attr("id"));
+					        	console.log(event.participations);
 				        		delete event.participations[id];
+					        	console.log(event.participations);
 				        		$(this).parent().parent().fadeOut();
 				        	});
 					        $(".addProb").on('keyup',function() {
@@ -705,7 +669,7 @@ $('#calendar').fullCalendar({
 					    			myJsRoutes.controllers.Experimenter.userSearch($(this).val(), "user").ajax({
 					    				success : function(data) {
 					    					$("#results").html(data);
-					    					$(".addExp").on('click', function() {
+					    					$(".addUser").on('click', function() {
 					    						partic = partic_dr.clone();
 					 						   partic.find("#name").text($(this).data('user-name'));
 					 						   partic.find(".remPartic").data("event-id",event.id);
@@ -726,7 +690,6 @@ $('#calendar').fullCalendar({
 					    			})
 					    		}
 					    	});
-<<<<<<< HEAD
 							e.stopPropagation();
 
 						});
@@ -737,17 +700,14 @@ $('#calendar').fullCalendar({
 				            trigger: 'click',
 				            html: true
 				        })
-=======
-			        });
-				        
->>>>>>> FETCH_HEAD
 				        
 						eventFrame = $('#eventFrame').clone();
 						eventFrame.show();
 						$(element).children().remove();
 						datetime = event.start.format("H:mm")+"-"+event.end.format("H:mm");
 						$(element).prepend($(eventFrame));
-						eventFrame.find($('.datetime')).html(datetime+' <br><span class="glyphicon glyphicon-user"></span> 2/3');
+						eventFrame.find($('.datetime')).html(datetime+' <br><span class="glyphicon glyphicon-user"></span>'+
+						event.participations.length+'/'+$("#probandAmount").val());
 						eventFrame.find($('.close')).click(function(e) {
 							$('#calendar').fullCalendar('removeEvents',event._id);
 							e.stopPropagation();
