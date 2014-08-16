@@ -18,6 +18,7 @@ GET		/register			    controllers.account.Signup.register()
 GET     /create                 controllers.Experimenter.create()
 GET     /edit/:id               controllers.Experimenter.edit(id: Long)
 GET     /myStudies				controllers.Experimenter.myStudies()
+GET 	/expSearch/:name		controllers.Experimenter.expSearch(name: String)
 GET     /completeStudy			controllers.Experimenter.completeStudy()
 
 # Admin
@@ -32,7 +33,7 @@ GET		/admin_edit				controllers.Admin.edit()
 POST    /lab                  	controllers.Admin.save()
 POST    /labEdit                controllers.Admin.saveEditBuilding()
 POST    /labDelete/             controllers.Admin.deleteBuilding()
-GET     /javascriptRoutes       controllers.Admin.javascriptRoutes
+GET     /javascriptRoutes       controllers.Application.javascriptRoutes()
 
 
 

@@ -168,15 +168,6 @@ public class Admin extends Controller {
 		}
     	
     }
-    
-    public static Result javascriptRoutes() {
-        response().setContentType("text/javascript");
-        return ok(
-            Routes.javascriptRouter("myJsRoutes",
-                routes.javascript.Admin.deleteBuilding()
-            )
-        );
-    }
 
 
     

@@ -2,9 +2,11 @@ package controllers;
 
 import java.util.Map;
 
+
 // import models.LatLng;
 import models.User;
 import play.Logger;
+import play.Routes;
 import play.data.Form;
 import play.data.validation.Constraints;
 import play.i18n.Messages;
@@ -23,7 +25,14 @@ public class Application extends Controller {
 
     
 
-    
+	public static Result javascriptRoutes() {
+        response().setContentType("text/javascript");
+        return ok(
+            Routes.javascriptRouter("myJsRoutes",
+                routes.javascript.Admin.deleteBuilding()
+            )
+        );
+    }
     
     
     /**
