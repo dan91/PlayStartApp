@@ -30,7 +30,7 @@ public class Application extends Controller {
         return ok(
             Routes.javascriptRouter("myJsRoutes",
                 routes.javascript.Admin.deleteBuilding(),
-                routes.javascript.Experimenter.expSearch()
+                routes.javascript.Experimenter.userSearch()
             )
         );
     }
