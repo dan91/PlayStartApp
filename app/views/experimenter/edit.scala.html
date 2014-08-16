@@ -431,7 +431,7 @@ $( "#openPreview" ).click(function() {
 		</div> <!-- row -->
 		</div>
 		<hr>
-		<b>Probanden hinzuf��gen</b>
+		<b>Probanden hinzufügen</b>
 		<div class="row">
 			<div class="col-sm-12">
 				<input type="text" class="form-control addProb" id="" placeholder="Name des Probands" autofocus>
@@ -464,19 +464,17 @@ $( "#openPreview" ).click(function() {
 			<script type="text/javascript" src="@routes.Assets.at("javascripts/calendar.js")"></script>
 			<script type="text/javascript">
 
-	$("#modalAddPersons").on("bs.modal.shown", function() {
+	$("#modalAddPersons").on("shown.bs.modal", function() {
 		$("#expSearch").on('keyup',function() {
     		if ($(this).val().length >= 3) {
-    			myJsRoutes.controllers.Experimenter.userSearch($(this).val(), "user").ajax({
+    			myJsRoutes.controllers.Experimenter.userSearch($(this).val(), "exp").ajax({
     				success : function(data) {
-    					$("#resultsExp").html(data);
-    					$(".addExp").on('click', function() {
-    						el = $(".rowExp").first().clone();
+    					$("#resultsExp").html(data).$(".addExp").on('click', function() {
+    					   var el = $(".rowExp").first().clone();
  						   el.find("#name").text($(this).data('user-name'));
  						   el.find("#expRem").attr("id",$(this).attr("id"));
  						   el.show();
  						   $("#rowsExp").append(el);
- 						   
     					})
     				},
     			})
@@ -614,24 +612,14 @@ $('#calendar').fullCalendar({
 					
 					eventRender: function( event, element, view ) {
 						
-							        
-							   
-						/**
-						Wenn Popover angezeigt ist, füge Event-Handler für Proband hinzufügen & löschen
+			        	el = $("#regProbands").clone().first();
+			        	
+						 /**
+						Füge Event-Handler für Proband hinzufügen & löschen hinzu
 						**/
-				        
-				        $(element).popover({
-				            title: 'Angemeldete Probanden',
-				            placement: 'auto',
-				            content: el.html(),
-				            trigger: 'click',
-				            html: true
-				        })
-				        $(element).on('show.bs.popover', function (e) {
-				        	$('.fc-event').not(this).popover('hide');
-				        	el = $("#regProbands").clone().first();
-							partic_dr = el.find(".rowPartic").first().clone();
-							el.attr('id', event.id);
+						$(element).on('show.bs.popover', function (e) {
+					        $('.fc-event').not(this).popover('hide');
+					        partic_dr = el.find(".rowPartic").first().clone();
 							el.find(".partics").html("");
 							for (i in event.participations) {
 							   partic = partic_dr.clone();
@@ -642,12 +630,23 @@ $('#calendar').fullCalendar({
 							   partic.show();
 							   el.find(".partics").append(partic);
 							}
+							if(event.participations.length == 0) {
+								$(".partics").text("Bisher keine Anmeldungen.")
+							}
+							if(event.participations.length == $("#probandAmount").val()) {
+								$("#search").hide();
+							}
 
-				        });
-				        $(element).on('shown.bs.popover', function (e) {
-					        $(".remPartic").on('click', function () {					
+						});
+						$(element).on('shown.bs.popover', function (e) {
+
+							$(".popover-content").html(el.html());
+
+					        $(".remPartic").on('click', function () {
 					        	id = parseInt($(this).attr("id"));
+					        	console.log(event.participations);
 				        		delete event.participations[id];
+					        	console.log(event.participations);
 				        		$(this).parent().parent().fadeOut();
 				        	});
 					        $(".addProb").on('keyup',function() {
@@ -655,7 +654,7 @@ $('#calendar').fullCalendar({
 					    			myJsRoutes.controllers.Experimenter.userSearch($(this).val(), "user").ajax({
 					    				success : function(data) {
 					    					$("#results").html(data);
-					    					$(".addExp").on('click', function() {
+					    					$(".addUser").on('click', function() {
 					    						partic = partic_dr.clone();
 					 						   partic.find("#name").text($(this).data('user-name'));
 					 						   partic.find(".remPartic").data("event-id",event.id);
@@ -676,15 +675,22 @@ $('#calendar').fullCalendar({
 					    			})
 					    		}
 					    	});
-			        });
-				        
+						});
+				        $(element).popover({
+				            title: 'Angemeldete Probanden',
+				            placement: 'auto',
+				            content: el.html(),
+				            trigger: 'click',
+				            html: true
+				        })
 				        
 						eventFrame = $('#eventFrame').clone();
 						eventFrame.show();
 						$(element).children().remove();
 						datetime = event.start.format("H:mm")+"-"+event.end.format("H:mm");
 						$(element).prepend($(eventFrame));
-						eventFrame.find($('.datetime')).html(datetime+' <br><span class="glyphicon glyphicon-user"></span> 2/3');
+						eventFrame.find($('.datetime')).html(datetime+' <br><span class="glyphicon glyphicon-user"></span>'+
+						event.participations.length+'/'+$("#probandAmount").val());
 						eventFrame.find($('.close')).click(function(e) {
 							$('#calendar').fullCalendar('removeEvents',event._id);
 							e.stopPropagation();
