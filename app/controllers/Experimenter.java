@@ -66,15 +66,6 @@ public class Experimenter extends Controller {
 		
     }
     
-    public static Result save() {
-    	try {
-			return ok(views.html.experimenter.myStudies.render(Experiment.all()));
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			return ok(e.toString());
-		}
-    }
-    
     /**
      * Completes current study, shows attended probands and sessions
      *
