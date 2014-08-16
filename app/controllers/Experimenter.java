@@ -29,6 +29,15 @@ public class Experimenter extends Controller {
     public static Result create() {  
         return ok(views.html.experimenter.create.render());
     }
+    
+    /**
+     * Displays the experimenter search results
+     *
+     * @return
+     */
+    public static Result expSearch(String name) {  
+        return ok(views.html.experimenter.experimenterSearchResults.render(name));
+    }
 
 
     /**
@@ -65,6 +74,7 @@ public class Experimenter extends Controller {
     public static Result completeStudy() {  
         return ok(views.html.experimenter.completeStudy.render());
     }
+
 
 
 }

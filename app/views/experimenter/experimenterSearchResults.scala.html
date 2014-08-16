@@ -1,0 +1,10 @@
+@(name: String)
+
+@for(u <- User.experimenterbyName(name)) {
+<div class="row" id="prob" style="display:none">
+		<div class="col-xs-9">@u.name</div>
+		<div class="col-xs-3">
+			<button type="button" class="btn btn-primary addExp" id="@u.id"><span class="glyphicon glyphicon-plus"></span></button>
+		</div>
+</div>
+}

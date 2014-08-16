@@ -408,7 +408,7 @@ $( "#openPreview" ).click(function() {
 		<b>Probanden hinzuf��gen</b>
 		<div class="row">
 			<div class="col-sm-12">
-				<input type="text" class="form-control" id="addProb" placeholder="Name des Probands" autofocus>
+				<input type="text" class="form-control addProb" id="" placeholder="Name des Probands" autofocus>
 			</div>
 						
 </div>
@@ -427,11 +427,12 @@ $( "#openPreview" ).click(function() {
 
 
 <div id="regProbands" style="display:none">
-		<div class="row" id="rowPartic">	
+		<div class="partics">
+		<div class="row rowPartic">	
             <div class="col-md-9" id="name"></div> 
             <div class="col-md-3"><button type="button" class="btn btn-danger btn-sm remPartic" id=""><span class="glyphicon glyphicon-remove"></span></button></div>
 		</div> <!-- row -->
-			
+		</div>
 		<hr>
 		<b>Probanden hinzuf��gen</b>
 		<div class="row">
@@ -440,18 +441,13 @@ $( "#openPreview" ).click(function() {
 			</div>
 						
 </div>
-		<div class="row" id="prob" style="display:none">
-					<div class="col-xs-9">Max Mustermann</div>
-					<div class="col-xs-3">
-						<button type="button" class="btn btn-primary" id="addExp"><span class="glyphicon glyphicon-plus"></span></button>
-					</div>
-				</div>
+		<div id="results"></div>
 				</div>
 
 
 
 
-				<div class="row" id="event" style="display:none">
+				<div class="row" id="session" style="display:none">
 					<div class="col-xs-4"><span class="glyphicon glyphicon-calendar"></span> <span id="date"><span></div>
 					<div class="col-xs-3"><span class="glyphicon glyphicon-time"></span> <span id="time"><span></div>
 					<div class="col-xs-3"><span class="glyphicon glyphicon-user"></span> 3 <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModalTeilnehmer2"><span class="glyphicon glyphicon-pencil"></span></div>
@@ -470,10 +466,13 @@ $( "#openPreview" ).click(function() {
 				<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/localization/messages_de.js"></script> 
 			<script type="text/javascript" src="@routes.Assets.at("javascripts/calendar.js")"></script>
 			<script type="text/javascript">
-		$(document).on('ready', function () {
 
+	
+	
+	$(document).on('ready', function () {
+	
 	/**
-	Funktion zeigt nur die Räume zum aktuell ausgeählten Gebäude
+	Funktion zeigt nur die Räume zum aktuell ausgewählten Gebäude
 	NOCH NICHT FERTIG
 	**/
 	function selectRooms() {
@@ -497,8 +496,8 @@ $( "#openPreview" ).click(function() {
 	/**
 	Blendet die Ortsinformationen bei Internetstudien aus
 	**/
-	$('#option2').click(function() {
-  		 if($('#option2').is(':checked')) { 
+	$('.expTypes #1').click(function() {
+  		 if($('.expTypes #0').is(':checked')) { 
    
    			$(".locationRadio").hide(); 
    			
@@ -506,9 +505,9 @@ $( "#openPreview" ).click(function() {
 		});
 
 	
-	$("#option1").click(function(){
+	$('.expTypes #0').click(function(){
 		
-		if($("#option1").is(":checked")){
+		if($(".expTypes #1").is(":checked")){
  			 
  			 $(".locationRadio").show();
  			 
@@ -601,23 +600,52 @@ $('#calendar').fullCalendar({
 					Beim Erstellen von einem Event wird diesem ein popover mit den Teilnahmen zugewiesen
 					**/
 					eventRender: function( event, element, view ) {
-						for (var key in event.participations) {
-							   alert(event.participations[key])
+						console.log(event);
+						el = $("#regProbands").clone();
+						partic_dr = el.find(".rowPartic").first().clone();
+						el.find(".partics").html("");
+						for (i in event.participations) {
+						   partic = partic_dr.clone();
+						   partic.find("#name").text(event.participations[i].user_name);
+						   partic.find(".remPartic").data("event-id",event.id);
+						   partic.find(".remPartic").data("partic-index",i);
+						   partic.find(".remPartic").attr("id",i);
+						   partic.show();
+						   el.find(".partics").append(partic);
+						   console.log(event);					   
 						}
 							        
 							   
 						$(element).popover({
 				            title: 'Angemeldete Probanden',
 				            placement: 'auto',
-				            //container: 'body',
-				            content: $('#regProbands').html(),
+				            content: el.html(),
 				            trigger: 'click',
 				            html: true
 				        })
+				        $(element).on('shown.bs.popover', function (e) {
+						        $(".remPartic").on('click', function () {					
+						        	console.log($(this).data("partic-index"));
+						        	id = parseInt($(this).attr("id"));
+					        		delete event.participations[id];
+					        		$(this).parent().parent().fadeOut();
+					        	})
+				        });
 				        $(element).on('show.bs.popover', function (e) {
 				        	$('.fc-event').not(this).popover('hide');
-				        	//e.stopPropagation();
+
 				        });
+				        
+				        $(".addProb").keyup(function() {
+				    		if ($(this).val().length >= 3) {
+				    			jsRoutes.controllers.Experimenter.expSearch($(this).val()).ajax({
+				    				success : function(data) {
+				    					$("#results").html(data);
+				    				},
+				    			})
+				    		}
+				    	})
+				        
 						eventFrame = $('#eventFrame').clone();
 						eventFrame.show();
 						$(element).children().remove();
