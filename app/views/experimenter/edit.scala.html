@@ -468,8 +468,10 @@ $( "#openPreview" ).click(function() {
     		if ($(this).val().length >= 3) {
     			myJsRoutes.controllers.Experimenter.userSearch($(this).val(), "exp").ajax({
     				success : function(data) {
+    					console.log('in success-funktion');
     					$("#resultsExp").html(data);
     					$(".addExp").on('click', function() {
+    					console.log(row);
     					   row = $(".rowExp").first().clone();
     					   row.find("#name").text($(this).data('user-name'));
     					   row.find("#expRem").attr("id",$(this).attr("id"));
@@ -611,17 +613,17 @@ $('#calendar').fullCalendar({
 					
 					
 					eventRender: function( event, element, view ) {
-						if(event.participations == 'undefined') {
+						if(typeof event.participations === 'undefined') {
 							event.participations = [];
 						}
 			        	el = $("#regProbands").clone().first();
-			        	
+				        partic_dr = el.find(".rowPartic").first().clone();
+
 						 /**
 						Füge Event-Handler für Proband hinzufügen & löschen hinzu
 						**/
 						$(element).on('show.bs.popover', function (e) {
 					        $('.fc-event').not(this).popover('hide');
-					        partic_dr = el.find(".rowPartic").first().clone();
 							el.find(".partics").html("");
 							for (i in event.participations) {
 							   partic = partic_dr.clone();
