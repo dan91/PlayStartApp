@@ -40,12 +40,11 @@ public class Room extends Model {
     	Connection con = DB.getConnection();
         Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 		ResultSet rs = stmt
-				.executeQuery("SELECT id, name,description FROM Room WHERE id = "+id+"");
+				.executeQuery("SELECT id, name FROM Room WHERE id = "+id+"");
 		List<Room> list = new ArrayList<Room>();
 		while(rs.next()) {
 			Room e = new Room();
 			e.id = rs.getLong("id");
-			e.description = rs.getString("description");
 			e.name = rs.getString("name");
 			list.add(e);
 		}
