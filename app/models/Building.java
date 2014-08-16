@@ -41,6 +41,28 @@ public class Building extends Model {
      * Generic query helper for entity User with id
      */
     
+    
+    public static int count() throws SQLException {
+    	Connection con = DB.getConnection();
+        Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+		ResultSet rs = stmt
+				.executeQuery("SELECT count(*) AS amount FROM Building");
+		
+		int amount = 0;
+		
+		while(rs.next()) {
+			amount = rs.getInt("amount");
+			
+		}
+		
+		
+		stmt.close();
+		con.close();
+		
+		return amount;
+    }
+    
+    
     public static List<Building> all() throws SQLException {
     	Connection con = DB.getConnection();
         Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);

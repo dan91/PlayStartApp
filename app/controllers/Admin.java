@@ -74,7 +74,7 @@ public class Admin extends Controller {
      */
     public static Result lab() {  
         try {
-			return ok(views.html.admin.lab.render(Building.all(),Room.all()));
+			return ok(views.html.admin.lab.render(Building.all(),Room.all(),Building.count()));
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			return badRequest(e.toString());
@@ -106,7 +106,7 @@ public class Admin extends Controller {
         try {
         	Building.add(name, description, lat, lng);
         	
-			return ok(lab.render(Building.all(),Room.all()));
+			return ok(lab.render(Building.all(),Room.all(),Building.count()));
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			return badRequest(e.toString());
@@ -138,7 +138,7 @@ public class Admin extends Controller {
       
         try {
         	Building.update(id, name, description, lat, lng);
-			return ok(lab.render(Building.all(),Room.all()));
+			return ok(lab.render(Building.all(),Room.all(),Building.count()));
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			return badRequest(e.toString());
@@ -187,7 +187,7 @@ public class Admin extends Controller {
         try {
         	Room.add(name, description, building_id);
         	
-			return ok(lab.render(Building.all(),Room.all()));
+			return ok(lab.render(Building.all(),Room.all(),Building.count()));
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			return badRequest(e.toString());
@@ -206,7 +206,7 @@ public class Admin extends Controller {
         
         try {
         	Room.update(id, name, description);
-			return ok(lab.render(Building.all(),Room.all()));
+			return ok(lab.render(Building.all(),Room.all(),Building.count()));
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			return badRequest(e.toString());

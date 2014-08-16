@@ -1,4 +1,4 @@
-@(buildings: List[Building],rooms: List[Room])
+@(buildings: List[Building],rooms: List[Room], amount: Int)
 
 @scripts = {
 
@@ -365,10 +365,6 @@
 
                	   var felder = statusCode.split(';', 3);
                	   
-               	   alert(felder[0]);
-               	   alert(felder[1]);
-               	   alert(felder[2]);
-               	   
                	   $('#roomEdit_id').val(felder[0]);
                	   $('#roomEditName').val(felder[1]);
                	   $('#roomEditDescription').html(felder[2]);
@@ -405,7 +401,7 @@
 
 
 <div class="page-header">
-<h3>Labore <span class="label label-default">16</span>      
+<h3>Labore <span class="label label-default">@amount</span>      
             <button data-toggle="modal" data-target="#newBuildingModal" class="btn btn-default loc pull-right" ><span class="glyphicon glyphicon-plus"></span> Gebäude</button>
         </h3>    </div>
 	
