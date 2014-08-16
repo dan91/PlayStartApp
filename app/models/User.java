@@ -91,13 +91,31 @@ public class User extends Model {
         return amount;
     }
        
-       public static List<User> experimenterbyName(String name) throws SQLException {
+       public static List<User> experimenterByName(String name) throws SQLException {
            Connection con = DB.getConnection();
            Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
            ResultSet rs = stmt
                    .executeQuery("SELECT User.id, User.name FROM User, Privilege "
                    		+ "WHERE User.name LIKE '%"+name+"%' AND User.privilege_id = Privilege.id AND Privilege.level > 1 "
                    				+ "LIMIT 3");
+           		List<User> list = new ArrayList<User>();
+   			while(rs.next()) {
+   				User e = new User();
+   				e.id = rs.getLong("id");
+   				e.name = rs.getString("name");
+   				list.add(e);
+   		}
+   			stmt.close();
+   			con.close();
+   		return list;
+       } 
+       
+       public static List<User> byName(String name) throws SQLException {
+           Connection con = DB.getConnection();
+           Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+           ResultSet rs = stmt
+                   .executeQuery("SELECT User.id, User.name FROM User "
+                   		+ "WHERE User.name LIKE '%"+name+"%' LIMIT 3");
            		List<User> list = new ArrayList<User>();
    			while(rs.next()) {
    				User e = new User();

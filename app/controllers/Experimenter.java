@@ -35,8 +35,8 @@ public class Experimenter extends Controller {
      *
      * @return
      */
-    public static Result expSearch(String name) {  
-        return ok(views.html.experimenter.experimenterSearchResults.render(name));
+    public static Result userSearch(String name, String target) {  
+        return ok(views.html.experimenter.userSearchResults.render(name, target));
     }
 
 

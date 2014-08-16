@@ -183,9 +183,10 @@ $( "#openPreview" ).click(function() {
 					<div class="col-sm-6">
 						<button type="button" class="btn btn-default" id="me" disabled>Ich</button>
 						<button type="button" class="btn btn-default" id="add" data-toggle="modal" data-target="#modalAddPersons"><span class="glyphicon glyphicon-user"> <span class="glyphicon glyphicon-plus"></span></button>
+						<div id="rowsExp">
 						@for(assignment <- Assignment.byExperimentId(e.id)) {
-						<div class="row mt1em">
-							<div class="col-sm-3">@User.nameById(assignment.user_id)</div>						
+						<div class="row mt1em expRow">
+							<div class="col-sm-3" id="name">@User.nameById(assignment.user_id)</div>						
 							<div class="col-sm-8">
 								<div class="btn-group pull-right">
 										<label class="btn btn-default">
@@ -197,10 +198,11 @@ $( "#openPreview" ).click(function() {
 								</div>
 						  	</div>
 						  	<div class="col-sm-1">
-						  		<button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button>
+						  		<button type="button" class="btn btn-danger" id="expRem"><span class="glyphicon glyphicon-remove"></span></button>
 						  	</div>
 						</div>
 						}
+						</div>
   					</div>		
 				</div>
 				<div class="form-group">
@@ -362,7 +364,7 @@ $( "#openPreview" ).click(function() {
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<h4 class="modal-title">Versuchsleiter hinzuf��gen</h4>
+				<h4 class="modal-title">Versuchsleiter hinzufügen</h4>
 			</div>
 			<div class="modal-body">
 		<div class="row">
@@ -370,12 +372,7 @@ $( "#openPreview" ).click(function() {
 				<input type="text" name="name" class="form-control" id="expSearch" placeholder="Name des Versuchsleiter" autofocus>
 				</div>
 				</div>
-				<div class="row" id="exp" style="display:none">
-					<div class="col-xs-9">Max Mustermann</div>
-					<div class="col-xs-3">
-						<button type="button" class="btn btn-primary" id="addExp"><span class="glyphicon glyphicon-plus"></span></button>
-					</div>
-				</div>
+				<div id="resultsExp"></div>
 				</div>
 
 			<div class="modal-footer">
@@ -405,7 +402,7 @@ $( "#openPreview" ).click(function() {
             <div class="col-md-3"><button type="button" class="btn btn-danger btn-sm" id="me"><span class="glyphicon glyphicon-remove"></span></button></div>
 		</div> <!-- row -->
 		<hr>
-		<b>Probanden hinzuf��gen</b>
+		<b>Probanden hinzufügen</b>
 		<div class="row">
 			<div class="col-sm-12">
 				<input type="text" class="form-control addProb" id="" placeholder="Name des Probands" autofocus>
@@ -467,7 +464,25 @@ $( "#openPreview" ).click(function() {
 			<script type="text/javascript" src="@routes.Assets.at("javascripts/calendar.js")"></script>
 			<script type="text/javascript">
 
-	
+	$("#modalAddPersons").on("bs.modal.shown", function() {
+		$("#expSearch").on('keyup',function() {
+    		if ($(this).val().length >= 3) {
+    			myJsRoutes.controllers.Experimenter.userSearch($(this).val(), "user").ajax({
+    				success : function(data) {
+    					$("#resultsExp").html(data);
+    					$(".addExp").on('click', function() {
+    						el = $(".rowExp").first().clone();
+ 						   el.find("#name").text($(this).data('user-name'));
+ 						   el.find("#expRem").attr("id",$(this).attr("id"));
+ 						   el.show();
+ 						   $("#rowsExp").append(el);
+ 						   
+    					})
+    				},
+    			})
+    		}
+    	});
+	});
 	
 	$(document).on('ready', function () {
 	
@@ -596,56 +611,72 @@ $('#calendar').fullCalendar({
 						//if (isOverlapping(event)) {revertFunc()};
 					},
 					
-					/**
-					Beim Erstellen von einem Event wird diesem ein popover mit den Teilnahmen zugewiesen
-					**/
+					
 					eventRender: function( event, element, view ) {
-						el = $("#regProbands").clone();
-						partic_dr = el.find(".rowPartic").first().clone();
-						el.find(".partics").html("");
-						for (i in event.participations) {
-						   partic = partic_dr.clone();
-						   partic.find("#name").text(event.participations[i].user_name);
-						   partic.find(".remPartic").data("event-id",event.id);
-						   partic.find(".remPartic").data("partic-index",i);
-						   partic.find(".remPartic").attr("id",i);
-						   partic.show();
-						   el.find(".partics").append(partic);
-						}
+						
 							        
 							   
-						$(element).popover({
+						/**
+						Wenn Popover angezeigt ist, füge Event-Handler für Proband hinzufügen & löschen
+						**/
+				        
+				        $(element).popover({
 				            title: 'Angemeldete Probanden',
 				            placement: 'auto',
 				            content: el.html(),
 				            trigger: 'click',
 				            html: true
 				        })
-				        $(element).on('shown.bs.popover', function (e) {
-						        $(".remPartic").on('click', function () {					
-						        	id = parseInt($(this).attr("id"));
-					        		delete event.participations[id];
-					        		$(this).parent().parent().fadeOut();
-					        	});
-						        $(".addProb").on('keyup',function() {
-						        	console.log("keyup ausgelöst");
-						    		if ($(this).val().length >= 3) {
-						    			console.log("länge größer gleich 3");
-						    			myJsRoutes.controllers.Experimenter.expSearch($(this).val()).ajax({
-						    				success : function(data) {
-						    					console.log("ajax sucess");
-						    					$("#results").html(data);
-						    					
-						    				},
-						    			})
-						    		}
-						    	});
-				        });
 				        $(element).on('show.bs.popover', function (e) {
 				        	$('.fc-event').not(this).popover('hide');
+				        	el = $("#regProbands").clone().first();
+							partic_dr = el.find(".rowPartic").first().clone();
+							el.attr('id', event.id);
+							el.find(".partics").html("");
+							for (i in event.participations) {
+							   partic = partic_dr.clone();
+							   partic.find("#name").text(event.participations[i].user_name);
+							   partic.find(".remPartic").data("event-id",event.id);
+							   partic.find(".remPartic").data("partic-index",i);
+							   partic.find(".remPartic").attr("id",i);
+							   partic.show();
+							   el.find(".partics").append(partic);
+							}
 
 				        });
-				        
+				        $(element).on('shown.bs.popover', function (e) {
+					        $(".remPartic").on('click', function () {					
+					        	id = parseInt($(this).attr("id"));
+				        		delete event.participations[id];
+				        		$(this).parent().parent().fadeOut();
+				        	});
+					        $(".addProb").on('keyup',function() {
+					    		if ($(this).val().length >= 3) {
+					    			myJsRoutes.controllers.Experimenter.userSearch($(this).val(), "user").ajax({
+					    				success : function(data) {
+					    					$("#results").html(data);
+					    					$(".addExp").on('click', function() {
+					    						partic = partic_dr.clone();
+					 						   partic.find("#name").text($(this).data('user-name'));
+					 						   partic.find(".remPartic").data("event-id",event.id);
+					 						   partic.find(".remPartic").attr("id","new");
+					 						   partic.show();
+					 						   $(".partics").append(partic);
+					 						   part = {
+					 					            	 id: 'new',
+					 					            	 user_id: $(this).attr('id'),
+					 					            	 user_name: $(this).data('user-name')
+					 						   }
+					 						   console.log(event.participations);
+					 						   event.participations.push(part);
+					 						   console.log(event.participations);
+					 						   console.log(part);
+					    					})
+					    				},
+					    			})
+					    		}
+					    	});
+			        });
 				        
 				        
 						eventFrame = $('#eventFrame').clone();
