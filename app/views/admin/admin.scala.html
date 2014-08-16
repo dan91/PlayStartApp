@@ -74,25 +74,25 @@
 					<table class="table table-hover">					  <tbody>
 							<tr>
 					  		<td class="col-sm-8">Probanden</td>
-					  		<td>269</td> <!-- SELECT COUNT(*) FROM User WHERE privilige=true; -->
+					  		<td>@User.allProbands()</td> <!-- SELECT COUNT(*) FROM User WHERE privilige=true; -->
 					  		<tr>
 					  		<td class="col-sm-8">Versuchsleiter</td>
-					  		<td>30</td> <!-- SELECT COUNT(*) FROM User WHERE privilige=versuchsleiter; -->
+					  		<td>@User.allVersuchsleiter()</td> <!-- SELECT COUNT(*) FROM User WHERE privilige=versuchsleiter; -->
 					  	</tr>
 					  		<tr>
 					  		<td class="col-sm-8">Administratoren</td>
-					  		<td>1</td> <!-- SELECT COUNT(*) FROM User WHERE privilige=admin; -->
+					  		<td>@User.allAdmins()</td> <!-- SELECT COUNT(*) FROM User WHERE privilige=admin; -->
 					  	</tr>
 					  </tbody>
 					</table>
 						<table class="table table-hover">					  <tbody>
 							 		<tr>
 					  		<td class="col-sm-8">Studenten</td>
-					  		<td>350</td> <!-- SELECT COUNT(*) FROM User WHERE probandPool_id= "der int fuer Studenten im pool;-->
+					  		<td>@User.allStudents()</td> <!-- SELECT COUNT(*) FROM User WHERE probandPool_id= "der int fuer Studenten im pool;-->
 					  	</tr>
 					  		<tr>
 					  		<td class="col-sm-8">Externe</td>
-					  		<td>50</td> <!-- SELECT COUNT(*) FROM User WHERE probandPool_id= "der int fuer Externe im pool; -->
+					  		<td>@User.allExterne()</td> <!-- SELECT COUNT(*) FROM User WHERE probandPool_id= "der int fuer Externe im pool; -->
 					  		</tr>
 					  </tbody>
 					</table>
@@ -104,15 +104,15 @@
 					  	</tr>
 					  		<tr>
 					  		<td class="col-sm-8">MCS</td>
-					  		<td>300</td> <!-- SELECT COUNT(*) FROM User WHERE course="MCS" -->
+					  		<td>@User.allMCS()</td> <!-- SELECT COUNT(*) FROM User WHERE course="MCS" -->
 					  		</tr>
 					  			<tr>
 					  		<td class="col-sm-8">MK</td>
-					  		<td>40</td> <!-- SELECT COUNT(*) FROM User WHERE course="MK" -->
+					  		<td>@User.allMK()</td> <!-- SELECT COUNT(*) FROM User WHERE course="MK" -->
 					  		</tr>
 					  			<tr>
 					  		<td class="col-sm-8">Sonstige</td>
-					  		<td>10</td> <!-- SELECT COUNT(*) FROM User WHERE course="Sonstige" -->
+					  		<td>@User.allSonstige()</td> <!-- SELECT COUNT(*) FROM User WHERE course="Sonstige" -->
 					  		</tr>
 					  </tbody>
 					</table>
