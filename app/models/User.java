@@ -267,6 +267,75 @@ public class User extends Model {
            return amount;
        }
 
+       public static int allStudies() throws SQLException {
+           Connection con = DB.getConnection();
+           Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+           ResultSet rs = stmt
+                   .executeQuery("SELECT COUNT(*) AS Amount FROM Experiment");
+           rs.next();
+           int amount = rs.getInt("Amount");
+
+  			stmt.close(); con.close();
+           return amount;
+       }
+       public static int finishedStudies() throws SQLException {
+           Connection con = DB.getConnection();
+           Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+           ResultSet rs = stmt
+                   .executeQuery("SELECT COUNT(*) AS Amount FROM Experiment INNER JOIN Session ON Experiment.id=Session.experiment_id AND NOW() > Session.datetime");
+           rs.next();
+           int amount = rs.getInt("Amount");
+
+  			stmt.close(); con.close();
+           return amount;
+       }
+       public static int allSessions() throws SQLException {
+           Connection con = DB.getConnection();
+           Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+           ResultSet rs = stmt
+                   .executeQuery("SELECT COUNT(*) AS Amount FROM Session");
+           rs.next();
+           int amount = rs.getInt("Amount");
+
+  			stmt.close(); con.close();
+           return amount;
+       }
+       public static int allTeilnahmen() throws SQLException {
+           Connection con = DB.getConnection();
+           Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+           ResultSet rs = stmt
+                   .executeQuery("SELECT COUNT(*) AS Amount FROM Participation WHERE was_present=true");
+           rs.next();
+           int amount = rs.getInt("Amount");
+
+  			stmt.close(); con.close();
+           return amount;
+       }
+       public static int percentageNA() throws SQLException {
+           Connection con = DB.getConnection();
+           Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+           ResultSet rs = stmt
+                   .executeQuery("SELECT COUNT(*) AS Amount FROM Participation WHERE was_present=false");
+           rs.next();
+           int zaehler = rs.getInt("Amount");
+           int nenner = allTeilnahmen();
+           int ergebniss = zaehler / nenner * 100 ;
+
+  			stmt.close(); con.close();
+           return ergebniss;
+       }
+       public static int allVPS() throws SQLException {
+           Connection con = DB.getConnection();
+           Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+           ResultSet rs = stmt
+                   .executeQuery("SELECT COUNT(*) AS Amount FROM User INNER JOIN Privilege ON User.privilege_id=Privilege.id AND Privilege.level=1");
+           rs.next();
+           int amount = rs.getInt("Amount");
+
+  			stmt.close(); con.close();
+           return amount;
+       }
+       
        
 }
 

@@ -119,7 +119,7 @@
 						<table class="table table-hover">					  <tbody>
 								<tr>
 					  		<td class="col-sm-8">Probanden > 25VPS</td>
-					  		<td>70</td> <!-- hier muss die query ueber Participation ausrechnen ob jemand mehr als 25pkt hat. -->
+					  		<td>TODO</td> <!-- hier muss die query ueber Participation ausrechnen ob jemand mehr als 25pkt hat. -->
 					  		</tr>
 					  </tbody>
 					</table>
@@ -159,11 +159,11 @@
 					  <tbody>
 					  	<tr >
 					  		<td class="col-sm-8"><b>Studien Insgesamt</b></td>
-					  		<td>100</td> <!-- SELECT COUNT(*) FROM Experiment -->
+					  		<td>@User.allStudies()</td> <!-- SELECT COUNT(*) FROM Experiment -->
 					  	</tr>
 					  	<tr>
 					  		<td class="col-sm-8">Abgeschlossene Studien</td>
-					  		<td>80</td> <!-- SELECT COUNT(*) FROM Experiment WHERE "alle sessions sind vorbei. (Date)" -->
+					  		<td>@User.finishedStudies()</td> <!-- SELECT COUNT(*) FROM Experiment WHERE "alle sessions sind vorbei. (Date)" -->
 					  	</tr>
 					
 					  	  </tbody>
@@ -171,18 +171,18 @@
 					<table class="table table-hover">					  <tbody>
 							<tr>
 					  		<td class="col-sm-8">Sessions Insgesamt</td>
-					  		<td>600</td> <!-- SELECT COUNT(*) FROM Session -->
+					  		<td>@User.allSessions()</td> <!-- SELECT COUNT(*) FROM Session -->
 					  		<tr>
-					  		<td class="col-sm-8">Anzahl Anmeldungen</td>
-					  		<td>1400</td> <!-- SELECT COUNT(*) FROM Participation -->
+					  		<td class="col-sm-8">Anzahl Teilnahmen</td>
+					  		<td>@User.allTeilnahmen()</td> <!-- SELECT COUNT(*) FROM Participation -->
 					  	</tr>
 					  		<tr>
 					  		<td class="col-sm-8">Nicht Anwesend</td>
-					  		<td>2,453%</td> <!-- (SELECT COUNT(*) FROM Participation WHERE was_present=false / SELECT COUNT(*) FROM Participation WHERE was_present=false)*100% -->
+					  		<td>@User.percentageNA() %</td> <!-- (SELECT COUNT(*) FROM Participation WHERE was_present=false / SELECT COUNT(*) FROM Participation WHERE was_present=false)*100% -->
 					  	</tr>
 					  		<tr>
 					  		<td class="col-sm-8">Verteilte VPS</td>
-					  		<td>6000</td> <!-- Kompliziert gerade ��ber Participation * Session * proband_hours zu kommen?! -->
+					  		<td>@User.allVPS() TODO</td> <!-- Kompliziert gerade ��ber Participation * Session * proband_hours zu kommen?! -->
 					  	</tr>
 					  </tbody>
 					</table>
