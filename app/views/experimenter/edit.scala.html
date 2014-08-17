@@ -198,7 +198,7 @@ $( "#openPreview" ).click(function() {
 								</div>
 						  	</div>
 						  	<div class="col-sm-1">
-						  		<button type="button" class="btn btn-danger" id="expRem"><span class="glyphicon glyphicon-remove"></span></button>
+						  		<button type="button" class="btn btn-danger expRem" id="@assignment.user_id"><span class="glyphicon glyphicon-remove"></span></button>
 						  	</div>
 						</div>
 						}
@@ -240,7 +240,14 @@ $( "#openPreview" ).click(function() {
     </div>
     <!-- /.modal -->
 	
-	
+	<div class="row" id="event" style="display:none">
+					<div class="col-xs-4"><span class="glyphicon glyphicon-calendar"></span> <span id="date"><span></div>
+					<div class="col-xs-3"><span class="glyphicon glyphicon-time"></span> <span id="time"><span></div>
+					<div class="col-xs-3"><span class="glyphicon glyphicon-user"></span> 3 <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModalTeilnehmer2"><span class="glyphicon glyphicon-pencil"></span></div>
+					<div class="col-xs-2">
+						<button type="button" class="btn btn-danger btn-sm eventdel"><span class="glyphicon glyphicon-remove"></span></button>
+					</div>
+				</div>
 	
 	
 	<div class="modal fade" id="sessionCalendar">
@@ -462,7 +469,7 @@ $( "#openPreview" ).click(function() {
 				<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/localization/messages_de.js"></script> 
 			<script type="text/javascript" src="@routes.Assets.at("javascripts/calendar.js")"></script>
 			<script type="text/javascript">
-
+			row_dr = $(".expRow").first().clone();
 	$("#modalAddPersons").on("shown.bs.modal", function() {
 		$("#expSearch").on('keyup',function() {
     		if ($(this).val().length >= 3) {
@@ -471,12 +478,27 @@ $( "#openPreview" ).click(function() {
     					console.log('in success-funktion');
     					$("#resultsExp").html(data);
     					$(".addExp").on('click', function() {
-    					console.log(row);
-    					   row = $(".rowExp").first().clone();
-    					   row.find("#name").text($(this).data('user-name'));
-    					   row.find("#expRem").attr("id",$(this).attr("id"));
-    					   row.show();
- 						   $("#rowsExp").append(row);
+    						click = $(this);
+    						show = true;
+   							$(".expRow").find("button").each(function() {
+   								console.log('vergleiche '+$(this).attr('id'));
+			    				console.log('mit :'+click.attr('id'));
+   								if($(this).attr('id') == click.attr('id')) {
+   									show = false;
+   									console.log('sind gleich. Nicht anzeigen');
+   								}
+   							});
+							if(show) {
+	  	    					row = row_dr.clone();
+	       						console.log(row);
+	    					    row.find("#name").text(click.data('user-name'));
+	    					    row.find("#expRem").attr("id",click.attr("id"));
+	    					    row.show();
+	 						    $("#rowsExp").append(row);
+	 						    return false;
+ 							}
+	    					
+    						
     					})
     				},
     			})
@@ -640,6 +662,7 @@ $('#calendar').fullCalendar({
 							if(event.participations.length == $("#probandAmount").val()) {
 								$("#search").hide();
 							}
+							//$(".popover-content").html(el.html());
 
 						});
 						$(element).on('shown.bs.popover', function (e) {
@@ -683,7 +706,9 @@ $('#calendar').fullCalendar({
 				        $(element).popover({
 				            title: 'Angemeldete Probanden',
 				            placement: 'auto',
-				            content: el.html(),
+				            content: function() {
+				                return el.html();
+				            },
 				            trigger: 'click',
 				            html: true
 				        })
