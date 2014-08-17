@@ -176,5 +176,97 @@ public class User extends Model {
            return amount;
        }
        
+       public static int allProbands() throws SQLException {
+           Connection con = DB.getConnection();
+           Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+           ResultSet rs = stmt
+                   .executeQuery("SELECT COUNT(*) AS Amount FROM User INNER JOIN Privilege ON User.privilege_id=Privilege.id AND Privilege.level=1");
+           rs.next();
+           int amount = rs.getInt("Amount");
+
+  			stmt.close(); con.close();
+           return amount;
+       }
+       public static int allVersuchsleiter() throws SQLException {
+           Connection con = DB.getConnection();
+           Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+           ResultSet rs = stmt
+                   .executeQuery("SELECT COUNT(*) AS Amount FROM User INNER JOIN Privilege ON User.privilege_id=Privilege.id AND Privilege.level=3");
+           rs.next();
+           int amount = rs.getInt("Amount");
+
+  			stmt.close(); con.close();
+           return amount;
+       }
+       public static int allAdmins() throws SQLException {
+           Connection con = DB.getConnection();
+           Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+           ResultSet rs = stmt
+                   .executeQuery("SELECT COUNT(*) AS Amount FROM User INNER JOIN Privilege ON User.privilege_id=Privilege.id AND Privilege.level=3");
+           rs.next();
+           int amount = rs.getInt("Amount");
+
+  			stmt.close(); con.close();
+           return amount;
+       }
+       
+       public static int allStudents() throws SQLException {
+           Connection con = DB.getConnection();
+           Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+           ResultSet rs = stmt
+                   .executeQuery("SELECT COUNT(*) AS Amount FROM User INNER JOIN ProbandPool ON User.proband_pool_id=ProbandPool.id AND ProbandPool.name='Student' ");
+           rs.next();
+           int amount = rs.getInt("Amount");
+
+  			stmt.close(); con.close();
+           return amount;
+       }
+       public static int allExterne() throws SQLException {
+           Connection con = DB.getConnection();
+           Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+           ResultSet rs = stmt
+                   .executeQuery("SELECT COUNT(*) AS Amount FROM User INNER JOIN ProbandPool ON User.proband_pool_id=ProbandPool.id AND ProbandPool.name='Extern'");
+           rs.next();
+           int amount = rs.getInt("Amount");
+
+  			stmt.close(); con.close();
+           return amount;
+       }
+       
+       public static int allMCS() throws SQLException {
+           Connection con = DB.getConnection();
+           Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+           ResultSet rs = stmt
+                   .executeQuery("SELECT COUNT(*) AS Amount FROM User WHERE course='MCS'");
+           rs.next();
+           int amount = rs.getInt("Amount");
+
+  			stmt.close(); con.close();;
+           return amount;
+       }
+       public static int allMK() throws SQLException {
+           Connection con = DB.getConnection();
+           Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+           ResultSet rs = stmt
+                   .executeQuery("SELECT COUNT(*) AS Amount FROM User WHERE course='MK'");
+           rs.next();
+           int amount = rs.getInt("Amount");
+
+  			stmt.close(); con.close();
+           return amount;
+       }
+       public static int allSonstige() throws SQLException {
+           Connection con = DB.getConnection();
+           Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+           ResultSet rs = stmt
+                   .executeQuery("SELECT COUNT(*) AS Amount FROM User WHERE course!='MCS' AND course!='MK' ");
+           rs.next();
+           int amount = rs.getInt("Amount");
+
+  			stmt.close(); con.close();
+           return amount;
+       }
+
+       
 }
 
