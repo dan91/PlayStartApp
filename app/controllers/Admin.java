@@ -43,10 +43,10 @@ public class Admin extends Controller {
     
     /**
      * Displays the user_edit  view 
-     * @TODO da fehlt noch was? (klassenenname edit, und kein void +routes)
+     * @TODO wieso gibts hier den fehler von eclipse?
      * @return
      * 
-     * GET     /user_edit/:id          controllers.Admin.user_edit(id: Long)
+     * G
      */
     public static Result user_edit(Long id) throws SQLException { 
     	Form<User> editForm = form(User.class);
