@@ -27,7 +27,7 @@ GET		/lab					controllers.Admin.lab()
 GET		/user					controllers.Admin.auser()
 GET		/allStudies				controllers.Admin.astudies()
 GET		/admin_edit				controllers.Admin.edit()
-
+GET		/user_edit/:id			controllers.Admin.user_edit(id: Long)
 
 
 

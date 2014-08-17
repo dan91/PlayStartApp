@@ -48,10 +48,11 @@ public class Admin extends Controller {
      * 
      * GET     /user_edit/:id          controllers.Admin.user_edit(id: Long)
      */
-    public static void edit(Long id) throws SQLException { 
+    public static Result user_edit(Long id) throws SQLException { 
     	Form<User> editForm = form(User.class);
-    //	return ok(views.html.admin.user_edit.render(User.byId(id)));
+    	return ok(views.html.admin.user_edit.render(User.byId(id)));
     }
+
 
         /**
      * Displays the admin user view
