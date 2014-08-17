@@ -39,6 +39,19 @@ public class Admin extends Controller {
     //	}
     }
 
+    
+    
+    /**
+     * Displays the user_edit  view 
+     * @TODO da fehlt noch was? (klassenenname edit, und kein void +routes)
+     * @return
+     * 
+     * GET     /user_edit/:id          controllers.Admin.user_edit(id: Long)
+     */
+    public static void edit(Long id) throws SQLException { 
+    	Form<User> editForm = form(User.class);
+    //	return ok(views.html.admin.user_edit.render(User.byId(id)));
+    }
 
         /**
      * Displays the admin user view
