@@ -76,7 +76,7 @@ $( "#openPreview" ).click(function() {
 				</div>
 			</div>			
 			<div class="col-sm-3">
-			<button type="button" class="btn btn-default pull-right" id="openPreview" data-toggle="modal" data-target="#myPreviewModal"><span class="glyphicon glyphicon-envelope"></span> Email Vorschau</button>
+			<button type="button" class="btn btn-default pull-right" id="openPreview" data-toggle="modal" data-target="#myPreviewModal"><span class="glyphicon glyphicon-envelope"></span> Email-Vorschau</button>
 					</div>	
 			</div>		
 							
@@ -190,10 +190,10 @@ $( "#openPreview" ).click(function() {
 							<div class="col-sm-8">
 								<div class="btn-group pull-right">
 										<label class="btn btn-default">
-											<input type="radio" name="options" id="option1">
+											<input type="radio" name="options_@assignment.id" id="option1">
 											nur Benachrichtigungen </label>
 										<label class="btn btn-default">
-											<input type="radio" name="options" id="option2" checked>
+											<input type="radio" name="options_@assignment.id" id="option2" checked>
 											Bearbeiten </label>
 								</div>
 						  	</div>
@@ -492,6 +492,7 @@ $( "#openPreview" ).click(function() {
 	  	    					row = row_dr.clone();
 	       						console.log(row);
 	    					    row.find("#name").text(click.data('user-name'));
+	    					    row.find("input").attr('name', 'options_new_'+click.attr('id'));
 	    					    row.find("#expRem").attr("id",click.attr("id"));
 	    					    row.show();
 	 						    $("#rowsExp").append(row);

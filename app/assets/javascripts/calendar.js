@@ -18,8 +18,8 @@ $('#searchStudies').on("click", function() {
 })
 
 $
-$('.removeExp').on("click", function() {
-	$(this).remove()
+$('.expRem').on("click", function() {
+	$(this).parent().parent().fadeOut();
 })
 				events = new Array();
 				

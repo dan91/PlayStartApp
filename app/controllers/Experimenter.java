@@ -54,15 +54,11 @@ public class Experimenter extends Controller {
      * Displays current and expired studies of the experimenter
      *
      * @return
+     * @throws SQLException 
      */
-    public static Result myStudies() {  
-        try {
+    public static Result myStudies() throws SQLException {  
 			return ok(views.html.experimenter.myStudies.render(Experiment.all()));
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return badRequest(e.toString());
-		}
+		
 		
     }
     

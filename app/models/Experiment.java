@@ -37,6 +37,8 @@ public class Experiment extends Model {
     public int experiment_type_id;
     
     public int max_probands;
+    
+    public int filter_id;
 
     /**
      * Generic query helper for entity User with id
@@ -57,6 +59,7 @@ public class Experiment extends Model {
 		e.experiment_type_id = rs.getInt("experiment_type_id");
 		e.max_probands = rs.getInt("max_probands");
 		stmt.close();
+		con.close();
 		return e;
     }
     
@@ -73,6 +76,7 @@ public class Experiment extends Model {
 			list.add(e);
 		}
 		stmt.close();
+		con.close();
 		return list;
     }
     
@@ -90,6 +94,7 @@ public class Experiment extends Model {
 				list.add(e);
 		}
 			stmt.close();
+			con.close();
 		return list;
     }  
     

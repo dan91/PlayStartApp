@@ -49,9 +49,10 @@ public class Participation extends Model {
 		ResultSet rs = stmt
 				.executeQuery("SELECT COUNT(*) AS amount FROM Participation, Session, Experiment WHERE Participation.session_id = Session.id AND Session.experiment_id = Experiment.id AND Experiment.id = "+id+" AND was_present = 1");
 		rs.next();
+		int amount = rs.getInt("amount");
 		stmt.close();
 		con.close();
-		return rs.getInt("amount");
+		return amount;
     }
     
     /**
@@ -66,9 +67,10 @@ public class Participation extends Model {
 		ResultSet rs = stmt
 				.executeQuery("SELECT COUNT(*) AS amount FROM Participation, Session, Experiment WHERE Participation.session_id = Session.id AND Session.experiment_id = Experiment.id AND Experiment.id = "+id+" AND Session.datetime > NOW()");
 		rs.next();
+		int amount = rs.getInt("amount");
 		stmt.close();
 		con.close();
-		return rs.getInt("amount");
+		return amount;
     }
     
     /**
