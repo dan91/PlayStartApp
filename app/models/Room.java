@@ -166,6 +166,10 @@ public class Room extends Model {
         con.close();
         
         boolean roomsInUse= true;
+        if(sessionsDate.size() == 0)
+        roomsInUse= false;
+        
+        
         /** WENN ES KLEINER IST SESSION ZUKÜNFTIG, RAUM ALSO IN ZUKUNFT NOCH BELEGT */
         for (int i = 0; i < sessionsDate.size(); i++) {
 			
