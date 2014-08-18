@@ -148,7 +148,23 @@ public class User extends Model {
        
        
 
-       
+       public static List<User> allAdminList() throws SQLException {
+           Connection con = DB.getConnection();
+           Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+           ResultSet rs = stmt
+                   .executeQuery("SELECT User.name, User.id, User.email FROM User INNER JOIN Privilege ON User.privilege_id=Privilege.id AND Privilege.level=3");
+           		List<User> list = new ArrayList<User>();
+   			while(rs.next()) {
+   				User e = new User();
+   				e.id = rs.getLong("id");
+   				e.name = rs.getString("name");
+   				e.email = rs.getString("email");
+   				list.add(e);
+   		}
+   			stmt.close();
+   			con.close();
+   		return list;
+       } 
        
        
        

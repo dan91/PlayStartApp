@@ -6,9 +6,9 @@
 width: 20em
 }
 </style>
-<div id="searchPop" style="display:none">
+<!-- <div id="searchPop" style="display:none">
 <div class="row" id="prob">
-					<div class="col-xs-8">Markus Müller</div>
+					<div class="col-xs-8">Markus M��ller</div>
 					<div class="col-xs-2">
 						<button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal1"><span class="glyphicon glyphicon-pencil"></span></button>
 					</div>
@@ -19,7 +19,9 @@ width: 20em
 						<button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal1"><span class="glyphicon glyphicon-pencil"></span></button>
 					</div>
 </div>
-</div>
+</div> -->
+
+
 <div class="panel-group" id="accordion">
 	<div class="row">
 		<div class="col-sm-6 ">
@@ -51,17 +53,16 @@ width: 20em
 
 				<div id="collapseOne" class="panel-collapse collapse in">
 					<div class="panel-body"> 
+					
+@for(AdMin <- User.allAdminList){
 						<div class="row">
-							<div class="col-sm-6 ">Martin Musterman</div>
-					<!-- (for all schleife) SELECT * FROM Users WHERE privilige_id TO Privilige(ID) = Admin -->
-							<div class="col-sm-3 ">    <button type="submit" class="btn btn-default" id="add" data-toggle="modal" data-target="#myModal1"><span class="glyphicon glyphicon-pencil"></span></button></div>			<!-- modalaufruf um nutzer zu editieren; user.id -->
-
-							<div class="col-sm-1 ">   <a href="mailto:" <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-envelope"></span></button></a></div>
-													<!-- SELECT email FROM user WHERE id = id ? -->
-
+							<div class="col-sm-6 ">@AdMin.name</div>
+							<div class="col-sm-3 "><button type="submit" class="btn btn-default" id="add" data-toggle="modal" data-target="/user_edit/@AdMin.id"><span class="glyphicon glyphicon-pencil"></span></button></div>		
+							<div class="col-sm-1 "><a href="mailto:@AdMin.email" <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-envelope"></span></button></a></div>
 						</div> 
 
 					</div>
+					}
 				</div>
 			</div>
 		</div>
@@ -107,7 +108,7 @@ width: 20em
 		<div class="col-sm-12">
 			<div class="panel panel-default" \>
 				<div class="panel-heading">
-					<h4 class="panel-title">Hilfskräfte</h4>
+					<h4 class="panel-title">Hilfskr��fte</h4>
 				</div>
 
 				<div id="collapseOne" class="panel-collapse collapse in">
@@ -128,7 +129,7 @@ width: 20em
 							<!--SELECT COUNT(*) FROM participation WHERE was_present=false -->
 
 							<div class="col-sm-1 col-xs-6"> <span class="badge mt5"><span class="glyphicon glyphicon-star"></span> 1.5 </span></div>
-							<!-- Kompliziert gerade über Participation * Session * proband_hours zu kommen?! -->
+							<!-- Kompliziert gerade ��ber Participation * Session * proband_hours zu kommen?! -->
 							<div class="col-sm-1 col-xs-6">    
 								<button type="submit" class="btn btn-edit btn-default" id="add" data-toggle="modal" data-target="#myModal1"><span class="glyphicon glyphicon-pencil"></span></button></div>
 								<!-- modalaufruf um nutzer zu editieren; user.id -->
@@ -189,7 +190,7 @@ width: 20em
 		<div class="modal-dialog ">
 			<div class="modal-content ">
 				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">��</button>
 					<h4 class="modal-title">Benutzer bearbeiten</h4>
 
 				</div>
@@ -238,7 +239,7 @@ width: 20em
 											</div>		</div>
 										</div>
 										<div class="form-group">
-											<label for="name" class="col-sm-3 control-label">Händigkeit</label>
+											<label for="name" class="col-sm-3 control-label">H��ndigkeit</label>
 											<div class="col-sm-6">
 
 
@@ -264,7 +265,7 @@ width: 20em
 														</div>
 														<div class="radio">
 															<label>
-																<input type="radio" name="options4"  value=""> Hilfskraft (Sessions erstellen und Teilnahmen bestätigen)
+																<input type="radio" name="options4"  value=""> Hilfskraft (Sessions erstellen und Teilnahmen best��tigen)
 															</label>
 														</div>
 														<div class="radio">
@@ -295,7 +296,7 @@ width: 20em
 											</form>
 											<div class="modal-footer">
 												<button type="button" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-ok"></span> Speichern</button>
-												<button type="button" class="btn btn-danger pull-left"><span class="glyphicon glyphicon-remove"></span> Benutzer löschen</button>
+												<button type="button" class="btn btn-danger pull-left"><span class="glyphicon glyphicon-remove"></span> Benutzer l��schen</button>
 											</div>
 										</div>
 										<!-- /.modal-content -->
@@ -312,7 +313,7 @@ width: 20em
 									<div class="modal-dialog ">
 										<div class="modal-content ">
 											<div class="modal-header">
-												<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+												<button type="button" class="close" data-dismiss="modal" aria-hidden="true">��</button>
 												<h4 class="modal-title">Besuchte Studien</h4>
 											</div>
 											<div class="modal-body">
@@ -328,7 +329,7 @@ width: 20em
 											</div>
 							 <!-- SELECT * FROM Participation? session.user_id to User(id) ???-->
 											<div class="modal-footer">
-												<button type="button" class="btn btn-primary" data-dismiss="modal">Schließen</button>
+												<button type="button" class="btn btn-primary" data-dismiss="modal">Schlie��en</button>
 											</div>
 										</div>
 										<!-- /.modal-content -->
@@ -342,8 +343,8 @@ width: 20em
 									<div class="modal-dialog ">
 										<div class="modal-content ">
 											<div class="modal-header">
-												<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-												<h4 class="modal-title">Verknüpfte Studien</h4>
+												<button type="button" class="close" data-dismiss="modal" aria-hidden="true">��</button>
+												<h4 class="modal-title">Verkn��pfte Studien</h4>
 											</div>
 											<div class="modal-body">
 												<ul>
@@ -358,7 +359,7 @@ width: 20em
 											</div>
 							<!--SELECT * FROM Assignment WHERE Assignment (user_id) TO (ID) -->
 											<div class="modal-footer">
-												<button type="button" class="btn btn-primary" data-dismiss="modal">Schließen</button>
+												<button type="button" class="btn btn-primary" data-dismiss="modal">Schlie��en</button>
 											</div>
 										</div>
 										<!-- /.modal-content -->
@@ -372,8 +373,8 @@ width: 20em
 									<div class="modal-dialog ">
 										<div class="modal-content ">
 											<div class="modal-header">
-												<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-												<h4 class="modal-title">Verknüpfte Studien</h4>
+												<button type="button" class="close" data-dismiss="modal" aria-hidden="true">��</button>
+												<h4 class="modal-title">Verkn��pfte Studien</h4>
 											</div>
 											<div class="modal-body">
 												<ul>
@@ -383,7 +384,7 @@ width: 20em
 											</div>
 									<!--SELECT * FROM Participation WHERE was_present = true AND user_id TO user(ID) -->
 											<div class="modal-footer">
-												<button type="button" class="btn btn-primary" data-dismiss="modal">Schließen</button>
+												<button type="button" class="btn btn-primary" data-dismiss="modal">Schlie��en</button>
 											</div>
 										</div>
 										<!-- /.modal-content -->
@@ -402,8 +403,8 @@ width: 20em
 									<div class="modal-dialog ">
 										<div class="modal-content ">
 											<div class="modal-header">
-												<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-												<h4 class="modal-title">Verknüpfte Studien</h4>
+												<button type="button" class="close" data-dismiss="modal" aria-hidden="true">��</button>
+												<h4 class="modal-title">Verkn��pfte Studien</h4>
 											</div>
 											<div class="modal-body">
 												<ul>
@@ -412,7 +413,7 @@ width: 20em
 												</ul>
 											</div>
 											<div class="modal-footer">
-												<button type="button" class="btn btn-primary" data-dismiss="modal">Schließen</button>
+												<button type="button" class="btn btn-primary" data-dismiss="modal">Schlie��en</button>
 											</div>
 										</div>
 										<!-- /.modal-content -->
@@ -446,7 +447,7 @@ $('#search').on('keypress', function () {
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-						<h4 class="modal-title">Probanden auswählen</h4>
+						<h4 class="modal-title">Probanden ausw��hlen</h4>
 
 					</div>
 					<div class="modal-body">
@@ -471,7 +472,7 @@ $('#search').on('keypress', function () {
 									<div class="btn-group">
 										<label class="btn btn-default">
 											<input type="checkbox" name="options" id="option1" checked>
-											männlich </label>
+											m��nnlich </label>
 											<label class="btn btn-default">
 												<input type="checkbox" name="options" id="option2" checked>
 												weiblich </label>
