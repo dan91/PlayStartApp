@@ -52,9 +52,9 @@ $( "#openPreview" ).click(function() {
 	</div>
 	@helper.form(routes.Application.index(), 'class -> "form-horizontal") {
 		<div class="form-group">
-			<label for="name" class="col-sm-3 control-label">Name</label>
+			<label for="expName" class="col-sm-3 control-label">Name</label>
 			<div class="col-sm-7">
-				<input type="text" class="form-control" value="@e.name">
+				<input type="text" class="form-control" value="@e.name" name="expName">
 			</div>
 		</div>
 		<div class="form-group">
@@ -70,7 +70,7 @@ $( "#openPreview" ).click(function() {
 				<div class="btn-group">
 				@for(ExpType <- ExperimentType.all()) {
 					<label class="btn btn-default">
-						<input type="radio" class="expTypes" name="expTypes" id="@ExpType.id" @if(ExpType.id == e.experiment_type_id) { checked }>
+						<input type="radio" class="expTypes" name="expTypes" id="@ExpType.id" value="@ExpType.id" @if(ExpType.id == e.experiment_type_id) { checked }>
 						@ExpType.name </label>				
 				}
 				</div>
@@ -85,20 +85,20 @@ $( "#openPreview" ).click(function() {
 						
 				<hr>
 <div class="form-group inline locationRadio">
-					<label for="" class="col-sm-3 control-label">Ort</label>
+					<label for="buildings" class="col-sm-3 control-label">Ort</label>
 					<div class="col-sm-3">
-						<select id="buildings" class="form-control">
+						<select id="buildings" class="form-control" name="buildings">
 							@for(Build <- Building.all()) {
-							<option id="@Build.id">@Build.name</option>
+							<option value="@Build.id" id="@Build.id">@Build.name</option>
 							}
 						</select> 
 					</div>
 					<div class="col-sm-3">
 						@for(Build <- Building.all()) {
 							@if(Room.byBuildingId(Build.id) != null) {
-							<select id="id-@Build.id" class="form-control buildingSelects">
+							<select id="id-@Build.id" class="form-control buildingSelects" name="room">
 								@for(R <- Room.byBuildingId(Build.id)) {
-								<option>@R.name</option>
+								<option value="@R.id">@R.name</option>
 								}
 							</select>
 							}
@@ -107,10 +107,10 @@ $( "#openPreview" ).click(function() {
 				</div>
 				<hr class="locationRadio">
 				<div class="form-group inline">
-					<label for="description" class="col-sm-3 control-label">Probanden</label>
+					<label for="probandAmount" class="col-sm-3 control-label">Probanden</label>
 			<div class="col-sm-3">
 				pro Session: 
-				<select id="probandAmount" name="probandAmount" class="form-control noBreak">
+				<select id="probandAmount" name="probandAmount" class="form-control noBreak" name="probandAmount">
 					<option @if(e.max_probands == 1) { selected }>1</option>
 					<option @if(e.max_probands == 2) { selected }>2</option>
 					<option @if(e.max_probands == 3) { selected }>3</option>
@@ -128,7 +128,7 @@ $( "#openPreview" ).click(function() {
 					</div>
 					<div class="col-sm-2">
 						<div class="checkbox">
-								<label><input type="checkbox" class="form-control" checked>Einladungen senden</label>
+								<label><input type="checkbox" name="sendInvitations" class="form-control" checked>Einladungen senden</label>
 					</div>
 					</div>
 				</div>
@@ -136,7 +136,7 @@ $( "#openPreview" ).click(function() {
 					<label for="duration" class="col-sm-3 control-label">Dauer</label>
 					<div class="col-sm-3">
 						<span class="glyphicon glyphicon-time"></span>
-						<select id="duration" class="form-control">
+						<select id="duration" name="duration" class="form-control">
 							<option @if(e.duration == 5) { selected }>5</option>
 							<option @if(e.duration == 10) { selected }>10</option>
 							<option @if(e.duration == 15) { selected }>15</option>
@@ -152,7 +152,7 @@ $( "#openPreview" ).click(function() {
 					</div>
 					<div class="col-sm-3">
 						<span class="glyphicon glyphicon-star"></span>
-						<select id="probandHours" class="form-control">
+						<select id="probandHours" class="form-control" name="probandHours">
 							<option @if(e.proband_hours == 0.5) { selected }>0.5</option>
 							<option @if(e.proband_hours == 1) { selected }>1</option>
 							<option @if(e.proband_hours == 1.5) { selected }>1.5</option>
@@ -190,10 +190,10 @@ $( "#openPreview" ).click(function() {
 							<div class="col-sm-8">
 								<div class="btn-group pull-right">
 										<label class="btn btn-default">
-											<input type="radio" name="options_@assignment.id" id="option1">
+											<input type="radio" value="notifications" name="assignments_rights[@assignment.id]" @if(assignment.notifications_only) { checked }>
 											nur Benachrichtigungen </label>
 										<label class="btn btn-default">
-											<input type="radio" name="options_@assignment.id" id="option2" checked>
+											<input type="radio" value="edit" name="assignments_rights[@assignment.id]" @if(assignment.notifications_only == false) { checked }>
 											Bearbeiten </label>
 								</div>
 						  	</div>
@@ -207,10 +207,9 @@ $( "#openPreview" ).click(function() {
 				</div>
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-8" style="margin-top:1em; border-top:1px solid #eee; padding-top:1em">
-						<button type="button" class="btn btn-primary btn-lg pull-right" id="save" data-toggle="modal" data-target="#saveDialog"><span class="glyphicon glyphicon-ok"></span> Speichern</button>
+						<button type="button" class="btn btn-primary btn-lg pull-right" id="save" data-toggle="modal" data-target="#saveDialog" data-backdrop="static" data-keyboard="false"><span class="glyphicon glyphicon-ok"></span> Speichern</button>
 					</div>
 				</div>
-			}
 		</div>
 	</div>
 	
@@ -326,7 +325,7 @@ $( "#openPreview" ).click(function() {
 									<div class="btn-group">
 										@for(pp <- ProbandPool.all()) {
 										<label class="btn btn-default">
-											<input type="checkbox" class="probandPools" name="pp" id="@pp.id" checked>
+											<input type="checkbox" class="probandPools" name="probandPools" value="@pp.id" checked>
 											@pp.name </label>
 										}
 											</div>
@@ -389,8 +388,7 @@ $( "#openPreview" ).click(function() {
 					<!-- /.modal-dialog --> 
 				</div>
 				<!-- /.modal --> 
-
-
+				}
 <div class="modal fade" id="modalAddPersons">
 	<div class="modal-dialog mo">
 		<div class="modal-content">
@@ -508,8 +506,8 @@ $( "#openPreview" ).click(function() {
 		/**
 		Allgemeine Informationen speichern
 		**/
-		myJsRoutes.controllers.Experimenter.saveGeneralData().ajax({
-			data: {
+		myJsRoutes.controllers.Experimenter.saveGeneralData(@e.id).ajax({
+			/**data: {
 				'name' : $("input").find("#name").val(),
 				'description' : $("#description").text(),
 				'experimentType': $(".expTypes option:selected").val(),
@@ -518,7 +516,9 @@ $( "#openPreview" ).click(function() {
 				'maxProbands' : $("#probandAmount option:selected").val(), 
 				'duration' : $("#duration option:selected").val(),
 				'probandHours': $("#probandHours option:selected").val()
-			},
+			},**/
+			method: 'post',
+			data: $(".form-horizontal").serialize(),
 			success : function(data) {
 				si = $("#success_info").clone();
 				si.clone();

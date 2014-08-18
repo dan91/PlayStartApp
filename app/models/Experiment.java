@@ -102,6 +102,26 @@ public class Experiment extends Model {
 		return list;
     }  
     
+    public static Boolean update(int id, String name, String description, int duration, float proband_hours) throws SQLException {
+    	Connection con = DB.getConnection();
+        Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+		
+       
+        String update = String.format("UPDATE Experiment SET "
+        		+ "name='%s',description='%s',duration='%s',proband_hours='%s' WHERE id=%s;" ,name,description,duration,proband_hours,id);
+        
+       try {
+       stmt.executeUpdate(update);
+	   stmt.close();
+       con.close();
+       return true;
+       } catch(Exception e) {
+    	   stmt.close();
+           con.close();
+    	   return false;
+       }
+       
+    }
     
     public static List<Experiment> LauFend() throws SQLException {
         Connection con = DB.getConnection();

@@ -1,6 +1,7 @@
 package controllers;
 
 import java.sql.SQLException;
+import java.util.Map;
 
 import models.Experiment;
 import models.User;
@@ -62,7 +63,15 @@ public class Experimenter extends Controller {
 		
     }
     
-    public static Result saveGeneralData() throws SQLException {
+    public static Result saveGeneralData(int id) throws SQLException {
+    	final Map<String, String[]> values = request().body().asFormUrlEncoded();
+        final String name = values.get("expName")[0];
+        final String description = values.get("description")[0];
+        final int duration = Integer.parseInt(values.get("duration")[0]);
+        final float probandHours = Float.parseFloat(values.get("probandHours")[0]);
+        final String sendInvitations = values.get("sendInvitations")[0];
+        Experiment.update(id, name, description, duration, probandHours);
+        Logger.info(values.toString());
 		return ok();
     }
     
