@@ -126,7 +126,7 @@ public class Experiment extends Model {
     public static List<Experiment> LauFend() throws SQLException {
         Connection con = DB.getConnection();
         Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-        ResultSet rs = stmt     .executeQuery("SELECT Experiment.name, Experiment.id, User.name FROM Experiment JOIN Assignment ON Experiment.id=Assignment.experiment_id JOIN User ON User.id=Assignment.user_id");
+        ResultSet rs = stmt     .executeQuery("SELECT Experiment.name, Experiment.id, User.name FROM Experiment JOIN Assignment ON Experiment.id=Assignment.experiment_id JOIN User ON User.id=Assignment.user_id JOIN Session ON Experiment.id=Session.experiment_id WHERE Session.datetime > NOW() ");
 		List<Experiment> list = new ArrayList<Experiment>();
         while(rs.next()) {
 			Experiment e = new Experiment();
@@ -145,26 +145,16 @@ public class Experiment extends Model {
     public static List<Experiment> finishedStudies() throws SQLException {
         Connection con = DB.getConnection();
         Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-        ResultSet rs = stmt     .executeQuery("SELECT name, id FROM Experiment");
+        ResultSet rs = stmt     .executeQuery("SELECT DISTINCT Experiment.name, Experiment.id, User.name FROM Experiment JOIN Assignment ON Experiment.id=Assignment.experiment_id JOIN User ON User.id=Assignment.user_id JOIN Session ON Experiment.id=Session.experiment_id WHERE NOT (Session.datetime > NOW());");
 		List<Experiment> list = new ArrayList<Experiment>();
         while(rs.next()) {
 			Experiment e = new Experiment();
 			e.id = rs.getLong("id");
-			e.name = rs.getString("name");
+			e.name = rs.getString("Experiment.name");
+			e.assignment = rs.getString("User.name");
 			list.add(e);
 	}
-        ResultSet rs2 = stmt    .executeQuery("SELECT User.name AS assignment "
-        		+ "FROM User  "
-        		+ "JOIN Assignment ON User.id=Assignment.user_id "
-        		+ "JOIN Experiment ON Experiment.id=Assignment.experiment_id");
-
-			
-			while(rs2.next()) {
-				Experiment e = new Experiment();
-				e.assignment = rs2.getString("assignment");
-			//	e.anzahlSessions = rs2.getString("anzahlSessions");
-				list.add(e);
-		}
+    
 			stmt.close();
 			con.close();
 		return list;

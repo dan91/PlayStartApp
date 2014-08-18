@@ -58,6 +58,27 @@ public class User extends Model {
 	public int noshow;
 
 	public int anzahlBesucht;
+	
+//	 public static Boolean update(int id, String name, String description, int duration, float proband_hours) throws SQLException {
+//	    	Connection con = DB.getConnection();
+//	        Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+//			
+//	       
+//	        String update = String.format("UPDATE Experiment SET "
+//	        		+ "name='%s',description='%s',duration='%s',proband_hours='%s' WHERE id=%s;" ,name,description,duration,proband_hours,id);
+//	        
+//	       try {
+//	       stmt.executeUpdate(update);
+//		   stmt.close();
+//	       con.close();
+//	       return true;
+//	       } catch(Exception e) {
+//	    	   stmt.close();
+//	           con.close();
+//	    	   return false;
+//	       }
+//	       
+//	    }
     
     
     public static String nameById(Long id) throws SQLException {
@@ -350,19 +371,19 @@ public class User extends Model {
   			stmt.close(); con.close();
            return amount;
        }
-       public static int finishedStudies() throws SQLException {
+       public static int aktuelleStudien() throws SQLException {
            Connection con = DB.getConnection();
            Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
            ResultSet rs = stmt
-                   .executeQuery("SELECT COUNT(*) AS Amount FROM Experiment INNER JOIN Session ON Experiment.id=Session.experiment_id AND NOW() > Session.datetime");
+                   .executeQuery("SELECT COUNT(*) AS Amount FROM Experiment JOIN Session ON Experiment.id=Session.experiment_id WHERE Session.datetime > NOW() ");
            rs.next();
            int amount = rs.getInt("Amount");
 
   			stmt.close(); con.close();
            return amount;
        }
-       public static int laufendeStudien() throws SQLException {
-    	   int amount = allStudies() - finishedStudies();
+       public static int finishedStudies() throws SQLException {
+    	   int amount = allStudies() - aktuelleStudien();
     	   return amount;
        }
        

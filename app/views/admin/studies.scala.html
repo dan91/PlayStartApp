@@ -7,7 +7,7 @@
 }
 
 @main(null, scripts, "admin") {
-		<h3>Laufende Studien <span class="label label-default">@User.laufendeStudien()</span></h3>
+		<h3>Laufende Studien <span class="label label-default">@User.aktuelleStudien()</span></h3>
 
 		<hr>
 
@@ -28,7 +28,17 @@
 
 
 	
-
+@for(FiniShed <- Experiment.finishedStudies){
+		<div class="row">
+			<div class="col-sm-4 col-xs-6"><b>@FiniShed.name</b></div>
+			<div class="col-sm-5 col-xs-6">@FiniShed.assignment</div>
+			<div class="col-sm-3 col-xs-6">
+			<a href="/completeStudy/@FiniShed.id"><button class="btn btn-default tool btn-sm" data-toggle="tooltip" data-placement="top" title="Teilnahmen best��tigen"><span class="glyphicon glyphicon-ok"></span> </button></a>
+			<a href="#"><button class="btn btn-sm btn-default tool" data-toggle="modal" data-target="#sessionCalendar" data-toggle="modal" data-target="#sessionCalendar" data-toggle="tooltip" data-placement="top" title="Kalender Anzeigen"><span class="glyphicon glyphicon-calendar"></span> </button></a>
+			<a href="/admin_edit/@FiniShed.id" class="btn btn-default btn-sm" ><span class="glyphicon glyphicon-pencil"></span></a> 
+			</div>
+		</div>
+}	
 			
 
 </div>
