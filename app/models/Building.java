@@ -154,32 +154,62 @@ public class Building extends Model {
         String checkIt = 
         		String.format(
         
-        				"SELECT Session.room_id,Session.datetime,Room.name FROM Sessionn LEFT Join Room ON Session.room_id = Room.id WHERE Room.building_id = %s;",id);
+        				"SELECT Session.room_id,Session.datetime,Room.name FROM Session LEFT Join Room ON Session.room_id = Room.id WHERE Room.building_id = %s;",id);
        
         ResultSet rs = stmt.executeQuery(checkIt);
         
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = new Date();
-        Logger.info(dateFormat.format(date)); //2014-08-06 15:59:48
+//        Logger.info(dateFormat.format(date)); //2014-08-06 15:59:48
+        
+        int dateInt = Integer.parseInt(dateFormat.format(date).split(" ")[0].replace("-", ""));
+        int timeInt = Integer.parseInt(dateFormat.format(date).split(" ")[1].replace(":",""));
+        
+        
         
         List<String> sessions = new ArrayList<String>();
         
         while(rs.next()) {
-			sessions.add(rs.getString("datetime"));
+			sessions.add(rs.getString("datetime").replace(".0", "").replace("-", "").replace(":",""));
 		}
-        
-        
-        for (int i = 0; i < sessions.size(); i++) {
-			
-        	Logger.error(sessions.get(i));
-		}
-        
         
         stmt.close();
         con.close();
         
-    	
-    	
+        
+        for (int i = 0; i < sessions.size(); i++) {
+			Logger.info(sessions.get(i));
+		}
+        
+        
+        boolean roomsInUse= true;
+        /** WENN ES KLEINER IST SESSION ZUKÜNFTIG, RAUM ALSO IN ZUKUNFT NOCH BELEGT */
+//        for (int i = 0; i < sessions.size(); i++) {
+//			
+//        	if(Long.parseLong(dateSt)     <      Long.parseLong(sessions.get(i).split(" ")[0])){
+//        		roomsInUse = true;
+//        		break;
+//        	}	
+//        	else if(Long.parseLong(dateSt)     ==      Long.parseLong(sessions.get(i).split(" ")[0]) &&
+//        			Long.parseLong(timeSt)     <      Long.parseLong(sessions.get(i).split(" ")[1])){
+//        		roomsInUse = true;
+//        		break;
+//        	}
+//        	else if(Long.parseLong(dateSt)     >      Long.parseLong(sessions.get(i).split(" ")[0])){
+//        		roomsInUse = false;
+//        	}
+//        	else if(Long.parseLong(dateSt.replace("-", ""))     ==      Long.parseLong(sessions.get(i).split(" ")[0]) &&
+//        			Long.parseLong(timeSt.replace(":", ""))     >      Long.parseLong(sessions.get(i).split(" ")[1])){
+//        		roomsInUse = false;
+//        	} 
+//        		
+//		}
+        
+        
+        if(roomsInUse)
+        	Logger.error("ROOM IS STILL IN USE!!!");
+       
+        
     }
     
 }
