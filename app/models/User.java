@@ -59,26 +59,23 @@ public class User extends Model {
 
 	public int anzahlBesucht;
 	
-//	 public static Boolean update(int id, String name, String description, int duration, float proband_hours) throws SQLException {
-//	    	Connection con = DB.getConnection();
-//	        Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-//			
-//	       
-//	        String update = String.format("UPDATE Experiment SET "
-//	        		+ "name='%s',description='%s',duration='%s',proband_hours='%s' WHERE id=%s;" ,name,description,duration,proband_hours,id);
-//	        
-//	       try {
-//	       stmt.executeUpdate(update);
-//		   stmt.close();
-//	       con.close();
-//	       return true;
-//	       } catch(Exception e) {
-//	    	   stmt.close();
-//	           con.close();
-//	    	   return false;
-//	       }
-//	       
-//	    }
+	 public static Boolean update(String name, String email, int privilige_id, String phone, String birthday, String handedness, String course, int proband_pool_id, String gender, String studystart, int id) throws SQLException {
+	    	Connection con = DB.getConnection();
+	        Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);       
+	        String update = String.format("UPDATE User SET name='%s',email='%s',privilige_id='%s',phone='%s', birthday='%s', handedness='%s', course='%s', proband_pool_id='%s', gender='%s', studystart='%s' WHERE id=%s; name,  email,  privilige_id,  phone,  birthday,  handedness,  course,  proband_pool_id,  gender,  studystart,");
+	        
+	       try {
+	       stmt.executeUpdate(update);
+		   stmt.close();
+	       con.close();
+	       return true;
+	       } catch(Exception e) {
+	    	   stmt.close();
+	           con.close();
+	    	   return false;
+	       }
+	       
+	    }
     
     
     public static String nameById(Long id) throws SQLException {
