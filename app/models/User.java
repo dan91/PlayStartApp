@@ -50,6 +50,14 @@ public class User extends Model {
     public String course;
 
     public int proband_pools_id;
+
+	public int anzahlStudien;
+
+	public int vps;
+
+	public int noshow;
+
+	public int anzahlBesucht;
     
     
     public static String nameById(Long id) throws SQLException {
@@ -166,7 +174,50 @@ public class User extends Model {
    		return list;
        } 
        
-       
+       public static List<User> allVersuchsleiterList() throws SQLException {
+           Connection con = DB.getConnection();
+           Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+           ResultSet rs = stmt
+                   .executeQuery("SELECT User.name, User.id, User.email , COUNT(*) AS Amount FROM Assignment JOIN User ON User.id=Assignment.user_id JOIN Privilege ON User.privilege_id=Privilege.id AND Privilege.level=2");
+           		List<User> list = new ArrayList<User>();
+   			while(rs.next()) {
+   				User e = new User();
+   				e.id = rs.getLong("id");
+   				e.name = rs.getString("name");
+   				e.email = rs.getString("email");
+   				e.anzahlStudien = rs.getInt("Amount");
+   				list.add(e);
+   		}
+   			stmt.close();
+   			con.close();
+   		return list;
+       } 
+       public static List<User> allHilfList() throws SQLException {
+    	   
+ 
+    	   
+           Connection con = DB.getConnection();
+           Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+           ResultSet rs = stmt
+                   .executeQuery("SELECT  User.id, User.name, User.email, COUNT(*) AS Amount FROM Assignment JOIN User ON User.id=Assignment.user_id JOIN Privilege ON User.privilege_id=Privilege.id AND Privilege.level=1");
+           	
+
+           		List<User> list = new ArrayList<User>();
+   			while(rs.next()) {
+   				User e = new User();
+   				e.id = rs.getLong("id");
+   				e.name = rs.getString("name");
+   				e.email = rs.getString("email");
+   				e.anzahlStudien = rs.getInt("Amount");
+   		//		e.vps = rs.getInt("Amount2");
+   		//		e.noshow = rs.getInt("Amount3");
+   		//		e.anzahlBesucht = rs.getInt("Amount4");
+   				list.add(e);
+   		}
+   			stmt.close();
+   			con.close();
+   		return list;
+       }     
        
        
        

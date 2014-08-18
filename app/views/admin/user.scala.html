@@ -76,20 +76,18 @@ width: 20em
 
 				<div id="collapseOne" class="panel-collapse collapse in">
 					<div class="panel-body"> 
+					
+@for(VerLeiter <- User.allVersuchsleiterList){
 						<div class="row">
-							<div class="col-sm-3 col-xs-6">Versuchsleiter Nummer 1</div>
-						<!-- (for all schleife) SELECT * FROM Users WHERE privilige_id TO Privilige(ID) = Versuchsleiter -->
-
+							<div class="col-sm-3 col-xs-6">@VerLeiter.name</div>
 							<div class="col-sm-4 col-xs-6 col-sm-offset-2">
-								<button type="submit" class="btn btn-edit btn-default" id="add" data-toggle="modal" data-target="#modalVersuchsleiter">Rechte: 2</button></div> 
-								<!--SELECT * FROM Assignment WHERE Assignment (user_id) TO (ID) -->
+								<button type="submit" class="btn btn-edit btn-default" id="add" data-toggle="modal" data-target="#modalVersuchsleiter">Studien: @VerLeiter.anzahlStudien</button></div> 
 							<div class="col-sm-1 col-xs-6">    
-								<button type="submit" class="btn btn-edit btn-default" id="add" data-toggle="modal" data-target="#myModal1"><span class="glyphicon glyphicon-pencil"></span></button></div>
-								<!-- modalaufruf um nutzer zu editieren; user.id -->
-							<div class="col-sm-2 col-xs-6"><a href="mailto:"<button type="submit" class="btn btn-default">
-								<!-- SELECT email FROM user WHERE id = id ? -->
+								<a type="submit" class="btn btn-edit btn-default" id="add" href="/user_edit/@VerLeiter.id"><span class="glyphicon glyphicon-pencil"></span></a></div>
+							<div class="col-sm-2 col-xs-6"><a href="mailto:@VerLeiter.email"<button type="submit" class="btn btn-default">
 								<span class="glyphicon glyphicon-envelope"></span></button></a></div>
 						</div> 
+							}
 					</div>
 				</div>
 			</div>
@@ -113,31 +111,20 @@ width: 20em
 
 				<div id="collapseOne" class="panel-collapse collapse in">
 					<div class="panel-body"> 
-
+@for(HilfsKraft <- User.allHilfList){
 							<div class="row">
-							<div class="col-sm-3 col-xs-6">Proband Nummer 1</div>
-						<!-- (for all schleife) SELECT * FROM Users WHERE privilige_id TO Privilige(ID) = Hilfskraft -->
-
+							<div class="col-sm-3 col-xs-6">@HilfsKraft.name</div>
 							<div class="col-sm-2 col-xs-6">
-								<button type="submit" class="btn btn-edit btn-default" id="add" data-toggle="modal" data-target="#modalHiwiStudie">Besucht: 7</button></div>
-							 <!-- SELECT COUNT(*) FROM Participation? session.user_id to User(id) ???-->
+								<button type="submit" class="btn btn-edit btn-default" id="add" data-toggle="modal" data-target="#modalHiwiStudie">Besucht: @HilfsKraft.anzahlBesucht</button></div>
 							<div class="col-sm-2 col-xs-6">
-								<button type="submit" class="btn btn-edit btn-default" id="add" data-toggle="modal" data-target="#modalHiwi">Rechte: 1</button></div>
-							<!--SELECT COUNT(*) FROM Assignment WHERE Assignment (user_id) TO (ID) -->
-
-							<div class="col-sm-1 col-xs-6"><span class="badge mt5"><span class="glyphicon glyphicon-remove"> </span> 1</div>
-							<!--SELECT COUNT(*) FROM participation WHERE was_present=false -->
-
-							<div class="col-sm-1 col-xs-6"> <span class="badge mt5"><span class="glyphicon glyphicon-star"></span> 1.5 </span></div>
-							<!-- Kompliziert gerade ��ber Participation * Session * proband_hours zu kommen?! -->
+								<button type="submit" class="btn btn-edit btn-default" id="add" data-toggle="modal" data-target="#modalHiwi">Rechte: @HilfsKraft.anzahlStudien</button></div>
+							<div class="col-sm-1 col-xs-6"><span class="badge mt5"><span class="glyphicon glyphicon-remove"> </span> @HilfsKraft.noshow</div>
+							<div class="col-sm-1 col-xs-6"> <span class="badge mt5"><span class="glyphicon glyphicon-star"></span> @HilfsKraft.vps </span></div>
 							<div class="col-sm-1 col-xs-6">    
-								<button type="submit" class="btn btn-edit btn-default" id="add" data-toggle="modal" data-target="#myModal1"><span class="glyphicon glyphicon-pencil"></span></button></div>
-								<!-- modalaufruf um nutzer zu editieren; user.id -->
-
-							<div class="col-sm-2 col-xs-6"><a href ="mailto:" button type="submit" class="btn btn-default">
-								<!-- SELECT email FROM user WHERE id = id ? -->
+								<a type="submit" class="btn btn-edit btn-default" id="add" href="/user_edit/@HilfsKraft.id"><span class="glyphicon glyphicon-pencil"></span></a></div>
+							<div class="col-sm-2 col-xs-6"><a href ="mailto:@HilfsKraft.email" button type="submit" class="btn btn-default">
 								<span class="glyphicon glyphicon-envelope"></span></button></a></div>
-						</div>
+						</div>}
 					</div>
 				</div>					
 
