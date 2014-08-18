@@ -133,13 +133,26 @@ public class Room extends Model {
     	Connection con = DB.getConnection();
         Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
        
+        /*DISABLE FOREIGN KEY CHECKS*/
+        stmt.execute("SET FOREIGN_KEY_CHECKS=0");
+		stmt.close();
+		
+		stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        
+		
+		/*DELETE ROOMS NO LONGER USED*/
         for (int i = 0; i < roomIds.size(); i++) {
         	String delete = String.format("DELETE FROM Room WHERE id=%s;",roomIds.get(i));
             stmt.executeUpdate(delete);
 		}
-        
-        
+       
         stmt.close();
+        
+        /*ENABLE FOREIGN KEY CHECKS */
+        stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        stmt.execute("SET FOREIGN_KEY_CHECKS=1");
+		stmt.close();
+        
         con.close();
         
         String message="ALL ROOMS HAVE BEEN DELETED";

@@ -170,8 +170,10 @@ public class Admin extends Controller {
     	Boolean roomInUse = null ;
     	
     	try {
-    		if(roomInUse = Building.checkRoomsUsedInSession(idToDelete))
-    			return badRequest("In diesem Gebäude finden noch Studien statt, deren Sessions noch nicht ausgelaufen sind!");
+    		roomInUse = Building.checkRoomsUsedInSession(idToDelete);
+    		
+    		if(roomInUse)
+    			return badRequest("In diesem Gebäude finden noch Studien statt, deren Sessions noch nicht abgelaufen sind!");
     		
     		else{
     			
