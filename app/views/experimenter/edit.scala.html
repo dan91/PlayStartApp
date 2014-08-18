@@ -70,7 +70,7 @@ $( "#openPreview" ).click(function() {
 				<div class="btn-group">
 				@for(ExpType <- ExperimentType.all()) {
 					<label class="btn btn-default">
-						<input type="radio" name="expTypes" id="@ExpType.id" @if(ExpType.id == e.experiment_type_id) { checked }>
+						<input type="radio" class="expTypes" name="expTypes" id="@ExpType.id" @if(ExpType.id == e.experiment_type_id) { checked }>
 						@ExpType.name </label>				
 				}
 				</div>
@@ -152,7 +152,7 @@ $( "#openPreview" ).click(function() {
 					</div>
 					<div class="col-sm-3">
 						<span class="glyphicon glyphicon-star"></span>
-						<select id="vps" class="form-control">
+						<select id="probandHours" class="form-control">
 							<option @if(e.proband_hours == 0.5) { selected }>0.5</option>
 							<option @if(e.proband_hours == 1) { selected }>1</option>
 							<option @if(e.proband_hours == 1.5) { selected }>1.5</option>
@@ -207,7 +207,7 @@ $( "#openPreview" ).click(function() {
 				</div>
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-8" style="margin-top:1em; border-top:1px solid #eee; padding-top:1em">
-						<button type="submit" class="btn btn-primary btn-lg pull-right"><span class="glyphicon glyphicon-ok"></span> Speichern</button>
+						<button type="button" class="btn btn-primary btn-lg pull-right" id="save" data-toggle="modal" data-target="#saveDialog"><span class="glyphicon glyphicon-ok"></span> Speichern</button>
 					</div>
 				</div>
 			}
@@ -233,6 +233,41 @@ $( "#openPreview" ).click(function() {
             <div class="modal-footer" style="height:5%;">
                 <button type="button" class="btn btn-primary" data-dismiss="modal">Speichern</button>
             </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+    
+    <!-- Speichern-Dialog -->
+    <div class="modal fade" id="saveDialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                 <h4 class="modal-title">Änderungen speichern</h4>
+
+            </div>
+            <div class="modal-body">
+                  <div class="row">
+                  	<div class="col-sm-4"><h4 class="mt0">Allgemeine Daten</h4></div>
+                  	<div class="col-sm-4"><span id="progress_general">Warten...</span></div>
+                  </div>
+                  <div class="row">
+                  	<div class="col-sm-4"><h4 class="mt0">Filter</h4></div>
+                  	<div class="col-sm-4"><span id="progress_filters">Warten...</span></div>
+                  </div>
+                  <div class="row">
+                  	<div class="col-sm-4"><h4 class="mt0">Sitzungen</h4></div>
+                  	<div class="col-sm-4"><span class="text-muted">Warten...</span></div>
+                  </div>
+                  <div class="row">
+                  	<div class="col-sm-4"><h4 class="mt0">Versuchsleiter</h4></div>
+                  	<div class="col-sm-4"><span class="text-muted">Warten...</span></div>
+                  </div>
+            </div>
+            
         </div>
         <!-- /.modal-content -->
     </div>
@@ -289,12 +324,11 @@ $( "#openPreview" ).click(function() {
 								<label for="name" class="col-sm-3 control-label">Probandenpool</label>
 								<div class="col-sm-8">
 									<div class="btn-group">
+										@for(pp <- ProbandPool.all()) {
 										<label class="btn btn-default">
-											<input type="checkbox" name="options" id="option1" checked>
-											Studenten </label>
-											<label class="btn btn-default">
-												<input type="checkbox" name="options" id="option2" checked>
-												Externe </label>
+											<input type="checkbox" class="probandPools" name="pp" id="@pp.id" checked>
+											@pp.name </label>
+										}
 											</div>
 										</div>
 									</div>
@@ -303,10 +337,10 @@ $( "#openPreview" ).click(function() {
 								<div class="col-sm-8">
 									<div class="btn-group">
 										<label class="btn btn-default">
-											<input type="checkbox" name="options" id="option1" checked>
+											<input type="checkbox" name="gender" class="gender" value="male" checked>
 											m��nnlich </label>
 											<label class="btn btn-default">
-												<input type="checkbox" name="options" id="option2" checked>
+												<input type="checkbox" name="gender" class="gender" value="female" checked>
 												weiblich </label>
 											</div>
 										</div>
@@ -341,18 +375,9 @@ $( "#openPreview" ).click(function() {
 							<div class="form-group">
 								<label for="name" class="col-sm-3 control-label">Vorherige Studien</label>
 								<div class="col-sm-8">
-									<div class="btn-group">
-										<label class="btn btn-default">
-											<input type="checkbox" name="options" id="option1" checked>
-											Meine Studien </label>
-											<label class="btn btn-default">
-												<input type="checkbox" name="options" id="option2" checked>
-											Mein Lehrstuhl </label>
-											<button type="button" id="searchStudies" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
-											</div>
+								<input type="search" id="searchStudies" class="form-control">
 
 									</div>
-								</form>
 							</div>
 							</div>
 							<div class="modal-footer">
@@ -464,11 +489,75 @@ $( "#openPreview" ).click(function() {
 <button type="button" class="close" aria-hidden="true">&times;</button>
 <span class="datetime"></span>
 </div>
-
+<div class="progress">
+  <div class="progress-bar progress-bar-striped active"  role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+  </div>
+</div>
+<span id="success_info" style="display: none" class="glyphicon glyphicon-ok"></span>
 				<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script> 
 				<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/localization/messages_de.js"></script> 
 			<script type="text/javascript" src="@routes.Assets.at("javascripts/calendar.js")"></script>
 			<script type="text/javascript">
+			
+	$("#save").click(function() {
+		pr = $(".progress").clone();
+		$("#progress_general").html('');
+		$("#progress_general").append(pr);
+		pr.show();
+		
+		/**
+		Allgemeine Informationen speichern
+		**/
+		myJsRoutes.controllers.Experimenter.saveGeneralData().ajax({
+			data: {
+				'name' : $("input").find("#name").val(),
+				'description' : $("#description").text(),
+				'experimentType': $(".expTypes option:selected").val(),
+				'building' : $("#buildings option:selected").val(), 
+				'room' : $("#buildingSelects option:selected").val(),
+				'maxProbands' : $("#probandAmount option:selected").val(), 
+				'duration' : $("#duration option:selected").val(),
+				'probandHours': $("#probandHours option:selected").val()
+			},
+			success : function(data) {
+				si = $("#success_info").clone();
+				si.clone();
+				si.show();
+				$("#progress_general").html('');
+				$("#progress_general").append(si);
+				saveFilters();
+			}
+			
+		});
+	});
+	function saveFilters() {
+		pr = $(".progress").clone();
+		$("#progress_filters").html('');
+		$("#progress_filters").append(pr);
+		pr.show();
+		probandPools = [];
+		$('.probandPools:checkbox:checked').each(function(i){
+          probandPools[i] = $(this).val();
+        });
+		myJsRoutes.controllers.Experimenter.saveFilters().ajax({
+			data: {
+				'probandPools' : probandPools,
+				'gender' : $(".gender option:selected").val(),
+				'semesterFrom' : $("#semesterFrom option:selected").val(),
+				'semesterUntil' : $("#semesterUntil option:selected").val(),
+				'excludedStudies' : [0,1]
+			},
+			success: function(data) {
+				si = $("#success_info").clone();
+				si.clone();
+				si.show();
+				$("#progress_filters").html('');
+				$("#progress_filters").append(si);
+				console.log($(".form-horizontal").serialize());
+			}
+		});
+	}
+	
 			row_dr = $(".expRow").first().clone();
 	$("#modalAddPersons").on("shown.bs.modal", function() {
 		$("#expSearch").on('keyup',function() {

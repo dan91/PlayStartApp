@@ -62,13 +62,12 @@ public class Experimenter extends Controller {
 		
     }
     
-    public static Result save() {
-    	try {
-			return ok(views.html.experimenter.myStudies.render(Experiment.all()));
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			return ok(e.toString());
-		}
+    public static Result saveGeneralData() throws SQLException {
+		return ok();
+    }
+    
+    public static Result saveFilters() throws SQLException {
+		return ok();
     }
     
     /**

@@ -31,7 +31,10 @@ public class Application extends Controller {
             Routes.javascriptRouter("myJsRoutes",
                 routes.javascript.Admin.deleteBuilding(),
                 routes.javascript.Admin.deleteRoom(),
-                routes.javascript.Experimenter.userSearch()
+                routes.javascript.Experimenter.userSearch(),
+            	routes.javascript.Experimenter.saveGeneralData(),
+            	routes.javascript.Experimenter.saveFilters()
+
             )
         );
     }
