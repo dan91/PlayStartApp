@@ -102,13 +102,14 @@ public class Experiment extends Model {
 		return list;
     }  
     
-    public static Boolean update(int id, String name, String description, int duration, float proband_hours) throws SQLException {
+    public static Boolean update(int id, String name, String description, int duration, float proband_hours, int probandAmount, int expType) throws SQLException {
     	Connection con = DB.getConnection();
         Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 		
        
         String update = String.format("UPDATE Experiment SET "
-        		+ "name='%s',description='%s',duration='%s',proband_hours='%s' WHERE id=%s;" ,name,description,duration,proband_hours,id);
+        		+ "name='%s',description='%s',duration='%s',proband_hours='%s',max_probands='%s',experiment_type_id='%s' "
+        		+ "WHERE id=%s;" ,name,description,duration,proband_hours,probandAmount, expType, id);
         
        try {
        stmt.executeUpdate(update);

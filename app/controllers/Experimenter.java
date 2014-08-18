@@ -4,6 +4,8 @@ import java.sql.SQLException;
 import java.util.Map;
 
 import models.Experiment;
+import models.Filter;
+import models.ProbandPoolFilter;
 import models.User;
 import play.Logger;
 import play.data.Form;
@@ -68,10 +70,31 @@ public class Experimenter extends Controller {
         final String name = values.get("expName")[0];
         final String description = values.get("description")[0];
         final int duration = Integer.parseInt(values.get("duration")[0]);
+        final int probandAmount = Integer.parseInt(values.get("probandAmount")[0]);
+        final int expType = Integer.parseInt(values.get("expType")[0]);
         final float probandHours = Float.parseFloat(values.get("probandHours")[0]);
         final String sendInvitations = values.get("sendInvitations")[0];
-        Experiment.update(id, name, description, duration, probandHours);
-        Logger.info(values.toString());
+        final String[] probandPools = values.get("probandPools");
+        final int semesterFrom = Integer.parseInt(values.get("semesterFrom")[0]);
+        final int semesterUntil = Integer.parseInt(values.get("semesterUntil")[0]);
+        final String[] genders = values.get("gender");
+        String gender = "";
+        if(genders.length > 1) {
+        	gender = "both";
+        }
+        	if(gender.length() == 1) {
+        		if(genders[0].equals("male"))
+        			gender = "male";
+        		else
+        			gender = "female";
+        	}
+        int filter_id = Filter.create(id, gender, semesterFrom, semesterUntil);
+        	Logger.info("Filter angelegt: "+filter_id);
+        for(String p : probandPools) {
+        	ProbandPoolFilter.create(filter_id, p);
+        }
+
+        Experiment.update(id, name, description, duration, probandHours, probandAmount, expType);
 		return ok();
     }
     
