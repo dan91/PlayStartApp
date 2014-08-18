@@ -59,6 +59,14 @@ public class User extends Model {
 
 	public int anzahlBesucht;
 	
+	public int privilige_id;
+
+	public String gender;
+
+	public String studystart;
+	
+	public int proband_pool_id;
+	
 	 public static Boolean update(String name, String email, int privilige_id, String phone, String birthday, String handedness, String course, int proband_pool_id, String gender, String studystart, int id) throws SQLException {
 	    	Connection con = DB.getConnection();
 	        Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);       
@@ -76,6 +84,28 @@ public class User extends Model {
 	       }
 	       
 	    }
+	 public static User byId(Long id) throws SQLException {
+	    	Connection con = DB.getConnection();
+	        Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+			ResultSet rs = stmt
+					.executeQuery("SELECT * FROM Experiment WHERE id = "+id+"");
+			rs.next();
+			User e = new User();
+			e.id = rs.getLong("id");
+			e.name = rs.getString("name");
+			e.email = rs.getString("email");
+			e.privilige_id = rs.getInt("privilige_id");
+			e.phone = rs.getString("phone");
+			e.birthday = rs.getDate("birthday");
+			e.handedness = rs.getString("handedness");
+			e.course = rs.getString("course");
+			e.proband_pool_id = rs.getInt("proband_pool_id");
+			e.gender = rs.getString("gender");
+			e.studystart = rs.getString("studystart");
+			stmt.close();
+			con.close();
+			return e;
+	    }
     
     
     public static String nameById(Long id) throws SQLException {
@@ -90,19 +120,19 @@ public class User extends Model {
 		return name;
     }
     
-    public static User byId(Long id) throws SQLException {
-    	Connection con = DB.getConnection();
-        Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-		ResultSet rs = stmt
-				.executeQuery("SELECT id, name FROM User WHERE id = "+id+"");
-		rs.next();
-		User u = new User();
-		u.id = rs.getLong("id");
-		u.name = rs.getString("name");
-			stmt.close();
-		con.close();
-		return u;
-    }
+//    public static User byId(Long id) throws SQLException {
+//    	Connection con = DB.getConnection();
+//        Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+//		ResultSet rs = stmt
+//				.executeQuery("SELECT id, name FROM User WHERE id = "+id+"");
+//		rs.next();
+//		User u = new User();
+//		u.id = rs.getLong("id");
+//		u.name = rs.getString("name");
+//			stmt.close();
+//		con.close();
+//		return u;
+//    }
     
 
        public static int allUsers() throws SQLException {
