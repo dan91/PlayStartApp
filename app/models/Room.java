@@ -4,7 +4,10 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -113,18 +116,85 @@ public class Room extends Model {
     
     public static void delete(Long id) throws SQLException{
     	
+    	
+    	
     	Connection con = DB.getConnection();
         Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-       
+        
+        
+        stmt.execute("SET FOREIGN_KEY_CHECKS=0");
+		stmt.close();
+		
+		stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
         String delete = String.format("DELETE FROM Room WHERE id=%s;",id);
         stmt.executeUpdate(delete);
         stmt.close();
         
+        stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        stmt.execute("SET FOREIGN_KEY_CHECKS=1");
+		stmt.close();
+		
         con.close();
         
-        String message="Deleted on server, row with id: "+id+"\n "
-    			+"has been deleted.";
-        Logger.info(message);
+        
+    	
+    }
+    
+    public static boolean checkRoomInUse(Long id) throws SQLException{
+    	
+    	Connection con = DB.getConnection();
+        Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+       
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = new Date();
+        
+        int dateInt = Integer.parseInt(dateFormat.format(date).split(" ")[0].replace("-", ""));
+        int timeInt = Integer.parseInt(dateFormat.format(date).split(" ")[1].replace(":",""));
+        
+        List<Integer> sessionsDate = new ArrayList<Integer>();
+        List<Integer> sessionsTime = new ArrayList<Integer>();
+        
+        
+        String checkRoomInUse = String.format("SELECT Session.id,Session.datetime,Session.room_id FROM Session WHERE room_id=%s;",id);
+        ResultSet rs = stmt.executeQuery(checkRoomInUse);
+        while(rs.next()){
+        	sessionsDate.add(Integer.parseInt(rs.getString("datetime").split(" ")[0].replace("-", "")));
+			sessionsTime.add(Integer.parseInt(rs.getString("datetime").split(" ")[1].replace(".0", "").replace(":","")));
+        }
+        
+        stmt.close();
+        con.close();
+        
+        boolean roomsInUse= true;
+        /** WENN ES KLEINER IST SESSION ZUKÜNFTIG, RAUM ALSO IN ZUKUNFT NOCH BELEGT */
+        for (int i = 0; i < sessionsDate.size(); i++) {
+			
+        	if(dateInt     <      sessionsDate.get(i)){
+        		roomsInUse = true;
+        		break;
+        	}	
+        	else if(dateInt     ==      sessionsDate.get(i) &&
+        			timeInt     <       sessionsTime.get(i)){
+        		roomsInUse = true;
+        		break;
+        	}
+        	else if(dateInt     >      sessionsDate.get(i)){
+        		roomsInUse = false;
+        	}
+        	else if(dateInt    ==      sessionsDate.get(i) &&
+        			timeInt     >      sessionsTime.get(i)){
+        		roomsInUse = false;
+        	} 
+        		
+		}
+        
+        if(roomsInUse)
+        	Logger.error("ROOM IS STILL IN USE!");
+        else{
+        	Logger.info("ROOM IS NOT IN USE!");
+        }
+        
+        return roomsInUse;
     	
     }
     

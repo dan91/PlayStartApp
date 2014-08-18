@@ -35,7 +35,7 @@ GET		/user_edit/:id			controllers.Admin.user_edit(id: Long)
 
 POST    /lab                  	controllers.Admin.save()
 POST    /labEdit                controllers.Admin.saveEditBuilding()
-POST    /labDelete/             controllers.Admin.deleteBuilding()
+POST    /labDelete              controllers.Admin.deleteBuilding()
 
 
 POST    /labNewRoom             controllers.Admin.saveNewRoom()

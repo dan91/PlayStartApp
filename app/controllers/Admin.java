@@ -167,10 +167,10 @@ public class Admin extends Controller {
         final String nameToDelete = values.get("name")[0];
         
     	
-    	Boolean roomInUse = null ;
+    	
     	
     	try {
-    		roomInUse = Building.checkRoomsUsedInSession(idToDelete);
+    		final Boolean roomInUse = Building.checkRoomsUsedInSession(idToDelete);
     		
     		if(roomInUse)
     			return badRequest("In diesem Gebäude finden noch Studien statt, deren Sessions noch nicht abgelaufen sind!");
@@ -240,22 +240,26 @@ public class Admin extends Controller {
         
         final String nameToDelete = values.get("name")[0];
         
-    	String message="Deleted on server, row with id: "+idToDelete+"\n "
-    			+"Room with name: "
-    			+nameToDelete+" has been deleted.";
     	
+    	Boolean roomInUse = null ;
     	try {
-        	Room.delete(idToDelete);
-			return ok(message);
+    		roomInUse = Room.checkRoomInUse(idToDelete);
+    		
+    		if(roomInUse)
+    			return badRequest("In diesem Raum finden noch Studien statt, deren Sessions noch nicht abgelaufen sind!");
+    		
+    		else{
+    			Room.delete(idToDelete);
+    			return ok("Der Raum "+nameToDelete+" wurde vom Server gelöscht.");
+    		}
+    		
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			final String badMessage = e.toString();
 			
-			
-			Logger.error(badMessage);
-			
-			return badRequest(badMessage);
+			return badRequest(e.toString());
 		}
+    	
+    	
+    	
     	
     }
 

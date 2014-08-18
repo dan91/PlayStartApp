@@ -167,6 +167,7 @@ public class Building extends Model {
     	Connection con = DB.getConnection();
         Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
        
+        
         String checkIt = 
         		String.format(
         
@@ -200,9 +201,18 @@ public class Building extends Model {
         stmt.close();
         con.close();
         
-        
-        
+        Logger.debug(String.valueOf(roomIds.size()));
+
+        boolean buildingHasNoRooms = false;
         boolean roomsInUse= true;
+        		
+        if(roomIds.size() == 0)
+        buildingHasNoRooms = true;
+        if(buildingHasNoRooms)
+        	roomsInUse = !roomsInUse;
+        
+        
+       
         /** WENN ES KLEINER IST SESSION ZUKÜNFTIG, RAUM ALSO IN ZUKUNFT NOCH BELEGT */
         for (int i = 0; i < sessionsDate.size(); i++) {
 			
