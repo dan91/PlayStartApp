@@ -207,7 +207,7 @@ $( "#openPreview" ).click(function() {
 				</div>
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-8" style="margin-top:1em; border-top:1px solid #eee; padding-top:1em">
-						<button type="button" class="btn btn-primary btn-lg pull-right" id="save" data-toggle="modal" data-target="#saveDialog" data-backdrop="static" data-keyboard="true"><span class="glyphicon glyphicon-ok"></span> Speichern</button>
+						<button type="button" class="btn btn-primary btn-lg pull-right" id="save" data-toggle="modal" data-target="#saveDialog"><span class="glyphicon glyphicon-ok"></span> Speichern</button>
 					</div>
 				</div>
 		</div>
@@ -377,6 +377,7 @@ $( "#openPreview" ).click(function() {
 
 									</div>
 							</div>
+							</form>
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-primary" data-dismiss="modal">Speichern</button>
@@ -506,16 +507,6 @@ $( "#openPreview" ).click(function() {
 		Allgemeine Informationen speichern
 		**/
 		myJsRoutes.controllers.Experimenter.saveGeneralData(@e.id).ajax({
-			/**data: {
-				'name' : $("input").find("#name").val(),
-				'description' : $("#description").text(),
-				'experimentType': $(".expType option:selected").val(),
-				'building' : $("#buildings option:selected").val(), 
-				'room' : $("#buildingSelects option:selected").val(),
-				'maxProbands' : $("#probandAmount option:selected").val(), 
-				'duration' : $("#duration option:selected").val(),
-				'probandHours': $("#probandHours option:selected").val()
-			},**/
 			method: 'post',
 			data: $(".form-horizontal").serialize(),
 			success : function(data) {
@@ -524,15 +515,16 @@ $( "#openPreview" ).click(function() {
 				si.show();
 				$("#progress_general").html('');
 				$("#progress_general").append(si);
-				saveFilters();
+				saveSessions();
 			}
 			
 		});
 	});
-	function saveFilters() {
+	
+	function saveSessions() {
 		pr = $(".progress").clone();
-		$("#progress_filters").html('');
-		$("#progress_filters").append(pr);
+		$("#progress_sessions").html('');
+		$("#progress_sessions").append(pr);
 		pr.show();
 		probandPools = [];
 		$('.probandPools:checkbox:checked').each(function(i){
@@ -552,7 +544,7 @@ $( "#openPreview" ).click(function() {
 				si.show();
 				$("#progress_filters").html('');
 				$("#progress_filters").append(si);
-				console.log($(".form-horizontal").serialize());
+				saveSessionos();
 			}
 		});
 	}

@@ -94,7 +94,7 @@ public class Experimenter extends Controller {
         	ProbandPoolFilter.create(filter_id, p);
         }
 
-        Experiment.update(id, name, description, duration, probandHours, probandAmount, expType);
+        Experiment.update(id, name, description, duration, probandHours, probandAmount, expType, filter_id);
 		return ok();
     }
     

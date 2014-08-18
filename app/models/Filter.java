@@ -36,7 +36,7 @@ public class Filter extends Model {
 				ResultSet.CONCUR_UPDATABLE);
 
 		String delete = String.format("DELETE Filter FROM Filter "
-				+ " INNER JOIN Experiment ON Experiment.filter_id = Filter.id WHERE Filter.id=%s",
+				+ " INNER JOIN Experiment ON Experiment.filter_id = Filter.id WHERE Experiment.id=%s",
 				experimentId);
 		Logger.info(delete);
 			stmt.executeUpdate(delete);
