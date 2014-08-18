@@ -255,7 +255,7 @@
                		            // ... some code on success
                		            
                		            
-               		            alert(data.responseText);
+               		            alert(data);
                		         /** Wenn ein gebäude kein Raum enthält würde es ohne die if-Abfrage
                           	  sonst das nächste Gebäude mitlöschen ! */
                           	  if( $( "#amountRooms" ).html() == "")
@@ -312,7 +312,7 @@
         		        success : function(data) {
         		            
         		            
-        		          alert(data.responseText);
+        		          alert(data);
         		          
         		          var infoDelete = reference.parent().parent();
         		          infoDelete.hide();
