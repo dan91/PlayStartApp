@@ -170,6 +170,7 @@ public class Admin extends Controller {
     			+"Building with name: "
     			+nameToDelete+" has been deleted.";
     	
+    	/**
     	try {
         	Building.delete(idToDelete);
 			return ok(message);
@@ -177,10 +178,24 @@ public class Admin extends Controller {
 			// TODO Auto-generated catch block
 			final String badMessage = e.toString();
 			
-			final String test="test";
+			if(badMessage.contains("Cannot delete or update a parent row: a foreign key constraint fails"))
+				
+			
 			Logger.error(badMessage);
 			
-			return badRequest(test);
+			return badRequest(badMessage);
+		}**/
+    	
+    	try {
+        	Building.checkRoomsUsedInSession(idToDelete);
+			return ok(message);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			final String badMessage = e.toString();
+			
+			Logger.error(badMessage);
+			
+			return badRequest(badMessage);
 		}
     	
     }
@@ -245,6 +260,7 @@ public class Admin extends Controller {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			final String badMessage = e.toString();
+			
 			
 			Logger.error(badMessage);
 			

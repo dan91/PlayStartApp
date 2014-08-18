@@ -4,7 +4,10 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -139,6 +142,43 @@ public class Building extends Model {
         String message="Deleted on server, row with id: "+id+"\n "
     			+"has been deleted.";
         Logger.info(message);
+    	
+    }
+    
+    public static void checkRoomsUsedInSession(Long id) throws SQLException{
+    	
+    	
+    	Connection con = DB.getConnection();
+        Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+       
+        String checkIt = 
+        		String.format(
+        
+        				"SELECT Session.room_id,Session.datetime,Room.name FROM Sessionn LEFT Join Room ON Session.room_id = Room.id WHERE Room.building_id = %s;",id);
+       
+        ResultSet rs = stmt.executeQuery(checkIt);
+        
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = new Date();
+        Logger.info(dateFormat.format(date)); //2014-08-06 15:59:48
+        
+        List<String> sessions = new ArrayList<String>();
+        
+        while(rs.next()) {
+			sessions.add(rs.getString("datetime"));
+		}
+        
+        
+        for (int i = 0; i < sessions.size(); i++) {
+			
+        	Logger.error(sessions.get(i));
+		}
+        
+        
+        stmt.close();
+        con.close();
+        
+    	
     	
     }
     

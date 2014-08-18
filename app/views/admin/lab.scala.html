@@ -266,11 +266,9 @@
                           	  
                		        },
 	               		     error : function(err) {
-	         	                //code always ends up here, with the err giving no eerror message at all!
+	         	               
 	         	                
-	         	                alert("CHECO MECKO DEN ERRORO");
-	         	                
-	         	                alert(err);             
+	         	                alert(err.responseText);             
 	         	            	}
 	         	            	
 	               		    });
@@ -288,7 +286,7 @@
                  });
                 
                 
-                /** REMOVE BUILDING */
+                /** REMOVE Room */
                  $('.removableRoom').click(function(w) {
               	   w.preventDefault();
               	   
@@ -330,10 +328,9 @@
                    	  
         		        },
             		     error : function(err) {
-      	                //code always ends up here, with the err giving no eerror message at all!
       	                
       	                
-      	                alert(err);             
+      	                alert(err.responseText);             
       	            	}
       	            	
             		    });
