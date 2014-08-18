@@ -147,6 +147,11 @@ public class User extends Model {
        } 
        
        
+
+       
+       
+       
+       
        
        
        
@@ -289,6 +294,11 @@ public class User extends Model {
   			stmt.close(); con.close();
            return amount;
        }
+       public static int laufendeStudien() throws SQLException {
+    	   int amount = allStudies() - finishedStudies();
+    	   return amount;
+       }
+       
        public static int allSessions() throws SQLException {
            Connection con = DB.getConnection();
            Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);

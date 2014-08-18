@@ -39,6 +39,10 @@ public class Experiment extends Model {
     public int max_probands;
     
     public int filter_id;
+    
+    public String assignment;
+
+	public String anzahlSessions;
 
     /**
      * Generic query helper for entity User with id
@@ -97,6 +101,35 @@ public class Experiment extends Model {
 			con.close();
 		return list;
     }  
+    
+    
+    public static List<Experiment> LauFend() throws SQLException {
+        Connection con = DB.getConnection();
+        Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        ResultSet rs = stmt     .executeQuery("SELECT name, id FROM Experiment");
+		List<Experiment> list = new ArrayList<Experiment>();
+        while(rs.next()) {
+			Experiment e = new Experiment();
+			e.id = rs.getLong("id");
+			e.name = rs.getString("name");
+			list.add(e);
+	}
+        ResultSet rs2 = stmt    .executeQuery("SELECT User.name AS assignment "
+        		+ "FROM User  "
+        		+ "JOIN Assignment ON User.id=Assignment.user_id "
+        		+ "JOIN Experiment ON Experiment.id=Assignment.experiment_id");
+
+			
+			while(rs2.next()) {
+				Experiment e = new Experiment();
+				e.assignment = rs2.getString("assignment");
+			//	e.anzahlSessions = rs2.getString("anzahlSessions");
+				list.add(e);
+		}
+			stmt.close();
+			con.close();
+		return list;
+    } 
     
     
 }
