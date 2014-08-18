@@ -128,4 +128,23 @@ public class Room extends Model {
     	
     }
     
+    public static void deleteRooms(List<Integer> roomIds) throws SQLException{
+    	
+    	Connection con = DB.getConnection();
+        Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+       
+        for (int i = 0; i < roomIds.size(); i++) {
+        	String delete = String.format("DELETE FROM Room WHERE id=%s;",roomIds.get(i));
+            stmt.executeUpdate(delete);
+		}
+        
+        
+        stmt.close();
+        con.close();
+        
+        String message="ALL ROOMS HAVE BEEN DELETED";
+        Logger.info(message);
+    	
+    }
+    
 }

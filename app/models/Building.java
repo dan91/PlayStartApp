@@ -145,7 +145,23 @@ public class Building extends Model {
     	
     }
     
-    public static void checkRoomsUsedInSession(Long id) throws SQLException{
+    
+    /**
+     * Erstellt einen TIMESTAMP des heutigen Tages, der jetzigen Zeit und vergleicht diese
+     * mit den Timestamps von Sessions welche einen Raum eines Gebäudes benutzen,
+     * welches zum Löschen ausgewählt wurde.
+     * 
+     * Es wird also überprüft, ob noch Sessions in der Zukunft in diesem Gebäude stattfinden
+     * oder ob es wirklich gelöscht werden kann.
+     * 
+     * Es gibt den boolean roomsInUse zurück, welches das obengenannte anzeigt.
+     * 
+     * 
+     * @param id
+     * @throws SQLException
+     */
+    
+    public static boolean checkRoomsUsedInSession(Long id) throws SQLException{
     	
     	
     	Connection con = DB.getConnection();
@@ -154,61 +170,75 @@ public class Building extends Model {
         String checkIt = 
         		String.format(
         
-        				"SELECT Session.room_id,Session.datetime,Room.name FROM Session LEFT Join Room ON Session.room_id = Room.id WHERE Room.building_id = %s;",id);
+        				"SELECT Session.room_id,Session.datetime FROM Session LEFT Join Room ON Session.room_id = Room.id WHERE Room.building_id = %s;",id);
        
         ResultSet rs = stmt.executeQuery(checkIt);
         
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = new Date();
-//        Logger.info(dateFormat.format(date)); //2014-08-06 15:59:48
         
         int dateInt = Integer.parseInt(dateFormat.format(date).split(" ")[0].replace("-", ""));
         int timeInt = Integer.parseInt(dateFormat.format(date).split(" ")[1].replace(":",""));
         
         
+        List<Integer> roomIds = new ArrayList<Integer>();
         
-        List<String> sessions = new ArrayList<String>();
+        List<Integer> sessionsDate = new ArrayList<Integer>();
+        List<Integer> sessionsTime = new ArrayList<Integer>();
         
         while(rs.next()) {
-			sessions.add(rs.getString("datetime").replace(".0", "").replace("-", "").replace(":",""));
+
+        	
+        	
+        	if(!roomIds.contains(rs.getInt("room_id")))
+        		roomIds.add(rs.getInt("room_id"));
+        	
+			sessionsDate.add(Integer.parseInt(rs.getString("datetime").split(" ")[0].replace("-", "")));
+			sessionsTime.add(Integer.parseInt(rs.getString("datetime").split(" ")[1].replace(".0", "").replace(":","")));
 		}
         
         stmt.close();
         con.close();
         
         
-        for (int i = 0; i < sessions.size(); i++) {
-			Logger.info(sessions.get(i));
-		}
-        
         
         boolean roomsInUse= true;
         /** WENN ES KLEINER IST SESSION ZUKÜNFTIG, RAUM ALSO IN ZUKUNFT NOCH BELEGT */
-//        for (int i = 0; i < sessions.size(); i++) {
-//			
-//        	if(Long.parseLong(dateSt)     <      Long.parseLong(sessions.get(i).split(" ")[0])){
-//        		roomsInUse = true;
-//        		break;
-//        	}	
-//        	else if(Long.parseLong(dateSt)     ==      Long.parseLong(sessions.get(i).split(" ")[0]) &&
-//        			Long.parseLong(timeSt)     <      Long.parseLong(sessions.get(i).split(" ")[1])){
-//        		roomsInUse = true;
-//        		break;
-//        	}
-//        	else if(Long.parseLong(dateSt)     >      Long.parseLong(sessions.get(i).split(" ")[0])){
-//        		roomsInUse = false;
-//        	}
-//        	else if(Long.parseLong(dateSt.replace("-", ""))     ==      Long.parseLong(sessions.get(i).split(" ")[0]) &&
-//        			Long.parseLong(timeSt.replace(":", ""))     >      Long.parseLong(sessions.get(i).split(" ")[1])){
-//        		roomsInUse = false;
-//        	} 
-//        		
-//		}
+        for (int i = 0; i < sessionsDate.size(); i++) {
+			
+        	if(dateInt     <      sessionsDate.get(i)){
+        		roomsInUse = true;
+        		break;
+        	}	
+        	else if(dateInt     ==      sessionsDate.get(i) &&
+        			timeInt     <       sessionsTime.get(i)){
+        		roomsInUse = true;
+        		break;
+        	}
+        	else if(dateInt     >      sessionsDate.get(i)){
+        		roomsInUse = false;
+        	}
+        	else if(dateInt    ==      sessionsDate.get(i) &&
+        			timeInt     >      sessionsTime.get(i)){
+        		roomsInUse = false;
+        	} 
+        		
+		}
         
         
         if(roomsInUse)
-        	Logger.error("ROOM IS STILL IN USE!!!");
-       
+        	Logger.error("ROOM IS STILL IN USE!");
+        else{
+        	Logger.info("ROOM IS NOT IN USE!");
+        	try{
+        		Room.deleteRooms(roomIds);
+        	} catch(SQLException e){
+        		Logger.error("Fehler beim Räume Löschen!\n "+e.toString());
+        	}
+        }
+        
+        
+        return roomsInUse;
         
     }
     

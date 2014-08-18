@@ -166,37 +166,25 @@ public class Admin extends Controller {
         
         final String nameToDelete = values.get("name")[0];
         
-    	String message="Deleted on server, row with id: "+idToDelete+"\n "
-    			+"Building with name: "
-    			+nameToDelete+" has been deleted.";
     	
-    	/**
-    	try {
-        	Building.delete(idToDelete);
-			return ok(message);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			final String badMessage = e.toString();
-			
-			if(badMessage.contains("Cannot delete or update a parent row: a foreign key constraint fails"))
-				
-			
-			Logger.error(badMessage);
-			
-			return badRequest(badMessage);
-		}**/
+    	Boolean roomInUse = null ;
     	
     	try {
-        	Building.checkRoomsUsedInSession(idToDelete);
-			return ok(message);
+    		if(roomInUse = Building.checkRoomsUsedInSession(idToDelete))
+    			return badRequest("In diesem Gebäude finden noch Studien statt, deren Sessions noch nicht ausgelaufen sind!");
+    		
+    		else{
+    			
+    			Building.delete(idToDelete);
+    			return ok("Das Gebäude "+nameToDelete+" wurde vom Server gelöscht.");
+    		}
+    		
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			final String badMessage = e.toString();
 			
-			Logger.error(badMessage);
-			
-			return badRequest(badMessage);
+			return badRequest(e.toString());
 		}
+    	
+    	
     	
     }
     
