@@ -242,6 +242,7 @@ public class Building extends Model {
         	Logger.info("ROOM IS NOT IN USE!");
         	try{
         		Room.deleteRooms(roomIds);
+        		Building.delete(id);
         	} catch(SQLException e){
         		Logger.error("Fehler beim Räume Löschen!\n "+e.toString());
         	}

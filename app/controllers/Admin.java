@@ -177,7 +177,6 @@ public class Admin extends Controller {
     		
     		else{
     			
-    			Building.delete(idToDelete);
     			return ok("Das Gebäude "+nameToDelete+" wurde vom Server gelöscht.");
     		}
     		
