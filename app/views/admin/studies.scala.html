@@ -13,9 +13,8 @@
 
 @for(LauFend <- Experiment.LauFend){
 		<div class="row">
-			<div class="col-sm-3 col-xs-6"><b>@LauFend.name</b></div>
-			<div class="col-sm-3 col-xs-6">@LauFend.assignment</div>
-			<div class="col-sm-3 col-xs-6">@LauFend.anzahlSessions</div>
+			<div class="col-sm-4 col-xs-6"><b>@LauFend.name</b></div>
+			<div class="col-sm-5 col-xs-6">@LauFend.assignment</div>
 			<div class="col-sm-3 col-xs-6">
 			<a href="/completeStudy/@LauFend.id"><button class="btn btn-default tool btn-sm" data-toggle="tooltip" data-placement="top" title="Teilnahmen best��tigen"><span class="glyphicon glyphicon-ok"></span> </button></a>
 			<a href="#"><button class="btn btn-sm btn-default tool" data-toggle="modal" data-target="#sessionCalendar" data-toggle="modal" data-target="#sessionCalendar" data-toggle="tooltip" data-placement="top" title="Kalender Anzeigen"><span class="glyphicon glyphicon-calendar"></span> </button></a>
@@ -23,44 +22,13 @@
 			</div>
 		</div>
 }		
-
-			
-
-		
-		<h3>Abgeschlossene Studien <span class="label label-default">30</span></h3>
+	
+		<h3>Abgeschlossene Studien <span class="label label-default">@User.finishedStudies()</span></h3>
 				<hr>		
 
+
 	
-		<div class="row">
-			<div class="col-sm-3 col-xs-6"><b>Multitasking I</b></div>
-			<div class="col-sm-3 col-xs-6">Christoph Felix</div>
-			<div class="col-sm-3 col-xs-6">Geb. 82, Raum 1.005</div>
-			<div class="col-sm-3 col-xs-6">
-			<a href="/completeStudy"><button class="btn btn-default tool btn-sm" data-toggle="tooltip" data-placement="top" title="Teilnahmen best��tigen"><span class="glyphicon glyphicon-ok"></span> </button></a>
-			<a href="#"><button class="btn btn-sm btn-default tool" data-toggle="modal" data-target="#sessionCalendar" data-toggle="modal" data-target="#sessionCalendar" data-toggle="tooltip" data-placement="top" title="Kalender Anzeigen"><span class="glyphicon glyphicon-calendar"></span> </button></a>
-			<a href="/admin_edit" class="btn btn-default btn-sm" ><span class="glyphicon glyphicon-pencil"></span></a> 
-			</div>
-		</div>
-			
-				<div class="row">
-			<div class="col-sm-3 col-xs-6"><b>Multitasking II</b></div>
-			<div class="col-sm-3 col-xs-6">Christoph Sonnenberg</div>
-			<div class="col-sm-3 col-xs-6">Geb. 82, Raum 1.005</div>
-			<div class="col-sm-3 col-xs-6"><a href="/completeStudy"><button class="btn btn-default tool btn-sm" data-toggle="tooltip" data-placement="top" title="Teilnahmen best��tigen"><span class="glyphicon glyphicon-ok"></span> </button></a>
-			<a href="#"><button class="btn btn-sm btn-default tool" data-toggle="modal" data-target="#sessionCalendar" data-toggle="modal" data-target="#sessionCalendar" data-toggle="tooltip" data-placement="top" title="Kalender Anzeigen"><span class="glyphicon glyphicon-calendar"></span> </button></a>
-			<a href="/admin_edit" class="btn btn-default btn-sm" ><span class="glyphicon glyphicon-pencil"></span></a> 
-			</div>
-		</div>
-			
-		<div class="row">
-			<div class="col-sm-3 col-xs-6"><b>Multitasking III</b></div>
-			<div class="col-sm-3 col-xs-6">Christoph Mustermann</div>
-			<div class="col-sm-3 col-xs-6">ZFM, Raum 1.005</div>
-			<div class="col-sm-3 col-xs-6"><a href="/completeStudy"><button class="btn btn-default tool btn-sm" data-toggle="tooltip" data-placement="top" title="Teilnahmen best��tigen"><span class="glyphicon glyphicon-ok"></span> </button></a>
-			<a href="#"><button class="btn btn-sm btn-default tool" data-toggle="modal" data-target="#sessionCalendar" data-toggle="modal" data-target="#sessionCalendar" data-toggle="tooltip" data-placement="top" title="Kalender Anzeigen"><span class="glyphicon glyphicon-calendar"></span> </button></a>
-			<a href="/admin_edit" class="btn btn-default btn-sm" ><span class="glyphicon glyphicon-pencil"></span></a> 
-			</div>
-		</div>
+
 			
 
 </div>

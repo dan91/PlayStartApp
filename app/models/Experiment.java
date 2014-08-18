@@ -126,6 +126,25 @@ public class Experiment extends Model {
     public static List<Experiment> LauFend() throws SQLException {
         Connection con = DB.getConnection();
         Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        ResultSet rs = stmt     .executeQuery("SELECT Experiment.name, Experiment.id, User.name FROM Experiment JOIN Assignment ON Experiment.id=Assignment.experiment_id JOIN User ON User.id=Assignment.user_id");
+		List<Experiment> list = new ArrayList<Experiment>();
+        while(rs.next()) {
+			Experiment e = new Experiment();
+			e.id = rs.getLong("id");
+			e.name = rs.getString("Experiment.name");
+			e.assignment = rs.getString("User.name");
+			list.add(e);
+	}
+    
+			stmt.close();
+			con.close();
+		return list;
+    } 
+    
+    
+    public static List<Experiment> finishedStudies() throws SQLException {
+        Connection con = DB.getConnection();
+        Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
         ResultSet rs = stmt     .executeQuery("SELECT name, id FROM Experiment");
 		List<Experiment> list = new ArrayList<Experiment>();
         while(rs.next()) {
@@ -150,6 +169,7 @@ public class Experiment extends Model {
 			con.close();
 		return list;
     } 
+    
     
     
 }
