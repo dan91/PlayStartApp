@@ -32,8 +32,9 @@ public class Proband extends Controller {
 	 * @return
 	 */
 	public static Result registered() {
-		return ok(views.html.proband.registered.render());
+		return ok(views.html.proband.registered.render(1));
 	}
+	
 
 	public static Result available() {
 		return ok(views.html.proband.available.render());
