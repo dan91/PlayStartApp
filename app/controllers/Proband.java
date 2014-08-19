@@ -57,21 +57,31 @@ public class Proband extends Controller {
 	
 	public static Result getICS(){
 			final Map<String, String[]> values = request().body().asFormUrlEncoded();
+			final String experiment_name = values.get("experiment_name")[0];
+			final String date = values.get("date")[0];
 	        final String start_time = values.get("start_time")[0];
 	        final String end_time = values.get("end_time")[0];
 	        
-	        response().setHeader ("Content-Disposition", "attachment;filename=mycalendar.ics");
+	        response().setHeader ("Content-Disposition", "attachment;filename="+experiment_name+".ics");
 			response().setContentType("text/calendar");
 	        
+			
+			
 	        Calendar start = new GregorianCalendar();
 			// Zum Überblick das Format:
 
 			// Achtung der Monat beginnt bei 0 = Januar :D :D :D
+	        int year = Integer.parseInt(date.split(".")[2]);
+	        int month = Integer.parseInt(date.split(".")[1])   -1;
+	        int day = Integer.parseInt(date.split(".")[0]);
+	        
 			// YYYY-M-D-H-M
-			start.set(2014, 7, 15, 17, 0);
+	        //Uhrzeit im Format: HH:00 deswegen erstmal die Stunden holen: start_time.split(":")[0]  
+	        // dann die Minuten start_time.split(":")[1]
+			start.set(year,month, day, Integer.parseInt(start_time.split(":")[0]), Integer.parseInt(start_time.split(":")[1]));
 
 			Calendar end = new GregorianCalendar();
-			end.set(2014, 7, 15, 23, 55);
+			end.set(year, month, day, Integer.parseInt(end_time.split(":")[0]), Integer.parseInt(end_time.split(":")[1]));
 			DateTime startTime = new DateTime(start.getTime());
 			DateTime endTime = new DateTime(end.getTime());
 
@@ -107,15 +117,11 @@ public class Proband extends Controller {
 			
 			try {
 				
-				FileOutputStream fout = new FileOutputStream("mycalendar.ics");
+				
 				CalendarOutputter outputter = new CalendarOutputter();
 				outputter.setValidating(false);
 				
-//				FileInputStream fin = new FileInputStream("mycalendar.ics");
-//				CalendarBuilder builder = new CalendarBuilder();
-//				net.fortuna.ical4j.model.Calendar calendar = builder.build(fin);
-				
-				File file = new File("myCalendar.ics");
+				File file = new File(experiment_name);
 				FileWriter fw = new FileWriter(file.getAbsoluteFile());
 				
 				outputter.output(cal, fw);
