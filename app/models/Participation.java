@@ -96,23 +96,7 @@ public class Participation extends Model {
 		return list;
     }    
     
-    public static List<Participation> registeredView(Long id) throws SQLException{
-    	Connection con = DB.getConnection();
-        Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-		ResultSet rs = stmt
-				.executeQuery("SELECT Participation.id, Participation.session_id FROM Participation JOIN Session ON Participation.session_id = Session.id"
-						+ "WHERE Participation.user_id=" +id+" AND Session.datetime > NOW()");
-		List<Participation> list = new ArrayList<Participation>();
-		while(rs.next()) {
-			Participation p = new Participation();
-			p.id = rs.getLong("id");
-			p.session_id = rs.getLong("user_id");
-			list.add(p);
-		}
-		stmt.close();
-		con.close();
-		return list;
-    }
+    
     
     
 }
