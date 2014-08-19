@@ -33,7 +33,6 @@ $(document).ready(function(){
 	   lng = felder[5];
 	   
 	   
-	   
 	   $("#modalHead").html(building_name+", "+room_name);
 	   
 	   infowindow = new google.maps.InfoWindow({
@@ -45,7 +44,6 @@ $(document).ready(function(){
 	   $('#placeModal').on('shown.bs.modal', function() {
 		   center=new google.maps.LatLng(lat, lng);
 	       
-		   
 	    	
 	    	map=    new google.maps.Map(
 	                 document.getElementById('map-canvas'), 
@@ -53,9 +51,6 @@ $(document).ready(function(){
 	                    center: center,
 	                    mapTypeId: google.maps.MapTypeId.HYBRID });
 	    	
-	    	
-	    
-		   
 	    	google.maps.event.trigger(map, "resize");
 		    map.setCenter(center); 
 		    marker=new google.maps.Marker({
@@ -76,6 +71,43 @@ $(document).ready(function(){
     
     infowindow.open(map,marker);
     	
+    $.(".getICS").click(function(w){
+    
+    	w.preventDefault();
+  	   
+ 	   var statusCode = $(this).data('status');	
+ 	   var felder = statusCode.split(';', 2);
+ 	   
+ 	   var begin = felder[0];
+ 	   var end = felder[1];
+    	
+    	$.ajax({
+	        type : 'POST',
+	        url : '@routes.Proband.getICS()',
+	        data : {
+	            start_time: begin, end_time: end
+	        },
+	        success : function(data) {
+	            
+	            alert(data);
+	         /** Wenn ein gebäude kein Raum enthält würde es ohne die if-Abfrage
+      	  sonst das nächste Gebäude mitlöschen ! */
+      	 
+	      
+      	  
+	        },
+		     error : function(err) {
+            
+             
+             alert(err.responseText);             
+         	}
+         	
+		    });
+    });
+    
+    
+    
+    
 });
 
 
@@ -98,7 +130,7 @@ $(document).ready(function(){
  
  <div class="row">
             <div class="col-sm-3 col-xs-12"><b>@list.experiment_name</b></div>
-            <div class="col-sm-4 col-xs-12"><a href="@routes.Assets.at("event.ics")" class="btn btn-default loc pull-left" title="Juliuspromenade 8, 97070 W�rzburg"><span class="glyphicon glyphicon-calendar"></span></a> 
+            <div class="col-sm-4 col-xs-12"><button data-status="@list.time;@list.end_time;" class="btn btn-default loc pull-left getICS" title="Juliuspromenade 8, 97070 W�rzburg"><span class="glyphicon glyphicon-calendar"></span></button> 
  				<span style="float:left; margin-left:1em">
  					<b>@list.date</b><br>
  		@list.time-@list.end_time Uhr</span></div>
