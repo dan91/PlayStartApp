@@ -1,4 +1,4 @@
-﻿<script>
+﻿
 $(document).ready(function(){
 	
 	var map;	
@@ -71,6 +71,3 @@ $(document).ready(function(){
     infowindow.open(map,marker);
     	
 });
-
-
-</script>
