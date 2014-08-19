@@ -114,5 +114,46 @@ public class Session {
 //		return list;
         
         return null;
-    } 
+    }
+
+    public static void delete(int experimentId) throws SQLException {
+    	Connection con = DB.getConnection();
+		Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
+				ResultSet.CONCUR_UPDATABLE);
+
+		String delete = String.format("DELETE Session FROM Session "
+				+ " INNER JOIN Experiment ON Session.experiment_id = Experiment.id WHERE Experiment.id=%s",
+				experimentId);
+		Logger.info(delete);
+			stmt.executeUpdate(delete);
+		
+			stmt.close();
+			con.close();
+
+    }
+	public static int create(int id, String datetime, int room_id) throws SQLException {
+		Connection con = DB.getConnection();
+		Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
+				ResultSet.CONCUR_UPDATABLE);
+		
+
+		String insert = String.format(
+				"INSERT INTO Session (experiment_id, datetime, room_id) "
+						+ "VALUES ('%s', '%s', '%s')", id, datetime, room_id);
+			Logger.info(insert);
+			stmt.executeUpdate(insert,
+                    Statement.RETURN_GENERATED_KEYS);
+			int session_id = 0;
+			try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+	            if (generatedKeys.next()) {
+	            	session_id = generatedKeys.getInt(1);
+	            }
+	            else {
+	                throw new SQLException();
+	            }
+	        }
+			stmt.close();
+			con.close();
+			return session_id;
+	} 
 }

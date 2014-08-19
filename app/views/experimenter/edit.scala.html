@@ -763,6 +763,8 @@ function saveSessions() {
 		eventsJson.push(e)
 	});
 	fin = {
+			// Wenn Räume richtig angezeigt werden: 'room' : $(".buildingSelects option:selected")[0].val(),
+			'room' : 1,
 			'events': eventsJson
 	}
 	myJsRoutes.controllers.Experimenter.saveSessions(@e.id).ajax({

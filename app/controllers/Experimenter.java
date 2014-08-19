@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import models.Experiment;
 import models.Filter;
 import models.ProbandPoolFilter;
+import models.Session;
 import models.User;
 import play.Logger;
 import play.data.Form;
@@ -103,6 +104,7 @@ public class Experimenter extends Controller {
     
     public static Result saveSessions(int id) throws SQLException {
     	JsonNode values = request().body().asJson();
+		int room_id = values.path("room").asInt();
     	JsonNode events = values.path("events");
     	Iterator<JsonNode> i = events.elements();
     	while(i.hasNext()) {
@@ -110,11 +112,11 @@ public class Experimenter extends Controller {
     		String datetime = event.path("datetime").textValue();
 			Logger.info(datetime);
 	    	Iterator<JsonNode> i2 = event.path("participations").elements();
-	    	//Session.create()
-	    	int session_id = 1;
+	    	int session_id = Session.create(id, datetime, room_id);
 	    	while(i2.hasNext()) {
 	    		JsonNode part = i2.next();
 	    		String user_id = event.path("user_id").textValue();
+	    		Logger.info("-- "+user_id);
 	    	}
 
     	}
