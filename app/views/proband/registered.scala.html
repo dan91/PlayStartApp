@@ -23,17 +23,17 @@
             <div class="col-sm-4 col-xs-12"><a href="@routes.Assets.at("event.ics")" class="btn btn-default loc pull-left" title="Juliuspromenade 8, 97070 W�rzburg"><span class="glyphicon glyphicon-calendar"></span></a> 
  				<span style="float:left; margin-left:1em">
  					<b>@list.date</b><br>
- 		@list.time Uhr</span></div>
+ 		@list.time-@list.end_time Uhr</span></div>
         
-<div class="col-sm-3 col-xs-12"><button data-toggle="modal" data-target="#myMapModal" class="btn btn-default loc pull-left" title="Juliuspromenade 8, 97070 W�rzburg"><span class="glyphicon glyphicon-map-marker"></span></button> 
+<div class="col-sm-3 col-xs-12"><button data-status="@list.building_name;@list.building_description;@list.room_name;@list.room_description" data-toggle="modal" data-target="#myMapModal" class="btn btn-default loc pull-left" title="Juliuspromenade 8, 97070 W�rzburg"><span class="glyphicon glyphicon-map-marker"></span></button> 
  				<span style="float:left; margin-left:1em">
  					<b>@list.building_name</b><br>
- 		@list.room_name</span></div>
+ 		Raum: @list.room_name</span></div>
 
              
  
 <div class="col-sm-2 col-xs-12 ">
-<span class="badge"><span class="glyphicon glyphicon-star"></span> 1.5 </span>                
+<span class="badge"><span class="glyphicon glyphicon-star"></span> @list.proband_hours </span>                
                 <a class="btn btn-default" href="mailto:Peter.Versuchsleiter@@example.de">
                 <span class="glyphicon glyphicon-envelope"></span>
                 </a>  
@@ -45,90 +45,6 @@
 } 
  
  
-
-
-<div class="page-header">
-		<h3>Anmeldungen <span class="label label-default">3</span></h3>
-	</div>
-
-		<div class="row">
-            <div class="col-sm-3 col-xs-12"><b>Multitasking I</b></div>
-            <div class="col-sm-4 col-xs-12"><a href="@routes.Assets.at("event.ics")" class="btn btn-default loc pull-left" title="Juliuspromenade 8, 97070 W�rzburg"><span class="glyphicon glyphicon-calendar"></span></a> 
- 				<span style="float:left; margin-left:1em">
- 					<b>06.08.2014</b><br>
- 		13:00-14:00 Uhr</span></div>
-        
-<div class="col-sm-3 col-xs-12"><button data-toggle="modal" data-target="#myMapModal" class="btn btn-default loc pull-left" title="Juliuspromenade 8, 97070 W�rzburg"><span class="glyphicon glyphicon-map-marker"></span></button> 
- 				<span style="float:left; margin-left:1em">
- 					<b>Gebäude 82</b><br>
- 		Raum: 00.120</span></div>
-
-             
- 
-<div class="col-sm-2 col-xs-12 ">
-<span class="badge"><span class="glyphicon glyphicon-star"></span> 1.5 </span>                
-                <a class="btn btn-default" href="mailto:Peter.Versuchsleiter@@example.de">
-                <span class="glyphicon glyphicon-envelope"></span>
-                </a>  
-            </div>
-            
-            
-        
-     </div> <!-- Ende row -->
-	 
-	 <div class="row">
-            <div class="col-sm-3 col-xs-12"><b>Gestenpräsentation I</b></div>
-            <div class="col-sm-4 col-xs-12"><a href="@routes.Assets.at("event.ics")" class="btn btn-default loc pull-left"><span class="glyphicon glyphicon-calendar"></span></a> 
- 				<span style="float:left; margin-left:1em">
- 					<b>10.08.2014</b><br>
- 		09:00-12:00 Uhr</span></div>
-        
-<div class="col-sm-3 col-xs-12"><button data-toggle="modal" data-target="#myMapModal" class="btn btn-default loc pull-left"><span class="glyphicon glyphicon-map-marker"></span></button> 
- 				<span style="float:left; margin-left:1em">
- 					<b>Gebäude 82</b><br>
- 		Raum: 00.120</span></div>
-
-<div class="col-sm-2 col-xs-12 ">  
-                <span class="badge"><span class="glyphicon glyphicon-star"></span> 1.5 </span>
-
-                <a class="btn btn-default" href="mailto:Peter.Versuchsleiter@@example.de">
-                <span class="glyphicon glyphicon-envelope"></span>
-                </a>  
-            </div>
-            
-            
-        
-     </div> <!-- Ende row -->
-		
-	 
-	 <div class="row">
-            <div class="col-sm-3 col-xs-12"><b>Reaktionsfähigkeit I</b></div>
-            <div class="col-sm-4 col-xs-12"><a href="@routes.Assets.at("event.ics")" class="btn btn-default loc pull-left" title="Juliuspromenade 8, 97070 W�rzburg"><span class="glyphicon glyphicon-calendar"></span></a> 
- 				<span style="float:left; margin-left:1em">
- 					<b>25.08.2012</b><br>
- 		13:00-14:00 Uhr</span></div>
-        
-<div class="col-sm-3 col-xs-12"><button data-toggle="modal" data-target="#myMapModal" class="btn btn-default loc pull-left" title="Juliuspromenade 8, 97070 W�rzburg"><span class="glyphicon glyphicon-map-marker"></span></button> 
- 				<span style="float:left; margin-left:1em">
- 					<b>Gebäude 82</b><br>
- 		Raum: 00.120</span></div>
-            
- 
-<div class="col-sm-2 col-xs-12 ">  
-                <span class="badge"><span class="glyphicon glyphicon-star"></span> 1.5 </span>
-
-                <a class="btn btn-default" href="mailto:Peter.Versuchsleiter@@example.de">
-                <span class="glyphicon glyphicon-envelope"></span>
-                </a>  
-            </div>
-            
-            
-        
-     </div> <!-- Ende row -->
-	
-			
-	
-
 
 <div class="modal fade" id="myMapModal">
     <div class="modal-dialog">

@@ -5,10 +5,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import org.apache.commons.lang.time.DateUtils;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
 
 import play.Logger;
 import play.db.DB;
@@ -38,6 +43,8 @@ public class RegisteredMapper {
 	public float proband_hours;
 	
 	public float duration;
+	
+	public String end_time;
 	
 	
 	public static List<RegisteredMapper> byUserId(Long id) throws SQLException {	
@@ -75,9 +82,11 @@ public class RegisteredMapper {
 			sb.append(rs.getString("datetime").split(" ")[0].split("-")[1]+".");
 			sb.append(rs.getString("datetime").split(" ")[0].split("-")[0]);
 			u.date = sb.toString();
-			
 			u.time = rs.getString("datetime").split(" ")[1].replace(":00.0","");
+			
 			u.duration = rs.getFloat("duration");
+			u.end_time = getEndTime(u.date, u.time, u.duration);
+			
 			u.building_name = rs.getString("building_name");
 			u.building_description = rs.getString("building_description");
 			u.Lat = rs.getDouble("Lat");
@@ -97,6 +106,33 @@ public class RegisteredMapper {
 		return list;
         
     } 
+	
+	
+	public static String getEndTime(String date, String time, float duration) {
+		
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append(date+" "+time);
+		
+		String pattern = "dd.MM.yyyy HH:mm";
+		
+		int minutes = (int) (duration%60);
+		int hours = (int) ((duration - minutes)/60);
+		
+		
+		Logger.info("hours: "+hours+ "minutes: "+minutes);
+		
+		DateTime dt = DateTime.parse(sb.toString(),DateTimeFormat.forPattern(pattern));
+		DateTime endTime = dt.plusHours(hours).plusMinutes(minutes);
+		
+		
+		
+		Logger.info(endTime.toString("HH:mm"));
+        
+       
+		
+		return endTime.toString("HH:mm");
+	}
 	
 	
 	
