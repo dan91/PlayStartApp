@@ -2,7 +2,8 @@
 
 @scripts = {
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
-<script src="@routes.Assets.at("javascripts/probandSimpleMap.js")" type="text/javascript"></script>
+<script src="@routes.Assets.at("javascripts/registeredSimpleMap.js")" type="text/javascript"></script>
+
 
 }
 
@@ -25,7 +26,7 @@
  					<b>@list.date</b><br>
  		@list.time-@list.end_time Uhr</span></div>
         
-<div class="col-sm-3 col-xs-12"><button data-status="@list.building_name;@list.building_description;@list.room_name;@list.room_description" data-toggle="modal" data-target="#myMapModal" class="btn btn-default loc pull-left" title="Juliuspromenade 8, 97070 W�rzburg"><span class="glyphicon glyphicon-map-marker"></span></button> 
+<div class="col-sm-3 col-xs-12"><button data-status="@list.building_name;@list.building_description;@list.room_name;@list.room_description;@list.Lat;@list.Lng;" data-toggle="modal" data-target="#placeModal" class="btn btn-default loc pull-left mapButton" title="Juliuspromenade 8, 97070 W�rzburg"><span class="glyphicon glyphicon-map-marker"></span></button> 
  				<span style="float:left; margin-left:1em">
  					<b>@list.building_name</b><br>
  		Raum: @list.room_name</span></div>
@@ -46,12 +47,12 @@
  
  
 
-<div class="modal fade" id="myMapModal">
+<div class="modal fade" id="placeModal">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                 <h4 class="modal-title">Karte anzeigen</h4>
+                 <h4 class="modal-title" id="modalHead"></h4>
 
             </div>
             <div class="modal-body">
