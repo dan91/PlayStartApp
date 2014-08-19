@@ -1,4 +1,4 @@
-@(id: Int)
+
 
 @scripts = {
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
@@ -7,6 +7,44 @@
 }
 
 @main(null, scripts) {
+
+
+<div class="page-header">
+		<h3>Anmeldungen <span class="label label-default">3</span></h3>
+	</div>
+
+
+<!-- @for(list <- RegisteredMapper.byUserId(1)){}-->
+
+ @for(list <- RegisteredMapper.byUserId(1)){
+ 
+ <div class="row">
+            <div class="col-sm-3 col-xs-12"><b>@list.experiment_name</b></div>
+            <div class="col-sm-4 col-xs-12"><a href="@routes.Assets.at("event.ics")" class="btn btn-default loc pull-left" title="Juliuspromenade 8, 97070 W�rzburg"><span class="glyphicon glyphicon-calendar"></span></a> 
+ 				<span style="float:left; margin-left:1em">
+ 					<b>@list.date</b><br>
+ 		@list.time Uhr</span></div>
+        
+<div class="col-sm-3 col-xs-12"><button data-toggle="modal" data-target="#myMapModal" class="btn btn-default loc pull-left" title="Juliuspromenade 8, 97070 W�rzburg"><span class="glyphicon glyphicon-map-marker"></span></button> 
+ 				<span style="float:left; margin-left:1em">
+ 					<b>@list.building_name</b><br>
+ 		@list.room_name</span></div>
+
+             
+ 
+<div class="col-sm-2 col-xs-12 ">
+<span class="badge"><span class="glyphicon glyphicon-star"></span> 1.5 </span>                
+                <a class="btn btn-default" href="mailto:Peter.Versuchsleiter@@example.de">
+                <span class="glyphicon glyphicon-envelope"></span>
+                </a>  
+            </div>
+            
+            
+        
+     </div> <!-- Ende row -->
+} 
+ 
+ 
 
 
 <div class="page-header">

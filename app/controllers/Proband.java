@@ -12,6 +12,7 @@ import net.fortuna.ical4j.model.property.Uid;
 import net.fortuna.ical4j.model.property.Version;
 import net.fortuna.ical4j.util.UidGenerator;
 import models.Participation;
+import models.RegisteredMapper;
 import models.User;
 import play.Logger;
 import play.data.Form;
@@ -34,7 +35,7 @@ public class Proband extends Controller {
 	 */
 	public static Result registered() {
 		
-		return ok(views.html.proband.registered.render(1));
+		return ok(views.html.proband.registered.render());
 	}
 	
 
