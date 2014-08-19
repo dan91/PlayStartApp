@@ -249,20 +249,16 @@ $( "#openPreview" ).click(function() {
             </div>
             <div class="modal-body">
                   <div class="row">
-                  	<div class="col-sm-4"><h4 class="mt0">Allgemeine Daten</h4></div>
-                  	<div class="col-sm-8"><span id="progress_general">Warten...</span></div>
+                  	<div class="col-sm-6"><h4 class="mt0">Allgemeine Daten & Filter</h4></div>
+                  	<div class="col-sm-6"><span id="progress_general">Warten...</span></div>
                   </div>
                   <div class="row">
-                  	<div class="col-sm-4"><h4 class="mt0">Filter</h4></div>
-                  	<div class="col-sm-8"><span id="progress_filters">Warten...</span></div>
+                  	<div class="col-sm-6"><h4 class="mt0">Sitzungen</h4></div>
+                  	<div class="col-sm-6"><span id="progress_sessions">Warten...</span></div>
                   </div>
                   <div class="row">
-                  	<div class="col-sm-4"><h4 class="mt0">Sitzungen</h4></div>
-                  	<div class="col-sm-8"><span id="progress_sessions">Warten...</span></div>
-                  </div>
-                  <div class="row">
-                  	<div class="col-sm-4"><h4 class="mt0">Versuchsleiter</h4></div>
-                  	<div class="col-sm-8"><span id="progress_experimenters">Warten...</span></div>
+                  	<div class="col-sm-6"><h4 class="mt0">Versuchsleiter</h4></div>
+                  	<div class="col-sm-6"><span id="progress_experimenters">Warten...</span></div>
                   </div>
             </div>
             
@@ -495,60 +491,7 @@ $( "#openPreview" ).click(function() {
 				<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script> 
 				<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/localization/messages_de.js"></script> 
 			<script type="text/javascript" src="@routes.Assets.at("javascripts/calendar.js")"></script>
-			<script type="text/javascript">
-			
-	$("#save").click(function() {
-		pr = $(".progress").clone();
-		$("#progress_general").html('');
-		$("#progress_general").append(pr);
-		pr.show();
-		
-		/**
-		Allgemeine Informationen speichern
-		**/
-		myJsRoutes.controllers.Experimenter.saveGeneralData(@e.id).ajax({
-			method: 'post',
-			data: $(".form-horizontal").serialize(),
-			success : function(data) {
-				si = $("#success_info").clone();
-				si.clone();
-				si.show();
-				$("#progress_general").html('');
-				$("#progress_general").append(si);
-				saveSessions();
-			}
-			
-		});
-	});
-	
-	function saveSessions() {
-		pr = $(".progress").clone();
-		$("#progress_sessions").html('');
-		$("#progress_sessions").append(pr);
-		pr.show();
-		probandPools = [];
-		$('.probandPools:checkbox:checked').each(function(i){
-          probandPools[i] = $(this).val();
-        });
-		myJsRoutes.controllers.Experimenter.saveFilters().ajax({
-			data: {
-				'probandPools' : probandPools,
-				'gender' : $(".gender option:selected").val(),
-				'semesterFrom' : $("#semesterFrom option:selected").val(),
-				'semesterUntil' : $("#semesterUntil option:selected").val(),
-				'excludedStudies' : [0,1]
-			},
-			success: function(data) {
-				si = $("#success_info").clone();
-				si.clone();
-				si.show();
-				$("#progress_filters").html('');
-				$("#progress_filters").append(si);
-				saveSessionos();
-			}
-		});
-	}
-	
+			<script type="text/javascript">	
 	row_dr = $(".expRow").first().clone();
 	$("#modalAddPersons").on("shown.bs.modal", function() {
 		$("#expSearch").on('keyup',function() {
@@ -807,5 +750,57 @@ $('#calendar').fullCalendar({
 						});
 					}
 				});
+function saveSessions() {
+	$("#progress_sessions").html('');
+	events = $('#calendar').fullCalendar( 'clientEvents');
+	eventsJson = []
+	$.each(events, function (key, value) {
+		datetime = value.start.format("YYYY-MM-DD HH:mm");
+		e = {
+				'datetime': datetime,
+				'participations' : value.participations
+		}
+		eventsJson.push(e)
+	});
+	fin = {
+			'events': eventsJson
+	}
+	myJsRoutes.controllers.Experimenter.saveSessions(@e.id).ajax({
+		method: 'post',
+		data: JSON.stringify(fin),
+		dataType: 'json',
+        contentType: "application/json; charset=utf-8",
+		success: function(data) {
+			si = $("#success_info").clone();
+			si.show();
+			$("#progress_sessions").html('');
+			$("#progress_sessions").append(si);
+		}
+	});
+}
+
+$("#save").click(function() {
+	pr2 = $(".progress").clone();
+	$("#progress_general").html('');
+	$("#progress_general").append(pr2);
+	pr2.show();
+	
+	/**
+	Allgemeine Informationen speichern
+	**/
+	myJsRoutes.controllers.Experimenter.saveGeneralData(@e.id).ajax({
+		method: 'post',
+		data: $(".form-horizontal").serialize(),
+		success : function(data) {
+			si2 = $("#success_info").clone();
+			si2.show();
+			$("#progress_general").html('');
+			$("#progress_general").append(si2);
+			saveSessions();
+		}
+		
+	});
+});			
+
 			</script>
 }

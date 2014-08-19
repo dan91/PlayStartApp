@@ -21,7 +21,7 @@ GET     /myStudies				controllers.Experimenter.myStudies()
 GET 	/userSearch/:name/:target		controllers.Experimenter.userSearch(name: String, target: String)
 GET     /completeStudy			controllers.Experimenter.completeStudy()
 POST    /saveGeneralData/:id		controllers.Experimenter.saveGeneralData(id: Int)
-GET     /saveFilters			controllers.Experimenter.saveFilters()
+POST    /saveSessions/:id		controllers.Experimenter.saveSessions(id: Int)
 
 # Admin
 GET		/admin   				controllers.Admin.admin()

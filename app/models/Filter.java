@@ -28,6 +28,8 @@ public class Filter extends Model {
 	public int semesterFrom;
 
 	public int semesterUntil;
+	
+	public int experiment_id;
 
 	public static int create(int experimentId, String gender,
 			int semesterFrom, int semesterUntil) throws SQLException {
@@ -36,7 +38,7 @@ public class Filter extends Model {
 				ResultSet.CONCUR_UPDATABLE);
 
 		String delete = String.format("DELETE Filter FROM Filter "
-				+ " INNER JOIN Experiment ON Experiment.filter_id = Filter.id WHERE Experiment.id=%s",
+				+ " INNER JOIN Experiment ON Filter.experiment_id = Experiment.id WHERE Experiment.id=%s",
 				experimentId);
 		Logger.info(delete);
 			stmt.executeUpdate(delete);
@@ -44,8 +46,8 @@ public class Filter extends Model {
 		
 
 		String insert = String.format(
-				"INSERT INTO Filter (gender, semesterFrom, semesterUntil) "
-						+ "VALUES ('%s', %s, %s)", gender, semesterFrom,
+				"INSERT INTO Filter (gender, semesterFrom, semesterUntil, experiment_id) "
+						+ "VALUES ('%s', %s, %s, %s)", gender, semesterFrom,
 				semesterUntil, experimentId);
 			Logger.info(insert);
 			stmt.executeUpdate(insert,

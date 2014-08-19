@@ -33,7 +33,7 @@ public class Application extends Controller {
                 routes.javascript.Admin.deleteRoom(),
                 routes.javascript.Experimenter.userSearch(),
             	routes.javascript.Experimenter.saveGeneralData(),
-            	routes.javascript.Experimenter.saveFilters()
+            	routes.javascript.Experimenter.saveSessions()
 
             )
         );

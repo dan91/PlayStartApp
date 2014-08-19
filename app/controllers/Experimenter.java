@@ -1,7 +1,11 @@
 package controllers;
 
 import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.Map;
+
+import com.fasterxml.jackson.databind.JsonNode;
 
 import models.Experiment;
 import models.Filter;
@@ -11,6 +15,7 @@ import play.Logger;
 import play.data.Form;
 import play.data.validation.Constraints;
 import play.i18n.Messages;
+import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.index;
@@ -82,12 +87,10 @@ public class Experimenter extends Controller {
         if(genders.length > 1) {
         	gender = "both";
         }
-        	if(gender.length() == 1) {
-        		if(genders[0].equals("male"))
-        			gender = "male";
-        		else
-        			gender = "female";
-        	}
+        else {
+			gender = genders[0];
+    	}
+    	Logger.info(genders[0]);
         int filter_id = Filter.create(id, gender, semesterFrom, semesterUntil);
         	Logger.info("Filter angelegt: "+filter_id);
         for(String p : probandPools) {
@@ -96,6 +99,27 @@ public class Experimenter extends Controller {
 
         Experiment.update(id, name, description, duration, probandHours, probandAmount, expType, filter_id);
 		return ok();
+    }
+    
+    public static Result saveSessions(int id) throws SQLException {
+    	JsonNode values = request().body().asJson();
+    	JsonNode events = values.path("events");
+    	Iterator<JsonNode> i = events.elements();
+    	while(i.hasNext()) {
+    		JsonNode event = i.next();
+    		String datetime = event.path("datetime").textValue();
+			Logger.info(datetime);
+	    	Iterator<JsonNode> i2 = event.path("participations").elements();
+	    	//Session.create()
+	    	int session_id = 1;
+	    	while(i2.hasNext()) {
+	    		JsonNode part = i2.next();
+	    		String user_id = event.path("user_id").textValue();
+	    	}
+
+    	}
+
+    	return ok();
     }
     
     public static Result saveFilters() throws SQLException {
