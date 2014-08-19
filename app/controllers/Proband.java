@@ -60,7 +60,7 @@ public class Proband extends Controller {
 	        final String start_time = values.get("start_time")[0];
 	        final String end_time = values.get("end_time")[0];
 	        
-	        response().setHeader ("Content-Disposition", "attachment;filename=\"mycalendar.ics\"");
+	        response().setHeader ("Content-Disposition", "attachment;filename=mycalendar.ics");
 			response().setContentType("text/calendar");
 	        
 	        Calendar start = new GregorianCalendar();
@@ -82,7 +82,7 @@ public class Proband extends Controller {
 			net.fortuna.ical4j.model.Calendar cal = new net.fortuna.ical4j.model.Calendar();
 			// add product Id
 			cal.getProperties().add(
-					new ProdId("-//Mozilla.org/NONSGML Mozilla Calendar V1.1//EN"));
+					new ProdId("-// Tom Außenhofer mit ICal4j V1.0//DE"));
 			cal.getProperties().add(Version.VERSION_2_0);
 			cal.getProperties().add(CalScale.GREGORIAN);
 
@@ -124,7 +124,7 @@ public class Proband extends Controller {
 				
 				Logger.info(file.toString());
 				
-				return ok("i dont know");
+				return ok(file);
 			} catch (IOException | ValidationException e) {
 				// TODO Auto-generated catch block
 				return ok(e.toString());

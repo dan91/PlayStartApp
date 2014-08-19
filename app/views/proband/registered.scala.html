@@ -69,41 +69,11 @@ $(document).ready(function(){
     });
     	
     
-    infowindow.open(map,marker);
     	
-    $.(".getICS").click(function(w){
+   
+    	
     
-    	w.preventDefault();
-  	   
- 	   var statusCode = $(this).data('status');	
- 	   var felder = statusCode.split(';', 2);
- 	   
- 	   var begin = felder[0];
- 	   var end = felder[1];
-    	
-    	$.ajax({
-	        type : 'POST',
-	        url : '@routes.Proband.getICS()',
-	        data : {
-	            start_time: begin, end_time: end
-	        },
-	        success : function(data) {
-	            
-	            alert(data);
-	         /** Wenn ein gebäude kein Raum enthält würde es ohne die if-Abfrage
-      	  sonst das nächste Gebäude mitlöschen ! */
-      	 
-	      
-      	  
-	        },
-		     error : function(err) {
-            
-             
-             alert(err.responseText);             
-         	}
-         	
-		    });
-    });
+  		 
     
     
     
@@ -130,10 +100,18 @@ $(document).ready(function(){
  
  <div class="row">
             <div class="col-sm-3 col-xs-12"><b>@list.experiment_name</b></div>
-            <div class="col-sm-4 col-xs-12"><button data-status="@list.time;@list.end_time;" class="btn btn-default loc pull-left getICS" title="Juliuspromenade 8, 97070 W�rzburg"><span class="glyphicon glyphicon-calendar"></span></button> 
- 				<span style="float:left; margin-left:1em">
+            
+            
+         <form action="@routes.Proband.getICS()" method="POST" >
+            <input type="text" id="start_time" name="start_time" value="@list.time" style="display:none;"/>
+            <input type="text" id="end_time" name="end_time" value="@list.end_time" style="display:none;"/>
+           
+            
+            <div class="col-sm-4 col-xs-12"><button type="submit" id="getICS" class="btn btn-default loc pull-left" title="Juliuspromenade 8, 97070 W�rzburg"><span class="glyphicon glyphicon-calendar"></span></button> 
+ 				 <span style="float:left; margin-left:1em">
  					<b>@list.date</b><br>
  		@list.time-@list.end_time Uhr</span></div>
+         </form>
         
 <div class="col-sm-3 col-xs-12"><button data-status="@list.building_name;@list.building_description;@list.room_name;@list.room_description;@list.Lat;@list.Lng;" data-toggle="modal" data-target="#placeModal" class="btn btn-default loc pull-left mapButton" title="Juliuspromenade 8, 97070 W�rzburg"><span class="glyphicon glyphicon-map-marker"></span></button> 
  				<span style="float:left; margin-left:1em">
