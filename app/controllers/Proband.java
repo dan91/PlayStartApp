@@ -69,6 +69,7 @@ public class Proband extends Controller {
 
 	
 	public static Result getICS(){
+		
 		final Map<String, String[]> values = request().body().asFormUrlEncoded();
 		final String experiment_name = values.get("experiment_name")[0];
 		final String date = values.get("date")[0];
@@ -80,16 +81,15 @@ public class Proband extends Controller {
         
 		
 		
-		 
-		 Logger.debug(date.split(".")[0]);
+//		 Logger.debug(String.valueOf(felder.length));
 		 
 		Calendar start = new GregorianCalendar(); 
 		// Zum Überblick das Format:
 		// YYYY-M-D-H-M 
 		// Achtung der Monat beginnt bei 0 = Januar :D :D :D
-        int year = Integer.parseInt(date.split(".")[2]);
-        int month = Integer.parseInt(date.split(".")[1])   -1;
-        int day = Integer.parseInt(date.split(".")[0]);
+        int year = Integer.parseInt(date.split("\\.")[2]);
+        int month = Integer.parseInt(date.split("\\.")[1])   -1;
+        int day = Integer.parseInt(date.split("\\.")[0]);
         //Uhrzeit im Format: HH:00 deswegen erstmal die Stunden holen: start_time.split(":")[0]  
         // dann die Minuten start_time.split(":")[1]
 		start.set(year,month, day, Integer.parseInt(start_time.split(":")[0]), Integer.parseInt(start_time.split(":")[1]));
@@ -102,7 +102,7 @@ public class Proband extends Controller {
 		
 		// Create event
 		VEvent session = new VEvent(startTime, endTime,
-				"Ende Teaminterne Deadline");
+				"Studie: "+experiment_name);
 
 		net.fortuna.ical4j.model.Calendar cal = new net.fortuna.ical4j.model.Calendar();
 		// add product Id
@@ -148,6 +148,8 @@ public class Proband extends Controller {
 			return badRequest(e.toString());
 		}
 
+		 
+//		 return ok();
 	}	
 		
 		
