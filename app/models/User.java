@@ -101,7 +101,7 @@ public class User extends Model {
 //			e.course = rs.getString("course");
 //			e.proband_pool_id = rs.getInt("proband_pool_id");
 //			e.gender = rs.getString("gender");
-//			e.studystart = rs.getString("studystart");
+//			e.studystart = rs.getString("studytart");
 //			stmt.close();
 //			con.close();
 //			return e;
