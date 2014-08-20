@@ -7,6 +7,7 @@ import java.util.Map;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
+import models.Assignment;
 import models.Experiment;
 import models.Filter;
 import models.ProbandPoolFilter;
@@ -72,6 +73,7 @@ public class Experimenter extends Controller {
     }
     
     public static Result saveGeneralData(int id) throws SQLException {
+
     	final Map<String, String[]> values = request().body().asFormUrlEncoded();
         final String name = values.get("expName")[0];
         final String description = values.get("description")[0];
@@ -84,6 +86,7 @@ public class Experimenter extends Controller {
         final int semesterFrom = Integer.parseInt(values.get("semesterFrom")[0]);
         final int semesterUntil = Integer.parseInt(values.get("semesterUntil")[0]);
         final String[] genders = values.get("gender");
+        final String[] assignments = values.get("assignment");
         String gender = "";
         if(genders.length > 1) {
         	gender = "both";
@@ -99,6 +102,12 @@ public class Experimenter extends Controller {
         }
 
         Experiment.update(id, name, description, duration, probandHours, probandAmount, expType, filter_id);
+        Assignment.deleteByExperimentId(id);
+        for(String user_id : assignments) {
+        	int right = Integer.parseInt(values.get("assignment_rights_"+user_id)[0]);
+        	int user_id_int = Integer.parseInt(user_id);
+        	Assignment.create(id, user_id_int, right);
+        }
 		return ok();
     }
     
@@ -107,6 +116,7 @@ public class Experimenter extends Controller {
 		int room_id = values.path("room").asInt();
     	JsonNode events = values.path("events");
     	Iterator<JsonNode> i = events.elements();
+    	Session.deleteByExperimentId(id);
     	while(i.hasNext()) {
     		JsonNode event = i.next();
     		String datetime = event.path("datetime").textValue();

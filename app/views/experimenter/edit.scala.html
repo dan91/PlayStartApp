@@ -98,7 +98,7 @@ $( "#openPreview" ).click(function() {
 							@if(Room.byBuildingId(Build.id) != null) {
 							<select id="id-@Build.id" class="form-control buildingSelects" name="room">
 								@for(R <- Room.byBuildingId(Build.id)) {
-								<option value="@R.id">@R.name</option>
+								<option value="@R.id" if(e.room)>@R.name</option>
 								}
 							</select>
 							}
@@ -169,7 +169,7 @@ $( "#openPreview" ).click(function() {
 						<div class="row">
 							<div class="col-sm-12">
 								<button type="button" class="btn btn-default" id="add" data-toggle="modal" data-target="#sessionCalendar"><span class="glyphicon glyphicon-calendar"></span> Kalender</button>
-								<span class="badge" id="amount">0</span> <button type="button" id="showSessions">Anzeigen</button>
+								<span class="badge" id="amount">@Session.AmountByExperimentId(e.id)</span> <button type="button" id="showSessions">Anzeigen</button>
 							</div>
 						</div>
 						<div id="events" style="display:none">
@@ -186,14 +186,15 @@ $( "#openPreview" ).click(function() {
 						<div id="rowsExp">
 						@for(assignment <- Assignment.byExperimentId(e.id)) {
 						<div class="row mt1em expRow">
+							<input type="hidden" name="assignment" value="@assignment.user_id">
 							<div class="col-sm-3" id="name">@User.nameById(assignment.user_id)</div>						
 							<div class="col-sm-8">
 								<div class="btn-group pull-right">
 										<label class="btn btn-default">
-											<input type="radio" value="notifications" name="assignments_rights[@assignment.id]" @if(assignment.notifications_only) { checked }>
+											<input type="radio" value="1" name="assignment_rights_@assignment.user_id" @if(assignment.notifications_only) { checked }>
 											nur Benachrichtigungen </label>
 										<label class="btn btn-default">
-											<input type="radio" value="edit" name="assignments_rights[@assignment.id]" @if(assignment.notifications_only == false) { checked }>
+											<input type="radio" value="0" name="assignment_rights_@assignment.user_id" @if(assignment.notifications_only == false) { checked }>
 											Bearbeiten </label>
 								</div>
 						  	</div>
@@ -238,36 +239,7 @@ $( "#openPreview" ).click(function() {
     <!-- /.modal-dialog -->
     </div>
     <!-- /.modal -->
-    
-    <!-- Speichern-Dialog -->
-    <div class="modal fade" id="saveDialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                 <h4 class="modal-title">Änderungen speichern</h4>
 
-            </div>
-            <div class="modal-body">
-                  <div class="row">
-                  	<div class="col-sm-6"><h4 class="mt0">Allgemeine Daten & Filter</h4></div>
-                  	<div class="col-sm-6"><span id="progress_general">Warten...</span></div>
-                  </div>
-                  <div class="row">
-                  	<div class="col-sm-6"><h4 class="mt0">Sitzungen</h4></div>
-                  	<div class="col-sm-6"><span id="progress_sessions">Warten...</span></div>
-                  </div>
-                  <div class="row">
-                  	<div class="col-sm-6"><h4 class="mt0">Versuchsleiter</h4></div>
-                  	<div class="col-sm-6"><span id="progress_experimenters">Warten...</span></div>
-                  </div>
-            </div>
-            
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-    </div>
-    <!-- /.modal -->
 	
 	<div class="row" id="event" style="display:none">
 					<div class="col-xs-4"><span class="glyphicon glyphicon-calendar"></span> <span id="date"><span></div>
@@ -483,42 +455,58 @@ $( "#openPreview" ).click(function() {
 <button type="button" class="close" aria-hidden="true">&times;</button>
 <span class="datetime"></span>
 </div>
-<div class="progress">
-  <div class="progress-bar progress-bar-striped active"  role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
-  </div>
-</div>
-<span id="success_info" style="display: none" class="glyphicon glyphicon-ok"></span>
+<div class="row mt1em expRow" style="display:none">
+							<input type="hidden" name="assignment" value="">
+							<div class="col-sm-3" id="name"></div>						
+							<div class="col-sm-8">
+								<div class="btn-group pull-right">
+										<label class="btn btn-default">
+											<input type="radio" value="1" name="" checked>
+											nur Benachrichtigungen </label>
+										<label class="btn btn-default">
+											<input type="radio" value="0" name="">
+											Bearbeiten </label>
+								</div>
+						  	</div>
+						  	<div class="col-sm-1">
+						  		<button type="button" class="btn btn-danger expRem" id=""><span class="glyphicon glyphicon-remove"></span></button>
+						  	</div>
+						</div>
 				<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script> 
 				<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/localization/messages_de.js"></script> 
 			<script type="text/javascript" src="@routes.Assets.at("javascripts/calendar.js")"></script>
 			<script type="text/javascript">	
-	row_dr = $(".expRow").first().clone();
 	$("#modalAddPersons").on("shown.bs.modal", function() {
 		$("#expSearch").on('keyup',function() {
     		if ($(this).val().length >= 3) {
     			myJsRoutes.controllers.Experimenter.userSearch($(this).val(), "exp").ajax({
     				success : function(data) {
-    					console.log('in success-funktion');
     					$("#resultsExp").html(data);
     					$(".addExp").on('click', function() {
     						click = $(this);
     						show = true;
+    						console.log("addExp geklickt. gehe alle expRow durch...")
    							$(".expRow").find("button").each(function() {
    								console.log('vergleiche '+$(this).attr('id'));
 			    				console.log('mit :'+click.attr('id'));
    								if($(this).attr('id') == click.attr('id')) {
    									show = false;
-   									console.log('sind gleich. Nicht anzeigen');
+   									console.log('IDs sind gleich. Nicht anzeigen.');
    								}
    							});
 							if(show) {
-	  	    					row = row_dr.clone();
-	       						console.log(row);
+	  	    					row = $(".mt1em").last().clone();
+	  	    					row.attr('id','new')
 	    					    row.find("#name").text(click.data('user-name'));
-	    					    row.find("input").attr('name', 'options_new_'+click.attr('id'));
+	    					    row.find("input[type=hidden]").val(click.attr('id'))
+	    					    row.find("input[type=radio]").attr('name', 'assignment_rights_'+click.data('user-id'));
 	    					    row.find("#expRem").attr("id",click.attr("id"));
-	    					    row.show();
 	 						    $("#rowsExp").append(row);
+	 						    row.show();
+	 						   $('.expRem').on("click", function() {
+	 								$(this).parent().parent().fadeOut().remove();
+	 							})
+	       						console.log(row);
 	 						    return false;
  							}
 	    					
@@ -537,9 +525,11 @@ $( "#openPreview" ).click(function() {
 	NOCH NICHT FERTIG
 	**/
 	function selectRooms() {
+		console.log('selectRooms');
 		$(".buildingSelects").hide();
-		id = $("#buildings option:selected").attr('id');
-		$(".buildingSelects").find("#id-"+id+"").show();
+		id = $("#buildings option:selected").val();
+		console.log('zeige id-'+id);
+		$("#id-"+id).show();
 	};
 	
 	/**
@@ -686,7 +676,6 @@ $('#calendar').fullCalendar({
 							if(event.participations.length == $("#probandAmount").val()) {
 								$("#search").hide();
 							}
-							//$(".popover-content").html(el.html());
 
 						});
 						$(element).on('shown.bs.popover', function (e) {
@@ -750,8 +739,9 @@ $('#calendar').fullCalendar({
 						});
 					}
 				});
+
 function saveSessions() {
-	$("#progress_sessions").html('');
+	$("#progress_sessions").html('...');
 	events = $('#calendar').fullCalendar( 'clientEvents');
 	eventsJson = []
 	$.each(events, function (key, value) {
@@ -773,19 +763,14 @@ function saveSessions() {
 		dataType: 'json',
         contentType: "application/json; charset=utf-8",
 		success: function(data) {
-			si = $("#success_info").clone();
-			si.show();
-			$("#progress_sessions").html('');
-			$("#progress_sessions").append(si);
+			saveExperimenters();
+			$("#progress_sessions").html('Erledigt.');
 		}
 	});
 }
 
 $("#save").click(function() {
-	pr2 = $(".progress").clone();
-	$("#progress_general").html('');
-	$("#progress_general").append(pr2);
-	pr2.show();
+	$("#progress_general").html('...');
 	
 	/**
 	Allgemeine Informationen speichern
@@ -794,10 +779,7 @@ $("#save").click(function() {
 		method: 'post',
 		data: $(".form-horizontal").serialize(),
 		success : function(data) {
-			si2 = $("#success_info").clone();
-			si2.show();
-			$("#progress_general").html('');
-			$("#progress_general").append(si2);
+			$("#progress_general").html('Erledigt.');
 			saveSessions();
 		}
 		

@@ -17,9 +17,11 @@ $('#searchStudies').on("click", function() {
 	$("#search").show()
 })
 
-$
+
 $('.expRem').on("click", function() {
-	$(this).parent().parent().fadeOut();
+	$(this).parent().parent().fadeOut(500, function() {
+		$(this).remove();
+	})
 })
 				events = new Array();
 				

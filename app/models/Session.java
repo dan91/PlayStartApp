@@ -71,7 +71,18 @@ public class Session {
 		stmt.close();
 		con.close();
 		return list;
-    }    
+    }   
+    public static int AmountByExperimentId(Long id) throws SQLException {	
+    	Connection con = DB.getConnection();
+        Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+		ResultSet rs = stmt
+				.executeQuery("SELECT COUNT(*) AS amount FROM Session WHERE experiment_id = "+id+"");
+		rs.next();
+		int amount = rs.getInt("amount");
+		stmt.close();
+		con.close();
+		return amount;
+    }   
     
     
     
@@ -116,7 +127,7 @@ public class Session {
         return null;
     }
 
-    public static void delete(int experimentId) throws SQLException {
+    public static void deleteByExperimentId(int experimentId) throws SQLException {
     	Connection con = DB.getConnection();
 		Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
 				ResultSet.CONCUR_UPDATABLE);
@@ -125,10 +136,9 @@ public class Session {
 				+ " INNER JOIN Experiment ON Session.experiment_id = Experiment.id WHERE Experiment.id=%s",
 				experimentId);
 		Logger.info(delete);
-			stmt.executeUpdate(delete);
-		
-			stmt.close();
-			con.close();
+		stmt.executeUpdate(delete);
+		stmt.close();
+		con.close();
 
     }
 	public static int create(int id, String datetime, int room_id) throws SQLException {

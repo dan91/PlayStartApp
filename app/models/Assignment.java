@@ -10,6 +10,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+import play.Logger;
 import play.data.validation.Constraints;
 import play.db.DB;
 import play.db.ebean.Model;
@@ -45,5 +46,38 @@ public class Assignment extends Model {
 		stmt.close();
 		return list;
     }
+
+
+	public static void create(int user_id, int experiment_id, int right) throws SQLException {
+		// TODO Auto-generated method stub
+		Connection con = DB.getConnection();
+		Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
+				ResultSet.CONCUR_UPDATABLE);
+		
+
+		String insert = String.format(
+				"INSERT INTO Assignment (experiment_id, user_id, notifications_only) "
+						+ "VALUES ('%s', '%s', '%s')", user_id, experiment_id, right);
+			Logger.info(insert);
+			stmt.executeUpdate(insert);
+			stmt.close();
+			con.close();
+	}
+
+
+	public static void deleteByExperimentId(int experimentId) throws SQLException {
+		Connection con = DB.getConnection();
+		Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
+				ResultSet.CONCUR_UPDATABLE);
+
+		String delete = String.format("DELETE Assignment FROM Assignment "
+				+ " INNER JOIN Experiment ON Assignment.experiment_id = Experiment.id WHERE Experiment.id=%s",
+				experimentId);
+		Logger.info(delete);
+		stmt.executeUpdate(delete);
+		stmt.close();
+		con.close();
+		
+	}
     
 }
