@@ -10,6 +10,7 @@ GET     /assets/*file           controllers.Assets.at(path="/public", file)
 
 # Proband
 GET     /registered             controllers.Proband.registered()
+POST    /registered             controllers.Proband.getICS()
 GET     /available              controllers.Proband.available()
 GET     /completed              controllers.Proband.completed()
 GET		/register			    controllers.account.Signup.register()
