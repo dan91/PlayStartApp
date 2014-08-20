@@ -104,6 +104,28 @@ public class RegisteredMapper {
         
     } 
 	
+	public static int getRegisterAmount(Long id) throws SQLException{
+		
+		Connection con = DB.getConnection();
+        Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+		
+        ResultSet rs = stmt
+				.executeQuery("SELECT Count(Participation.id) AS amount FROM "
+						+ "Participation JOIN Session ON Participation.id = Session.id WHERE "
+						+ "Participation.id="+id+" AND Session.datetime > NOW();");
+        
+        int amount = 0;
+        
+        while(rs.next()) {
+			amount = rs.getInt("amount");
+			
+        }
+        stmt.close();
+        con.close();
+        
+		return amount;
+	}
+	
 	
 	public static String getEndTime(String date, String time, float duration) {
 		

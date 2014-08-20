@@ -78,7 +78,13 @@ $(document).ready(function(){
 
 
 <div class="page-header">
-		<h3>Anmeldungen <span class="label label-default">3</span></h3>
+		<h3>Anmeldungen 
+		@if(RegisteredMapper.getRegisterAmount(1) != 0){
+		<span class="label label-default">
+		@RegisteredMapper.getRegisterAmount(1)
+		</span>
+		}
+		</h3>
 	</div>
 
 
