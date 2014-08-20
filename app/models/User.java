@@ -134,6 +134,48 @@ public class User extends Model {
 		return u;
     }
     
+    public static int vpsById(Long id) throws SQLException {
+    	Connection con = DB.getConnection();
+        Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+		ResultSet rs = stmt
+				.executeQuery("SELECT SUM(proband_hours) AS Amount FROM Experiment, Session, Participation WHERE Participation.user_id = "+id+" AND Participation.session_id = Session.id AND Session.experiment_id = Experiment.id");
+		rs.next();
+		int vps = rs.getInt("Amount");
+			stmt.close();
+			con.close();
+		return vps;
+    }
+    
+    public static int allVps() throws SQLException {
+    	Connection con = DB.getConnection();
+        Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+		ResultSet rs = stmt
+				.executeQuery("SELECT SUM(proband_hours) AS Amount FROM Experiment, Participation WHERE Participation.was_present = 1");
+		rs.next();
+		int vps = rs.getInt("Amount");
+			stmt.close();
+			con.close();
+		return vps;
+    }
+    
+    public static int allUser25Vps() throws SQLException {
+    	int amount = 0;
+    	
+    	Connection con = DB.getConnection();
+        Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+		ResultSet rs = stmt
+				.executeQuery("SELECT id FROM User");
+		while(rs.next()){
+			long userid = rs.getInt("id");
+			if (vpsById(userid) >= 25){
+				amount ++;}		
+		}
+			stmt.close();
+			con.close();
+		return amount;
+    }
+    
+    
 
        public static int allUsers() throws SQLException {
         Connection con = DB.getConnection();

@@ -121,7 +121,7 @@
 						<table class="table table-hover">					  <tbody>
 								<tr>
 					  		<td class="col-sm-8">Probanden > 25VPS</td>
-					  		<td>TODO</td> <!-- hier muss die query ueber Participation ausrechnen ob jemand mehr als 25pkt hat. -->
+					  		<td>@User.allUser25Vps()</td> 
 					  		</tr>
 					  </tbody>
 					</table>
@@ -184,7 +184,7 @@
 					  	</tr>
 					  		<tr>
 					  		<td class="col-sm-8">Verteilte VPS</td>
-					  		<td>@User.allVPS() TODO</td> <!-- Kompliziert gerade ��ber Participation * Session * proband_hours zu kommen?! -->
+					  		<td>@User.allVps()</td>
 					  	</tr>
 					  </tbody>
 					</table>
