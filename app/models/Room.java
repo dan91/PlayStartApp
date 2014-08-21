@@ -155,11 +155,12 @@ public class Room extends Model {
         List<Integer> sessionsTime = new ArrayList<Integer>();
         
         
-        String checkRoomInUse = String.format("SELECT Session.id,Session.datetime,Session.room_id FROM Session WHERE room_id=%s;",id);
+        String checkRoomInUse = String.format("SELECT Session.id,Session.datetime,Session.room_id FROM Session WHERE room_id=%s"
+        		+ " AND Session.datetime > NOW(); ",id);
+        
         ResultSet rs = stmt.executeQuery(checkRoomInUse);
         while(rs.next()){
-        	sessionsDate.add(Integer.parseInt(rs.getString("datetime").split(" ")[0].replace("-", "")));
-			sessionsTime.add(Integer.parseInt(rs.getString("datetime").split(" ")[1].replace(".0", "").replace(":","")));
+        	// FEHLT HIER NOCH 
         }
         
         stmt.close();
@@ -170,28 +171,6 @@ public class Room extends Model {
         roomsInUse= false;
         
         
-        /** WENN ES KLEINER IST SESSION ZUKÜNFTIG, RAUM ALSO IN ZUKUNFT NOCH BELEGT */
-        for (int i = 0; i < sessionsDate.size(); i++) {
-			
-        	if(dateInt     <      sessionsDate.get(i)){
-        		roomsInUse = true;
-        		break;
-        	}	
-        	else if(dateInt     ==      sessionsDate.get(i) &&
-        			timeInt     <       sessionsTime.get(i)){
-        		roomsInUse = true;
-        		break;
-        	}
-        	else if(dateInt     >      sessionsDate.get(i)){
-        		roomsInUse = false;
-        	}
-        	else if(dateInt    ==      sessionsDate.get(i) &&
-        			timeInt     >      sessionsTime.get(i)){
-        		roomsInUse = false;
-        	} 
-        		
-		}
-        
         if(roomsInUse)
         	Logger.error("ROOM IS STILL IN USE!");
         else{
@@ -201,37 +180,40 @@ public class Room extends Model {
         return roomsInUse;
     	
     }
+
     
-    public static void deleteRooms(List<Integer> roomIds) throws SQLException{
-    	
-    	Connection con = DB.getConnection();
-        Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-       
-        /*DISABLE FOREIGN KEY CHECKS*/
-        stmt.execute("SET FOREIGN_KEY_CHECKS=0");
-		stmt.close();
-		
-		stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-        
-		
-		/*DELETE ROOMS NO LONGER USED*/
-        for (int i = 0; i < roomIds.size(); i++) {
-        	String delete = String.format("DELETE FROM Room WHERE id=%s;",roomIds.get(i));
-            stmt.executeUpdate(delete);
-		}
-       
-        stmt.close();
-        
-        /*ENABLE FOREIGN KEY CHECKS */
-        stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-        stmt.execute("SET FOREIGN_KEY_CHECKS=1");
-		stmt.close();
-        
-        con.close();
-        
-        String message="ALL ROOMS HAVE BEEN DELETED";
-        Logger.info(message);
-    	
-    }
+//    ÜBERFLÜSSIG: GEBÄUDE WERDEN NICHT GELÖSCHT SONDERN INS ARCHIV VERSCHOBEN
+    
+//    public static void deleteRooms(List<Integer> roomIds) throws SQLException{
+//    	
+//    	Connection con = DB.getConnection();
+//        Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+//       
+//        /*DISABLE FOREIGN KEY CHECKS*/
+//        stmt.execute("SET FOREIGN_KEY_CHECKS=0");
+//		stmt.close();
+//		
+//		stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+//        
+//		
+//		/*DELETE ROOMS NO LONGER USED*/
+//        for (int i = 0; i < roomIds.size(); i++) {
+//        	String delete = String.format("DELETE FROM Room WHERE id=%s;",roomIds.get(i));
+//            stmt.executeUpdate(delete);
+//		}
+//       
+//        stmt.close();
+//        
+//        /*ENABLE FOREIGN KEY CHECKS */
+//        stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+//        stmt.execute("SET FOREIGN_KEY_CHECKS=1");
+//		stmt.close();
+//        
+//        con.close();
+//        
+//        String message="ALL ROOMS HAVE BEEN DELETED";
+//        Logger.info(message);
+//    	
+//    }
     
 }

@@ -168,7 +168,6 @@ public class Admin extends Controller {
         
     	
     	
-    	
     	try {
     		final Boolean roomInUse = Building.checkRoomsUsedInSession(idToDelete);
     		

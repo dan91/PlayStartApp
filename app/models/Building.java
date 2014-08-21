@@ -133,16 +133,13 @@ public class Building extends Model {
     	Connection con = DB.getConnection();
         Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
        
-        String delete = String.format("DELETE FROM Building WHERE id=%s;",id);
-        stmt.executeUpdate(delete);
+        String buildingToArchive = String.format("Update Building SET "
+        		+ "archive=1 WHERE id=%s;",id);
+        stmt.executeUpdate(buildingToArchive);
         stmt.close();
         
         con.close();
         
-        String message="Deleted on server, row with id: "+id+"\n "
-    			+"has been deleted.";
-        Logger.info(message);
-    	
     }
     
     
@@ -171,85 +168,43 @@ public class Building extends Model {
         String checkIt = 
         		String.format(
         
-        				"SELECT Session.room_id,Session.datetime FROM Session LEFT Join Room ON Session.room_id = Room.id WHERE Room.building_id = %s;",id);
-       
+        				"SELECT Count(Room.id) AS amount FROM Session Join Room ON Session.room_id = Room.id WHERE Room.building_id = %s"
+        				+ " AND Session.datetime > NOW();",id);
+        
         ResultSet rs = stmt.executeQuery(checkIt);
         
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date date = new Date();
+//        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        Date date = new Date();
+//        
+//        int dateInt = Integer.parseInt(dateFormat.format(date).split(" ")[0].replace("-", ""));
+//        int timeInt = Integer.parseInt(dateFormat.format(date).split(" ")[1].replace(":",""));
         
-        int dateInt = Integer.parseInt(dateFormat.format(date).split(" ")[0].replace("-", ""));
-        int timeInt = Integer.parseInt(dateFormat.format(date).split(" ")[1].replace(":",""));
-        
-        
-        List<Integer> roomIds = new ArrayList<Integer>();
-        
-        List<Integer> sessionsDate = new ArrayList<Integer>();
-        List<Integer> sessionsTime = new ArrayList<Integer>();
+        int amount = 0;
         
         while(rs.next()) {
-
-        	
-        	
-        	if(!roomIds.contains(rs.getInt("room_id")))
-        		roomIds.add(rs.getInt("room_id"));
-        	
-			sessionsDate.add(Integer.parseInt(rs.getString("datetime").split(" ")[0].replace("-", "")));
-			sessionsTime.add(Integer.parseInt(rs.getString("datetime").split(" ")[1].replace(".0", "").replace(":","")));
+        		amount = rs.getInt("amount");
 		}
         
         stmt.close();
         con.close();
         
-        Logger.debug(String.valueOf(roomIds.size()));
-
-        boolean buildingHasNoRooms = false;
-        boolean roomsInUse= true;
-        		
-        if(roomIds.size() == 0)
-        buildingHasNoRooms = true;
-        if(buildingHasNoRooms)
-        	roomsInUse = !roomsInUse;
+        boolean hasRoomsInUse = true;
+        if(amount == 0)
+        	hasRoomsInUse = false;
         
-        
-       
-        /** WENN ES KLEINER IST SESSION ZUKÜNFTIG, RAUM ALSO IN ZUKUNFT NOCH BELEGT */
-        for (int i = 0; i < sessionsDate.size(); i++) {
-			
-        	if(dateInt     <      sessionsDate.get(i)){
-        		roomsInUse = true;
-        		break;
-        	}	
-        	else if(dateInt     ==      sessionsDate.get(i) &&
-        			timeInt     <       sessionsTime.get(i)){
-        		roomsInUse = true;
-        		break;
-        	}
-        	else if(dateInt     >      sessionsDate.get(i)){
-        		roomsInUse = false;
-        	}
-        	else if(dateInt    ==      sessionsDate.get(i) &&
-        			timeInt     >      sessionsTime.get(i)){
-        		roomsInUse = false;
-        	} 
-        		
-		}
-        
-        
-        if(roomsInUse)
-        	Logger.error("ROOM IS STILL IN USE!");
+        if(hasRoomsInUse)
+        	Logger.error("BUILDING IS STILL IN USE!");
         else{
-        	Logger.info("ROOM IS NOT IN USE!");
+        	Logger.info("BUILDING IS CURRENTLY NOT IN USE!");
         	try{
-        		Room.deleteRooms(roomIds);
         		Building.delete(id);
         	} catch(SQLException e){
-        		Logger.error("Fehler beim Räume Löschen!\n "+e.toString());
+        		Logger.error("BUILDING TO ARCHIVE ERROR! \n"+e.toString());
         	}
         }
         
         
-        return roomsInUse;
+        return hasRoomsInUse;
         
     }
     
