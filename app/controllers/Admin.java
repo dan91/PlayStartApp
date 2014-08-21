@@ -159,6 +159,8 @@ public class Admin extends Controller {
 		}
     }
     
+    
+    
     public static Result deleteBuilding(){
     	
     	final Map<String, String[]> values = request().body().asFormUrlEncoded();
@@ -168,23 +170,32 @@ public class Admin extends Controller {
         
     	
     	
-    	try {
-    		final Boolean roomInUse = Building.checkRoomsUsedInSession(idToDelete);
+    	
+    	Boolean hasRoomsInUse = null;
+		try {
+			hasRoomsInUse = Building.checkRoomsUsedInSession(idToDelete);
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			return badRequest("ERROR CHECKING IF ROOMS IN USE:\n"+e1.toString());
+		}
     		
-    		if(roomInUse)
+			
+    		if(!hasRoomsInUse){
+    			try{
+		    			Building.delete(idToDelete);
+		    			return ok("Das Gebäude "+nameToDelete+" wurde ins Archiv verschoben!\n"
+		        				+ "Es können nun keine Studien mehr in ihm stattfinden.");
+    			} catch (SQLException e){
+    					return badRequest("BUILDING TO ARCHIV ERROR! "+e.toString());
+    			}
+    		}	
+    		else if(hasRoomsInUse)
     			return badRequest("In diesem Gebäude finden noch Studien statt, deren Sessions noch nicht abgelaufen sind!");
-    		
     		else{
-    			
-    			return ok("Das Gebäude "+nameToDelete+" wurde vom Server gelöscht.");
+    			return badRequest("BOOLEAN CHECKING IF ROOMS IN USE == NULL: 'SOMETHING WENT VERY WRONG' ");
     		}
     		
-		} catch (SQLException e) {
-			
-			return badRequest(e.toString());
-		}
-    	
-    	
+		
     	
     }
     

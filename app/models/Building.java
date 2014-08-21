@@ -173,12 +173,6 @@ public class Building extends Model {
         
         ResultSet rs = stmt.executeQuery(checkIt);
         
-//        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//        Date date = new Date();
-//        
-//        int dateInt = Integer.parseInt(dateFormat.format(date).split(" ")[0].replace("-", ""));
-//        int timeInt = Integer.parseInt(dateFormat.format(date).split(" ")[1].replace(":",""));
-        
         int amount = 0;
         
         while(rs.next()) {
@@ -192,16 +186,6 @@ public class Building extends Model {
         if(amount == 0)
         	hasRoomsInUse = false;
         
-        if(hasRoomsInUse)
-        	Logger.error("BUILDING IS STILL IN USE!");
-        else{
-        	Logger.info("BUILDING IS CURRENTLY NOT IN USE!");
-        	try{
-        		Building.delete(id);
-        	} catch(SQLException e){
-        		Logger.error("BUILDING TO ARCHIVE ERROR! \n"+e.toString());
-        	}
-        }
         
         
         return hasRoomsInUse;
