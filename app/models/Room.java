@@ -33,16 +33,16 @@ public class Room extends Model {
 
     public Long building_id;
   
-    public static int byBuildingId(int buildingId) throws SQLException {	
+    public static int getBuildingIdbyId(int id) throws SQLException {	
     	Connection con = DB.getConnection();
         Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 		ResultSet rs = stmt
-				.executeQuery("SELECT COUNT(*) AS amount FROM Building, Room WHERE Room.building_id = "+buildingId+"");
+				.executeQuery("SELECT building_id FROM Room WHERE id = "+id+"");
 		rs.next();
-		int amount = rs.getInt("amount");
+		int building_id = rs.getInt("building_id");
 		stmt.close();
 		con.close();
-		return amount;
+		return building_id;
     }    
 
     /**

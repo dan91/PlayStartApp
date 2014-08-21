@@ -5,6 +5,7 @@ import java.util.*;
 
 import javax.persistence.*;
 
+import play.Logger;
 import play.db.*;
 import play.db.ebean.*;
 import play.data.format.*;
@@ -157,7 +158,7 @@ public class Experiment extends Model {
 		return list;
     }
 
-	public static Boolean create(String name, String description, int duration,
+	public static int create(String name, String description, int duration,
 			float probandHours, int probandAmount, int expType,
 			int defaultRoom_id) throws SQLException {
 		Connection con = DB.getConnection();
@@ -167,11 +168,20 @@ public class Experiment extends Model {
         String insert = String.format("INSERT INTO Experiment (name, description, duration, proband_hours, max_probands, experiment_type_id, defaultRoom_id) VALUES "
         		+ "('%s','%s','%s','%s','%s','%s','%s') " ,name,description,duration,probandHours,probandAmount, expType, defaultRoom_id);
         
-      
-       stmt.executeUpdate(insert);
+      Logger.info(insert);
+       stmt.executeUpdate(insert, Statement.RETURN_GENERATED_KEYS);
+       int experiment_id = 0;
+       try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+           if (generatedKeys.next()) {
+           	experiment_id = generatedKeys.getInt(1);
+           }
+           else {
+               throw new SQLException();
+           }
+       }
 	   stmt.close();
        con.close();
-       return true;
+       return experiment_id;
 		
 	} 
     

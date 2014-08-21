@@ -85,6 +85,9 @@ $('#sessionCalendar').on('hidden.bs.modal', function() {
 	$('.form-horizontal').validate(
 	{
 		rules: {
+			expType : {
+				required: true
+			}
 			name: {
 				minlength: 6,
 				required: true
@@ -203,7 +206,7 @@ $('#sessionCalendar').on('hidden.bs.modal', function() {
 		// Session-Dauer aus Eingabefeld
 		dur = $("#duration option:selected").text();
 
-function saveSessions() {
+function saveSessions(id) {
 	events = $('#calendar').fullCalendar( 'clientEvents');
 	eventsJson = []
 	$.each(events, function (key, value) {
@@ -218,7 +221,7 @@ function saveSessions() {
 			'room' : $(".buildingSelects:visible option:selected").val(),
 			'events': eventsJson
 	}
-	myJsRoutes.controllers.Experimenter.saveSessions(experiment_id).ajax({
+	myJsRoutes.controllers.Experimenter.saveSessions(id).ajax({
 		method: 'post',
 		data: JSON.stringify(fin),
         contentType: "application/json; charset=utf-8",
@@ -236,8 +239,10 @@ $("#save").click(function() {
 	myJsRoutes.controllers.Experimenter.saveGeneralData(experiment_id).ajax({
 		method: 'post',
 		data: $(".form-horizontal").serialize(),
-		success : function(resp) {
-			saveSessions();
+		success : function(return_id) {
+			if(return_id == 0)
+				return_id = experiment_id
+			saveSessions(return_id);
 		}
 		
 	});

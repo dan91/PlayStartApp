@@ -94,7 +94,24 @@ public class Participation extends Model {
 		stmt.close();
 		con.close();
 		return list;
-    }    
+    }
+
+	public static void create(int session_id, int user_id) throws SQLException {
+		Connection con = DB.getConnection();
+		Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
+				ResultSet.CONCUR_UPDATABLE);
+		
+
+		String insert = String.format(
+				"INSERT INTO Participation (session_id, user_id) "
+						+ "VALUES ('%s', '%s')", session_id,user_id);
+			Logger.info(insert);
+			stmt.executeUpdate(insert);
+			
+			stmt.close();
+			con.close();
+		
+	}    
     
     
 }

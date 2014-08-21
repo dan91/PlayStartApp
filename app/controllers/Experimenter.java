@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import models.Assignment;
 import models.Experiment;
 import models.Filter;
+import models.Participation;
 import models.ProbandPoolFilter;
 import models.Session;
 import models.User;
@@ -90,6 +91,7 @@ public class Experimenter extends Controller {
         final int semesterUntil = Integer.parseInt(values.get("semesterUntil")[0]);
         final String[] genders = values.get("gender");
         final String[] assignments = values.get("assignment");
+        
         String gender = "";
         if(genders.length > 1) {
         	gender = "both";
@@ -98,23 +100,29 @@ public class Experimenter extends Controller {
 			gender = genders[0];
     	}
     	Logger.info(genders[0]);
-        int filter_id = Filter.create(id, gender, semesterFrom, semesterUntil);
-        	Logger.info("Filter angelegt: "+filter_id);
-        for(String p : probandPools) {
-        	ProbandPoolFilter.create(filter_id, p);
+    	
+        
+        int exp_id = 0;
+        if(id == 0) {
+            exp_id = Experiment.create(name, description, duration, probandHours, probandAmount, expType, defaultRoom_id);
         }
-        if(id == 0)
-            Experiment.create(name, description, duration, probandHours, probandAmount, expType, defaultRoom_id);
         else {
-        	Experiment.update(id, name, description, duration, probandHours, probandAmount, expType, defaultRoom_id);
-        	Assignment.deleteByExperimentId(id);
+        	exp_id = id;
+        	Experiment.update(exp_id, name, description, duration, probandHours, probandAmount, expType, defaultRoom_id);
+        	Assignment.deleteByExperimentId(exp_id);
         }
+        int filter_id = Filter.create(exp_id, gender, semesterFrom, semesterUntil);
+    	Logger.info("Filter angelegt: "+filter_id);
+    	for(String p : probandPools) {
+    		ProbandPoolFilter.create(filter_id, p);
+    	}
         for(String user_id : assignments) {
         	int right = Integer.parseInt(values.get("assignment_rights_"+user_id)[0]);
         	int user_id_int = Integer.parseInt(user_id);
-        	Assignment.create(id, user_id_int, right);
+        	Assignment.create(exp_id, user_id_int, right);
         }
-		return ok();
+        String ret_str = String.valueOf(exp_id);
+		return ok(ret_str);
     }
     
     public static Result saveSessions(int id) throws SQLException {
@@ -122,19 +130,20 @@ public class Experimenter extends Controller {
 		int room_id = values.path("room").asInt();
     	JsonNode events = values.path("events");
     	Iterator<JsonNode> i = events.elements();
-    	Session.deleteByExperimentId(id);
+    	if(id != 0)
+    		Session.deleteByExperimentId(id);
     	while(i.hasNext()) {
     		JsonNode event = i.next();
     		String datetime = event.path("datetime").textValue();
-			Logger.info(datetime);
 	    	Iterator<JsonNode> i2 = event.path("participations").elements();
 	    	int session_id = Session.create(id, datetime, room_id);
 	    	while(i2.hasNext()) {
 	    		JsonNode part = i2.next();
-	    		String user_id = event.path("user_id").textValue();
+	    		int user_id = Integer.parseInt(event.path("user_id").textValue());
 	    		Logger.info("-- "+user_id);
+	    		Participation.create(session_id, user_id);
 	    	}
-
+	    	
     	}
 
     	return ok();
