@@ -8,10 +8,11 @@ import java.util.*;
 
 import javax.persistence.*;
 
+import org.joda.time.DateTime;
+
 import play.Logger;
 import play.db.DB;
 import play.db.ebean.*;
-import play.data.format.*;
 import play.data.validation.*;
 
 import com.avaje.ebean.*;
@@ -82,8 +83,10 @@ public class Participation extends Model {
     public static List<Participation> bySessionId(Long id) throws SQLException {	
     	Connection con = DB.getConnection();
         Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        String select = "SELECT Participation.id, user_id FROM Participation, Session WHERE Participation.session_id = Session.id AND Session.id = "+id+" AND Session.datetime < NOW()";
 		ResultSet rs = stmt
-				.executeQuery("SELECT Participation.id, user_id FROM Participation, Session WHERE Participation.session_id = Session.id AND Session.id = "+id+" AND Session.datetime < NOW()");
+				.executeQuery(select);
+		Logger.info(select);
 		List<Participation> list = new ArrayList<Participation>();
 		while(rs.next()) {
 			Participation p = new Participation();
@@ -91,11 +94,13 @@ public class Participation extends Model {
 			p.user_id = rs.getLong("user_id");
 			list.add(p);
 		}
-		stmt.close();
+ 		stmt.close();
 		con.close();
 		return list;
     }
 
+    
+    
 	public static void create(int session_id, int user_id) throws SQLException {
 		Connection con = DB.getConnection();
 		Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,

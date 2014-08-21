@@ -134,12 +134,12 @@ public class Experimenter extends Controller {
     		Session.deleteByExperimentId(id);
     	while(i.hasNext()) {
     		JsonNode event = i.next();
-    		String datetime = event.path("datetime").textValue();
+    		long datetime = event.path("datetime").asLong();
 	    	Iterator<JsonNode> i2 = event.path("participations").elements();
 	    	int session_id = Session.create(id, datetime, room_id);
 	    	while(i2.hasNext()) {
 	    		JsonNode part = i2.next();
-	    		int user_id = Integer.parseInt(event.path("user_id").textValue());
+	    		int user_id = Integer.parseInt(part.path("user_id").textValue());
 	    		Logger.info("-- "+user_id);
 	    		Participation.create(session_id, user_id);
 	    	}
@@ -159,7 +159,7 @@ public class Experimenter extends Controller {
      * @return
      */
     public static Result confirmParticipation(int experimentId) {  
-        return ok(views.html.experimenter.confirmParticipation.render());
+        return ok(views.html.experimenter.confirmParticipation.render(experimentId));
     }
 
 

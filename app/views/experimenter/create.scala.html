@@ -1,9 +1,9 @@
 @scripts = {
-<link rel='stylesheet' href='@routes.Assets.at("stylesheets/fullcalendar.css")' />
-<script src='@routes.Assets.at("javascripts/jquery-ui.custom.min.js")'></script>
-<script src='@routes.Assets.at("javascripts/jquery.ui.touch-punch.min.js")'></script>
-<script src='@routes.Assets.at("javascripts/moment-with-langs.min.js")'></script>
-<script src='@routes.Assets.at("javascripts/fullcalendar.min.js")'></script>
+<link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.0.3/fullcalendar.css' />
+<script src='https://code.jquery.com/ui/1.11.1/jquery-ui.min.js'></script>
+<!--  <script src='@routes.Assets.at("javascripts/jquery.ui.touch-punch.min.js")'></script>  TOUCH SUPPORT DISABLED !!! -->
+<script src='//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.1/moment-with-locales.min.js'></script>
+<script src='//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.0.3/fullcalendar.min.js")'></script>
 
 
 <script>
@@ -474,7 +474,7 @@ $( "#openPreview" ).click(function() {
 				<script type="text/javascript">
 				experiment_id = 0;		
 				</script>
-										<script type="text/javascript" src="@routes.Assets.at("javascripts/calendar.js")"></script>
+										<script type="text/javascript" src="/assets/javascripts/calendar.js"></script>
 				
 			<script type="text/javascript">	
 			$('#calendar').fullCalendar({
@@ -509,7 +509,7 @@ $( "#openPreview" ).click(function() {
 					temp = start;
 					while($.fullCalendar.moment(temp).isBefore(end)) {
 					var eventData;
-					temp_end = $.fullCalendar.moment(temp).add('m',dur);
+					temp_end = $.fullCalendar.moment(temp).add(dur, 'm');
 					eventData = {
 						title: '',
 						start: temp,

@@ -210,7 +210,7 @@ function saveSessions(id) {
 	events = $('#calendar').fullCalendar( 'clientEvents');
 	eventsJson = []
 	$.each(events, function (key, value) {
-		datetime = value.start.format("YYYY-MM-DD HH:mm");
+		datetime = value.start.valueOf();
 		e = {
 				'datetime': datetime,
 				'participations' : value.participations

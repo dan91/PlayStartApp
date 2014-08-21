@@ -13,6 +13,10 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
 import controllers.SQLConn;
 import play.Logger;
 import play.data.validation.Constraints;
@@ -26,7 +30,7 @@ public class Session {
     @Id
     public Long id;
     
-    public String datetime;
+    public long datetime;
 
     public Long room_id;
 
@@ -65,13 +69,53 @@ public class Session {
 		while(rs.next()) {
 			Session s = new Session();
 			s.id = rs.getLong("id");
-			s.datetime = rs.getString("datetime");
+			s.datetime = rs.getLong("datetime");
 			list.add(s);
 		}
 		stmt.close();
 		con.close();
 		return list;
     }   
+    
+    public static String getNiceDate(String d) {
+    	DateTime dt = new DateTime(d);
+    	DateTimeFormatter fmt = DateTimeFormat.forPattern("EEEE, dd.MM.yyyy");
+    	return fmt.toString();
+    }
+    
+    public static List<Session> toConfirmByExperimentId(Long id) throws SQLException {	
+    	Connection con = DB.getConnection();
+        Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+		ResultSet rs = stmt
+				.executeQuery("SELECT Session.id, user_id, session_id, datetime, was_present FROM Participation, Session WHERE experiment_id = "+id+" AND was_present IS NULL AND Session.id = Participation.session_id AND datetime < NOW()");
+		List<Session> list = new ArrayList<Session>();
+		while(rs.next()) {
+			Session p = new Session();
+			p.id = rs.getLong("id");
+			p.datetime = rs.getLong("datetime");
+			
+			list.add(p);
+		}
+		stmt.close();
+		con.close();
+		return list;
+    }   
+    
+    public static Session byId(Long id) throws SQLException {	
+    	Connection con = DB.getConnection();
+        Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+		ResultSet rs = stmt
+				.executeQuery("SELECT datetime FROM Session WHERE id = "+id+"");
+		rs.next();
+		Session s = new Session();
+		s.datetime = rs.getLong("datetime");
+		stmt.close();
+		con.close();
+		return s;
+    }   
+    
+    
+    
     public static int AmountByExperimentId(Long id) throws SQLException {	
     	Connection con = DB.getConnection();
         Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -141,7 +185,7 @@ public class Session {
 		con.close();
 
     }
-	public static int create(int id, String datetime, int room_id) throws SQLException {
+	public static int create(int id, long datetime, int room_id) throws SQLException {
 		Connection con = DB.getConnection();
 		Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
 				ResultSet.CONCUR_UPDATABLE);
