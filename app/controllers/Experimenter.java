@@ -158,8 +158,8 @@ public class Experimenter extends Controller {
      *
      * @return
      */
-    public static Result completeStudy() {  
-        return ok(views.html.experimenter.completeStudy.render());
+    public static Result confirmParticipation(int experimentId) {  
+        return ok(views.html.experimenter.confirmParticipation.render());
     }
 
 

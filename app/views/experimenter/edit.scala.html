@@ -1,10 +1,11 @@
- @(e: Experiment)
-@import java.math.BigInteger; var index=1 
-@import java.math.BigInteger; var index2=1 
-@scripts = {
-<link rel='stylesheet' href='@routes.Assets.at("stylesheets/fullcalendar.css")' />
+ @(e: Experiment) 
+ 
+ @scripts = {
+<link rel='stylesheet'
+	href='@routes.Assets.at("stylesheets/fullcalendar.css")' />
 <script src='@routes.Assets.at("javascripts/jquery-ui.custom.min.js")'></script>
-<script src='@routes.Assets.at("javascripts/jquery.ui.touch-punch.min.js")'></script>
+<script
+	src='@routes.Assets.at("javascripts/jquery.ui.touch-punch.min.js")'></script>
 <script src='@routes.Assets.at("javascripts/moment-with-langs.min.js")'></script>
 <script src='@routes.Assets.at("javascripts/fullcalendar.min.js")'></script>
 
@@ -44,7 +45,7 @@ $( "#openPreview" ).click(function() {
 </script>
 
 
-}
+} 
 
 @main(null, scripts, "experimenter") {
 <div role="main" class="container main">
@@ -52,435 +53,513 @@ $( "#openPreview" ).click(function() {
 		<h2>Studie bearbeiten</h2>
 	</div>
 	@helper.form(routes.Application.index(), 'class -> "form-horizontal") {
-		<div class="form-group">
-			<label for="expName" class="col-sm-3 control-label">Name</label>
-			<div class="col-sm-7">
-				<input type="text" class="form-control" value="@e.name" name="expName">
-			</div>
-		</div>
-		<div class="form-group">
-			<label for="description" class="col-sm-3 control-label">Beschreibung</label>
-			<div class="col-sm-7">
-				<textarea class="form-control" name="description" rows="4" id="description">@e.description</textarea>
-			</div>
-		</div>
-		<div class="form-group">
-			<label for="description" class="col-sm-3 control-label">Typ</span></label>
-			
-			<div class="col-sm-4">
-				<div class="btn-group">
-				@for(ExpType <- ExperimentType.all()) {
-					<label class="btn btn-default">
-						<input type="radio" class="expType" name="expType" id="@ExpType.id" value="@ExpType.id" @if(ExpType.id == e.experiment_type_id) { checked }>
-						@ExpType.name </label>				
-				}
-				</div>
-			</div>			
-			<div class="col-sm-3">
-			<button type="button" class="btn btn-default pull-right" id="openPreview" data-toggle="modal" data-target="#myPreviewModal"><span class="glyphicon glyphicon-envelope"></span> Email-Vorschau</button>
-					</div>	
-			</div>		
-							
-					
-				
-						
-				<hr>
-<div class="form-group inline locationRadio">
-					<label for="buildings" class="col-sm-3 control-label">Ort</label>
-					<div class="col-sm-3">
-						<select id="buildings" class="form-control" name="buildings">
-							@for(Build <- Building.all()) {
-							<option value="@Build.id" @if(Room.getBuildingIdbyId(e.defaultRoom_id) == Build.id) { selected }>@Build.name</option>
-							}
-						</select> 
-					</div>
-					<div class="col-sm-3">
-						@for(Build <- Building.all()) {
-							@if(Room.byBuildingId(Build.id) != null) {
-							<select id="id-@Build.id" class="form-control buildingSelects" name="room_@Build.id">
-								@for(R <- Room.byBuildingId(Build.id)) {
-								<option value="@R.id"  @if(e.defaultRoom_id == R.id) { selected }>@R.name</option>
-								}
-							</select>
-							}
-						}
-					</div>
-				</div>
-				<hr class="locationRadio">
-				<div class="form-group inline">
-					<label for="probandAmount" class="col-sm-3 control-label">Probanden</label>
-			<div class="col-sm-3">
-				pro Session: 
-				<select id="probandAmount" name="probandAmount" class="form-control noBreak" name="probandAmount">
-					<option @if(e.max_probands == 1) { selected }>1</option>
-					<option @if(e.max_probands == 2) { selected }>2</option>
-					<option @if(e.max_probands == 3) { selected }>3</option>
-					<option @if(e.max_probands == 4) { selected }>4</option>
-					<option @if(e.max_probands == 5) { selected }>5</option>
-					<option @if(e.max_probands == 6) { selected }>6</option>
-					<option @if(e.max_probands == 7) { selected }>7</option>
-					<option @if(e.max_probands == 8) { selected }>8</option>
-					<option @if(e.max_probands == 9) { selected }>9</option>
-					<option @if(e.max_probands == 10) { selected }>10</option>	
-				</select> Teilnehmer
-					</div>
-					<div class="col-sm-2">
-								<button type="button" class="btn btn-default" data-toggle="modal" data-target="#probands"><span class="glyphicon glyphicon-filter"></span> Filtern</button>
-					</div>
-					<div class="col-sm-2">
-						<div class="checkbox">
-								<label><input type="checkbox" name="sendInvitations" class="form-control" checked>Einladungen senden</label>
-					</div>
-					</div>
-				</div>
-				<div class="form-group inline">
-					<label for="duration" class="col-sm-3 control-label">Dauer</label>
-					<div class="col-sm-3">
-						<span class="glyphicon glyphicon-time"></span>
-						<select id="duration" name="duration" class="form-control">
-							<option @if(e.duration == 5) { selected }>5</option>
-							<option @if(e.duration == 10) { selected }>10</option>
-							<option @if(e.duration == 15) { selected }>15</option>
-							<option @if(e.duration == 20) { selected }>20</option>
-							<option @if(e.duration == 30) { selected }>30</option>
-							<option @if(e.duration == 45) { selected }>45</option>
-							<option @if(e.duration == 60) { selected }>60</option>
-							<option @if(e.duration == 75) { selected }>75</option>
-							<option @if(e.duration == 90) { selected }>90</option>
-							<option @if(e.duration == 120) { selected }>120</option>
-							
-						</select> Minuten
-					</div>
-					<div class="col-sm-3">
-						<span class="glyphicon glyphicon-star"></span>
-						<select id="probandHours" class="form-control" name="probandHours">
-							<option @if(e.proband_hours == 0.5) { selected }>0.5</option>
-							<option @if(e.proband_hours == 1) { selected }>1</option>
-							<option @if(e.proband_hours == 1.5) { selected }>1.5</option>
-							<option @if(e.proband_hours == 2) { selected }>2</option>
-							<option @if(e.proband_hours == 2.5) { selected }>2.5</option>
-							<option @if(e.proband_hours == 3) { selected }>3</option>
-						
-						</select> VP-Stunden
-					</div>
-				</div>
-				<div class="form-group">
-					<label for="description" class="col-sm-3 control-label">Sitzungen</label>
-					<div class="col-sm-8">
-						<div class="row">
-							<div class="col-sm-12">
-								<button type="button" class="btn btn-default" id="add" data-toggle="modal" data-target="#sessionCalendar"><span class="glyphicon glyphicon-calendar"></span> Kalender</button>
-								<span class="badge" id="amount">@Session.AmountByExperimentId(e.id)</span> <button type="button" id="showSessions">Anzeigen</button>
-							</div>
-						</div>
-						<div id="events" style="display:none">
-
-</div>
-					</div>
-				</div>
-				<hr>
-				<div class="form-group">
-					<label for="description" class="col-sm-3 control-label">Versuchsleiter</span></label>
-					<div class="col-sm-6">
-						<p  class="label label-default" id="me">Ich</p>
-						<button type="button" class="btn btn-default" id="add" data-toggle="modal" data-target="#modalAddPersons"><span class="glyphicon glyphicon-user"> <span class="glyphicon glyphicon-plus"></span></button>
-						<div id="rowsExp">
-						@for(assignment <- Assignment.byExperimentId(e.id)) {
-						<div class="row mt1em expRow">
-							<input type="hidden" name="assignment" value="@assignment.user_id">
-							<div class="col-sm-3" id="name">@User.nameById(assignment.user_id)</div>						
-							<div class="col-sm-8">
-								<div class="btn-group pull-right">
-										<label class="btn btn-default">
-											<input type="radio" value="1" name="assignment_rights_@assignment.user_id" @if(assignment.notifications_only) { checked }>
-											nur Benachrichtigungen </label>
-										<label class="btn btn-default">
-											<input type="radio" value="0" name="assignment_rights_@assignment.user_id" @if(assignment.notifications_only == false) { checked }>
-											Bearbeiten </label>
-								</div>
-						  	</div>
-						  	<div class="col-sm-1">
-						  		<button type="button" class="btn btn-danger expRem" id="@assignment.user_id"><span class="glyphicon glyphicon-remove"></span></button>
-						  	</div>
-						</div>
-						}
-						</div>
-  					</div>		
-				</div>
-				<div class="form-group">
-					<div class="col-sm-offset-2 col-sm-8" style="margin-top:1em; border-top:1px solid #eee; padding-top:1em">
-						<button type="button" id="save" class="btn btn-primary btn-lg pull-right"><span class="glyphicon glyphicon-ok"></span> Speichern</button>
-					</div>
-				</div>
+	<div class="form-group">
+		<label for="expName" class="col-sm-3 control-label">Name</label>
+		<div class="col-sm-7">
+			<input type="text" class="form-control" value="@e.name"
+				name="expName">
 		</div>
 	</div>
-	
-	
-	<!-- Email Vorschau Modal Tom -->
-	<div class="modal fade" id="myPreviewModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                 <h4 class="modal-title">Email-Vorschau</h4>
-
-            </div>
-            <div class="modal-body">
-                        <div class="form-group" >
-				<textarea class="form-control" name="preview" rows="20" id="preview" placeholder="Beschreibung der Studie"></textarea>
-		
-                        </div>
-            </div>
-            <div class="modal-footer" style="height:5%;">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Speichern</button>
-            </div>
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-    </div>
-    <!-- /.modal -->
-
-	
-	<div class="row" id="event" style="display:none">
-					<div class="col-xs-4"><span class="glyphicon glyphicon-calendar"></span> <span id="date"><span></div>
-					<div class="col-xs-3"><span class="glyphicon glyphicon-time"></span> <span id="time"><span></div>
-					<div class="col-xs-3"><span class="glyphicon glyphicon-user"></span> 3 <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModalTeilnehmer2"><span class="glyphicon glyphicon-pencil"></span></div>
-					<div class="col-xs-2">
-						<button type="button" class="btn btn-danger btn-sm eventdel"><span class="glyphicon glyphicon-remove"></span></button>
-					</div>
-				</div>
-	
-	
-	<div class="modal fade" id="sessionCalendar">
-		<div class="modal-dialog modal-lg mo">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					<button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Speichern</button>
-					<h4 class="modal-title">Sitzungen</h4>
-						
-					</div>
-					<div class="modal-body">
-						<div id="calendar"></div>
-
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-primary" data-dismiss="modal">Speichern</button>
-					</div>
-				</div>
-				<!-- /.modal-content --> 
-			</div>
-			<!-- /.modal-dialog --> 
+	<div class="form-group">
+		<label for="description" class="col-sm-3 control-label">Beschreibung</label>
+		<div class="col-sm-7">
+			<textarea class="form-control" name="description" rows="4"
+				id="description">@e.description</textarea>
 		</div>
-		<!-- /.modal --> 
+	</div>
+	<div class="form-group">
+		<label for="description" class="col-sm-3 control-label">Typ</span></label>
+
+		<div class="col-sm-4">
+			<div class="btn-group">
+				@for(ExpType <- ExperimentType.all()) { <label
+					class="btn btn-default"> <input type="radio"
+					class="expType" name="expType" id="@ExpType.id" value="@ExpType.id"
+					@if(ExpType.id==e.experiment_type_id) { checked }>
+					@ExpType.name
+				</label> }
+			</div>
+		</div>
+		<div class="col-sm-3">
+			<button type="button" class="btn btn-default pull-right"
+				id="openPreview" data-toggle="modal" data-target="#myPreviewModal">
+				<span class="glyphicon glyphicon-envelope"></span> Email-Vorschau
+			</button>
+		</div>
+	</div>
 
 
-		<div class="modal fade" id="probands">
-			<div class="modal-dialog modal-lg">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-						<h4 class="modal-title">Probanden auswählen</h4>
 
+
+	<hr>
+	<div class="form-group inline locationRadio">
+		<label for="buildings" class="col-sm-3 control-label">Ort</label>
+		<div class="col-sm-3">
+			<select id="buildings" class="form-control" name="buildings">
+				@for(Build <- Building.all()) {
+				<option value="@Build.id"
+					@if(Room.getBuildingIdbyId(e.defaultRoom_id) ==Build.id) { selected }>@Build.name</option>
+				}
+			</select>
+		</div>
+		<div class="col-sm-3">
+			@for(Build <- Building.all()) { @if(Room.byBuildingId(Build.id) !=
+			null) { <select id="id-@Build.id"
+				class="form-control buildingSelects" name="room_@Build.id">
+				@for(R <- Room.byBuildingId(Build.id)) {
+				<option value="@R.id" @if(e.defaultRoom_id==R.id) { selected }>@R.name</option>
+				}
+			</select> } }
+		</div>
+	</div>
+	<hr class="locationRadio">
+	<div class="form-group inline">
+		<label for="probandAmount" class="col-sm-3 control-label">Probanden</label>
+		<div class="col-sm-3">
+			pro Session: <select id="probandAmount" name="probandAmount"
+				class="form-control noBreak" name="probandAmount">
+				<option @if(e.max_probands==1) { selected }>1</option>
+				<option @if(e.max_probands==2) { selected }>2</option>
+				<option @if(e.max_probands==3) { selected }>3</option>
+				<option @if(e.max_probands==4) { selected }>4</option>
+				<option @if(e.max_probands==5) { selected }>5</option>
+				<option @if(e.max_probands==6) { selected }>6</option>
+				<option @if(e.max_probands==7) { selected }>7</option>
+				<option @if(e.max_probands==8) { selected }>8</option>
+				<option @if(e.max_probands==9) { selected }>9</option>
+				<option @if(e.max_probands==10) { selected }>10</option>
+			</select> Teilnehmer
+		</div>
+		<div class="col-sm-2">
+			<button type="button" class="btn btn-default" data-toggle="modal"
+				data-target="#probands">
+				<span class="glyphicon glyphicon-filter"></span> Filtern
+			</button>
+		</div>
+		<div class="col-sm-2">
+			<div class="checkbox">
+				<label><input type="checkbox" name="sendInvitations"
+					class="form-control" checked>Einladungen senden</label>
+			</div>
+		</div>
+	</div>
+	<div class="form-group inline">
+		<label for="duration" class="col-sm-3 control-label">Dauer</label>
+		<div class="col-sm-3">
+			<span class="glyphicon glyphicon-time"></span> <select id="duration"
+				name="duration" class="form-control">
+				<option @if(e.duration==5) { selected }>5</option>
+				<option @if(e.duration==10) { selected }>10</option>
+				<option @if(e.duration==15) { selected }>15</option>
+				<option @if(e.duration==20) { selected }>20</option>
+				<option @if(e.duration==30) { selected }>30</option>
+				<option @if(e.duration==45) { selected }>45</option>
+				<option @if(e.duration==60) { selected }>60</option>
+				<option @if(e.duration==75) { selected }>75</option>
+				<option @if(e.duration==90) { selected }>90</option>
+				<option @if(e.duration==120) { selected }>120</option>
+
+			</select> Minuten
+		</div>
+		<div class="col-sm-3">
+			<span class="glyphicon glyphicon-star"></span> <select
+				id="probandHours" class="form-control" name="probandHours">
+				<option @if(e.proband_hours==0.5) { selected }>0.5</option>
+				<option @if(e.proband_hours==1) { selected }>1</option>
+				<option @if(e.proband_hours==1.5) { selected }>1.5</option>
+				<option @if(e.proband_hours==2) { selected }>2</option>
+				<option @if(e.proband_hours==2.5) { selected }>2.5</option>
+				<option @if(e.proband_hours==3) { selected }>3</option>
+
+			</select> VP-Stunden
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="description" class="col-sm-3 control-label">Sitzungen</label>
+		<div class="col-sm-8">
+			<div class="row">
+				<div class="col-sm-12">
+					<button type="button" class="btn btn-default" id="add"
+						data-toggle="modal" data-target="#sessionCalendar">
+						<span class="glyphicon glyphicon-calendar"></span> Kalender
+					</button>
+					<span class="badge" id="amount">@Session.AmountByExperimentId(e.id)</span>
+					<button type="button" id="showSessions">Anzeigen</button>
+				</div>
+			</div>
+			<div id="events" style="display: none"></div>
+		</div>
+	</div>
+	<hr>
+	<div class="form-group">
+		<label for="description" class="col-sm-3 control-label">Versuchsleiter</span></label>
+		<div class="col-sm-6">
+			<p class="label label-default" id="me">Ich</p>
+			<button type="button" class="btn btn-default" id="add"
+				data-toggle="modal" data-target="#modalAddPersons">
+				<span class="glyphicon glyphicon-user"> <span
+					class="glyphicon glyphicon-plus"></span>
+			</button>
+			<div id="rowsExp">
+				@for(assignment <- Assignment.byExperimentId(e.id)) {
+				<div class="row mt1em expRow">
+					<input type="hidden" name="assignment" value="@assignment.user_id">
+					<div class="col-sm-3" id="name">@User.nameById(assignment.user_id)</div>
+					<div class="col-sm-8">
+						<div class="btn-group pull-right">
+							<label class="btn btn-default"> <input type="radio"
+								value="1" name="assignment_rights_@assignment.user_id"@if(assignment.notifications_only) { checked }>
+								nur Benachrichtigungen
+							</label> <label class="btn btn-default"> <input type="radio"
+								value="0" name="assignment_rights_@assignment.user_id"
+								@if(assignment.notifications_only==false) { checked }>
+								Bearbeiten
+							</label>
+						</div>
 					</div>
-					<div class="modal-body">
+					<div class="col-sm-1">
+						<button type="button" class="btn btn-danger expRem"
+							id="@assignment.user_id">
+							<span class="glyphicon glyphicon-remove"></span>
+						</button>
+					</div>
+				</div>
+				}
+			</div>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-sm-offset-2 col-sm-8"
+			style="margin-top: 1em; border-top: 1px solid #eee; padding-top: 1em">
+			<button type="button" id="save"
+				class="btn btn-primary btn-lg pull-right">
+				<span class="glyphicon glyphicon-ok"></span> Speichern
+			</button>
+		</div>
+	</div>
+</div>
+</div>
 
-						<form class="form-horizontal" role="form" action="/sessions">
-							<div class="form-group">
-								<label for="name" class="col-sm-3 control-label">Probandenpool</label>
-								<div class="col-sm-8">
-									<div class="btn-group">
-										@for(pp <- ProbandPool.all()) {
-										<label class="btn btn-default">
-											<input type="checkbox" class="probandPools" name="probandPools" value="@pp.id" checked>
-											@pp.name </label>
-										}
-											</div>
-										</div>
-									</div>
-									<div class="form-group">
-								<label for="name" class="col-sm-3 control-label">Geschlecht</label>
-								<div class="col-sm-8">
-									<div class="btn-group">
-										<label class="btn btn-default">
-											<input type="checkbox" name="gender" class="gender" value="male" checked>
-											männlich </label>
-											<label class="btn btn-default">
-												<input type="checkbox" name="gender" class="gender" value="female" checked>
-												weiblich </label>
-											</div>
-										</div>
-									</div>
-							<div class="form-group inline">
-								<label for="duration" class="col-sm-3 control-label">Semester</label>
-								<div class="col-sm-5">
-									von: <select id="semesterFrom" name="semesterFrom" class="form-control">
-										<option value="0">unbegrenzt</option>
-										<option>1</option>
-										<option>2</option>
-										<option>3</option>								
-										<option>4</option>
-										<option>5</option>
-										<option>6</option>
-										<option>7</option>
-										<option>8</option>
-									</select> 
-									bis: <select id="semesterUntil" name="semesterUntil" class="form-control">
-										<option value="0">unbegrenzt</option>
-										<option>1</option>
-										<option>2</option>
-										<option>3</option>								
-										<option>4</option>
-										<option>5</option>
-										<option>6</option>
-										<option>7</option>
-										<option>8</option>
-									</select>
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="name" class="col-sm-3 control-label">Vorherige Studien</label>
-								<div class="col-sm-8">
-								<input type="search" id="searchStudies" class="form-control">
 
-									</div>
-							</div>
-							</form>
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-primary" data-dismiss="modal">Speichern</button>
+<!-- Email Vorschau Modal Tom -->
+<div class="modal fade" id="myPreviewModal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Email-Vorschau</h4>
+
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<textarea class="form-control" name="preview" rows="20"
+						id="preview" placeholder="Beschreibung der Studie"></textarea>
+
+				</div>
+			</div>
+			<div class="modal-footer" style="height: 5%;">
+				<button type="button" class="btn btn-primary" data-dismiss="modal">Speichern</button>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+
+<div class="row" id="event" style="display: none">
+	<div class="col-xs-4">
+		<span class="glyphicon glyphicon-calendar"></span> <span id="date"><span>
+	</div>
+	<div class="col-xs-3">
+		<span class="glyphicon glyphicon-time"></span> <span id="time"><span>
+	</div>
+	<div class="col-xs-3">
+		<span class="glyphicon glyphicon-user"></span> 3
+		<button type="button" class="btn btn-default" data-toggle="modal"
+			data-target="#myModalTeilnehmer2">
+			<span class="glyphicon glyphicon-pencil"></span>
+	</div>
+	<div class="col-xs-2">
+		<button type="button" class="btn btn-danger btn-sm eventdel">
+			<span class="glyphicon glyphicon-remove"></span>
+		</button>
+	</div>
+</div>
+
+
+<div class="modal fade" id="sessionCalendar">
+	<div class="modal-dialog modal-lg mo">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">&times;</button>
+				<button type="button" class="btn btn-primary pull-right"
+					data-dismiss="modal">Speichern</button>
+				<h4 class="modal-title">Sitzungen</h4>
+
+			</div>
+			<div class="modal-body">
+				<div id="calendar"></div>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" data-dismiss="modal">Speichern</button>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+
+<div class="modal fade" id="probands">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Probanden auswählen</h4>
+
+			</div>
+			<div class="modal-body">
+
+				<form class="form-horizontal" role="form" action="/sessions">
+					<div class="form-group">
+						<label for="name" class="col-sm-3 control-label">Probandenpool</label>
+						<div class="col-sm-8">
+							<div class="btn-group">
+								@for(pp <- ProbandPool.all()) { <label class="btn btn-default">
+									<input type="checkbox" class="probandPools" name="probandPools"
+									value="@pp.id" checked> @pp.name
+								</label> }
 							</div>
 						</div>
-						<!-- /.modal-content --> 
 					</div>
-					<!-- /.modal-dialog --> 
-				</div>
-				<!-- /.modal --> 
-				}
+					<div class="form-group">
+						<label for="name" class="col-sm-3 control-label">Geschlecht</label>
+						<div class="col-sm-8">
+							<div class="btn-group">
+								<label class="btn btn-default"> <input type="checkbox"
+									name="gender" class="gender" value="male" checked>
+									männlich
+								</label> <label class="btn btn-default"> <input type="checkbox"
+									name="gender" class="gender" value="female" checked>
+									weiblich
+								</label>
+							</div>
+						</div>
+					</div>
+					<div class="form-group inline">
+						<label for="duration" class="col-sm-3 control-label">Semester</label>
+						<div class="col-sm-5">
+							von: <select id="semesterFrom" name="semesterFrom"
+								class="form-control">
+								<option value="0">unbegrenzt</option>
+								<option>1</option>
+								<option>2</option>
+								<option>3</option>
+								<option>4</option>
+								<option>5</option>
+								<option>6</option>
+								<option>7</option>
+								<option>8</option>
+							</select> bis: <select id="semesterUntil" name="semesterUntil"
+								class="form-control">
+								<option value="0">unbegrenzt</option>
+								<option>1</option>
+								<option>2</option>
+								<option>3</option>
+								<option>4</option>
+								<option>5</option>
+								<option>6</option>
+								<option>7</option>
+								<option>8</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="name" class="col-sm-3 control-label">Vorherige
+							Studien</label>
+						<div class="col-sm-8">
+							<input type="search" id="searchStudies" class="form-control">
+
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" data-dismiss="modal">Speichern</button>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+}
 <div class="modal fade" id="modalAddPersons">
 	<div class="modal-dialog mo">
 		<div class="modal-content">
 			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">&times;</button>
 				<h4 class="modal-title">Versuchsleiter hinzufügen</h4>
 			</div>
 			<div class="modal-body">
-		<div class="row">
-			<div class="col-sm-12">
-				<input type="text" name="name" class="form-control" id="expSearch" placeholder="Name des Versuchsleiter" autofocus>
-				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<input type="text" name="name" class="form-control" id="expSearch"
+							placeholder="Name des Versuchsleiter" autofocus>
+					</div>
 				</div>
 				<div id="resultsExp"></div>
-				</div>
+			</div>
 
 			<div class="modal-footer">
 				<button type="button" class="btn btn-primary" data-dismiss="modal">Speichern</button>
 			</div>
 		</div>
-		<!-- /.modal-content --> 
+		<!-- /.modal-content -->
 	</div>
-	<!-- /.modal-dialog --> 
+	<!-- /.modal-dialog -->
 </div>
-<!-- /.modal --> 
+<!-- /.modal -->
 
 
-		
 
-<div class="modal fade" id="myModalTeilnehmer2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header"><h4 class="modal-title">Angemeldete Teilnehmer</h4></div>
-				<div class="modal-body">
-		<div class="row">	
-            <div class="col-md-9">Ralph Obermaier</div> 
-            <div class="col-md-3"><button type="button" class="btn btn-danger btn-sm" id="me"><span class="glyphicon glyphicon-remove"></span></button></div>
-		</div> <!-- row -->
-			<div class="row">	
-            <div class="col-md-9">Tanja Mangold</div> 
-            <div class="col-md-3"><button type="button" class="btn btn-danger btn-sm" id="me"><span class="glyphicon glyphicon-remove"></span></button></div>
-		</div> <!-- row -->
-		<hr>
-		<b>Probanden hinzufügen</b>
-		<div class="row">
-			<div class="col-sm-12">
-				<input type="text" class="form-control addProb" id="" placeholder="Name des Probands" autofocus>
+
+<div class="modal fade" id="myModalTeilnehmer2" tabindex="-1"
+	role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Angemeldete Teilnehmer</h4>
 			</div>
-						
-</div>
-	
-</div>
-<div class="modal-footer">
-				<button type="button" class="btn btn-primary" data-dismiss="modal">Speichern</button>
-			</div>
-			</div>
-				</div>
-			</div>
-	
-
-
-
-
-
-<div id="regProbands" style="display:none">
-		<div class="partics">
-		<div class="row rowPartic">	
-            <div class="col-md-9" id="name"></div> 
-            <div class="col-md-3"><button type="button" class="btn btn-danger btn-sm remPartic" id=""><span class="glyphicon glyphicon-remove"></span></button></div>
-		</div> <!-- row -->
-		</div>
-		<hr>
-		<b>Probanden hinzufügen</b>
-		<div class="row">
-			<div class="col-sm-12">
-				<input type="text" class="form-control addProb" id="" placeholder="Name des Probands" autofocus>
-			</div>
-						
-</div>
-		<div id="results"></div>
-				</div>
-
-
-
-
-				<div class="row" id="session" style="display:none">
-					<div class="col-xs-4"><span class="glyphicon glyphicon-calendar"></span> <span id="date"><span></div>
-					<div class="col-xs-3"><span class="glyphicon glyphicon-time"></span> <span id="time"><span></div>
-					<div class="col-xs-3"><span class="glyphicon glyphicon-user"></span> 3 <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModalTeilnehmer2"><span class="glyphicon glyphicon-pencil"></span></div>
-					<div class="col-xs-2">
-						<button type="button" class="btn btn-danger btn-sm eventdel"><span class="glyphicon glyphicon-remove"></span></button>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-9">Ralph Obermaier</div>
+					<div class="col-md-3">
+						<button type="button" class="btn btn-danger btn-sm" id="me">
+							<span class="glyphicon glyphicon-remove"></span>
+						</button>
 					</div>
 				</div>
+				<!-- row -->
+				<div class="row">
+					<div class="col-md-9">Tanja Mangold</div>
+					<div class="col-md-3">
+						<button type="button" class="btn btn-danger btn-sm" id="me">
+							<span class="glyphicon glyphicon-remove"></span>
+						</button>
+					</div>
+				</div>
+				<!-- row -->
+				<hr>
+				<b>Probanden hinzufügen</b>
+				<div class="row">
+					<div class="col-sm-12">
+						<input type="text" class="form-control addProb" id=""
+							placeholder="Name des Probands" autofocus>
+					</div>
 
-				<div id="eventFrame" style="display:none">
-<button type="button" class="close" aria-hidden="true">&times;</button>
-<span class="datetime"></span>
+				</div>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" data-dismiss="modal">Speichern</button>
+			</div>
+		</div>
+	</div>
 </div>
-<div class="row mt1em expRow" style="display:none">
-							<input type="hidden" name="assignment" value="">
-							<div class="col-sm-3" id="name"></div>						
-							<div class="col-sm-8">
-								<div class="btn-group pull-right">
-										<label class="btn btn-default">
-											<input type="radio" value="1" name="" checked>
-											nur Benachrichtigungen </label>
-										<label class="btn btn-default">
-											<input type="radio" value="0" name="">
-											Bearbeiten </label>
-								</div>
-						  	</div>
-						  	<div class="col-sm-1">
-						  		<button type="button" class="btn btn-danger expRem" id=""><span class="glyphicon glyphicon-remove"></span></button>
-						  	</div>
-						</div>
-				<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script> 
-				<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/localization/messages_de.js"></script> 
-				<script type="text/javascript">
+
+
+
+
+
+
+<div id="regProbands" style="display: none">
+	<div class="partics">
+		<div class="row rowPartic">
+			<div class="col-md-9" id="name"></div>
+			<div class="col-md-3">
+				<button type="button" class="btn btn-danger btn-sm remPartic" id="">
+					<span class="glyphicon glyphicon-remove"></span>
+				</button>
+			</div>
+		</div>
+		<!-- row -->
+	</div>
+	<hr>
+	<b>Probanden hinzufügen</b>
+	<div class="row">
+		<div class="col-sm-12">
+			<input type="text" class="form-control addProb" id=""
+				placeholder="Name des Probands" autofocus>
+		</div>
+
+	</div>
+	<div id="results"></div>
+</div>
+
+
+
+
+<div class="row" id="session" style="display: none">
+	<div class="col-xs-4">
+		<span class="glyphicon glyphicon-calendar"></span> <span id="date"><span>
+	</div>
+	<div class="col-xs-3">
+		<span class="glyphicon glyphicon-time"></span> <span id="time"><span>
+	</div>
+	<div class="col-xs-3">
+		<span class="glyphicon glyphicon-user"></span> 3
+		<button type="button" class="btn btn-default" data-toggle="modal"
+			data-target="#myModalTeilnehmer2">
+			<span class="glyphicon glyphicon-pencil"></span>
+	</div>
+	<div class="col-xs-2">
+		<button type="button" class="btn btn-danger btn-sm eventdel">
+			<span class="glyphicon glyphicon-remove"></span>
+		</button>
+	</div>
+</div>
+
+<div id="eventFrame" style="display: none">
+	<button type="button" class="close" aria-hidden="true">&times;</button>
+	<span class="datetime"></span>
+</div>
+<div class="row mt1em expRow" style="display: none">
+	<input type="hidden" name="assignment" value="">
+	<div class="col-sm-3" id="name"></div>
+	<div class="col-sm-8">
+		<div class="btn-group pull-right">
+			<label class="btn btn-default"> <input type="radio" value="1"
+				name="" checked> nur Benachrichtigungen
+			</label> <label class="btn btn-default"> <input type="radio"
+				value="0" name=""> Bearbeiten
+			</label>
+		</div>
+	</div>
+	<div class="col-sm-1">
+		<button type="button" class="btn btn-danger expRem" id="">
+			<span class="glyphicon glyphicon-remove"></span>
+		</button>
+	</div>
+</div>
+<script
+	src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+<script
+	src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/localization/messages_de.js"></script>
+<script type="text/javascript">
 				experiment_id = @e.id;		
 				</script>
-										<script type="text/javascript" src="@routes.Assets.at("javascripts/calendar.js")"></script>
-				
-			<script type="text/javascript">	
+<script type="text/javascript" src="@routes.Assets.at("javascripts/calendar.js")"></script>
+
+<script type="text/javascript">	
 			$('#calendar').fullCalendar({
 				defaultView: 'agendaWeek',
 				header: {
@@ -659,5 +738,5 @@ $( "#openPreview" ).click(function() {
 				}
 			});
 </script>
-			
+
 }

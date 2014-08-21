@@ -87,7 +87,7 @@ $('#sessionCalendar').on('hidden.bs.modal', function() {
 		rules: {
 			expType : {
 				required: true
-			}
+			},
 			name: {
 				minlength: 6,
 				required: true

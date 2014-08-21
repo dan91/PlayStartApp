@@ -20,7 +20,7 @@ GET     /create                 controllers.Experimenter.create()
 GET     /edit/:id               controllers.Experimenter.edit(id: Long)
 GET     /myStudies				controllers.Experimenter.myStudies()
 GET 	/userSearch/:name/:target		controllers.Experimenter.userSearch(name: String, target: String)
-GET     /completeStudy			controllers.Experimenter.completeStudy()
+GET     /confirmParticipation/:id		controllers.Experimenter.confirmParticipation(id: Int)
 POST    /saveGeneralData/:id		controllers.Experimenter.saveGeneralData(id: Int)
 POST    /saveSessions/:id		controllers.Experimenter.saveSessions(id: Int)
 
