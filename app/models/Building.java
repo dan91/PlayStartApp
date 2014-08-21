@@ -49,7 +49,7 @@ public class Building extends Model {
     	Connection con = DB.getConnection();
         Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 		ResultSet rs = stmt
-				.executeQuery("SELECT count(*) AS amount FROM Building");
+				.executeQuery("SELECT count(*) AS amount FROM Building WHERE Building.archive=0 ");
 		
 		int amount = 0;
 		
@@ -70,7 +70,7 @@ public class Building extends Model {
     	Connection con = DB.getConnection();
         Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 		ResultSet rs = stmt
-				.executeQuery("SELECT id, name,description, lat,lng FROM Building");
+				.executeQuery("SELECT id, name,description, lat,lng FROM Building WHERE Building.archive=0");
 		List<Building> list = new ArrayList<Building>();
 		while(rs.next()) {
 			Building e = new Building();
@@ -96,8 +96,8 @@ public class Building extends Model {
     			
     	       
     	        
-    	        String insert = String.format("INSERT INTO Building (name,description,lat,lng) "
-    					 +"VALUES ('%s','%s',%s,%s)",name,description,lat,lng );
+    	        String insert = String.format("INSERT INTO Building (name,description,lat,lng,archive) "
+    					 +"VALUES ('%s','%s',%s,%s,%s)",name,description,lat,lng,0 );
     	        
     	        
     	       stmt.executeUpdate(insert);
@@ -108,6 +108,7 @@ public class Building extends Model {
     	       con.close();
     	       
     	    }
+    
     
     public static void update(Long id, String name, String description, double lat, double lng) throws SQLException {
     	Connection con = DB.getConnection();
@@ -122,8 +123,6 @@ public class Building extends Model {
        stmt.close();
        
        con.close();
-        // iwo muss das statement aber noch geschlossen werden!!!!
-        //   stmt.close();
         
     }
     

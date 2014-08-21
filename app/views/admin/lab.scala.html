@@ -248,6 +248,7 @@
                 		   $.ajax({
                		        type : 'POST',
                		        url : '@routes.Admin.deleteBuilding()',
+               		        global: false,
                		        data : {
                		            id: idOfBuild, name: nameOfBuild
                		        },
@@ -263,21 +264,15 @@
                           	  else
                           		  reference.parent().parent().fadeOut().next().fadeOut();
                		      
-                          	  
                		        },
 	               		     error : function(err) {
 	         	               
 	         	                
-	         	                alert(err.responseText);             
-	         	            	}
+	         	                alert(err.responseText);      
+	         	            }
 	         	            	
 	               		    });
-                		   
-                		   /** Wenn ein gebäude kein Raum enthält würde es ohne die if-Abfrage
-                     	  sonst das nächste Gebäude mitlöschen ! */
                      	 
-                		   
-               		    		return true;
                 	});
                 	   
                 	  
@@ -324,19 +319,18 @@
         		        	  infoDelete.hide(); 
         		          }, 3000);
         		          */
-        		          
+        		          return false;
                    	  
         		        },
             		     error : function(err) {
       	                
       	                
-      	                alert(err.responseText);             
+      	                alert(err.responseText);    
+      	                
+      	                  return false;
       	            	}
       	            	
             		    });
-         		   
-        		    		return true;
-          		   
               	 });
               	 
          });    
