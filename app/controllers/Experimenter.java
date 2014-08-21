@@ -75,12 +75,15 @@ public class Experimenter extends Controller {
     public static Result saveGeneralData(int id) throws SQLException {
 
     	final Map<String, String[]> values = request().body().asFormUrlEncoded();
+    	Logger.info(values.toString());
         final String name = values.get("expName")[0];
         final String description = values.get("description")[0];
         final int duration = Integer.parseInt(values.get("duration")[0]);
         final int probandAmount = Integer.parseInt(values.get("probandAmount")[0]);
         final int expType = Integer.parseInt(values.get("expType")[0]);
         final float probandHours = Float.parseFloat(values.get("probandHours")[0]);
+        final int building = Integer.parseInt(values.get("buildings")[0]);
+        final int defaultRoom_id = Integer.parseInt(values.get("room_"+building)[0]);
         final String sendInvitations = values.get("sendInvitations")[0];
         final String[] probandPools = values.get("probandPools");
         final int semesterFrom = Integer.parseInt(values.get("semesterFrom")[0]);
@@ -100,9 +103,12 @@ public class Experimenter extends Controller {
         for(String p : probandPools) {
         	ProbandPoolFilter.create(filter_id, p);
         }
-
-        Experiment.update(id, name, description, duration, probandHours, probandAmount, expType, filter_id);
-        Assignment.deleteByExperimentId(id);
+        if(id == 0)
+            Experiment.create(name, description, duration, probandHours, probandAmount, expType, defaultRoom_id);
+        else {
+        	Experiment.update(id, name, description, duration, probandHours, probandAmount, expType, defaultRoom_id);
+        	Assignment.deleteByExperimentId(id);
+        }
         for(String user_id : assignments) {
         	int right = Integer.parseInt(values.get("assignment_rights_"+user_id)[0]);
         	int user_id_int = Integer.parseInt(user_id);

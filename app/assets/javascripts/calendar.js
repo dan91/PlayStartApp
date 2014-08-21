@@ -204,7 +204,6 @@ $('#sessionCalendar').on('hidden.bs.modal', function() {
 		dur = $("#duration option:selected").text();
 
 function saveSessions() {
-	$("#progress_sessions").html('...');
 	events = $('#calendar').fullCalendar( 'clientEvents');
 	eventsJson = []
 	$.each(events, function (key, value) {
@@ -222,24 +221,22 @@ function saveSessions() {
 	myJsRoutes.controllers.Experimenter.saveSessions(experiment_id).ajax({
 		method: 'post',
 		data: JSON.stringify(fin),
-		dataType: 'json',
         contentType: "application/json; charset=utf-8",
-		success: function(data) {
-			window.location = "/myStudies";
+		success: function(response) {
+			//window.location = "/myStudies";
+			alert('Daten gespeichert')
 		}
 	});
 }
 
 $("#save").click(function() {
-	$(this).prop('disabled',true)
 	/**
 	Allgemeine Informationen speichern
 	**/
 	myJsRoutes.controllers.Experimenter.saveGeneralData(experiment_id).ajax({
 		method: 'post',
 		data: $(".form-horizontal").serialize(),
-		success : function(data) {
-			$("#progress_general").html('Erledigt.');
+		success : function(resp) {
 			saveSessions();
 		}
 		

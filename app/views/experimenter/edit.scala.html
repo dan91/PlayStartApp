@@ -7,9 +7,7 @@
 <script src='@routes.Assets.at("javascripts/jquery.ui.touch-punch.min.js")'></script>
 <script src='@routes.Assets.at("javascripts/moment-with-langs.min.js")'></script>
 <script src='@routes.Assets.at("javascripts/fullcalendar.min.js")'></script>
-<link rel="stylesheet" href='@routes.Assets.at("stylesheets/ladda-themeless.min.css")'>
-<script src='@routes.Assets.at("javascripts/spin.min.js")'></script>
-<script src='@routes.Assets.at("javascripts/ladda.min.js")'></script>
+
 
 <script>
 $(document).ready(function () {
@@ -92,14 +90,14 @@ $( "#openPreview" ).click(function() {
 					<div class="col-sm-3">
 						<select id="buildings" class="form-control" name="buildings">
 							@for(Build <- Building.all()) {
-							<option value="@Build.id" @if(Room.byBuildingId(Build.id) == 1) { selected }>@Build.name</option>
+							<option value="@Build.id" @if(Room.amountByBuildingId(Build.id) == 1) { selected }>@Build.name</option>
 							}
 						</select> 
 					</div>
 					<div class="col-sm-3">
 						@for(Build <- Building.all()) {
 							@if(Room.byBuildingId(Build.id) != null) {
-							<select id="id-@Build.id" class="form-control buildingSelects" name="room">
+							<select id="id-@Build.id" class="form-control buildingSelects" name="room_@Build.id">
 								@for(R <- Room.byBuildingId(Build.id)) {
 								<option value="@R.id"  @if(e.defaultRoom_id == R.id) { selected }>@R.name</option>
 								}
@@ -184,7 +182,7 @@ $( "#openPreview" ).click(function() {
 				<div class="form-group">
 					<label for="description" class="col-sm-3 control-label">Versuchsleiter</span></label>
 					<div class="col-sm-6">
-						<button type="button" class="btn btn-default" id="me" disabled>Ich</button>
+						<p  class="label label-default" id="me">Ich</p>
 						<button type="button" class="btn btn-default" id="add" data-toggle="modal" data-target="#modalAddPersons"><span class="glyphicon glyphicon-user"> <span class="glyphicon glyphicon-plus"></span></button>
 						<div id="rowsExp">
 						@for(assignment <- Assignment.byExperimentId(e.id)) {
@@ -211,7 +209,7 @@ $( "#openPreview" ).click(function() {
 				</div>
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-8" style="margin-top:1em; border-top:1px solid #eee; padding-top:1em">
-						<button type="button" id="save" class="btn btn-primary btn-lg pull-right ladda-button" data-style="expand-left"><span class="ladda-label"><span class="glyphicon glyphicon-ok"></span> Speichern</span></button>
+						<button type="button" id="save" class="btn btn-primary btn-lg pull-right"><span class="glyphicon glyphicon-ok"></span> Speichern</button>
 					</div>
 				</div>
 		</div>

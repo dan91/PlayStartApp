@@ -103,25 +103,20 @@ public class Experiment extends Model {
 		return list;
     }  
     
-    public static Boolean update(int id, String name, String description, int duration, float proband_hours, int probandAmount, int expType, int filter_id) throws SQLException {
+    public static Boolean update(int id, String name, String description, int duration, float proband_hours, int probandAmount, int expType, int defaultRoom_id) throws SQLException {
     	Connection con = DB.getConnection();
         Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 		
        
         String update = String.format("UPDATE Experiment SET "
-        		+ "name='%s',description='%s',duration='%s',proband_hours='%s',max_probands='%s',experiment_type_id='%s',filter_id='%s' "
-        		+ "WHERE id=%s;" ,name,description,duration,proband_hours,probandAmount, expType, filter_id, id);
+        		+ "name='%s',description='%s',duration='%s',proband_hours='%s',max_probands='%s',experiment_type_id='%s', defaultRoom_id='%s' "
+        		+ "WHERE id=%s;" ,name,description,duration,proband_hours,probandAmount, expType, defaultRoom_id, id);
         
-       try {
+      
        stmt.executeUpdate(update);
 	   stmt.close();
        con.close();
        return true;
-       } catch(Exception e) {
-    	   stmt.close();
-           con.close();
-    	   return false;
-       }
        
     }
     
@@ -160,7 +155,25 @@ public class Experiment extends Model {
 			stmt.close();
 			con.close();
 		return list;
-    } 
+    }
+
+	public static Boolean create(String name, String description, int duration,
+			float probandHours, int probandAmount, int expType,
+			int defaultRoom_id) throws SQLException {
+		Connection con = DB.getConnection();
+        Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+		
+       
+        String insert = String.format("INSERT INTO Experiment (name, description, duration, proband_hours, max_probands, experiment_type_id, defaultRoom_id) VALUES "
+        		+ "('%s','%s','%s','%s','%s','%s','%s') " ,name,description,duration,probandHours,probandAmount, expType, defaultRoom_id);
+        
+      
+       stmt.executeUpdate(insert);
+	   stmt.close();
+       con.close();
+       return true;
+		
+	} 
     
     
     
