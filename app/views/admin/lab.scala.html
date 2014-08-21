@@ -248,14 +248,14 @@
                 		   $.ajax({
                		        type : 'POST',
                		        url : '@routes.Admin.deleteBuilding()',
-               		        global: false,
                		        data : {
                		            id: idOfBuild, name: nameOfBuild
                		        },
                		        success : function(data) {
                		            // ... some code on success
+               		            data.preventDefault();
                		            
-               		            
+               		            $(this).html(data);
                		            alert(data);
                		         /** Wenn ein gebäude kein Raum enthält würde es ohne die if-Abfrage
                           	  sonst das nächste Gebäude mitlöschen ! */
@@ -266,9 +266,9 @@
                		      
                		        },
 	               		     error : function(err) {
-	         	               
+	               		    	data.preventDefault();
 	         	                
-	         	                alert(err.responseText);      
+	         	                alert(err.responseText); 
 	         	            }
 	         	            	
 	               		    });
