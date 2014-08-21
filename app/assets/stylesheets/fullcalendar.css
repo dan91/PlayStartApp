@@ -261,9 +261,9 @@ html .fc,
 /* Global Event Styles
 ------------------------------------------------------------------------*/
 
-.fc-event-container > * {
+/*.fc-event-container > * {
 	z-index: 8;
-	}
+	}*/
 
 .fc-event-container > .ui-draggable-dragging,
 .fc-event-container > .ui-resizable-resizing {

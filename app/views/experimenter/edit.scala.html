@@ -92,7 +92,7 @@ $( "#openPreview" ).click(function() {
 					<div class="col-sm-3">
 						<select id="buildings" class="form-control" name="buildings">
 							@for(Build <- Building.all()) {
-							<option value="@Build.id" id="@Build.id">@Build.name</option>
+							<option value="@Build.id" >@Build.name</option>
 							}
 						</select> 
 					</div>
@@ -101,7 +101,7 @@ $( "#openPreview" ).click(function() {
 							@if(Room.byBuildingId(Build.id) != null) {
 							<select id="id-@Build.id" class="form-control buildingSelects" name="room">
 								@for(R <- Room.byBuildingId(Build.id)) {
-								<option value="@R.id" if(e.room)>@R.name</option>
+								<option value="@R.id"  @if(e.defaultRoom_id == @R.id) { selected }>@R.name</option>
 								}
 							</select>
 							}
@@ -211,7 +211,7 @@ $( "#openPreview" ).click(function() {
 				</div>
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-8" style="margin-top:1em; border-top:1px solid #eee; padding-top:1em">
-						<button type="button" id="save" class="btn btn-primary btn-lg pull-right ladda-button" data-style="expand-left"><span class="ladda-label">expand-left</span><span class="glyphicon glyphicon-ok"></span> Speichern</button>
+						<button type="button" id="save" class="btn btn-primary btn-lg pull-right ladda-button" data-style="expand-left"><span class="ladda-label"><span class="glyphicon glyphicon-ok"></span> Speichern</span></button>
 					</div>
 				</div>
 		</div>
@@ -477,111 +477,22 @@ $( "#openPreview" ).click(function() {
 						</div>
 				<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script> 
 				<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/localization/messages_de.js"></script> 
-			<script type="text/javascript" src="@routes.Assets.at("javascripts/calendar.js")"></script>
+				<script type="text/javascript">
+				experiment_id = @e.id;		
+				</script>
+										<script type="text/javascript" src="@routes.Assets.at("javascripts/calendar.js")"></script>
+				
 			<script type="text/javascript">	
-	$("#modalAddPersons").on("shown.bs.modal", function() {
-		$("#expSearch").on('keyup',function() {
-    		if ($(this).val().length >= 3) {
-    			myJsRoutes.controllers.Experimenter.userSearch($(this).val(), "exp").ajax({
-    				success : function(data) {
-    					$("#resultsExp").html(data);
-    					$(".addExp").on('click', function() {
-    						click = $(this);
-    						show = true;
-    						console.log("addExp geklickt. gehe alle expRow durch...")
-   							$(".expRow").find("button").each(function() {
-   								console.log('vergleiche '+$(this).attr('id'));
-			    				console.log('mit :'+click.attr('id'));
-   								if($(this).attr('id') == click.attr('id')) {
-   									show = false;
-   									console.log('IDs sind gleich. Nicht anzeigen.');
-   								}
-   							});
-							if(show) {
-	  	    					row = $(".mt1em").last().clone();
-	  	    					row.attr('id','new')
-	    					    row.find("#name").text(click.data('user-name'));
-	    					    row.find("input[type=hidden]").val(click.attr('id'))
-	    					    row.find("input[type=radio]").attr('name', 'assignment_rights_'+click.data('user-id'));
-	    					    row.find("#expRem").attr("id",click.attr("id"));
-	 						    $("#rowsExp").append(row);
-	 						    row.show();
-	 						   $('.expRem').on("click", function() {
-	 								$(this).parent().parent().fadeOut().remove();
-	 							})
-	       						console.log(row);
-	 						    return false;
- 							}
-	    					
-    						
-    					})
-    				},
-    			})
-    		}
-    	});
-	});
-	
-	$(document).on('ready', function () {
-	
-	/**
-	Funktion zeigt nur die Räume zum aktuell ausgewählten Gebäude
-	NOCH NICHT FERTIG
-	**/
-	function selectRooms() {
-		console.log('selectRooms');
-		$(".buildingSelects").hide();
-		id = $("#buildings option:selected").val();
-		console.log('zeige id-'+id);
-		$("#id-"+id).show();
-	};
-	
-	/**
-	Falls Gebäude geändert wird, rufe selectRooms() auf
-	**/
-	$("#buildings").on('change', function() {
-		selectRooms();
-	});
-	
-	/**
-	Rufe beim Laden selectRooms() auf, damit für vorausgewähltes Gebäude Räume ausgwählt werden
-	**/
-	selectRooms();
-	
-	/**
-	Blendet die Ortsinformationen bei Internetstudien aus
-	**/
-	$('.expType #1').click(function() {
-  		 if($('.expType #0').is(':checked')) { 
-   
-   			$(".locationRadio").hide(); 
-   			
-   			}
-		});
-
-	
-	$('.expType #0').click(function(){
-		
-		if($(".expType #1").is(":checked")){
- 			 
- 			 $(".locationRadio").show();
- 			 
- 		 }
-		
-	});
-		})
-		
-		// Session-Dauer aus Eingabefeld
-		dur = $("#duration option:selected").text();
-$('#calendar').fullCalendar({
-					defaultView: 'agendaWeek',
-					header: {
-						left:   '',
-						center: '',
-						right:  'today prev,next'
-					},
-					// Hier wird dem fullcalendar events array ein Participations array hinzugefügt. 
-					// Somit werden den Sessions Teilnehmer zugewiesen
-					events: [
+			$('#calendar').fullCalendar({
+				defaultView: 'agendaWeek',
+				header: {
+					left:   '',
+					center: '',
+					right:  'today prev,next'
+				},
+				// Hier wird dem fullcalendar events array ein Participations array hinzugefügt. 
+				// Somit werden den Sessions Teilnehmer zugewiesen
+				events: [
 					         @for((session, index) <- Session.byExperimentId(e.id).zipWithIndex) {
 					         {
 					             title  : '',
@@ -601,191 +512,154 @@ $('#calendar').fullCalendar({
 					         }
 					         
 					],
-					lang: 'de',
-					allDaySlot: false,
-					slotDuration: '00:15:00',
-					minTime: '08:00:00',
-					maxTime: '19:00:00',
-					eventStartEditable: true,
-					selectable: true,
-					slotEventOverlap: false,
-					axisFormat: 'H:mm',
-					timeFormat: 'H:mm',
-					columnFormat: 'dd., D.M',
-					contentHeight: 1200,
+				lang: 'de',
+				allDaySlot: false,
+				slotDuration: '00:15:00',
+				minTime: '08:00:00',
+				maxTime: '19:00:00',
+				eventStartEditable: true,
+				selectable: true,
+				slotEventOverlap: false,
+				axisFormat: 'H:mm',
+				timeFormat: 'H:mm',
+				columnFormat: 'dd., D.M',
+				contentHeight: 1200,
+				
+				/**
+				Bei Click & Drag werden im ausgewählten Zeitraum Sessions erstellt
+				**/
+				select: function(start, end) {
 					
-					/**
-					Bei Click & Drag werden im ausgewählten Zeitraum Sessions erstellt
+					dur = parseInt($("#duration option:selected").text());
+					temp = start;
+					while($.fullCalendar.moment(temp).isBefore(end)) {
+					var eventData;
+					temp_end = $.fullCalendar.moment(temp).add('m',dur);
+					eventData = {
+						title: '',
+						start: temp,
+						end: temp_end,
+						color: '#428bca'
+					};						
+					temp = temp_end;
+					$('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+				}
+					$('#calendar').fullCalendar('unselect');
+				},
+				
+				eventMouseover: function () {
+			    	$(this).css('background-color','rgb(55, 114, 165)')
+			    },
+			    eventMouseout: function () {
+			    	$(this).css('background-color','rgb(66, 139, 202)')
+			    },
+				
+				eventDrop: function(event, dayDelta, minuteDelta, allDay, revertFunc) {
+							$('#calendar').fullCalendar('rerenderEvents');
+				},
+				eventResize: function(event, dayDelta, minuteDelta, revertFunc) {
+					//if (isOverlapping(event)) {revertFunc()};
+				},
+				
+				
+				eventRender: function( event, element, view ) {
+					if(typeof event.participations === 'undefined') {
+						event.participations = [];
+					}
+		        	el = $("#regProbands").first().clone();
+			        partic_dr = el.find(".rowPartic").first().clone();
+
+					 /**
+					Füge Event-Handler für Proband hinzufügen & löschen hinzu
 					**/
-					select: function(start, end) {
-						
-						dur = parseInt($("#duration option:selected").text());
-						temp = start;
-						while($.fullCalendar.moment(temp).isBefore(end)) {
-						var eventData;
-						temp_end = $.fullCalendar.moment(temp).add('m',dur);
-						eventData = {
-							title: '',
-							start: temp,
-							end: temp_end,
-							color: '#428bca'
-						};						
-						temp = temp_end;
-						$('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
-					}
-						$('#calendar').fullCalendar('unselect');
-					},
-					
-					eventMouseover: function () {
-				    	$(this).css('background-color','rgb(55, 114, 165)')
-				    },
-				    eventMouseout: function () {
-				    	$(this).css('background-color','rgb(66, 139, 202)')
-				    },
-					
-					eventDrop: function(event, dayDelta, minuteDelta, allDay, revertFunc) {
-								$('#calendar').fullCalendar('rerenderEvents');
-					},
-					eventResize: function(event, dayDelta, minuteDelta, revertFunc) {
-						//if (isOverlapping(event)) {revertFunc()};
-					},
-					
-					
-					eventRender: function( event, element, view ) {
-						if(typeof event.participations === 'undefined') {
-							event.participations = [];
+					$(element).on('show.bs.popover', function (e) {
+				        $('.fc-event').not(this).popover('hide');
+						el.find(".partics").html("");
+						for (i in event.participations) {
+						   partic = partic_dr.clone();
+						   partic.find("#name").text(event.participations[i].user_name);
+						   partic.find(".remPartic").data("event-id",event.id);
+						   partic.find(".remPartic").data("partic-index",i);
+						   partic.find(".remPartic").attr("id",i);
+						   partic.show();
+						   el.find(".partics").append(partic);
+						  
 						}
-			        	el = $("#regProbands").clone().first();
-				        partic_dr = el.find(".rowPartic").first().clone();
+						if(event.participations.length == 0) {
+							$(".partics").text("Bisher keine Anmeldungen.")
+						}
+						if(event.participations.length == $("#probandAmount").val()) {
+							$("#search").hide();
+						}
 
-						 /**
-						Füge Event-Handler für Proband hinzufügen & löschen hinzu
-						**/
-						$(element).on('show.bs.popover', function (e) {
-					        $('.fc-event').not(this).popover('hide');
-							el.find(".partics").html("");
-							for (i in event.participations) {
-							   partic = partic_dr.clone();
-							   partic.find("#name").text(event.participations[i].user_name);
-							   partic.find(".remPartic").data("event-id",event.id);
-							   partic.find(".remPartic").data("partic-index",i);
-							   partic.find(".remPartic").attr("id",i);
-							   partic.show();
-							   el.find(".partics").append(partic);
-							}
-							if(event.participations.length == 0) {
-								$(".partics").text("Bisher keine Anmeldungen.")
-							}
-							if(event.participations.length == $("#probandAmount").val()) {
-								$("#search").hide();
-							}
+					});
+					$(element).on('shown.bs.popover', function (e) {
 
-						});
-						$(element).on('shown.bs.popover', function (e) {
+						$(".popover-content").html(el.html());
 
-							$(".popover-content").html(el.html());
-
-					        $(".remPartic").on('click', function () {
-					        	id = parseInt($(this).attr("id"));
-					        	console.log(event.participations);
-				        		delete event.participations[id];
-					        	console.log(event.participations);
-				        		$(this).parent().parent().fadeOut();
-				        	});
-					        $(".addProb").on('keyup',function() {
-					    		if ($(this).val().length >= 3) {
-					    			myJsRoutes.controllers.Experimenter.userSearch($(this).val(), "user").ajax({
-					    				success : function(data) {
-					    					$("#results").html(data);
-					    					$(".addUser").on('click', function() {
-					    						partic = partic_dr.clone();
-					 						   partic.find("#name").text($(this).data('user-name'));
-					 						   partic.find(".remPartic").data("event-id",event.id);
-					 						   partic.find(".remPartic").attr("id","new");
-					 						   partic.show();
-					 						   $(".partics").append(partic);
-					 						   part = {
-					 					            	 id: 'new',
-					 					            	 user_id: $(this).attr('id'),
-					 					            	 user_name: $(this).data('user-name')
-					 						   }
-					 						   console.log(event.participations);
-					 						   event.participations.push(part);
-					 						   console.log(event.participations);
-					 						   console.log(part);
-					    					})
-					    				},
-					    			})
-					    		}
-					    	});
-						});
-				        $(element).popover({
-				            title: 'Angemeldete Probanden',
-				            placement: 'auto',
-				            content: function() {
-				                return el.html();
-				            },
-				            trigger: 'click',
-				            html: true
-				        })
 				        
-						eventFrame = $('#eventFrame').clone();
-						eventFrame.show();
-						$(element).children().remove();
-						datetime = event.start.format("H:mm")+"-"+event.end.format("H:mm");
-						$(element).prepend($(eventFrame));
-						eventFrame.find($('.datetime')).html(datetime+' <br><span class="glyphicon glyphicon-user"></span> '+
-						event.participations.length+'/'+$("#probandAmount").val());
-						eventFrame.find($('.close')).click(function(e) {
-							$('#calendar').fullCalendar('removeEvents',event._id);
-							e.stopPropagation();
-						});
-					}
-				});
+				        $(".addProb").on('keyup',function() {
+				    		if ($(this).val().length >= 3) {
+				    			myJsRoutes.controllers.Experimenter.userSearch($(this).val(), "user").ajax({
+				    				success : function(data) {
+				    					$("#results").html(data);
+				    					$(".addUser").on('click', function() {
+				    						partic = partic_dr.clone();
+				 						   partic.find("#name").text($(this).data('user-name'));
+				 						   partic.find(".remPartic").data("event-id",event.id);
+				 						   partic.find(".remPartic").attr("id",event.participations.length);
+				 						   partic.show();
+				 						  
+				 						   part = {
+				 					            	 id: 'new',
+				 					            	 user_id: $(this).attr('id'),
+				 					            	 user_name: $(this).data('user-name')
+				 						   }
+				 						   console.log(event.participations);
+				 						   event.participations.push(part);
+				 						  partic.find(".remPartic").on('click', function () {
+				 							  
+									        	id = parseInt($(this).attr("id"));
+									        	console.log('loesche')
+									        	console.log(id);
+									        	console.log(event.participations);
+								        		delete event.participations[id];
+									        	console.log(event.participations);
+								        		$(this).parent().parent().fadeOut();
+								        	});
+				 						   console.log(event.participations);
+				 						   console.log(part);
+				 						   $(".partics").append(partic);
 
-function saveSessions() {
-	$("#progress_sessions").html('...');
-	events = $('#calendar').fullCalendar( 'clientEvents');
-	eventsJson = []
-	$.each(events, function (key, value) {
-		datetime = value.start.format("YYYY-MM-DD HH:mm");
-		e = {
-				'datetime': datetime,
-				'participations' : value.participations
-		}
-		eventsJson.push(e)
-	});
-	fin = {
-			// Wenn Räume richtig angezeigt werden: 'room' : $(".buildingSelects option:selected")[0].val(),
-			'room' : 1,
-			'events': eventsJson
-	}
-	myJsRoutes.controllers.Experimenter.saveSessions(@e.id).ajax({
-		method: 'post',
-		data: JSON.stringify(fin),
-		dataType: 'json',
-        contentType: "application/json; charset=utf-8",
-		success: function(data) {
-			window.location.replace("/myStudies");
-		}
-	});
-}
-
-$("#save").click(function() {
-	$(this).prop('disabled',true)
-	/**
-	Allgemeine Informationen speichern
-	**/
-	myJsRoutes.controllers.Experimenter.saveGeneralData(@e.id).ajax({
-		method: 'post',
-		data: $(".form-horizontal").serialize(),
-		success : function(data) {
-			$("#progress_general").html('Erledigt.');
-			saveSessions();
-		}
-		
-	});
-});			
-
-			</script>
+				    					})
+				    				},
+				    			})
+				    		}
+				    	});
+					});
+			        $(element).popover({
+			            title: 'Angemeldete Probanden',
+			            placement: 'auto',
+			            content: function() {
+			                return el.html();
+			            },
+			            trigger: 'click',
+			            html: true
+			        })
+			        
+					eventFrame = $('#eventFrame').clone();
+					eventFrame.show();
+					$(element).children().remove();
+					datetime = event.start.format("H:mm")+"-"+event.end.format("H:mm");
+					$(element).prepend($(eventFrame));
+					eventFrame.find($('.datetime')).html(datetime+' <br><span class="glyphicon glyphicon-user"></span> '+
+					event.participations.length+'/'+$("#probandAmount").val());
+					eventFrame.find($('.close')).click(function(e) {
+						$('#calendar').fullCalendar('removeEvents',event._id);
+						e.stopPropagation();
+					});
+				}
+			});
+</script>
+			
 }
