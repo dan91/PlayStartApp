@@ -37,6 +37,8 @@ public class Experiment extends Model {
     public int experiment_type_id;
     
     public int max_probands;
+    
+    public int defaultRoom_id;
         
     public String assignment;
 
@@ -60,6 +62,7 @@ public class Experiment extends Model {
 		e.email_notifications = rs.getString("email_notifications");
 		e.experiment_type_id = rs.getInt("experiment_type_id");
 		e.max_probands = rs.getInt("max_probands");
+		e.defaultRoom_id = rs.getInt("defaultRoom_id");
 		stmt.close();
 		con.close();
 		return e;

@@ -156,7 +156,6 @@ $('#sessionCalendar').on('hidden.bs.modal', function() {
 	
 	/**
 	Funktion zeigt nur die Räume zum aktuell ausgewählten Gebäude
-	NOCH NICHT FERTIG
 	**/
 	function selectRooms() {
 		console.log('selectRooms');
@@ -217,8 +216,7 @@ function saveSessions() {
 		eventsJson.push(e)
 	});
 	fin = {
-			// Wenn Räume richtig angezeigt werden: 'room' : $(".buildingSelects option:selected")[0].val(),
-			'room' : 1,
+			'room' : $(".buildingSelects:visible option:selected").val(),
 			'events': eventsJson
 	}
 	myJsRoutes.controllers.Experimenter.saveSessions(experiment_id).ajax({

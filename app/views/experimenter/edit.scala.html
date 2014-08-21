@@ -92,7 +92,7 @@ $( "#openPreview" ).click(function() {
 					<div class="col-sm-3">
 						<select id="buildings" class="form-control" name="buildings">
 							@for(Build <- Building.all()) {
-							<option value="@Build.id" >@Build.name</option>
+							<option value="@Build.id" @if(Room.byBuildingId(Build.id) == 1) { selected }>@Build.name</option>
 							}
 						</select> 
 					</div>
@@ -101,7 +101,7 @@ $( "#openPreview" ).click(function() {
 							@if(Room.byBuildingId(Build.id) != null) {
 							<select id="id-@Build.id" class="form-control buildingSelects" name="room">
 								@for(R <- Room.byBuildingId(Build.id)) {
-								<option value="@R.id"  @if(e.defaultRoom_id == @R.id) { selected }>@R.name</option>
+								<option value="@R.id"  @if(e.defaultRoom_id == R.id) { selected }>@R.name</option>
 								}
 							</select>
 							}
