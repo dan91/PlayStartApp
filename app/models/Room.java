@@ -33,7 +33,18 @@ public class Room extends Model {
 
     public Long building_id;
   
-   
+    public static int byBuildingId(int buildingId) throws SQLException {	
+    	Connection con = DB.getConnection();
+        Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+		ResultSet rs = stmt
+				.executeQuery("SELECT COUNT(*) AS amount FROM Building, Room WHERE Room.building_id = "+buildingId+"");
+		rs.next();
+		int amount = rs.getInt("amount");
+		stmt.close();
+		con.close();
+		return amount;
+    }    
+
     /**
      * liefert eine Liste von Räumen für ein Gebäude
      * @param id: Building-ID
