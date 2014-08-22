@@ -2,7 +2,7 @@
 @scripts = {
 <link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.0.3/fullcalendar.css' />
 
-<script src='https://code.jquery.com/ui/1.11.1/jquery-ui.min.js'></script>
+<script src='/assets/javascripts/jquery-ui.custom.min.js'></script>
 <!--  <script src='@routes.Assets.at("javascripts/jquery.ui.touch-punch.min.js")'></script>  TOUCH SUPPORT DISABLED !!! -->
 <script src='//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.1/moment-with-locales.min.js'></script>
 <script src='//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.0.3/fullcalendar.min.js'></script>
@@ -34,7 +34,7 @@
   	</div>	
 
 	<div class="col-sm-4">
-		<a href="/completeStudy"><button class="btn btn-warning tool" data-toggle="tooltip" data-placement="top" title="Teilnahmen bestätigen - 4 Neue"><span class="glyphicon glyphicon-ok"></span> </button></a>
+		<a href="/confirmParticipation/@experiment.id"><button class="btn btn-@if(Session.amountToConfirmByExperimentId(experiment.id) > 0) {warning} else {default} tool" data-toggle="tooltip" data-placement="top" title="Teilnahmen bestätigen - @Session.amountToConfirmByExperimentId(experiment.id) Neue"><span class="glyphicon glyphicon-ok"></span> </button></a>
 		<a href="#"><button class="btn btn-default tool" data-toggle="modal" data-target="#sessionCalendar" data-toggle="modal" data-target="#sessionCalendar" data-toggle="tooltip" data-placement="top" title="Kalender Anzeigen"><span class="glyphicon glyphicon-calendar"></span> </button></a>
 		<button class="btn btn-default tool" data-toggle="modal" data-target=".invite" toggle="tooltip" data-placement="top" title="Einladungen Verschicken"><span class="glyphicon glyphicon-envelope" ></span></button>
 		<a href="/edit/@experiment.id"><button class="btn btn-default tool" data-toggle="tooltip" data-placement="top" title="Studie Bearbeiten"><span class="glyphicon glyphicon-pencil"></span> </button></a>
@@ -43,112 +43,7 @@
 
 </div>
 }
-<!-- <div class="row">
-	<div class="col-sm-3"><b>Filmstudie</b></div>
-	<div class="col-sm-2"><span class="glyphicon glyphicon-user"></span> 35 Teilnahmen 
-	</div>
-	
-	<div class="col-sm-3">
-<span class="glyphicon glyphicon-user"></span> 50/100 angemeldet	
-		
-		<div class="progress">
-  			<div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%"></div>
-    		<span class="sr-only">50% Complete (success)</span>
-  		</div>
-  	</div>	
-  		
 
-	<div class="col-sm-4">
-		<a href="/completeStudy"><button class="btn btn-warning tool" data-toggle="tooltip" data-placement="top" title="Teilnahmen bestätigen - 1 Neue"><span class="glyphicon glyphicon-ok"></span> </button></a>
-		<a href="#"><button class="btn btn-default tool" data-toggle="modal" data-target="#sessionCalendar" data-toggle="tooltip" data-placement="top" title="Kalender Anzeigen"><span class="glyphicon glyphicon-calendar"></span> </button></a>
-		<button class="btn btn-default tool" data-toggle="modal" data-target=".invite" toggle="tooltip" data-placement="top" title="Einladungen Verschicken"><span class="glyphicon glyphicon-envelope" ></span></button>
-		<a href="/edit"><button class="btn  btn-default tool" data-toggle="tooltip" data-placement="top" title="Studie Bearbeiten"><span class="glyphicon glyphicon-pencil"></span> </button></a>
-
-	</div>
-
-</div>
-
-<div class="row">
-	<div class="col-sm-3"><b>Gestenerkennung II</b></div>
-	<div class="col-sm-2"><span class="glyphicon glyphicon-user"></span> 2 Teilnahmen 
-	</div>
-	
-	<div class="col-sm-3">
-<span class="glyphicon glyphicon-user"></span> 5/100 angemeldet	
-		
-		<div class="progress">
-  			<div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100" style="width: 5%"></div>
-    		<span class="sr-only">5% Complete (success)</span>
-  		</div>
-  	</div>	
-  		
-
-	<div class="col-sm-4">
-		<a href="/completeStudy"><button class="btn btn-warning tool" data-toggle="tooltip" data-placement="top" title="Teilnahmen bestätigen - 1 Neue"><span class="glyphicon glyphicon-ok"></span> </button></a>
-		<a href="#"><button class="btn btn-default tool" data-toggle="modal" data-target="#sessionCalendar" data-toggle="tooltip" data-placement="top" title="Kalender Anzeigen"><span class="glyphicon glyphicon-calendar"></span> </button></a>
-		<button class="btn btn-default tool" data-toggle="modal" data-target=".invite" toggle="tooltip" data-placement="top" title="Einladungen Verschicken"><span class="glyphicon glyphicon-envelope" ></span></button>
-		<a href="/edit"><button class="btn  btn-default tool" data-toggle="tooltip" data-placement="top" title="Studie Bearbeiten"><span class="glyphicon glyphicon-pencil"></span> </button></a>
-
-	</div>
-
-</div>
-<h4>Abgeschlossene Studien <span class="label label-default">3</span></h4>
-<hr>
-
-
-
-
-
-
-<div class="row"> 
-	<div class="col-sm-4"><b>Multitasking I</b></div>
-	<div class="col-sm-4"><span class="glyphicon glyphicon-user"></span> 30 Teilnahmen </div>	
-	<div class="col-sm-3">
-		<a href="/completeStudy"><button class="btn   btn-default tool" data-toggle="tooltip" data-placement="top" title="Teilnahmen bestätigen"><span class="glyphicon glyphicon-ok"></span> </button></a>
-		<a href="#"><button class="btn  btn-default tool" data-toggle="modal" data-target="#sessionCalendar" data-toggle="tooltip" data-placement="top" title="Kalender Anzeigen"><span class="glyphicon glyphicon-calendar"></span> </button></a>
-	
-		<a href="/edit"><button class="btn  btn-default tool" data-toggle="tooltip" data-placement="top" title="Studie Bearbeiten"><span class="glyphicon glyphicon-pencil"></span> </button></a>
-	</div>
-</div>    <!-- / abgeschlossene studie
-
-
-
-<div class="row">  <!-- abgeschlossene studie 
-	<div class="col-sm-4"><b>Gestenerkennung I</b></div>
-	<div class="col-sm-4"><span class="glyphicon glyphicon-user"></span> 30 Teilnahmen </div>	
-	<div class="col-sm-3">
-		<a href="/completeStudy"><button class="btn  btn-default tool" data-toggle="tooltip" data-placement="top" title="Teilnahmen bestätigen"><span class="glyphicon glyphicon-ok"></span> </button></a>
-		<a href="#"><button class="btn  btn-default tool" data-toggle="modal" data-target="#sessionCalendar" data-toggle="tooltip" data-placement="top" title="Kalender Anzeigen"><span class="glyphicon glyphicon-calendar"></span> </button></a>
-	
-		<a href="/edit"><button class="btn  btn-default tool" data-toggle="tooltip" data-placement="top" title="Studie Bearbeiten"><span class="glyphicon glyphicon-pencil"></span> </button></a>
-	</div>
-</div>    <!-- / abgeschlossene studie 
-
-
-
-<div class="row">  <!-- abgeschlossene studie 
-	<div class="col-sm-4"><b>Reaktionsfähigkeit I</b></div>
-	<div class="col-sm-4"><span class="glyphicon glyphicon-user"></span> 58 Teilnahmen </div>	
-	<div class="col-sm-3">
-		<a href="/completeStudy"><button class="btn  btn-default tool" data-toggle="tooltip" data-placement="top" title="Teilnahmen bestätigen"><span class="glyphicon glyphicon-ok"></span> </button></a>
-		<a href="#"><button class="btn  btn-default tool" data-toggle="modal" data-target="#sessionCalendar" data-toggle="tooltip" data-placement="top" title="Kalender Anzeigen"><span class="glyphicon glyphicon-calendar"></span> </button></a>
-	
-		<a href="/edit"><button class="btn  btn-default tool" data-toggle="tooltip" data-placement="top" title="Studie Bearbeiten"><span class="glyphicon glyphicon-pencil"></span> </button></a>
-	</div>
-</div>    <!-- / abgeschlossene studie
-
-
-
-<div class="row">  <!-- abgeschlossene studie 
-	<div class="col-sm-4"><b>Reaktionsfähigkeit II</b></div>
-	<div class="col-sm-4"><span class="glyphicon glyphicon-user"></span> 30 Teilnahmen </div>	
-	<div class="col-sm-3">
-		<a href="/completeStudy"><button class="btn  btn-default tool" data-toggle="tooltip" data-placement="top" title="Teilnahmen bestätigen"><span class="glyphicon glyphicon-ok"></span> </button></a>
-		<a href="#"><button class="btn  btn-default tool" data-toggle="modal" data-target="#sessionCalendar" data-toggle="tooltip" data-placement="top" title="Kalender Anzeigen"><span class="glyphicon glyphicon-calendar"></span> </button></a>
-	
-		<a href="/edit"><button class="btn  btn-default tool" data-toggle="tooltip" data-placement="top" title="Studie Bearbeiten"><span class="glyphicon glyphicon-pencil"></span> </button></a>
-	</div>
-</div>    <!-- / abgeschlossene studie --> 
 
 
 

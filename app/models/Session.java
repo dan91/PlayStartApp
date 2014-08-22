@@ -84,8 +84,11 @@ public class Session {
     		add = "AND was_present IS NULL";
     	Connection con = DB.getConnection();
         Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        String select = "SELECT Session.id, user_id, session_id, datetime, was_present FROM Participation, Session WHERE experiment_id = "+id+" AND "
+						+ "Session.id = Participation.session_id AND FROM_UNIXTIME(Session.datetime/1000) < NOW() "+add+" GROUP BY Session.datetime";
 		ResultSet rs = stmt
-				.executeQuery("SELECT Session.id, user_id, session_id, datetime, was_present FROM Participation, Session WHERE experiment_id = "+id+" AND Session.id = Participation.session_id AND datetime < NOW() "+add);
+				.executeQuery(select);
+		Logger.info(select);
 		List<Session> list = new ArrayList<Session>();
 		while(rs.next()) {
 			Session p = new Session();
@@ -97,7 +100,11 @@ public class Session {
 		stmt.close();
 		con.close();
 		return list;
-    }   
+    }
+    
+    public static int amountToConfirmByExperimentId(Long id) throws SQLException {
+    	return toConfirmByExperimentId(id, "new").size();
+    }
     
     public static Session byId(Long id) throws SQLException {	
     	Connection con = DB.getConnection();

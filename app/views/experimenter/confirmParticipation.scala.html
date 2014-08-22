@@ -10,6 +10,9 @@
 	<h4>@Experiment.byId(id).name</h4>
 </div>
 <form action="/saveParticipation" method="post">
+@if(Session.toConfirmByExperimentId(id, "new").length == 0) {
+Alle Teilnahmen sind bestätigt.
+} else {
 @for(s <- Session.toConfirmByExperimentId(id, "new")) {
 <div class="session">
 		<div class="row nobm">
@@ -61,16 +64,18 @@
 		</div>
 		}
 	</div>
-
+<hr>
+}
 }
 
+@if(Session.toConfirmByExperimentId(id, "old").length > 1) {
 
 
-<hr>
 
 <button type="button" id="showOld" class="btn btn-default">Bereits bestätigte Teilnahmen anzeigen <span class="glyphicon glyphicon-chevron-down"></span></button>
-<div id="oldPartics" style="display:none">
 
+<div id="oldPartics" style="display:none">
+<hr>
 @for(s <- Session.toConfirmByExperimentId(id, "old")) {
 <div class="session">
 		<div class="row nobm">
@@ -122,13 +127,12 @@
 		</div>
 		}
 	</div>
-
+<hr>
 }
-
+}
 
 </div>
 
-<hr>
 
 <div class="row">
 	<div class="col-sm-2 col-sm-offset-7">
