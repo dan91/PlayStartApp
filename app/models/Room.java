@@ -95,7 +95,7 @@ public class Room extends Model {
        
         
         String insert = String.format("INSERT INTO Room (name,description,building_id) "
-				 +"VALUES ('%s','%s',%s)",name,description,building_id );
+				 +"VALUES ('%s','%s',%s,%s)",name,description,building_id,0 );
         
         
        stmt.executeUpdate(insert);
@@ -128,23 +128,14 @@ public class Room extends Model {
     public static void delete(Long id) throws SQLException{
     	
     	
-    	
     	Connection con = DB.getConnection();
         Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-        
-        
-        stmt.execute("SET FOREIGN_KEY_CHECKS=0");
-		stmt.close();
-		
-		stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-        String delete = String.format("DELETE FROM Room WHERE id=%s;",id);
-        stmt.executeUpdate(delete);
+       
+        String roomToArchive = String.format("Update Room SET "
+        		+ "archive=1 WHERE id=%s;",id);
+        stmt.executeUpdate(roomToArchive);
         stmt.close();
         
-        stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-        stmt.execute("SET FOREIGN_KEY_CHECKS=1");
-		stmt.close();
-		
         con.close();
         
         
@@ -155,40 +146,33 @@ public class Room extends Model {
     	
     	Connection con = DB.getConnection();
         Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-       
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date date = new Date();
-        
-        int dateInt = Integer.parseInt(dateFormat.format(date).split(" ")[0].replace("-", ""));
-        int timeInt = Integer.parseInt(dateFormat.format(date).split(" ")[1].replace(":",""));
-        
-        List<Integer> sessionsDate = new ArrayList<Integer>();
-        List<Integer> sessionsTime = new ArrayList<Integer>();
         
         
-        String checkRoomInUse = String.format("SELECT Session.id,Session.datetime,Session.room_id FROM Session WHERE room_id=%s"
-        		+ " AND Session.datetime > NOW(); ",id);
+        String checkRoomInUse = String.format("SELECT Count(Session.id) AS amount FROM Session WHERE room_id=%s"
+        		+ " AND FROM_UNIXTIME(Session.datetime/1000) > NOW(); ",id);
         
         ResultSet rs = stmt.executeQuery(checkRoomInUse);
+        
+        long amount = 0;
         while(rs.next()){
-        	// FEHLT HIER NOCH 
+        	amount = rs.getLong("amount");
         }
         
         stmt.close();
         con.close();
         
-        boolean roomsInUse= true;
-        if(sessionsDate.size() == 0)
-        roomsInUse= false;
+        boolean roomInUse= true;
+        if(amount == 0)
+        roomInUse= false;
         
         
-        if(roomsInUse)
+        if(roomInUse)
         	Logger.error("ROOM IS STILL IN USE!");
         else{
         	Logger.info("ROOM IS NOT IN USE!");
         }
         
-        return roomsInUse;
+        return roomInUse;
     	
     }
 

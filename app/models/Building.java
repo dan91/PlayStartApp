@@ -168,7 +168,7 @@ public class Building extends Model {
         		String.format(
         
         				"SELECT Count(Room.id) AS amount FROM Session Join Room ON Session.room_id = Room.id WHERE Room.building_id = %s"
-        				+ " AND Session.datetime > NOW();",id);
+        				+ " AND FROM_UNIXTIME(Session.datetime/1000) > NOW();",id);
         
         ResultSet rs = stmt.executeQuery(checkIt);
         

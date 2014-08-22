@@ -186,7 +186,7 @@ public class Admin extends Controller {
 		    			return ok("Das Gebäude "+nameToDelete+" wurde ins Archiv verschoben!\n"
 		        				+ "Es können nun keine Studien mehr in ihm stattfinden.");
     			} catch (SQLException e){
-    					return badRequest("BUILDING TO ARCHIV ERROR! "+e.toString());
+    					return badRequest("BUILDING TO ARCHIVE ERROR! "+e.toString());
     			}
     		}	
     		else if(hasRoomsInUse)
@@ -259,16 +259,13 @@ public class Admin extends Controller {
     		
     		else{
     			Room.delete(idToDelete);
-    			return ok("Der Raum "+nameToDelete+" wurde vom Server gelöscht.");
+    			return ok("Der Raum "+nameToDelete+" wurde ins Archiv verschoben.\n"
+    					+ "In ihm können keine weiteren Studien mehr stattfinden");
     		}
     		
 		} catch (SQLException e) {
-			
 			return badRequest(e.toString());
 		}
-    	
-    	
-    	
     	
     }
 

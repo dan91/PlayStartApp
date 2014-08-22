@@ -21,6 +21,13 @@
         var markersArray = [];
         var markersArrayE = [];
         
+        /** DELETE ROOM/BUILDING VARIABLES */
+        var reference;
+        var idOfBuild;
+ 	    var nameOfBuild;
+ 	    var idOfRoom;
+  	    var nameOfRoom;
+        
         /** NEW BUILDING */
         /** RESIZED DIE KARTE, SETZT CENTER DER MAP AUF ZFM DES LEHRSTUHLS MCM - UNI WÜRZBURG*/
         var ZFM = new google.maps.LatLng(49.782264, 9.974931);
@@ -232,53 +239,44 @@
                 	   w.preventDefault();
                 	   var statusCode = $(this).data('status');	
                 	   
-                	   var reference = $(this);
+                	   reference = $(this);
                 	   
                 	   var felder = statusCode.split(';', 2);
                 	   
-				   	   var idOfBuild  = felder[0];
-                	   var nameOfBuild = felder[1];
+				   	   idOfBuild  = felder[0];
+                	   nameOfBuild = felder[1];
                 	  
                 	   
-                	   $( "#nameToDelete" ).html(nameOfBuild);
-                	   
-                	   $("#deleteBuildingConfirm").click(function(q){
-                		   $('#confirmDelete').modal('hide');
-                		   
-                		   $.ajax({
-               		        type : 'POST',
-               		        url : '@routes.Admin.deleteBuilding()',
-               		        data : {
-               		            id: idOfBuild, name: nameOfBuild
-               		        },
-               		        success : function(data) {
-               		            // ... some code on success
-               		            data.preventDefault();
-               		            
-               		            $(this).html(data);
-               		            alert(data);
-               		         /** Wenn ein gebäude kein Raum enthält würde es ohne die if-Abfrage
-                          	  sonst das nächste Gebäude mitlöschen ! */
-                          	  if( $( "#amountRooms" ).html() == "")
-                          		  reference.parent().parent().fadeOut();
-                          	  else
-                          		  reference.parent().parent().fadeOut().next().fadeOut();
-               		      
-               		        },
-	               		     error : function(err) {
-	               		    	data.preventDefault();
-	         	                
-	         	                alert(err.responseText); 
-	         	            }
-	         	            	
-	               		    });
-                     	 
-                	});
-                	   
-                	  
-
+                	   $( ".nameToDelete" ).html(nameOfBuild);
                 	   
                  });
+                
+                 $(".deleteBuildingConfirm").click(function(q){
+          		   $('.confirmDelete').modal('hide');
+          		   
+          		   $.ajax({
+         		        type : 'POST',
+         		        url : '@routes.Admin.deleteBuilding()',
+         		        data : {
+         		            id: idOfBuild, name: nameOfBuild
+         		        },
+         		        success : function(data) {
+         		            alert(data);
+         		            
+         		         /** Wenn ein gebäude kein Raum enthält würde es ohne die if-Abfrage
+                    	  sonst das nächste Gebäude mitlöschen ! */
+                    	  if( $( ".amountRooms" ).html() == "")
+                    		  reference.parent().parent().fadeOut();
+                    	  else
+                    		  reference.parent().parent().fadeOut().next().fadeOut();
+         		      
+         		        },
+             		     error : function(err) {
+       	                
+       	                alert(err.responseText); 
+       	            }
+             		    });
+          	});
                 
                 
                 /** REMOVE Room */
@@ -286,54 +284,45 @@
               	   w.preventDefault();
               	   
               	   var statusCode = $(this).data('status');	
-              	   var reference = $(this);
+              	   reference = $(this);
               	   var felder = statusCode.split(';', 2);
               	   
-				   var idOfRoom  = felder[0];
-              	   var nameOfRoom = felder[1];
+				   idOfRoom  = felder[0];
+              	   nameOfRoom = felder[1];
               	  
-              	   $( "#roomNameToDelete" ).html(nameOfRoom);
-              	 
-              	   
-              	 $("#deleteRoomConfirm").click(function(q){
-          		   $('#confirmRoomDelete').modal('hide');
-          		   
-          		 $.ajax({
-        		        type : 'POST',
-        		        url : '@routes.Admin.deleteRoom()',
-        		        data : {
-        		            id: idOfRoom, name: nameOfRoom
-        		        },
-        		        success : function(data) {
-        		            
-        		            
-        		          alert(data);
-        		          
-        		          var infoDelete = reference.parent().parent();
-        		          infoDelete.hide();
-        		          
-        		          /**
-        		          infoDelete.html("<div class='row'> <div class='col-sm-11 col-xs-11 bg-success' > gelöscht</div></div>");
-        		          
-        		          setTimeout(function(){ 
-        		        	  infoDelete.hide(); 
-        		          }, 3000);
-        		          */
-        		          return false;
-                   	  
-        		        },
-            		     error : function(err) {
-      	                
-      	                
-      	                alert(err.responseText);    
-      	                
-      	                  return false;
-      	            	}
-      	            	
-            		    });
-              	 });
+              	   $( ".roomNameToDelete" ).html(nameOfRoom);
               	 
          });    
+                
+                 $(".deleteRoomConfirm").click(function(q){
+            		   $('.confirmRoomDelete').modal('hide');
+            		   
+            		 $.ajax({
+          		        type : 'POST',
+          		        url : '@routes.Admin.deleteRoom()',
+          		        data : {
+          		            id: idOfRoom, name: nameOfRoom
+          		        },
+          		        success : function(data) {
+          		          alert(data);
+          		          
+          		          var infoDelete = reference.parent().parent();
+          		          infoDelete.hide();
+          		          /**
+          		          infoDelete.html("<div class='row'> <div class='col-sm-11 col-xs-11 bg-success' > gelöscht</div></div>");
+          		          
+          		          */
+          		        },
+              		     error : function(err) {
+        	                
+        	                alert(err.responseText); 
+        	            	}
+        	            	
+              		    });
+                	 });
+                 
+                 
+                 
                 
                  /** Übergibt die Building id an einen <input> Tag */
                 $('.addNewRoom').click(function(w) {
@@ -411,7 +400,7 @@
 			
 			</div>
 
-<div id="amountRooms">
+<div class="amountRooms">
 
 
 <hr>
@@ -713,30 +702,30 @@
 
 
 <!-- Confirm Building Delete Modal -->
-<div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade confirmDelete" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body">
-                Wollen Sie "<span id="nameToDelete"></span>" wirklich löschen?
+                Wollen Sie "<span class="nameToDelete"></span>" wirklich löschen?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button id="deleteBuildingConfirm" class="btn btn-danger danger">Delete</button>
+                <button class="btn btn-danger danger deleteBuildingConfirm">Delete</button>
             </div>
         </div>
     </div>
 </div>
 
 <!-- Confirm Room Delete Modal -->
-<div class="modal fade" id="confirmRoomDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade confirmRoomDelete" id="confirmRoomDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body">
-                Wollen Sie "<span id="roomNameToDelete"></span>" wirklich löschen?
+                Wollen Sie "<span class="roomNameToDelete"></span>" wirklich löschen?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button id="deleteRoomConfirm" class="btn btn-danger danger">Delete</button>
+                <button class="btn btn-danger danger deleteRoomConfirm">Delete</button>
             </div>
         </div>
     </div>
