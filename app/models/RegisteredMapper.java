@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import org.apache.commons.lang.time.DateUtils;
 import org.joda.time.DateTime;
@@ -63,10 +64,10 @@ public class RegisteredMapper {
 						"JOIN Room ON Session.room_id = Room.id "+
 						"JOIN Building ON Room.building_id = Building.id "+
 
-						"WHERE Participation.user_id="+id+" AND Session.datetime > NOW();"
+						"WHERE Participation.user_id="+id+" AND FROM_UNIXTIME(Session.datetime/1000) > NOW();"
 						);
         
-        StringBuilder sb = new StringBuilder();
+
 		
 		List<RegisteredMapper> list = new ArrayList<RegisteredMapper>();
 		while(rs.next()) {
@@ -75,11 +76,8 @@ public class RegisteredMapper {
 			u.participation_id = rs.getLong("id");
 			u.experiment_name = rs.getString("experiment_name");
 			
-			sb.append(rs.getString("datetime").split(" ")[0].split("-")[2]+".");
-			sb.append(rs.getString("datetime").split(" ")[0].split("-")[1]+".");
-			sb.append(rs.getString("datetime").split(" ")[0].split("-")[0]);
-			u.date = sb.toString();
-			u.time = rs.getString("datetime").split(" ")[1].replace(":00.0","");
+			u.date = new SimpleDateFormat("dd.MM.YYYY", new Locale("de", "DE")).format(new Date(rs.getLong("datetime")));
+			u.time = new SimpleDateFormat("HH:mm", new Locale("de", "DE")).format(new Date(rs.getLong("datetime")));
 			
 			u.duration = rs.getFloat("duration");
 			u.end_time = getEndTime(u.date, u.time, u.duration);
@@ -91,9 +89,6 @@ public class RegisteredMapper {
 			u.room_name = rs.getString("room_name");
 			u.room_description = rs.getString("room_description");
 			u.proband_hours = rs.getFloat("proband_hours");
-			
-			
-			sb = new StringBuilder();
 			
 			list.add(u);
 		}
@@ -138,15 +133,13 @@ public class RegisteredMapper {
 		int minutes = (int) (duration%60);
 		int hours = (int) ((duration - minutes)/60);
 		
-		
-//		Logger.info("hours: "+hours+ "minutes: "+minutes);
+
 		
 		DateTime dt = DateTime.parse(sb.toString(),DateTimeFormat.forPattern(pattern));
 		DateTime endTime = dt.plusHours(hours).plusMinutes(minutes);
 		
 		
-		
-//		Logger.info(endTime.toString("HH:mm"));
+
         
        
 		
