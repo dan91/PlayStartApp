@@ -79,37 +79,7 @@ $('#sessionCalendar').on('hidden.bs.modal', function() {
 
 
 
-	$(document).ready(function(){
 
-	$('.form-horizontal').validate(
-	{
-		rules: {
-			expType : {
-				required: true
-			},
-			name: {
-				minlength: 6,
-				required: true
-			},
-			description: {
-				minlength: 6,
-				required: true,
-			},
-			duration: {
-				required: true,
-				digits:true,
-				range: [15,600]
-			}
-		},
-		highlight: function(element) {
-			$(element).closest('.form-group').addClass('has-error');
-		},
-		unhighlight: function(element) {
-			$(element).closest('.form-group').removeClass('has-error');
-
-		}
-	});
-});
 	$("#modalAddPersons").on("shown.bs.modal", function() {
 		$("#expSearch").on('keyup',function() {
     		if ($(this).val().length >= 3) {

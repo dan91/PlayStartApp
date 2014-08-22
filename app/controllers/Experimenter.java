@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Map;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 
 import models.Assignment;
@@ -149,8 +150,9 @@ public class Experimenter extends Controller {
     	return ok();
     }
     
-    public static Result saveFilters() throws SQLException {
-		return ok();
+    public static Result jsonByExperimentId(long id) throws SQLException, JsonProcessingException {
+    	String n = Session.jsonByExperimentId(id);
+		return ok(n);
     }
     
     /**

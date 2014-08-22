@@ -17,10 +17,20 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+
 import controllers.SQLConn;
 import play.Logger;
 import play.data.validation.Constraints;
 import play.db.DB;
+import play.libs.Json;
 
 @Entity 
 public class Session {
@@ -76,7 +86,18 @@ public class Session {
 		con.close();
 		return list;
     }   
-    
+    @JsonIgnore
+    public static String jsonByExperimentId(long id) throws SQLException, JsonProcessingException {
+    	List<Session> sessions = Session.byExperimentId(id);
+    	ArrayNode result = new ArrayNode(JsonNodeFactory.instance);
+    	for(Session s : sessions) {
+    		ObjectNode event = Json.newObject();
+    		event.put("title", "");
+    		event.put("start", s.datetime);
+    		result.add(event);
+    	}
+    	return result.toString();
+    }
     
     public static List<Session> toConfirmByExperimentId(Long id, String filter) throws SQLException {
     	String add = "AND was_present IS NOT NULL";
