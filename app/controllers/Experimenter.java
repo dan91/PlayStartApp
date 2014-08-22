@@ -139,7 +139,7 @@ public class Experimenter extends Controller {
 	    	int session_id = Session.create(id, datetime, room_id);
 	    	while(i2.hasNext()) {
 	    		JsonNode part = i2.next();
-	    		int user_id = Integer.parseInt(part.path("user_id").textValue());
+	    		int user_id = part.path("user_id").asInt();
 	    		Logger.info("-- "+user_id);
 	    		Participation.create(session_id, user_id);
 	    	}
@@ -164,7 +164,21 @@ public class Experimenter extends Controller {
     
     public static Result saveParticipation() throws SQLException {
     	final Map<String, String[]> values = request().body().asFormUrlEncoded();
+    	Logger.info(values.toString());
         final String[] partics = values.get("partics");
+        for(String p : partics) {
+        	Double proband_hours = Double.parseDouble(values.get("proband_hours_"+p)[0]);
+        	int was_present = 1;
+        	try {
+        	String was_present_form = values.get("was_present_"+p)[0];
+        	} catch (NullPointerException e) {
+        		was_present = 0;
+        	}
+        	
+        	int p_id = Integer.parseInt(p);
+        	Participation.update(p_id, proband_hours, was_present);
+        	
+        }
 
         return ok(views.html.experimenter.myStudies.render(Experiment.all()));
     }

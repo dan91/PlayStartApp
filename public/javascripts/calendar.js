@@ -57,7 +57,6 @@ $('#sessionCalendar').on('shown.bs.modal', function () {
 			$(this).css('overflow-x','visible')
 			$(this).css('overflow-y','visible')
 		}
-
 	})
 });
 $('#modalAddPersons').on('shown.bs.modal', function () {

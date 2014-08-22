@@ -1,15 +1,16 @@
-@(id : Int) 
+@(id: Int) 
 @import java.text.SimpleDateFormat
 @import java.util.Locale
 
 @main(null, null, "experimenter") {
 
+
 <div class="page-header">
 	<h3>Teilnahmen bestätigen</h3>
 	<h4>@Experiment.byId(id).name</h4>
 </div>
-<form action="/confirmParticipation" method="post">
-@for(s <- Session.toConfirmByExperimentId(id)) {
+<form action="/saveParticipation" method="post">
+@for(s <- Session.toConfirmByExperimentId(id, "new")) {
 <div class="session">
 		<div class="row nobm">
 			<div class="col-sm-4 col-xs-6">
@@ -67,9 +68,67 @@
 
 <hr>
 
+<button type="button" id="showOld" class="btn btn-default">Bereits bestätigte Teilnahmen anzeigen <span class="glyphicon glyphicon-chevron-down"></span></button>
+<div id="oldPartics" style="display:none">
+
+@for(s <- Session.toConfirmByExperimentId(id, "old")) {
+<div class="session">
+		<div class="row nobm">
+			<div class="col-sm-4 col-xs-6">
+				<h4>
+					<span class="glyphicon glyphicon-calendar"></span> @(new SimpleDateFormat("EEEE, dd.MM.YYYY", new Locale("de", "DE")).format(new Date(s.datetime)))
+
+				</h4>
+			</div>
+
+			<div class="col-sm-3 col-xs-6">
+				<h4>
+					<span class="glyphicon glyphicon-time"></span> @(new SimpleDateFormat("HH:mm").format(new Date(s.datetime))) Uhr
+				</h4>
+			</div>
+			<div class="col-sm-2 col-xs-6">
+				<h4>
+					<span class="glyphicon glyphicon-star"></span> VPS
+				</h4>
+			</div>
+		</div>
+			@for(p <- Participation.bySessionId(s.id)) {
+
+		<div class="row nobm">
+			<div class="col-sm-4 col-xs-6 ">
+				<h5>
+					<span class="glyphicon glyphicon-user"></span> @User.nameById(p.user_id)
+					<input type="hidden" value="@p.id" name="partics">
+				</h5>
+			</div>
+			<div class="col-sm-3 col-xs-6">
+				<div class="checkbox">
+					<label> <input type="checkbox" name="was_present_@p.id" @if(p.was_present == true) { checked }>
+						teilgenommen
+					</label>
+				</div>
+			</div>
+			<div class="col-sm-2 col-xs-6">
+				<select id="vps" class="form-control" name="proband_hours_@p.id">
+					<option @if(p.proband_hours == 0.0) { selected }>0</option>
+					<option @if(p.proband_hours == 0.5) { selected }>0.5</option>
+					<option @if(p.proband_hours == 1.0) { selected }>1.0</option>
+					<option @if(p.proband_hours == 1.5) { selected }>1.5</option>
+					<option @if(p.proband_hours == 2.0) { selected }>2.0</option>
+					<option @if(p.proband_hours == 2.5) { selected }>2.5</option>
+					<option @if(p.proband_hours == 3.0) { selected }>3.0</option>
+				</select>
+			</div>
+		</div>
+		}
+	</div>
+
+}
 
 
+</div>
 
+<hr>
 
 <div class="row">
 	<div class="col-sm-2 col-sm-offset-7">
@@ -87,7 +146,22 @@
 
 
 
-
+<script>
+collapsed = true;
+con_collapsed = 'Bereits bestätigte Teilnahmen anzeigen <span class="glyphicon glyphicon-chevron-down"></span>';
+con_expanded = 'Bereits bestätigte Teilnahmen ausblenden <span class="glyphicon glyphicon-chevron-up"></span>';
+$("#showOld").click(function () {
+	$("#oldPartics").fadeToggle();
+	if(collapsed) {
+		$("#showOld").html(con_expanded);
+		collapsed = false;
+	}
+	else {
+		$("#showOld").html(con_collapsed);
+		collapsed = true;
+	}
+})
+</script>
 
 
 

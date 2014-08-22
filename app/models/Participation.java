@@ -38,6 +38,8 @@ public class Participation extends Model {
 
     public Boolean got_invitation;
     
+    public Double proband_hours;
+    
     /**
      * liefert die Anzahl der abgeschlossenen Sessions für ein Experiment
      * @param id Experiment-ID
@@ -66,7 +68,7 @@ public class Participation extends Model {
     	Connection con = DB.getConnection();
         Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 		ResultSet rs = stmt
-				.executeQuery("SELECT COUNT(*) AS amount FROM Participation, Session, Experiment WHERE Participation.session_id = Session.id AND Session.experiment_id = Experiment.id AND Experiment.id = "+id+" AND Session.datetime > NOW()");
+				.executeQuery("SELECT COUNT(*) AS amount FROM Participation, Session, Experiment WHERE Participation.session_id = Session.id AND Session.experiment_id = Experiment.id AND Experiment.id = "+id+" AND FROM_UNIXTIME(Session.datetime/1000) > NOW()");
 		rs.next();
 		int amount = rs.getInt("amount");
 		stmt.close();
@@ -83,7 +85,7 @@ public class Participation extends Model {
     public static List<Participation> bySessionId(Long id) throws SQLException {	
     	Connection con = DB.getConnection();
         Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-        String select = "SELECT Participation.id, user_id FROM Participation, Session WHERE Participation.session_id = Session.id AND Session.id = "+id+" AND Session.datetime < NOW()";
+        String select = "SELECT Participation.id, Participation.proband_hours, user_id, was_present FROM Participation, Session WHERE Participation.session_id = Session.id AND Session.id = "+id+" AND Session.datetime < NOW()";
 		ResultSet rs = stmt
 				.executeQuery(select);
 		Logger.info(select);
@@ -92,6 +94,8 @@ public class Participation extends Model {
 			Participation p = new Participation();
 			p.id = rs.getLong("id");
 			p.user_id = rs.getLong("user_id");
+			p.was_present = rs.getBoolean("was_present");
+			p.proband_hours = rs.getDouble("proband_hours");
 			list.add(p);
 		}
  		stmt.close();
@@ -116,8 +120,26 @@ public class Participation extends Model {
 			stmt.close();
 			con.close();
 		
-	}    
-    
+	}
+
+	public static void update(int p_id, double proband_hours,
+			int was_present_processed) throws SQLException {
+		
+		Connection con = DB.getConnection();
+        Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+		
+       
+        String update = String.format("UPDATE Participation SET "
+        		+ "proband_hours='%s',was_present='%s' WHERE id=%s;" ,proband_hours,was_present_processed,p_id);
+        
+      
+       stmt.executeUpdate(update);
+	   stmt.close();
+       con.close();
+		
+	}
+
+	
     
 }
 

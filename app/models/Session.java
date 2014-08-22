@@ -46,7 +46,7 @@ public class Session {
     	Connection con = DB.getConnection();
         Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 		ResultSet rs = stmt
-				.executeQuery("SELECT COUNT(*) AS amount FROM Session, Experiment WHERE Session.experiment_id = Experiment.id AND Experiment.id = "+id+" AND Session.datetime > NOW()");
+				.executeQuery("SELECT COUNT(*) AS amount FROM Session, Experiment WHERE Session.experiment_id = Experiment.id AND Experiment.id = "+id+" AND FROM_UNIXTIME(Session.datetime/1000) > NOW()");
 		rs.next();
 		int amount = rs.getInt("amount");
 		stmt.close();
@@ -77,17 +77,15 @@ public class Session {
 		return list;
     }   
     
-    public static String getNiceDate(String d) {
-    	DateTime dt = new DateTime(d);
-    	DateTimeFormatter fmt = DateTimeFormat.forPattern("EEEE, dd.MM.yyyy");
-    	return fmt.toString();
-    }
     
-    public static List<Session> toConfirmByExperimentId(Long id) throws SQLException {	
+    public static List<Session> toConfirmByExperimentId(Long id, String filter) throws SQLException {
+    	String add = "AND was_present IS NOT NULL";
+    	if(filter.equals("new"))
+    		add = "AND was_present IS NULL";
     	Connection con = DB.getConnection();
         Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 		ResultSet rs = stmt
-				.executeQuery("SELECT Session.id, user_id, session_id, datetime, was_present FROM Participation, Session WHERE experiment_id = "+id+" AND was_present IS NULL AND Session.id = Participation.session_id AND datetime < NOW()");
+				.executeQuery("SELECT Session.id, user_id, session_id, datetime, was_present FROM Participation, Session WHERE experiment_id = "+id+" AND Session.id = Participation.session_id AND datetime < NOW() "+add);
 		List<Session> list = new ArrayList<Session>();
 		while(rs.next()) {
 			Session p = new Session();
