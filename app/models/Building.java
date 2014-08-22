@@ -132,6 +132,11 @@ public class Building extends Model {
     	Connection con = DB.getConnection();
         Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
        
+        String allRoomsToArchive = String.format("Update Room SET "
+        		+ "archive=1 WHERE building_id=%s;",id);
+        stmt.executeUpdate(allRoomsToArchive);
+        
+        
         String buildingToArchive = String.format("Update Building SET "
         		+ "archive=1 WHERE id=%s;",id);
         stmt.executeUpdate(buildingToArchive);
