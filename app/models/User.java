@@ -138,7 +138,7 @@ public class User extends Model {
     	Connection con = DB.getConnection();
         Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 		ResultSet rs = stmt
-				.executeQuery("SELECT SUM(proband_hours) AS Amount FROM Experiment, Session, Participation WHERE Participation.user_id = "+id+" AND Participation.session_id = Session.id AND Session.experiment_id = Experiment.id");
+				.executeQuery("SELECT SUM(Participation.proband_hours) AS Amount FROM Experiment, Session, Participation WHERE Participation.user_id = "+id+" AND Participation.session_id = Session.id AND Session.experiment_id = Experiment.id");
 		rs.next();
 		int vps = rs.getInt("Amount");
 			stmt.close();
