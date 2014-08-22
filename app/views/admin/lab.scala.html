@@ -8,8 +8,6 @@
       
     $(document).ready(function(){
     
-    	
-    	
     	var buildingName;
     	var buildingDesc;
     	var buildingLat;
@@ -22,11 +20,6 @@
     	
         var markersArray = [];
         var markersArrayE = [];
-        
-        /** DELETE BUILDING VARIABLES */
-        var reference;
-        var idOfBuild;
- 	    var nameOfBuild;
         
         /** NEW BUILDING */
         /** RESIZED DIE KARTE, SETZT CENTER DER MAP AUF ZFM DES LEHRSTUHLS MCM - UNI WÜRZBURG*/
@@ -239,49 +232,54 @@
                 	   w.preventDefault();
                 	   var statusCode = $(this).data('status');	
                 	   
-                	   reference = $(this);
+                	   var reference = $(this);
                 	   
                 	   var felder = statusCode.split(';', 2);
                 	   
-				   	   idOfBuild  = felder[0];
-                	   nameOfBuild = felder[1];
+				   	   var idOfBuild  = felder[0];
+                	   var nameOfBuild = felder[1];
                 	  
                 	   
-                	   $( ".nameToDelete" ).html(nameOfBuild);
+                	   $( "#nameToDelete" ).html(nameOfBuild);
+                	   
+                	   $("#deleteBuildingConfirm").click(function(q){
+                		   $('#confirmDelete').modal('hide');
+                		   
+                		   $.ajax({
+               		        type : 'POST',
+               		        url : '@routes.Admin.deleteBuilding()',
+               		        data : {
+               		            id: idOfBuild, name: nameOfBuild
+               		        },
+               		        success : function(data) {
+               		            // ... some code on success
+               		            data.preventDefault();
+               		            
+               		            $(this).html(data);
+               		            alert(data);
+               		         /** Wenn ein gebäude kein Raum enthält würde es ohne die if-Abfrage
+                          	  sonst das nächste Gebäude mitlöschen ! */
+                          	  if( $( "#amountRooms" ).html() == "")
+                          		  reference.parent().parent().fadeOut();
+                          	  else
+                          		  reference.parent().parent().fadeOut().next().fadeOut();
+               		      
+               		        },
+	               		     error : function(err) {
+	               		    	data.preventDefault();
+	         	                
+	         	                alert(err.responseText); 
+	         	            }
+	         	            	
+	               		    });
+                     	 
+                	});
+                	   
+                	  
+
                 	   
                  });
                 
-                 $(".deleteBuildingConfirm").click(function(q){
-          		   $('.confirmDelete').modal('hide');
-          		   
-          		   $.ajax({
-         		        type : 'POST',
-         		        url : '@routes.Admin.deleteBuilding()',
-         		        data : {
-         		            id: idOfBuild, name: nameOfBuild
-         		        },
-         		        success : function(data) {
-         		        	
-         		        	
-         		            alert(data);
-         		         /** Wenn ein gebäude kein Raum enthält würde es ohne die if-Abfrage
-                    	  sonst das nächste Gebäude mitlöschen ! */
-                    	  if( $( ".amountRooms" ).html() == "")
-                    		  reference.parent().parent().fadeOut();
-                    	  else
-                    		  reference.parent().parent().fadeOut().next().fadeOut();
-         		      
-         		        },
-             		     error : function(err) {
-       	                
-       	                alert(err.responseText); 
-       	            }
-       	            	
-             		    });
-          	});
-                
-                
-                 
                 
                 /** REMOVE Room */
                  $('.removableRoom').click(function(w) {
@@ -413,7 +411,7 @@
 			
 			</div>
 
-<div class="amountRooms">
+<div id="amountRooms">
 
 
 <hr>
@@ -715,15 +713,15 @@
 
 
 <!-- Confirm Building Delete Modal -->
-<div class="modal fade confirmDelete" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body">
-                Wollen Sie "<span id="nameToDelete" class="nameToDelete"></span>" wirklich löschen?
+                Wollen Sie "<span id="nameToDelete"></span>" wirklich löschen?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button id="deleteBuildingConfirm" class="btn btn-danger danger deleteBuildingConfirm">Delete</button>
+                <button id="deleteBuildingConfirm" class="btn btn-danger danger">Delete</button>
             </div>
         </div>
     </div>
