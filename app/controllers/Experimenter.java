@@ -161,6 +161,13 @@ public class Experimenter extends Controller {
     public static Result confirmParticipation(int experimentId) {  
         return ok(views.html.experimenter.confirmParticipation.render(experimentId));
     }
+    
+    public static Result saveParticipation() {
+    	final Map<String, String[]> values = request().body().asFormUrlEncoded();
+        final String[] partics = values.get("partics");
+
+        return ok(views.html.experimenter.myStudies.render());
+    }
 
 
 
