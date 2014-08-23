@@ -212,7 +212,7 @@
 	                	   document.getElementById("lngFldEdit").value = buildingLng;
 	                	   
                 	   var mapOptionsE = {
-                			      zoom: 12,
+                			      zoom: 17,
                 			      mapTypeId: google.maps.MapTypeId.ROADMAP,
                 			      center: new google.maps.LatLng(buildingLat, buildingLng)
                 			    };
@@ -479,9 +479,9 @@
             <div class="modal-footer">
 
 			<!-- Verstecktes Feld für LAT -->
-			            <input name="latFld" id="latFld"/>
+			            <input name="latFld" id="latFld" style="display:none"/>
 			<!-- Verstecktes Feld für LNG -->            
-  						<input name="lngFld" id="lngFld"/>
+  						<input name="lngFld" id="lngFld" style="display:none"/>
 			            
 			           <!-- ÜBERGIBT DIE DATEN AN DEN SERVER --> 
 			          <button type="submit" id="newBuildingSubmit" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Speichern</button>	 	
@@ -555,11 +555,11 @@
             <div class="modal-footer">
 
 			<!-- Verstecktes Feld für Id -->
-			            <input name="editId" id="editId" value=""/>
+			            <input name="editId" id="editId" value="" style="display:none"/>
 			<!-- Verstecktes Feld für LAT -->
-			            <input name="latFldEdit" id="latFldEdit"/>
+			            <input name="latFldEdit" id="latFldEdit" style="display:none"/>
 			<!-- Verstecktes Feld für LNG -->            
-  						<input name="lngFldEdit" id="lngFldEdit"/>
+  						<input name="lngFldEdit" id="lngFldEdit" style="display:none"/>
 			            
 			           <!-- ÜBERGIBT DIE DATEN AN DEN SERVER --> 
 			          <button type="submit" id="editBuildingSubmit" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Speichern</button>	 	
