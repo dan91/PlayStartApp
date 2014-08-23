@@ -98,7 +98,7 @@ $( "#openPreview" ).click(function() {
 			<select id="buildings" class="form-control" name="buildings">
 				@for(Build <- Building.all()) {
 				<option value="@Build.id"
-					@if(Room.getBuildingIdbyId(e.defaultRoom_id) ==Build.id) { selected }>@Build.name</option>
+					@if(Building.buildingByRoomId(e.defaultRoom_id).id ==Build.id) { selected }>@Build.name</option>
 				}
 			</select>
 		</div>
@@ -232,7 +232,7 @@ $( "#openPreview" ).click(function() {
 		<div class="col-sm-offset-2 col-sm-8"
 			style="margin-top: 1em; border-top: 1px solid #eee; padding-top: 1em">
 			<button type="button" id="save"
-				class="btn btn-primary btn-lg pull-right">
+				class="btn btn-primary btn-lg pull-right" data-loading-text="Speichern...">
 				<span class="glyphicon glyphicon-ok"></span> Speichern
 			</button>
 		</div>

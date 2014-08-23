@@ -196,7 +196,7 @@ function saveSessions(id) {
         contentType: "application/json; charset=utf-8",
 		success: function(response) {
 			//window.location = "/myStudies";
-			alert('Daten gespeichert')
+		    btn.button('reset')
 		}
 	});
 }
@@ -205,6 +205,8 @@ $("#save").click(function() {
 	/**
 	Allgemeine Informationen speichern
 	**/
+	var btn = $(this)
+    btn.button('loading')
 	myJsRoutes.controllers.Experimenter.saveGeneralData(experiment_id).ajax({
 		method: 'post',
 		data: $(".form-horizontal").serialize(),

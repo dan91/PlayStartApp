@@ -73,12 +73,19 @@ public class Experiment extends Model {
     	Connection con = DB.getConnection();
         Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 		ResultSet rs = stmt
-				.executeQuery("SELECT id, name FROM Experiment");
+				.executeQuery("SELECT * FROM Experiment");
 		List<Experiment> list = new ArrayList<Experiment>();
 		while(rs.next()) {
 			Experiment e = new Experiment();
 			e.id = rs.getLong("id");
 			e.name = rs.getString("name");
+			e.description = rs.getString("description");
+			e.duration = rs.getInt("duration");
+			e.proband_hours = rs.getFloat("proband_hours");
+			e.email_notifications = rs.getString("email_notifications");
+			e.experiment_type_id = rs.getInt("experiment_type_id");
+			e.max_probands = rs.getInt("max_probands");
+			e.defaultRoom_id = rs.getInt("defaultRoom_id");
 			list.add(e);
 		}
 		stmt.close();

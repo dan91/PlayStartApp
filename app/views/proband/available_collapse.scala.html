@@ -20,39 +20,61 @@
 </div>
 
 
-	<ul class="nav nav-tabs" role="tablist">
-  
-		@for((e, index) <- Experiment.all().zipWithIndex) {
-		<li class="@if(index == 0) {active}"><a id="title_@e.id" href="#e_@e.id" role="tab" data-toggle="tab">@e.name</a>
-		<!--  <span class="pull-right"> <span class="badge"><span
+<div class="row">
+	<div class="panel-group" id="accordion">
+		@for(e <- Experiment.all()) {
+		<!--   col und alles von der ersten studie-->
+		<div class=" col-sm-6 col-xs-12 mb15px">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<a data-toggle="collapse" data-parent="#accordion" href="#e_@e.id">
+						<div class="panel-heading">
+							<span class="pull-right"> <span class="badge"><span
 									class="glyphicon glyphicon-star"></span> @e.proband_hours </span> <span
 								class="badge"><span class="glyphicon glyphicon-time"></span><b>
 										@e.duration min</b></span>
 
-							</span>--></li>
-  
-		
-				
-		}
+							</span>
 
-	</ul>
-	
+							<h4 class="panel-title">@e.name</h4>
 
+						</div>
+					</a>
+				</div>
+				<div id="e_@e.id" class="panel-collapse collapse in">
+					<div class="panel-body">
+						<div class="row">
 
-<!-- Tab panes -->
-<div class="tab-content">
-@for((e, index) <- Experiment.all().zipWithIndex) {
-  <div class="tab-pane @if(index == 0) {active}" id="e_@e.id">
-  <span><b id="#b_@e.id">@Building.buildingByRoomId(e.defaultRoom_id).name</b>,
-									<span id="#r_@e.id">@Room.byId(e.defaultRoom_id).name</span> </span>
+							<div class="col-xs-12 text-center">
+								<span><b>@Building.buildingByRoomId(e.defaultRoom_id).name</b>,
+									@Room.byId(e.defaultRoom_id).name</span> </span>
 								<button data-toggle="modal" data-target="#myMapModal"
 									class="btn btn-default btn-sm">
 									<span class="glyphicon glyphicon-map-marker"></span>
-								</button></div>
-  }
-</div>
+								</button>
+							</div>
+						</div>
 
-<div id="calendar" class="cal"></div>
+						<!-- START TERMINE -->
+						<div id="calendar"></div>
+
+						<!-- erster datenblock -->
+					</div>
+				</div>
+			</div>
+		</div>
+		}
+
+	</div>
+
+
+
+</div>
+<!-- /row  -->
+
+
+
+
 
 <div class="modal fade" id="confirm" tabindex="-1" role="dialog"
 	aria-labelledby="myModalLabel" aria-hidden="true">
@@ -64,25 +86,34 @@
 				<h4 class="modal-title" id="myModalLabel">Anmeldung bestätigen</h4>
 			</div>
 			<div class="modal-body">
-				<h4 id="title"></h4>
+				<h4>Multitasking III</h4>
 				<div>
-					<span class="glyphicon glyphicon-time"></span> <span id="datetime"></span>
+					<span class="glyphicon glyphicon-time"></span> Dienstag,
+					24.12.2013, 12:00 - 13:00 Uhr
 				</div>
 				<div id="loc" title="Juliuspromenade 8, 97070 Würzburg">
-					<span class="glyphicon glyphicon-globe"></span> <strong id="building"></strong>,<span id="room"></span>
+					<span class="glyphicon glyphicon-globe"></span> Gebäude 82
 				</div>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Schließen</button>
 				<a href="/registered" type="button" class="btn btn-primary"
 					id="submit" data-loading-text="Laden...">Anmelden</a>
-				
+				<div id="success" class="hidden">
+					<div class="alert alert-success">Ihre Anmeldung war
+						erfolgreich.</div>
+					<button type="button" class="btn btn-default">Termin
+						speichern</button>
+					<button type="button" class="btn btn-primary" data-dismiss="modal">Schließen</button>
+				</div>
 			</div>
 		</div>
 	</div>
 	<!-- /.modal-content -->
 </div>
 <!-- /.modal-dialog -->
+
+
 
 
 <!-- MAP MODAL -->
@@ -119,35 +150,12 @@
 </div>
 <script type="text/javascript" src="@routes.Assets.at("javascripts/calendarMyStudies.js")"></script>
 <script type="text/javascript">
-eventSourceDefault = '/jsonByExperimentId/1'
-e_id = "1";
-eventSource = '/jsonByExperimentId/'
-first = true;
-$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-	if(first) { // remove default source on first tab selection
-		  $('#calendar').fullCalendar('removeEventSource', eventSourceDefault);
-		console.log('removed default event source')
-		  first = false
-	}
-	else  { // every further tab selection
-		idTarget = e.relatedTarget.toString();
-		idTarget = idTarget.substr(idTarget.indexOf("_")+1, idTarget.length-3)
-		$('#calendar').fullCalendar('removeEventSource', eventSource+idTarget);
-		console.log('removed event source: '+idTarget)
-
-	}
-	  idTarget = e.target.toString();
-	  idTarget = idTarget.substr(idTarget.indexOf("_")+1, idTarget.length-3)
-	  $('#calendar').fullCalendar('addEventSource', eventSource+idTarget);
-	  e_id = idTarget;
-	console.log('added event source: '+idTarget)
-	  //$('#calendar').fullCalendar('refetchEvents');
-});
+	eventSource = '/jsonByExperimentId/1'
 	$('#calendar')
 			.fullCalendar(
 					{
 						defaultView : 'agendaWeek',
-						events : eventSourceDefault,
+						events : eventSource,
 						header : {
 							left : '',
 							center : '',
@@ -169,35 +177,17 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 						columnFormat : 'dd., D.M',
 						contentHeight : 600,
 						lazyFetching : true,
-						
-						loading: function(bool) {
-							  if (bool) 
-							    $('#calendar').addClass('loading');
-							  else 
-								$('#calendar').removeClass('loading');
-							},
 						/**
 						Bei Click & Drag werden im ausgewählten Zeitraum Sessions erstellt
 						 **/
-						eventMouseover : function() {
-							$(this).css('cursor','pointer')
-						},
-						eventClick: function() {
-							$("#confirm").modal('show');
-							$("#confirm").on('show.bs.modal', function () {
-								title = $("#title_"+e_id)
-								$("#confirm").find("#title").text(title)
-								datetime = event.start.format("dddd, MMMM Do YYYY, HH:mm") + "-"
-								+ event.end.format("HH:mm");
-							})
-						},
+
 						eventRender : function(event, element, view) {
 
 							eventFrame = $('#eventFrame').clone();
 							eventFrame.show();
 							$(element).children().remove();
-							datetime = event.start.format("HH:mm") + "-"
-									+ event.end.format("HH:mm");
+							datetime = event.start.format("H:mm") + "-"
+									+ event.end.format("H:mm");
 							$(element).prepend($(eventFrame));
 							eventFrame
 									.find($('.datetime'))

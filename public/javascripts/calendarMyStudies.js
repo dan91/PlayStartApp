@@ -67,7 +67,9 @@ $(".openCalendar").click(function() {
 	
 	});
 	$('#sessionCalendar').on('hidden.bs.modal', function () {
-		$('#calendar').fullCalendar( 'removeEventSource', eventSource )
+		$('#calendar').fullCalendar( 'removeEventSource', eventSource );
+		  $('#calendar').fullCalendar('refetchEvents');
+
 	});
 });
 $('#modalAddPersons').on('shown.bs.modal', function () {

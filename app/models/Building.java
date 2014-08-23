@@ -38,7 +38,26 @@ public class Building extends Model {
     
     
     
-    
+    public static Building buildingByRoomId(int id) throws SQLException {	
+    	Connection con = DB.getConnection();
+        Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        String select = "SELECT Building.id, Building.name FROM Room, Building WHERE Room.building_id = Building.id AND Room.id = "+id+"";
+		ResultSet rs = stmt
+				.executeQuery(select);
+		Logger.info(select);
+		if (!rs.isBeforeFirst() ) {    
+			Building b = new Building();
+			b.id = (long) 0;
+			b.name = "nicht vorhanden"; 
+		} 
+		rs.next();
+		Building b = new Building();
+		b.id = rs.getLong("id");
+		b.name = rs.getString("name");
+		stmt.close();
+		con.close();
+		return b;
+    }   
     
     /**
      * Generic query helper for entity User with id

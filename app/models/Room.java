@@ -33,17 +33,21 @@ public class Room extends Model {
 
     public Long building_id;
   
-    public static int getBuildingIdbyId(int id) throws SQLException {	
+    
+    
+    public static Room byId(int id) throws SQLException {	
     	Connection con = DB.getConnection();
         Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 		ResultSet rs = stmt
-				.executeQuery("SELECT building_id FROM Room WHERE id = "+id+"");
+				.executeQuery("SELECT id, name FROM Room WHERE id = "+id+"");
 		rs.next();
-		int building_id = rs.getInt("building_id");
+		Room r = new Room();
+		r.id = rs.getLong("id");
+		r.name = rs.getString("name");
 		stmt.close();
 		con.close();
-		return building_id;
-    }    
+		return r;
+    }   
 
     /**
      * liefert eine Liste von Räumen für ein Gebäude
