@@ -1,5 +1,27 @@
+@scripts = {
 
-@main(null, null) {
+<script type="text/javascript">
+
+$(document).ready(function(){
+	
+	var amountCompleted = @(CompletedMapper.getBar(1));
+	var percentage = (amountCompleted/25*100).toFixed(parseInt(2));
+	
+	
+	/**$(".needsAmount").html(amountCompleted);*/
+	$(".needsAmount").html(amountCompleted);
+	$(".needsPercentage").html(percentage+"%");
+	$(".needsPercentageAndMore").html(percentage+"% Complete (success)");
+	
+});
+
+
+</script>
+
+}
+
+
+@main(null, scripts) {
 
 
 
@@ -13,11 +35,11 @@
 		</h3>
 		<p class="lead">
 					<div class="progress progress-striped">
-  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="14" aria-valuemin="0" aria-valuemax="100" style="width: 14.0%">
-    <span class="sr-only">@(CompletedMapper.getBar(1)/25*100)% Complete (success)</span>
+  <div class="progress-bar progress-bar-success needsPercentageWidth" role="progressbar" aria-valuenow="14" aria-valuemin="0" aria-valuemax="100" style="width: 14.0%">
+    <span class="sr-only needsPercentageAndMore "></span>
   </div>
 </div>
-<strong>@(CompletedMapper.getBar(1)/25*100)%</strong> (@CompletedMapper.getBar(1) von 25 benötigten Stunden)
+<strong class="needsPercentage"></strong> (<span class="needsAmount"></span> von 25 benötigten Stunden)
 
 		
 	</div>
