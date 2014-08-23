@@ -106,8 +106,8 @@ public class RegisteredMapper {
 		
         ResultSet rs = stmt
 				.executeQuery("SELECT Count(Participation.id) AS amount FROM "
-						+ "Participation JOIN Session ON Participation.id = Session.id WHERE "
-						+ "Participation.id="+id+" AND Session.datetime > NOW();");
+						+ "Participation JOIN Session ON Participation.session_id = Session.id WHERE "
+						+ "Participation.user_id="+id+" AND FROM_UNIXTIME(Session.datetime/1000) > NOW();");
         
         int amount = 0;
         
