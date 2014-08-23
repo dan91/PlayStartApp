@@ -151,8 +151,8 @@ public class Admin extends Controller {
         
       
         try {
-//        	Building.update(id, name, description, lat, lng);
-			return ok("Ajax request worked!");
+        	Building.update(id, name, description, lat, lng);
+			return ok("Änderungen gespeichert!");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			return badRequest(e.toString());

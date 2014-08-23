@@ -198,7 +198,9 @@
                 	   e.preventDefault();
                 	   var statusCode = $(this).data('status');	
 					   var felder = statusCode.split(';', 5);
-	                	   
+	                	
+					   reference = $(this);
+					   
 					   	   buildingId  = felder[0];
 	                	   buildingName = felder[1];
 	                	   buildingDesc = felder[2];
@@ -236,13 +238,13 @@
               $(".editBuildingSubmit").click(function (c){
             	  c.preventDefault();
             	  
-            	  
+            	  alert(reference.parent().parent().html());
             	  
             	  $.ajax({
         		        type : 'POST',
         		        url : '@routes.Admin.saveEditBuilding()',
         		        data : {
-        		            id: buildingId, name: buildingName, desc : buildingDesc, lat : buildingLat, lng : buildingLng
+        		            id: $('.editId').val(), name: $('.buildingNameEdit').val(), desc : $('.pac-inputEdit').val(), lat : $('.latFldEdit').val(), lng : $('.lngFldEdit').val()
         		        },
         		        success : function(data) {
         		          alert(data);
