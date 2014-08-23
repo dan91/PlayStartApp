@@ -134,13 +134,13 @@ public class Admin extends Controller {
         
         final Map<String, String[]> values = request().body().asFormUrlEncoded();
         
-        final Long id = Long.parseLong(values.get("editId")[0]);
-        final String name = values.get("buildingNameEdit")[0];
-        final String description = values.get("pac-inputEdit")[0];
+        final Long id = Long.parseLong(values.get("id")[0]);
+        final String name = values.get("name")[0];
+        final String description = values.get("desc")[0];
         
         // Float ist zu klein, schneidet die Hälfte ab!!!
-        final double lat = Double.parseDouble(values.get("latFldEdit")[0]);
-        final double lng = Double.parseDouble(values.get("lngFldEdit")[0]);
+        final double lat = Double.parseDouble(values.get("lat")[0]);
+        final double lng = Double.parseDouble(values.get("lng")[0]);
         
 
         // zeigt in der console an ob der server es bekommen hat
@@ -151,9 +151,9 @@ public class Admin extends Controller {
         
       
         try {
-        	Building.update(id, name, description, lat, lng);
-			return ok(lab.render(Building.all(),Room.all(),Building.count()));
-		} catch (SQLException e) {
+//        	Building.update(id, name, description, lat, lng);
+			return ok("Ajax request worked!");
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			return badRequest(e.toString());
 		}

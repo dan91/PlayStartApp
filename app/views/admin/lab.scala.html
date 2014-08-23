@@ -205,11 +205,11 @@
 	                	   buildingLat =  felder[3];
 	                	   buildingLng =  felder[4];
 	                	   
-	                	   document.getElementById("buildingNameEdit").value = buildingName;
-	                	   document.getElementById("editId").value = buildingId;
-	                	   document.getElementById("pac-inputEdit").value = buildingDesc;
-	                	   document.getElementById("latFldEdit").value = buildingLat;
-	                	   document.getElementById("lngFldEdit").value = buildingLng;
+	                	  $('.buildingNameEdit').val(buildingName);
+	                 	  $('.pac-inputEdit').val(buildingDesc);
+	                 	  $('.editId').val(buildingId);
+	                 	  $('.latFldEdit').val(buildingLat);
+	                 	  $('.lngFldEdit').val(buildingLng);
 	                	   
                 	   var mapOptionsE = {
                 			      zoom: 17,
@@ -228,10 +228,38 @@
                             {
                             	// place a marker
                                 placeMarkerE(eventEdit.latLng); 
-                                document.getElementById("latFldEdit").value = eventEdit.latLng.lat();
-                                document.getElementById("lngFldEdit").value = eventEdit.latLng.lng();
+                                $('.latFldEdit').val() = eventEdit.latLng.lat();
+      	                 	    $('.lngFldEdit').val() = eventEdit.latLng.lng();
                     }); 
               });
+               
+              $(".editBuildingSubmit").click(function (c){
+            	  c.preventDefault();
+            	  
+            	  
+            	  
+            	  $.ajax({
+        		        type : 'POST',
+        		        url : '@routes.Admin.saveEditBuilding()',
+        		        data : {
+        		            id: buildingId, name: buildingName, desc : buildingDesc, lat : buildingLat, lng : buildingLng
+        		        },
+        		        success : function(data) {
+        		          alert(data);
+        		          
+        		        },
+            		     error : function(err) {
+      	                
+      	                alert(err.responseText); 
+      	            	}
+            		    });
+              	 }); 
+              
+                
+                
+                
+                
+                
                 /**------------------------------------------------------- */
                 
                 
@@ -509,7 +537,6 @@
      
      <!-- Beginn EDIT-BUILDING-Modal -->
 
-<form action="@routes.Admin.saveEditBuilding()" method="POST">
 <div class="modal fade" id="editBuildingModal">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -523,7 +550,7 @@
                         <b>Bezeichnung</b>
                       </div>
                       <div class="col-sm-6">
-            						<input class="form-control"  id="buildingNameEdit" name="buildingNameEdit" type="text" placeholder="z.B. GameBox"/>
+            						<input class="form-control buildingNameEdit"  id="buildingNameEdit" name="buildingNameEdit" type="text" placeholder="z.B. GameBox"/>
                       </div>
             					</div>
             
@@ -533,7 +560,7 @@
             					<b>Ort</b>
                     </div>
                       <div class="col-sm-6">                    
-            						<input id="pac-inputEdit" name="pac-inputEdit" class="form-control" type="text"
+            						<input id="pac-inputEdit" name="pac-inputEdit" class="form-control pac-inputEdit" type="text"
 						        placeholder="z.B. Zentrum für Mediendidaktik"/>
             					</div>
             
@@ -555,14 +582,14 @@
             <div class="modal-footer">
 
 			<!-- Verstecktes Feld für Id -->
-			            <input name="editId" id="editId" value="" style="display:none"/>
+			            <input name="editId" id="editId" class="editId" value="" style="display:none"/>
 			<!-- Verstecktes Feld für LAT -->
-			            <input name="latFldEdit" id="latFldEdit" style="display:none"/>
+			            <input name="latFldEdit" id="latFldEdit"  class="latFldEdit" style="display:none"/>
 			<!-- Verstecktes Feld für LNG -->            
-  						<input name="lngFldEdit" id="lngFldEdit" style="display:none"/>
+  						<input name="lngFldEdit" id="lngFldEdit"  class="lngFldEdit" style="display:none"/>
 			            
 			           <!-- ÜBERGIBT DIE DATEN AN DEN SERVER --> 
-			          <button type="submit" id="editBuildingSubmit" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Speichern</button>	 	
+			          <button type="submit" class="btn btn-primary editBuildingSubmit"><span class="glyphicon glyphicon-ok"></span> Speichern</button>	 	
 			</div>
         </div>
     </div>
