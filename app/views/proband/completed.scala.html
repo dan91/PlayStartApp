@@ -1,4 +1,8 @@
+
 @main(null, null) {
+
+
+
 <div class="page-header">
 		<h3>Abgeschlossene Studien <span class="label label-default">3</span></h3>
 		<p class="lead">
@@ -9,12 +13,14 @@
 </div>
 <strong>14%</strong> (3,5 von 25 benötigten Stunden)
 
-		</p>
+		
 	</div>
+	
+@for(list <- RegisteredMapper.byUserId(1)){	
 	<div class="container">
 
 		<div class="row">
-			<div class="col-sm-3 col-xs-6"><b>Infusionspumpe</b></div>
+			<div class="col-sm-3 col-xs-6"><b>@list.experiment_name</b></div>
 <div class="col-sm-3 col-xs-6"><span class="pull-left" style="border:none; cursor:default; hover:none;padding-top:0px; padding-right:0.5em" title="Juliuspromenade 8, 97070 W�rzburg"><span class="glyphicon glyphicon-calendar"></span></span> 
  				<span style="float:left;">
  					<b>09.04.2013</b><br>
@@ -27,7 +33,10 @@
 					<a href="mailto:versuchsleiter@@uni-wuerzburg.de" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-envelope"></span></a></div>
 		</div>
 		<hr>
-		
+}		
+	<!-- ERSTES ENDE -->	
+	
+	
 		<div class="row">
 			<div class="col-sm-3 col-xs-6"><b>Multitasking I</b></div>
 			<div class="col-sm-3 col-xs-6"><span class="pull-left" style="border:none; cursor:default; hover:none;padding-top:0px; padding-right:0.5em" title="Juliuspromenade 8, 97070 W�rzburg"><span class="glyphicon glyphicon-calendar"></span></span> 
