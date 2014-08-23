@@ -48,15 +48,26 @@ function listEvents() {
 		$('#calendar').fullCalendar('removeEvents',id);
 		$('#calendar').fullCalendar('rerenderEvents');
 	})
-};			
-$('#sessionCalendar').on('shown.bs.modal', function () {
-	$('#calendar').fullCalendar('render');
-	$(".fc-view-agendaWeek").css('overflow','visible');
-	$("div").each(function () {
-		if($(this).css('overflow-x') == 'hidden') {
-			$(this).css('overflow-x','visible')
-			$(this).css('overflow-y','visible')
-		}
+};
+$(".openCalendar").click(function() {
+	$('#sessionCalendar').modal('show');
+	id = $(this).data('id');
+	eventSource = '/jsonByExperimentId/'+id
+	$('#sessionCalendar').on('shown.bs.modal', function () {
+		$('#calendar').fullCalendar('render');
+		$('#calendar').fullCalendar( 'addEventSource', eventSource )
+		$(".fc-view-agendaWeek").css('overflow','visible');
+		$("div").each(function () {
+			if($(this).css('overflow-x') == 'hidden') {
+				$(this).css('overflow-x','visible')
+				$(this).css('overflow-y','visible')
+			}
+		});
+
+	
+	});
+	$('#sessionCalendar').on('hidden.bs.modal', function () {
+		$('#calendar').fullCalendar( 'removeEventSource', eventSource )
 	});
 });
 $('#modalAddPersons').on('shown.bs.modal', function () {
@@ -73,9 +84,6 @@ $('#modalAddPersons').on('shown.bs.modal', function () {
 });
 
 
-$('#sessionCalendar').on('hidden.bs.modal', function() {
-	listEvents();
-});
 
 
 

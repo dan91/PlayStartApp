@@ -14,6 +14,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
@@ -90,12 +91,20 @@ public class Session {
     public static String jsonByExperimentId(long id) throws SQLException, JsonProcessingException {
     	List<Session> sessions = Session.byExperimentId(id);
     	ArrayNode result = new ArrayNode(JsonNodeFactory.instance);
+    	Experiment e = Experiment.byId(id);
+    	int duration = e.duration;
+    	int max_probands = e.max_probands;
     	for(Session s : sessions) {
     		ObjectNode event = Json.newObject();
+    		DateTime dt = new DateTime(s.datetime, DateTimeZone.UTC);
     		event.put("title", "");
     		event.put("start", s.datetime);
+    		event.put("end", dt.plusMinutes(duration).toString());
+    		event.put("participations", Participation.bySessionId(s.id).size());
+    		event.put("max_probands", max_probands);
     		result.add(event);
     	}
+    	
     	return result.toString();
     }
     

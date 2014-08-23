@@ -35,7 +35,7 @@
 
 	<div class="col-sm-4">
 		<a href="/confirmParticipation/@experiment.id"><button class="btn btn-@if(Session.amountToConfirmByExperimentId(experiment.id) > 0) {warning} else {default} tool" data-toggle="tooltip" data-placement="top" title="Teilnahmen bestätigen - @Session.amountToConfirmByExperimentId(experiment.id) Neue"><span class="glyphicon glyphicon-ok"></span> </button></a>
-		<a href="#"><button class="btn btn-default tool" data-toggle="modal" data-target="#sessionCalendar" data-toggle="modal" data-target="#sessionCalendar" data-toggle="tooltip" data-placement="top" title="Kalender Anzeigen"><span class="glyphicon glyphicon-calendar"></span> </button></a>
+		<a href="#"><button class="btn btn-default tool openCalendar" data-id="@experiment.id" data-toggle="tooltip" data-placement="top" title="Kalender anzeigen"><span class="glyphicon glyphicon-calendar"></span> </button></a>
 		<button class="btn btn-default tool" data-toggle="modal" data-target=".invite" toggle="tooltip" data-placement="top" title="Einladungen Verschicken"><span class="glyphicon glyphicon-envelope" ></span></button>
 		<a href="/edit/@experiment.id"><button class="btn btn-default tool" data-toggle="tooltip" data-placement="top" title="Studie Bearbeiten"><span class="glyphicon glyphicon-pencil"></span> </button></a>
 
@@ -118,14 +118,15 @@
 
 
 <div id="eventFrame" style="display: none">
-	<button type="button" class="close" aria-hidden="true">&times;</button>
 	<span class="datetime"></span>
 </div>
 
 			
-			<script type="text/javascript" src="@routes.Assets.at("javascripts/calendar.js")"></script>
+			<script type="text/javascript" src="@routes.Assets.at("javascripts/calendarMyStudies.js")"></script>
 <script type="text/javascript">
-
+$('#sessionCalendar').on('shown.bs.modal', function () {
+	
+})
 $('#calendar').fullCalendar({
 	defaultView: 'agendaWeek',
 	header: {
@@ -148,83 +149,22 @@ $('#calendar').fullCalendar({
 	timeFormat: 'H:mm',
 	columnFormat: 'dd., D.M',
 	contentHeight: 1200,
-	events: '/jsonByExperimentId/1',
-	defaultTimedEventDuration: '00:45:00',
-	forceEventDuration: true,
 	
 	/**
 	Bei Click & Drag werden im ausgewählten Zeitraum Sessions erstellt
 	**/
 	
 	
-	eventMouseover: function () {
-    	$(this).css('background-color','rgb(55, 114, 165)')
-    },
-    eventMouseout: function () {
-    	$(this).css('background-color','rgb(66, 139, 202)')
-    },
-	
-	eventDrop: function(event, dayDelta, minuteDelta, allDay, revertFunc) {
-				$('#calendar').fullCalendar('rerenderEvents');
-	},
-	eventResize: function(event, dayDelta, minuteDelta, revertFunc) {
-		//if (isOverlapping(event)) {revertFunc()};
-	},
-	
 	
 	eventRender: function( event, element, view ) {
-		if(typeof event.participations === 'undefined') {
-			event.participations = [];
-		}
-    	el = $("#regProbands").first().clone();
-        partic_dr = el.find(".rowPartic").first().clone();
-
-		 /**
-		Füge Event-Handler für Proband hinzufügen & löschen hinzu
-		**/
-		$(element).on('show.bs.popover', function (e) {
-	        $('.fc-event').not(this).popover('hide');
-			el.find(".partics").html("");
-			for (i in event.participations) {
-			   partic = partic_dr.clone();
-			   partic.find("#name").text(event.participations[i].user_name);
-			   partic.find(".remPartic").data("event-id",event.id);
-			   partic.find(".remPartic").data("partic-index",i);
-			   partic.find(".remPartic").attr("id",i);
-			   partic.show();
-			   el.find(".partics").append(partic);
-			  
-			}
-			if(event.participations.length == 0) {
-				$(".partics").text("Bisher keine Anmeldungen.")
-			}
-			if(event.participations.length == $("#probandAmount").val()) {
-				$("#search").hide();
-			}
-
-		});
-		$(element).on('shown.bs.popover', function (e) {
-
-			$(".popover-content").html(el.html());
-
-
-		});
-        $(element).popover({
-            title: 'Angemeldete Probanden',
-            placement: 'bottom',
-            content: function() {
-                return el.html();
-            },
-            trigger: 'click',
-            html: true
-        })
+		
         eventFrame = $('#eventFrame').clone();
 		eventFrame.show();
 		$(element).children().remove();
 		datetime = event.start.format("H:mm")+"-"+event.end.format("H:mm");
 		$(element).prepend($(eventFrame));
 		eventFrame.find($('.datetime')).html(datetime+' <br><span class="glyphicon glyphicon-user"></span> '+
-		event.participations.length+'/'+$("#probandAmount").val());
+		event.participations+'/'+event.max_probands);
 		
 		
 	}
