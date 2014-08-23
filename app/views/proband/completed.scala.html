@@ -11,7 +11,8 @@ $(document).ready(function(){
 	/**$(".needsAmount").html(amountCompleted);*/
 	$(".needsAmount").html(amountCompleted);
 	$(".needsPercentage").html(percentage+"%");
-	$(".needsPercentageAndMore").html(percentage+"% Complete (success)");
+	$(".needsPercentageAndMore").html(percentage+"%");
+	$(".needsPercentageWidth").width(percentage+"%");
 	
 });
 
@@ -35,8 +36,8 @@ $(document).ready(function(){
 		</h3>
 		<p class="lead">
 					<div class="progress progress-striped">
-  <div class="progress-bar progress-bar-success needsPercentageWidth" role="progressbar" aria-valuenow="14" aria-valuemin="0" aria-valuemax="100" style="width: 14.0%">
-    <span class="sr-only needsPercentageAndMore "></span>
+  <div class="progress-bar progress-bar-success needsPercentageWidth" role="progressbar" aria-valuenow="14" aria-valuemin="0" aria-valuemax="100">
+    <span class=" needsPercentageAndMore "></span>
   </div>
 </div>
 <strong class="needsPercentage"></strong> (<span class="needsAmount"></span> von 25 benötigten Stunden)
