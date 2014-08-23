@@ -238,7 +238,9 @@
               $(".editBuildingSubmit").click(function (c){
             	  c.preventDefault();
             	  
-            	  /*alert(reference.parent().parent().children().eq(0).text($('.buildingNameEdit').val()));*/
+            	  var nameShown = ""+$('.buildingNameEdit').val();
+            	  
+            	  alert(reference.parent().parent().children().eq(0).children().eq(0).text(nameShown));
             	   
             	  var statusChange = reference.data('status',$('.editId').val()+";"+$('.buildingNameEdit').val()+";"+$('.pac-inputEdit').val()+";"+$('.latFldEdit').val()+";"+$('.lngFldEdit').val()+";"  );	
 				  
