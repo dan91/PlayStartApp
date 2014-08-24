@@ -77,7 +77,7 @@ public class Room extends Model {
     	Connection con = DB.getConnection();
         Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 		ResultSet rs = stmt
-				.executeQuery("SELECT id, name,description,building_id FROM Room");
+				.executeQuery("SELECT id, name,description,building_id FROM Room WHERE Room.archive=0");
 		List<Room> list = new ArrayList<Room>();
 		while(rs.next()) {
 			Room e = new Room();
@@ -98,7 +98,7 @@ public class Room extends Model {
 		
        
         
-        String insert = String.format("INSERT INTO Room (name,description,building_id) "
+        String insert = String.format("INSERT INTO Room (name,description,building_id,archive) "
 				 +"VALUES ('%s','%s',%s,%s)",name,description,building_id,0 );
         
         
