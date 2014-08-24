@@ -362,19 +362,15 @@
                 
                  /** Übergibt die Building id an einen <input> Tag */
                 $('.addNewRoom').click(function(wee) {
-              	   wee.preventDefault();
+              	   
+                	wee.preventDefault();
               	   reference = $(this);
-              	   
-              	   
-              	  var statusCode = $(this).data('status');
+              	   var statusCode = $(this).data('status');
               	  $('.building_id').val(statusCode);
-              	 
-              	   
-              	 });
+              	
+                });
                  
-                $('.newRoomSubmit').click(function(){
-                	
-                	alert($.trim($('.roomDescription').val()));
+                $(document).on('click','.newRoomSubmit',function(){
                 	
                 	if($.trim($('.roomName').val()) != "" && $.trim($('.roomDescription').val()) != "" && $.trim($('.building_id').val()) != ""   ){
                 		$('#myRoomModal').modal('hide');
@@ -396,8 +392,6 @@
       '</div>'+ 
       '</div>');
           		          
-          		          afterHtmlAppendCallback();
-          		          
           		        },
               		     error : function(err) {
         	                
@@ -411,17 +405,12 @@
                 	}
 	 				
 	 			});
-                
-                function afterHtmlAppendCallback()
-                {
-                    $('.row').show();
-                }
                  
                  
                  
                  
                  
-                $('.editableRoom').click(function(w) {
+                $(document).on('click','.editableRoom',function(w) {
                	   w.preventDefault();
                	   var statusCode = $(this).data('status');	
 
