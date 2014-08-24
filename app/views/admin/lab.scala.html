@@ -8,6 +8,7 @@
       
     $(document).ready(function(){
     
+    	var buildingId;
     	var buildingName;
     	var buildingDesc;
     	var buildingLat;
@@ -360,18 +361,47 @@
                  
                 
                  /** Übergibt die Building id an einen <input> Tag */
-                $('.addNewRoom').click(function(w) {
-              	   w.preventDefault();
-              	   var statusCode = $(this).data('status');	
-
-              	   $('#building_id').val(statusCode);
+                $('.addNewRoom').click(function(wee) {
+              	   wee.preventDefault();
+              	   reference = $(this);
               	   
-              	 $('#newRoomSubmit').click(function(){
-		 				/** on click wird das modal versteckt und
-		 				der User bekommt wieder die neugeladene lab Seite zu sehen*/
-		 				$('#myRoomModal').modal('hide');
-		 			});
+              	   
+              	  var statusCode = $(this).data('status');
+              	  $('.building_id').val(statusCode);
+              	 
+              	   
               	 });
+                 
+                $('.newRoomSubmit').click(function(){
+	 				
+                	if($.trim($('.roomName').val()) != "" && $.trim($('.roomDescription').val()) != "" $.trim($('.building_id').val()) != ""   ){
+                		$('#myRoomModal').modal('hide');
+	 				
+	 				$.ajax({
+          		        type : 'POST',
+          		        url : '@routes.Admin.saveNewRoom()',
+          		        data : {
+          		            roomName: $('.roomName').val(), roomDescription: $('.roomDescription').text(), building_id : $('.building_id').val()
+          		        },
+          		        success : function(data) {
+          		          alert(data);
+          		          
+          		        },
+              		     error : function(err) {
+        	                
+        	                alert(err.responseText); 
+        	            	}
+              		    });
+                	} else {
+                		
+                		alert("Das Formular wurde nicht vollständig ausgefüllt!");
+                		
+                	}
+	 				
+	 			});
+                 
+                 
+                 
                  
                  
                 $('.editableRoom').click(function(w) {
@@ -622,7 +652,6 @@
     
     
     <!-- Raumbeschreibungs-modal -->
-<form action="@routes.Admin.saveNewRoom()" method="POST">   
     <div class="modal fade" id="myRoomModal">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -637,7 +666,7 @@
             					<b>Bezeichnung</b>
                     </div>
                     <div class="col-sm-9">
-            						<input class="form-control" id="roomName" name="roomName" type="text" placeholder="z.B. Raum 00.105"/>
+            						<input class="form-control roomName" id="roomName" name="roomName" type="text" placeholder="z.B. Raum 00.105"/>
             					</div>
             
             			</div>  
@@ -647,10 +676,10 @@
             					<b>Beschreibung</b>
                       </div>
                     <div class="col-sm-9">
-            						<textarea class="form-control field span12" name="roomDescription" id="roomDescription" cols="55" rows="15" placeholder="z.B. Der Raum 00.1XX befindet sich im oberen Stockwerk."></textarea>
+            						<textarea class="form-control field span12 roomDescription" name="roomDescription" id="building_id" cols="55" rows="15" placeholder="z.B. Der Raum 00.1XX befindet sich im oberen Stockwerk."></textarea>
 						        	
 						        	
-						        	<input class="form-control" id="building_id" name="building_id" type="text" value=""/>
+						        	<input class="form-control building_id" id="building_id" name="building_id" type="text" value=""/>
 						        	
             					</div>
             
@@ -662,7 +691,7 @@
                 
             </div>
             <div class="modal-footer">
-                <button type="submit" id="newRoomSubmit" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Speichern</button>
+                <button type="submit"  class="btn btn-primary newRoomSubmit"><span class="glyphicon glyphicon-ok"></span> Speichern</button>
         
            		
 			</div>
@@ -672,7 +701,7 @@
     <!-- /.modal-dialog -->
     </div>
     <!-- /.modal -->
-</form>
+
 
 
 

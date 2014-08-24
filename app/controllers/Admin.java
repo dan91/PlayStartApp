@@ -215,10 +215,10 @@ public class Admin extends Controller {
         try {
         	Room.add(name, description, building_id);
         	
-			return ok(lab.render(Building.all(),Room.all(),Building.count()));
+			return ok("Der Raum mit dem Namen: "+name+ " wurde erfolgreich angelegt!");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			return badRequest(e.toString());
+			return badRequest("Fehler beim Anlegen des Raumes:\n"+ e.toString());
 		}
     }
     
