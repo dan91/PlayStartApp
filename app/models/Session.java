@@ -102,6 +102,7 @@ public class Session {
     		event.put("end", dt.plusMinutes(duration).toString());
     		event.put("participations", Participation.bySessionId(s.id).size());
     		event.put("max_probands", max_probands);
+    		event.put("session_id", s.id);
     		result.add(event);
     	}
     	

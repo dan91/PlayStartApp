@@ -32,9 +32,9 @@
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav" id="mainNavbar">
 				@if(navbar == "proband") {
-				<li><a href="registered">Angemeldet <span class="badge">3</span></a></li>
-				<li><a href="available">Verfügbar <span class="badge">4</span></a></li>
-				<li><a href="completed">Abgeschlossen <span class="badge">3,5</span></a></li>
+				<li><a href="@routes.Proband.registered()">Angemeldet <span class="badge">3</span></a></li>
+				<li><a href="@routes.Proband.available()">Verfügbar <span class="badge">4</span></a></li>
+				<li><a href="@routes.Proband.completed()">Abgeschlossen <span class="badge">3,5</span></a></li>
 				} else {
 					@if(navbar == "admin") {
 						<li><a href="/admin">Übersicht</a></li>

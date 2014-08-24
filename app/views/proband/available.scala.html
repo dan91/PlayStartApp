@@ -46,11 +46,11 @@
 	<div class="tab-content col-sm-2">
 		@for((e, index) <- Experiment.all().zipWithIndex) {
 		<div class="tab-pane fade @if(index == 0) {in active}" id="e_@e.id">
-		<h3 class="mt0">Informationen</h3>
+		<h3 class="mt0"><span class="glyphicon glyphicon-info-sign"></span></h3>
 		<p>@e.description
 		<hr>
-			<span><b id="#b_@e.id">@Building.buildingByRoomId(e.defaultRoom_id).name</b>,
-				<span id="#r_@e.id">@Room.byId(e.defaultRoom_id).name</span> </span>
+			<span><b id="b_@e.id">@Building.buildingByRoomId(e.defaultRoom_id).name</b>,
+				<span id="r_@e.id">@Room.byId(e.defaultRoom_id).name</span> </span>
 			<button data-toggle="modal" data-target="#myMapModal"
 				class="btn btn-default btn-sm">
 				<span class="glyphicon glyphicon-map-marker"></span>
@@ -71,21 +71,19 @@
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal"
 					aria-hidden="true">&times;</button>
-				<h4 class="modal-title" id="myModalLabel">Anmeldung bestätigen</h4>
+				<h5 class="modal-title" id="myModalLabel">Anmeldung bestätigen</h5>
 			</div>
 			<div class="modal-body">
 				<h4 id="title"></h4>
-				<div>
-					<span class="glyphicon glyphicon-time"></span> <span id="datetime"></span>
-				</div>
-				<div id="loc" title="Juliuspromenade 8, 97070 Würzburg">
-					<span class="glyphicon glyphicon-globe"></span> <strong
-						id="building"></strong>,<span id="room"></span>
-				</div>
+				<hr>
+				<span class="glyphicon glyphicon-calendar"></span> <span id="date"></span>
+				<span class="glyphicon glyphicon-time"></span> <span id="time"></span>
+				<hr>
+					<span class="glyphicon glyphicon-globe"></span> <span id="building"></span>, <span id="room"></span>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Schließen</button>
-				<a href="/registered" type="button" class="btn btn-primary"
+				<a href="" type="button" class="btn btn-primary"
 					id="submit" data-loading-text="Laden...">Anmelden</a>
 
 			</div>
@@ -198,16 +196,27 @@
 				eventMouseover : function() {
 					$(this).css('cursor', 'pointer')
 				},
-				eventClick : function() {
+				eventClick : function(event) {
 					$("#confirm").modal('show');
-					$("#confirm").on(
-							'show.bs.modal',
+					$("#confirm").on('shown.bs.modal',
 							function() {
-								title = $("#title_" + e_id)
-								$("#confirm").find("#title").text(title)
-								datetime = event.start
-										.format("dddd, MMMM Do YYYY, HH:mm")
-										+ "-" + event.end.format("HH:mm");
+								title = $("#title_" + e_id).text();
+								$("#confirm").find("#title").text(title);
+								date = event.start
+										.format("dddd, Do MMMM YYYY");
+								
+								$("#confirm").find("#date").text(date);
+								time = event.start
+								.format("HH:mm")
+								+ "-" + event.end.format("HH:mm");
+								
+								$("#confirm").find("#time").text(time);
+								building = $("#b_" + e_id).text();
+								room = $("#r_" + e_id).text();
+								$("#confirm").find("#building").text(building);
+								$("#confirm").find("#room").text(room);
+								console.log(event)
+								$("#confirm").find("#submit").prop('href','/registerExp/'+event.session_id);								
 							})
 				},
 				eventRender : function(event, element, view) {

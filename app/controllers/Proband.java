@@ -4,9 +4,12 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.net.SocketException;
+import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Map;
+
+
 
 
 
@@ -27,6 +30,7 @@ import net.fortuna.ical4j.model.property.ProdId;
 import net.fortuna.ical4j.model.property.Uid;
 import net.fortuna.ical4j.model.property.Version;
 import net.fortuna.ical4j.util.UidGenerator;
+import models.Participation;
 //import net.fortuna.ical4j.model.DateTime;
 //import net.fortuna.ical4j.model.component.VEvent;
 //import net.fortuna.ical4j.model.property.CalScale;
@@ -58,6 +62,11 @@ public class Proband extends Controller {
 		return ok(views.html.proband.registered.render());
 	}
 	
+	public static Result registerExp(int session_id) throws SQLException {
+		int user_id = 1; // SESSION VARIABLE EINSETZEN
+		Participation.create(session_id, user_id);
+		return ok(views.html.proband.registered.render());
+	}
 
 	public static Result available() {
 		return ok(views.html.proband.available.render());
