@@ -3,12 +3,15 @@
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
 <script src="@routes.Assets.at("javascripts/probandSimpleMap.js")" charset="UTF-8"
 	type="text/javascript"></script>
-	<link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.0.3/fullcalendar.css' />
+<link rel='stylesheet'
+	href='//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.0.3/fullcalendar.css' />
 
 <script src='/assets/javascripts/jquery-ui.custom.min.js'></script>
 <!--  <script src='@routes.Assets.at("javascripts/jquery.ui.touch-punch.min.js")'></script>  TOUCH SUPPORT DISABLED !!! -->
-<script src='//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.1/moment-with-locales.min.js'></script>
-<script src='//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.0.3/fullcalendar.min.js'></script>
+<script
+	src='//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.1/moment-with-locales.min.js'></script>
+<script
+	src='//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.0.3/fullcalendar.min.js'></script>
 
 } 
 @main(null, scripts) {
@@ -19,40 +22,47 @@
 	</h3>
 </div>
 
+<div class="row">
+	
+	<ul class="nav nav-pills nav-stacked col-sm-3">
 
-	<ul class="nav nav-tabs" role="tablist">
-  
 		@for((e, index) <- Experiment.all().zipWithIndex) {
-		<li class="@if(index == 0) {active}"><a id="title_@e.id" href="#e_@e.id" role="tab" data-toggle="tab">@e.name</a>
-		<!--  <span class="pull-right"> <span class="badge"><span
-									class="glyphicon glyphicon-star"></span> @e.proband_hours </span> <span
-								class="badge"><span class="glyphicon glyphicon-time"></span><b>
+		<li class="@if(index == 0) {active}"><a id="title_@e.id"
+			href="#e_@e.id" role="tab" data-toggle="pill">@e.name<span class="badge pull-right"><span
+									class="glyphicon glyphicon-star"></span> @e.proband_hours </span></a>
+									<!-- <span
+								class="badge pull-right"><span class="glyphicon glyphicon-time"></span><b>
 										@e.duration min</b></span>
 
-							</span>--></li>
-  
-		
-				
-		}
+							</span>--></li> }
 
 	</ul>
+
+
 	
+	
+	<div id="calendar" class="cal col-sm-7"></div>
+	<!-- Tab panes -->
+	<div class="tab-content col-sm-2">
+		@for((e, index) <- Experiment.all().zipWithIndex) {
+		<div class="tab-pane fade @if(index == 0) {in active}" id="e_@e.id">
+		<h3 class="mt0">Informationen</h3>
+		<p>@e.description
+		<hr>
+			<span><b id="#b_@e.id">@Building.buildingByRoomId(e.defaultRoom_id).name</b>,
+				<span id="#r_@e.id">@Room.byId(e.defaultRoom_id).name</span> </span>
+			<button data-toggle="modal" data-target="#myMapModal"
+				class="btn btn-default btn-sm">
+				<span class="glyphicon glyphicon-map-marker"></span>
+			</button>
+		</div>
+		}
+	</div>
+	</div>
 
 
-<!-- Tab panes -->
-<div class="tab-content">
-@for((e, index) <- Experiment.all().zipWithIndex) {
-  <div class="tab-pane @if(index == 0) {active}" id="e_@e.id">
-  <span><b id="#b_@e.id">@Building.buildingByRoomId(e.defaultRoom_id).name</b>,
-									<span id="#r_@e.id">@Room.byId(e.defaultRoom_id).name</span> </span>
-								<button data-toggle="modal" data-target="#myMapModal"
-									class="btn btn-default btn-sm">
-									<span class="glyphicon glyphicon-map-marker"></span>
-								</button></div>
-  }
-</div>
 
-<div id="calendar" class="cal"></div>
+
 
 <div class="modal fade" id="confirm" tabindex="-1" role="dialog"
 	aria-labelledby="myModalLabel" aria-hidden="true">
@@ -69,14 +79,15 @@
 					<span class="glyphicon glyphicon-time"></span> <span id="datetime"></span>
 				</div>
 				<div id="loc" title="Juliuspromenade 8, 97070 Würzburg">
-					<span class="glyphicon glyphicon-globe"></span> <strong id="building"></strong>,<span id="room"></span>
+					<span class="glyphicon glyphicon-globe"></span> <strong
+						id="building"></strong>,<span id="room"></span>
 				</div>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Schließen</button>
 				<a href="/registered" type="button" class="btn btn-primary"
 					id="submit" data-loading-text="Laden...">Anmelden</a>
-				
+
 			</div>
 		</div>
 	</div>
@@ -119,90 +130,96 @@
 </div>
 <script type="text/javascript" src="@routes.Assets.at("javascripts/calendarMyStudies.js")"></script>
 <script type="text/javascript">
-eventSourceDefault = '/jsonByExperimentId/1'
-e_id = "1";
-eventSource = '/jsonByExperimentId/'
-first = true;
-$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-	if(first) { // remove default source on first tab selection
-		  $('#calendar').fullCalendar('removeEventSource', eventSourceDefault);
-		console.log('removed default event source')
-		  first = false
-	}
-	else  { // every further tab selection
-		idTarget = e.relatedTarget.toString();
-		idTarget = idTarget.substr(idTarget.indexOf("_")+1, idTarget.length-3)
-		$('#calendar').fullCalendar('removeEventSource', eventSource+idTarget);
-		console.log('removed event source: '+idTarget)
+	eventSourceDefault = '/jsonByExperimentId/1'
+	e_id = "1";
+	eventSource = '/jsonByExperimentId/'
+	first = true;
+	$('a[data-toggle="pill"]').on(
+			'shown.bs.tab',
+			function(e) {
+				if (first) { // remove default source on first tab selection
+					$('#calendar').fullCalendar('removeEventSource',
+							eventSourceDefault);
+					console.log('removed default event source')
+					first = false
+				} else { // every further tab selection
+					idTarget = e.relatedTarget.toString();
+					idTarget = idTarget.substr(idTarget.indexOf("_") + 1,
+							idTarget.length - 3)
+					$('#calendar').fullCalendar('removeEventSource',
+							eventSource + idTarget);
+					console.log('removed event source: ' + idTarget)
 
-	}
-	  idTarget = e.target.toString();
-	  idTarget = idTarget.substr(idTarget.indexOf("_")+1, idTarget.length-3)
-	  $('#calendar').fullCalendar('addEventSource', eventSource+idTarget);
-	  e_id = idTarget;
-	console.log('added event source: '+idTarget)
-	  //$('#calendar').fullCalendar('refetchEvents');
-});
-	$('#calendar')
-			.fullCalendar(
-					{
-						defaultView : 'agendaWeek',
-						events : eventSourceDefault,
-						header : {
-							left : '',
-							center : '',
-							right : 'today prev,next'
-						},
-						// Hier wird dem fullcalendar events array ein Participations array hinzugefügt. 
-						// Somit werden den Sessions Teilnehmer zugewiesen
+				}
+				idTarget = e.target.toString();
+				idTarget = idTarget.substr(idTarget.indexOf("_") + 1,
+						idTarget.length - 3)
+				$('#calendar').fullCalendar('addEventSource',
+						eventSource + idTarget);
+				e_id = idTarget;
+				console.log('added event source: ' + idTarget)
+				//$('#calendar').fullCalendar('refetchEvents');
+			});
+	$('#calendar').fullCalendar(
+			{
+				defaultView : 'agendaWeek',
+				events : eventSourceDefault,
+				header : {
+					left : '',
+					center : '',
+					right : 'today prev,next'
+				},
+				// Hier wird dem fullcalendar events array ein Participations array hinzugefügt. 
+				// Somit werden den Sessions Teilnehmer zugewiesen
 
-						lang : 'de',
-						allDaySlot : false,
-						slotDuration : '00:30:00',
-						minTime : '08:00:00',
-						maxTime : '19:00:00',
-						eventStartEditable : false,
-						selectable : false,
-						slotEventOverlap : false,
-						axisFormat : 'H:mm',
-						timeFormat : 'H:mm',
-						columnFormat : 'dd., D.M',
-						contentHeight : 600,
-						lazyFetching : true,
-						
-						loading: function(bool) {
-							  if (bool) 
-							    $('#calendar').addClass('loading');
-							  else 
-								$('#calendar').removeClass('loading');
-							},
-						/**
-						Bei Click & Drag werden im ausgewählten Zeitraum Sessions erstellt
-						 **/
-						eventMouseover : function() {
-							$(this).css('cursor','pointer')
-						},
-						eventClick: function() {
-							$("#confirm").modal('show');
-							$("#confirm").on('show.bs.modal', function () {
-								title = $("#title_"+e_id)
+				lang : 'de',
+				allDaySlot : false,
+				slotDuration : '00:30:00',
+				minTime : '08:00:00',
+				maxTime : '19:00:00',
+				eventStartEditable : false,
+				selectable : false,
+				slotEventOverlap : false,
+				axisFormat : 'H:mm',
+				timeFormat : 'H:mm',
+				columnFormat : 'dd., D.M',
+				contentHeight : 600,
+				lazyFetching : true,
+
+				loading : function(bool) {
+					if (bool)
+						$('#calendar').addClass('loading');
+					else
+						$('#calendar').removeClass('loading');
+				},
+				/**
+				Bei Click & Drag werden im ausgewählten Zeitraum Sessions erstellt
+				 **/
+				eventMouseover : function() {
+					$(this).css('cursor', 'pointer')
+				},
+				eventClick : function() {
+					$("#confirm").modal('show');
+					$("#confirm").on(
+							'show.bs.modal',
+							function() {
+								title = $("#title_" + e_id)
 								$("#confirm").find("#title").text(title)
-								datetime = event.start.format("dddd, MMMM Do YYYY, HH:mm") + "-"
-								+ event.end.format("HH:mm");
+								datetime = event.start
+										.format("dddd, MMMM Do YYYY, HH:mm")
+										+ "-" + event.end.format("HH:mm");
 							})
-						},
-						eventRender : function(event, element, view) {
+				},
+				eventRender : function(event, element, view) {
 
-							eventFrame = $('#eventFrame').clone();
-							eventFrame.show();
-							$(element).children().remove();
-							datetime = event.start.format("HH:mm") + "-"
-									+ event.end.format("HH:mm");
-							$(element).prepend($(eventFrame));
-							eventFrame
-									.find($('.datetime'))
-									.html(datetime);
-						}
-					});
+					eventFrame = $('#eventFrame').clone();
+					eventFrame.show();
+					$(element).children().remove();
+					datetime = event.start.format("HH:mm") + "-"
+							+ event.end.format("HH:mm");
+					$(element).prepend($(eventFrame));
+					eventFrame.find($('.datetime')).html(datetime);
+				}
+			});
 </script>
 }

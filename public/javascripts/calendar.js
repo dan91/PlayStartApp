@@ -123,8 +123,8 @@ $('#sessionCalendar').on('hidden.bs.modal', function() {
     		}
     	});
 	});
-	
-	$(document).on('ready', function () {
+	dur = $("#duration option:selected").text();
+
 	
 	/**
 	Funktion zeigt nur die Räume zum aktuell ausgewählten Gebäude
@@ -170,10 +170,9 @@ $('#sessionCalendar').on('hidden.bs.modal', function() {
  		 }
 		
 	});
-		})
+		
 		
 		// Session-Dauer aus Eingabefeld
-		dur = $("#duration option:selected").text();
 
 function saveSessions(id) {
 	events = $('#calendar').fullCalendar( 'clientEvents');
@@ -205,8 +204,7 @@ $("#save").click(function() {
 	/**
 	Allgemeine Informationen speichern
 	**/
-	var btn = $(this)
-    btn.button('loading')
+	
 	myJsRoutes.controllers.Experimenter.saveGeneralData(experiment_id).ajax({
 		method: 'post',
 		data: $(".form-horizontal").serialize(),
@@ -218,3 +216,4 @@ $("#save").click(function() {
 		
 	});
 });	
+	
