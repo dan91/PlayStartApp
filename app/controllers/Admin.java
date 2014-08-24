@@ -213,9 +213,9 @@ public class Admin extends Controller {
         // zeigt in der console an ob der server es bekommen hat
         Logger.info(created);
         try {
-        	Room.add(name, description, building_id);
+        	long newId = Room.add(name, description, building_id);
         	
-			return ok("Der Raum mit dem Namen: "+name+ " wurde erfolgreich angelegt!");
+			return ok(String.valueOf(newId));
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			return badRequest("Fehler beim Anlegen des Raumes:\n"+ e.toString());

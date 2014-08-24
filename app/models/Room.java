@@ -92,22 +92,34 @@ public class Room extends Model {
 		return list;
     }
     
-    public static void add(String name, String description, Long building_id) throws SQLException {
+    public static long add(String name, String description, Long building_id) throws SQLException {
     	Connection con = DB.getConnection();
         Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 		
        
         
-        String insert = String.format("INSERT INTO Room (name,description,building_id,archive) "
+        String insert = String.format("INSERT INTO Room (name,description,building_id,archive)"
 				 +"VALUES ('%s','%s',%s,%s)",name,description,building_id,0 );
         
+        stmt.executeUpdate(insert);
         
-       stmt.executeUpdate(insert);
+        ResultSet rs = stmt
+				.executeQuery("SELECT id AS id FROM Room WHERE Room.name='"+name+"' AND Room.description='"+description+"' AND Room.building_id="+building_id+";");
+        
+        long id = 0;
+        
+        while(rs.next()){
+        	id = rs.getLong("id");
+        }
+        
+       
        stmt.close(); 
         // iwo muss das statement aber noch geschlossen werden!!!!
         //   stmt.close();
         
        con.close();
+       
+       return id;
        
     }
     

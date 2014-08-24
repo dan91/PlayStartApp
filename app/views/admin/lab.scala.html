@@ -386,17 +386,17 @@
           		            roomName: $('.roomName').val(), roomDescription: $('.roomDescription').val(), building_id : $('.building_id').val()
           		        },
           		        success : function(data) {
-          		          alert(data);
           		          
-          		          reference.parent().parent().parent().children().eq(1).append(
-          		        		  
+          		         var newReference =  reference.parent().parent().parent().children().eq(1).append(	 
+          		   '<div class="row">'+
+      '<div class="col-sm-3 col-xs-6"><b>'+$('.roomName').val()+'</b></div>'+
+      '<div class="col-sm-2 col-xs-7 col-sm-offset-7 text-right"> '+
+'<button class="btn  btn-sm btn-default editableRoom" data-status="'+parseInt(data,10)+';'+$(".roomName").val()+';'+$(".roomDescription").val()+';" data-toggle="modal" data-target="#roomEditModal"><span class="glyphicon glyphicon-pencil"></span></button>'+
+'<button class="btn btn-sm btn-danger removableRoom" data-status="'+parseInt(data,10)+';'+$(".roomName").val()+'" data-toggle="modal" data-target="#confirmRoomDelete"><span class="glyphicon glyphicon-remove"></span></button>'+
+      '</div>'+ 
+      '</div>');
           		          
-          		        	
-          		              "Hier soll was Neues her!!!!""
-          		          
-          		          
-          		          );
-          		          
+          		          afterHTMLAppendCallback();
           		          
           		        },
               		     error : function(err) {
@@ -411,6 +411,11 @@
                 	}
 	 				
 	 			});
+                
+                function afterHtmlAppendCallback()
+                {
+                    $('.row').show();
+                }
                  
                  
                  
