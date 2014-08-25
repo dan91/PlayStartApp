@@ -317,8 +317,8 @@
                 
                 
                 /** REMOVE Room */
-                 $('.removableRoom').click(function(w) {
-              	   w.preventDefault();
+                 $(document).on('click','.removableRoom',function(wee){
+              	   wee.preventDefault();
               	   
               	   var statusCode = $(this).data('status');	
               	   reference = $(this);
