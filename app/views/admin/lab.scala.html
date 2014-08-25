@@ -28,6 +28,7 @@
  	    var nameOfBuild;
  	    var idOfRoom;
   	    var nameOfRoom;
+  	    var descOfRoom;
         
         /** NEW BUILDING */
         /** RESIZED DIE KARTE, SETZT CENTER DER MAP AUF ZFM DES LEHRSTUHLS MCM - UNI WÜRZBURG*/
@@ -412,31 +413,33 @@
                  
                 $(document).on('click','.editableRoom',function(w) {
                	   w.preventDefault();
+               	   reference = $(this);
                	   var statusCode = $(this).data('status');	
-
+					
                	   var felder = statusCode.split(';', 3);
                	   
-               	   $('#roomEdit_id').val(felder[0]);
-               	   $('#roomEditName').val(felder[1]);
-               	   $('#roomEditDescription').html(felder[2]);
+               	   $('.roomEdit_id').val(felder[0]);
+               	   $('.roomEditName').val(felder[1]);
+               	   $('.roomEditDescription').val(felder[2]);
                	   
                	   
                 });
                 
-                $('#editRoomSubmit').click(function(){
+                $('.editRoomSubmit').click(function(){
 	 				$('#roomEditModal').modal('hide');
 	 				
 	 				$.ajax({
           		        type : 'POST',
           		        url : '@routes.Admin.saveEditRoom()',
           		        data : {
-          		            id: $('#roomEdit_id').val(), name: $('#roomEditName').val(), desc: $('#roomEditDescription').val()
+          		            id: $('.roomEdit_id').val(), name: $('.roomEditName').val(), desc: $('.roomEditDescription').val()
           		        },
           		        success : function(data) {
           		          alert(data);
           		          
-          		          
-          		         
+          		        var statusChange = reference.data('status',$('.roomEdit_id').val()+";"+$('.roomEditName').val()+";"+$('.roomEditDescription').val()+";" );	
+      				  
+          		        
           		        },
               		     error : function(err) {
         	                
@@ -737,8 +740,7 @@
 
 
 
-<!-- Raumbeschreibungs-modal -->
-<form action="@routes.Admin.saveEditRoom()" method="POST">   
+<!-- Raumbeschreibungs-modal -->  
     <div class="modal fade" id="roomEditModal">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -787,7 +789,6 @@
     <!-- /.modal-dialog -->
     </div>
     <!-- /.modal -->
-</form>
 
 
 

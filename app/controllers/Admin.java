@@ -257,7 +257,7 @@ public class Admin extends Controller {
         
         try {
         	Room.update(id, name, description);
-			return ok(lab.render(Building.all(),Room.all(),Building.count()));
+			return ok("Die Änderungen wurden gespeichert!");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			return badRequest(e.toString());
