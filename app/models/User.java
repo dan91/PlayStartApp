@@ -150,7 +150,7 @@ public class User extends Model {
     	Connection con = DB.getConnection();
         Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 		ResultSet rs = stmt
-				.executeQuery("SELECT SUM(proband_hours) AS Amount FROM Experiment, Participation WHERE Participation.was_present = 1");
+				.executeQuery("SELECT SUM(Experiment.proband_hours) AS Amount FROM Experiment, Participation WHERE Participation.was_present = 1");
 		rs.next();
 		int vps = rs.getInt("Amount");
 			stmt.close();
