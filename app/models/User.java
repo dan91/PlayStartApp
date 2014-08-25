@@ -502,6 +502,13 @@ public class User extends Model {
   			stmt.close(); con.close();
            return amount;
        }
+
+
+	public static void add(String name2, String email2, String sstart,
+			String course2) {
+		// TODO Auto-generated method stub
+		
+	}
        
        
 }
