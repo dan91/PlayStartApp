@@ -8,110 +8,150 @@
 		<h2>User bearbeiten</h2>
 	</div>
 
-	
+
+	<form role="form" class="form-horizontal" action="/">
+
 		<div class="form-group">
-			<label for="name" class="col-sm-3 control-label">Name</label>
-			<div class="col-sm-6">
-				<input type="text" name="name" class="form-control" id="name"
-					value="Max Mustermann" autofocus>
+
+			<label class="col-sm-2 control-label">Email</label>
+
+			<div class="col-sm-4">
+				<input type="email" class="form-control" id="email"
+					placeholder="Max.Muster@@example.de">
 			</div>
-			<!-- user.name -->
+		</div>
+
+		<div class="form-group">
+
+			<label class="col-sm-2 control-label">Name</label>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" id="name"
+					placeholder="Max Muster">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-sm-2 control-label">Passwort</label>
+			<div class="col-sm-4">
+				<input type="password" class="form-control" id="password"
+					placeholder="Passwort">
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label class="col-sm-2 control-label">Telefonnummer</label>
+			<div class="col-sm-4">
+				<input type="password" class="form-control" id="password"
+					placeholder="0123/4567890">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="description" class="col-sm-2 control-label">Geschlecht</span></label>
+			<div class="col-sm-4">
+				<div class="btn-group">
+					<label class="btn btn-default"> <input type="radio"
+						name="gender" id="gender1" checked> männlich
+					</label>
+					<!-- female = false-->
+					<label class="btn btn-default"> <input type="radio"
+						name="gender" id="gender2"> weiblich
+					</label>
+					<!-- female = true -->
+				</div>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="description" class="col-sm-2 control-label">Händigkeit</span></label>
+			<div class="col-sm-4">
+				<div class="btn-group">
+					<label class="btn btn-default"> <input type="radio"
+						name="hand" id="links"> links
+					</label>
+					<!-- ist ein varchar -->
+					<label class="btn btn-default"> <input type="radio"
+						name="hand" id="rechts" checked> rechts
+					</label>
+				</div>
+			</div>
 		</div>
 
 
-		<!-- 
-					<div class="form-group">
-						<label for="name" class="col-sm-3 control-label">E-Mail</label>
-						<div class="col-sm-6">
-							<input type="text" name="name" class="form-control" id="name" value="max@@mustermann.de">
-						</div> user.email
+		<div class="form-group">
+			<label for="name" class="col-sm-2 control-label">Studienbegin</label>
+			<div class="col-sm-4">
+				<select id="semesterFrom" class="form-control">
+					<option>Sommersemester 2011</option>
+					<option>Wintersemester 2011/12</option>
+					<option>Sommersemester 2012</option>
+					<option>Wintersemester 2012/13</option>
+					<option>Sommersemester 2013</option>
+					<option>Wintersemester 2014/15</option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="name" class="col-sm-2 control-label">Studiengang</label>
+			<div class="col-sm-4">
+				<div class="btn-group">
+					<label class="btn btn-default"> <input type="radio"
+						name="options" id="MCS"> MCS
+					</label> <label class="btn btn-default"> <input type="radio"
+						name="options" id="MK"> MK
+					</label> <label class="btn btn-default"> <input type="radio"
+						name="options" id="Sonstiges" checked> Sonstiger
+					</label>
+				</div>
+
+			</div>
+
+</div>
+
+			<div class="form-group">
+				<label for="name" class="col-sm-2 control-label">Rechte</label>
+				<div class="col-sm-4">
+					<div class="radio">
+						<label> <input type="radio" name="options4" value=""
+							checked> Proband (Nur Studien besuchen)
+						</label>
 					</div>
-					<div class="form-group">
-						<label for="name" class="col-sm-3 control-label">Studienbegin</label>
-						<div class="col-sm-6">
-							<select id="semesterFrom" class="form-control">
-								<option>Wintersemester 2012/13</option>
-								<option>Sommersemester 2013</option>
-								<option>Wintersemester 2014/15</option>
-							</select> 	user.semesterstart		
-						</div>
+					<div class="radio">
+						<label> <input type="radio" name="options4" value="">
+							Hilfskraft (Sessions erstellen und Teilnahmen bestätigen)
+						</label>
 					</div>
-					
-							<div class="form-group">
-								<label for="name" class="col-sm-3 control-label">Studiengang</label>
-								<div class="col-sm-6">
-									<div class="radio">
-										<label>
-											<input type="radio" name="options2" id="optionsRadios1" value="option1">
-											MCS  </label>
-										</div>
-										<div class="radio">
-											<label>
-												<input type="radio" name="options2" id="optionsRadios2" value="option2">
-												MK  </label>
-											</div>		
-										<div class="radio">
-											<label>
-												<input type="radio" name="options2" id="optionsRadios2" value="option2" checked>
-												Sonstige  </label>
-											</div>		
-									</div> user.course
-								</div>
+					<div class="radio">
+						<label> <input type="radio" name="options4" value="">
+							Versuchsleiter (Versuche erstellen)
+						</label>
+					</div>
+
+					<div class="radio">
+						<label> <input type="radio" name="options4" value="">
+							<span class="text-danger">Administrator</span>
+						</label>
+					</div>
+
+				</div>
+			</div>
 
 
-							<div class="form-group">
-											<label for="name" class="col-sm-3 control-label">Händigkeit</label>
-											<div class="col-sm-6">
+			<div class="form-group">
 
+				<div class="col-sm-2 col-sm-offset-4">
+					<button type="submit" class="btn btn-primary btn-lg pull-right">
+						<span class="glyphicon glyphicon-ok"></span> Speichern
+					</button>
+				</div>
+			</div>
 
-												<div class="radio">
-													<label>
-														<input type="radio" name="options3" id="optionsRadios1" value="option1" checked>
-														Rechts  </label>
-													</div>
-													<div class="radio">
-														<label>
-															<input type="radio" name="options3" id="optionsRadios2" value="option2">
-															Links  </label>
-														</div>
-										</div> user.handedness
-								</div>
-
-
-								<div class="form-group">
-										<label for="name" class="col-sm-3 control-label">Rechte</label>
-										<div class="col-sm-6">
-														<div class="radio">
-															<label>
-																<input type="radio" name="options4" value="" checked> Proband (Nur Studien besuchen)
-															</label>
-														</div>
-														<div class="radio">
-															<label>
-																<input type="radio" name="options4"  value=""> Hilfskraft (Sessions erstellen und Teilnahmen best������tigen)
-															</label>
-														</div>
-														<div class="radio">
-															<label>
-																<input type="radio" name="options4"  value=""> Versuchsleiter (Versuche erstellen)
-															</label>
-														</div>
-														
-														<div class="radio">
-															<label>
-																<input type="radio" name="options4"  value=""> <span class="text-danger">Administrator</span>
-															</label>
-														</div>
-
-										</div> user.privilege.id to ID  ???
-								</div>
-
-							 -->
-
-
-
-
+		
 	</form>
+
+
+
+
 
 </div>
 
