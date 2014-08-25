@@ -81,7 +81,7 @@ width: 20em
 						<div class="row">
 							<div class="col-sm-3 col-xs-6">@VerLeiter.name</div>
 							<div class="col-sm-4 col-xs-6 col-sm-offset-2">
-								<button type="submit" class="btn btn-edit btn-default" id="add" data-toggle="modal" data-target="#modalVersuchsleiter">Studien: @VerLeiter.anzahlStudien</button></div> 
+								<button type="submit" class="btn btn-edit btn-default" id="add" data-toggle="modal" data-target="#modalVersuchsleiter">Studien: </button></div> 
 							<div class="col-sm-1 col-xs-6">    
 								<a type="submit" class="btn btn-edit btn-default" id="add" href="/user_edit/@VerLeiter.id"><span class="glyphicon glyphicon-pencil"></span></a></div>
 							<div class="col-sm-2 col-xs-6"><a href="mailto:@VerLeiter.email"<button type="submit" class="btn btn-default">
@@ -147,19 +147,20 @@ width: 20em
 
 				<div id="collapseOne" class="panel-collapse collapse in">
 					<div class="panel-body"> 
+@for(ProBand <- User.allProbandList){
 
 
 						<div class="row">
-							<div class="col-sm-3 col-xs-6">Proband Nummer 1</div>
+							<div class="col-sm-3 col-xs-6">@ProBand.name</div>
 							<div class="col-sm-4 col-xs-6">
 								<button type="submit" class="btn btn-edit btn-default" id="add" data-toggle="modal" data-target="#modalProbanden">Besucht: 7</button></div>
 							<div class="col-sm-1 col-xs-6"><span class="badge mt5"><span class="glyphicon glyphicon-remove"> </span> 2</span></div>
 							<div class="col-sm-1 col-xs-6"> <span class="badge mt5"><span class="glyphicon glyphicon-star"></span> 1.5 </span></div>
 							<div class="col-sm-1 col-xs-6">    
-								<button type="submit" class="btn btn-edit btn-default" id="add" data-toggle="modal" data-target="#myModal1"><span class="glyphicon glyphicon-pencil"></span></button></div>
-							<div class="col-sm-2 col-xs-6"><button type="submit" class="btn btn-default">
-								<span class="glyphicon glyphicon-envelope"></span></button></div>
-						</div>
+								<a type="submit" class="btn btn-edit btn-default" id="add" href="/user_edit/@ProBand.id"><span class="glyphicon glyphicon-pencil"></span></a></div>
+							<div class="col-sm-2 col-xs-6"><a href ="mailto:@ProBand.email" button type="submit" class="btn btn-default">
+								<span class="glyphicon glyphicon-envelope"></span></button></a></div>
+						</div>}
 					</div>
 				</div>
 			</div>
