@@ -550,8 +550,10 @@ public static List<User> allProbandList() throws SQLException {
 	}
 
 
-	public static Object authenticate(String email2, String password) {
+	public static User authenticate(String email2, String password) {
 		// TODO Auto-generated method stub
+		
+		//falls daten richtig: user objekt mit nur id zurückgeben
 		return null;
 	}
        

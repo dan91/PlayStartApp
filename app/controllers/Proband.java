@@ -8,20 +8,6 @@ import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Map;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import net.fortuna.ical4j.data.CalendarOutputter;
 import net.fortuna.ical4j.model.DateTime;
 import net.fortuna.ical4j.model.component.VEvent;
@@ -76,7 +62,17 @@ public class Proband extends Controller {
 		return ok(views.html.proband.completed.render());
 	}
 
-	
+public static Result authenticate(){
+		
+		final Map<String, String[]> values = request().body().asFormUrlEncoded();
+		final String email = values.get("email")[0];
+		final String password = values.get("password")[0];
+//        if(User.authenticate(email, password)) {
+//        	
+//        }
+		//session("user-id", user_id);
+        
+}
 	public static Result getICS(){
 		
 		final Map<String, String[]> values = request().body().asFormUrlEncoded();
