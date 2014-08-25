@@ -249,10 +249,10 @@ public class Admin extends Controller {
         
         final Map<String, String[]> values = request().body().asFormUrlEncoded();
         
-        final Long id = Long.parseLong(values.get("roomEdit_id")[0]);
+        final Long id = Long.parseLong(values.get("id")[0]);
 
-        final String name = values.get("roomEditName")[0];
-        final String description = values.get("roomEditDescription")[0];
+        final String name = values.get("name")[0];
+        final String description = values.get("desc")[0];
         
         
         try {

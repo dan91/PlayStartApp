@@ -421,12 +421,31 @@
                	   $('#roomEditDescription').html(felder[2]);
                	   
                	   
-               	 $('#editRoomSubmit').click(function(){
-		 				/** on click wird das modal versteckt und
-		 				der User bekommt wieder die neugeladene lab Seite zu sehen*/
-		 				$('#roomEditModal').modal('hide');
-		 			});
                 });
+                
+                $('#editRoomSubmit').click(function(){
+	 				$('#roomEditModal').modal('hide');
+	 				
+	 				$.ajax({
+          		        type : 'POST',
+          		        url : '@routes.Admin.saveEditRoom()',
+          		        data : {
+          		            id: $('#roomEdit_id').val(), name: $('#roomEditName').val(), desc: $('#roomEditDescription').val()
+          		        },
+          		        success : function(data) {
+          		          alert(data);
+          		          
+          		          
+          		         
+          		        },
+              		     error : function(err) {
+        	                
+        	                alert(err.responseText); 
+        	            	}
+        	            	
+              		    });
+	 				
+	 			});
                 
                 
                 google.maps.event.trigger(map, 'resize');
@@ -638,8 +657,8 @@
         </div>
     </div>
     </div>
-    
-    </form> 
+
+
     
     <!-- SCHLIEßt MODAL OHNE DATEN ZU VERSCHLUCKEN, wie es data-dismiss tut -->
            		 	<script>
@@ -694,16 +713,12 @@
             						<textarea class="form-control field span12 roomDescription" name="roomDescription" id="building_id" cols="55" rows="15" placeholder="z.B. Der Raum 00.1XX befindet sich im oberen Stockwerk." required></textarea>
 						        	
 						        	
-						        	<input class="form-control building_id" id="building_id" name="building_id" type="text" value="" required/>
+						        	<input class="form-control building_id" id="building_id" name="building_id" type="text" value="" style="display:none;" required/>
 						        	
             					</div>
             
             			</div> 
             			
-            	
-
-  
-                
             </div>
             <div class="modal-footer">
                 <button type="submit"  class="btn btn-primary newRoomSubmit"><span class="glyphicon glyphicon-ok"></span> Speichern</button>
@@ -738,7 +753,7 @@
             					<b>Bezeichnung</b>
                     </div>
                     <div class="col-sm-9">
-            						<input class="form-control" id="roomEditName" name="roomEditName" type="text" placeholder="z.B. Raum 00.105"/>
+            						<input class="form-control roomEditName" id="roomEditName" name="roomEditName" type="text" placeholder="z.B. Raum 00.105"/>
             					</div>
             
             			</div>  
@@ -748,10 +763,10 @@
             					<b>Beschreibung</b>
                       </div>
                     <div class="col-sm-9">
-            						<textarea class="form-control field span12" name="roomEditDescription" id="roomEditDescription" cols="55" rows="15" placeholder="z.B. Der Raum 00.1XX befindet sich im oberen Stockwerk."></textarea>
+            						<textarea class="form-control field span12 roomEditDescription" name="roomEditDescription" id="roomEditDescription" cols="55" rows="15" placeholder="z.B. Der Raum 00.1XX befindet sich im oberen Stockwerk."></textarea>
 						        	
 						        	
-						        	<input class="form-control" id="roomEdit_id" name="roomEdit_id" type="text" value="" />
+						        	<input class="form-control roomEdit_id" id="roomEdit_id" name="roomEdit_id" type="text" value="" style="display:none;"/>
 						        	
             					</div>
             
@@ -763,7 +778,7 @@
                 
             </div>
             <div class="modal-footer">
-                <button type="submit" id="editRoomSubmit" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Speichern</button>
+                <button type="submit" id="editRoomSubmit" class="btn btn-primary editRoomSubmit"><span class="glyphicon glyphicon-ok"></span> Speichern</button>
         
 			</div>
         </div>
