@@ -362,12 +362,15 @@
                  
                 
                  /** Übergibt die Building id an einen <input> Tag */
-                $(document).on('click', '.addNewRoom', (function(wee) {
-              	   
+                $(document).on('click','.addNewRoom',function(wee) { 
                 	wee.preventDefault();
-              	   reference = $(this);
-              	   var statusCode = $(this).data('status');
-              	  $('.building_id').val(statusCode);
+              	    reference = $(this);
+              	    
+              	    var statusCode = $(this).data('status');
+              	    
+              	    $('.roomName').val("");
+              	    $('.roomDescription').val("");
+              	    $('.building_id').val(statusCode);
               	
                 });
                  
