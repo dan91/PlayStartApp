@@ -9,6 +9,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 
 import models.Assignment;
+import models.ExcludedExperiment;
 import models.Experiment;
 import models.Filter;
 import models.Participation;
@@ -88,6 +89,7 @@ public class Experimenter extends Controller {
         final int defaultRoom_id = Integer.parseInt(values.get("room_"+building)[0]);
         final String sendInvitations = values.get("sendInvitations")[0];
         final String[] probandPools = values.get("probandPools");
+        final String[] excludedExp = values.get("excludedExp");
         final int semesterFrom = Integer.parseInt(values.get("semesterFrom")[0]);
         final int semesterUntil = Integer.parseInt(values.get("semesterUntil")[0]);
         final String[] genders = values.get("gender");
@@ -116,6 +118,9 @@ public class Experimenter extends Controller {
     	Logger.info("Filter angelegt: "+filter_id);
     	for(String p : probandPools) {
     		ProbandPoolFilter.create(filter_id, p);
+    	}
+    	for(String p : excludedExp) {
+    		ExcludedExperiment.create(filter_id, p);
     	}
         for(String user_id : assignments) {
         	int right = Integer.parseInt(values.get("assignment_rights_"+user_id)[0]);
@@ -152,6 +157,11 @@ public class Experimenter extends Controller {
     
     public static Result jsonByExperimentId(long id) throws SQLException, JsonProcessingException {
     	String n = Session.jsonByExperimentId(id);
+		return ok(n);
+    }
+    
+    public static Result getExperiments() throws SQLException, JsonProcessingException {
+    	String n = Experiment.jsonAll();
 		return ok(n);
     }
     

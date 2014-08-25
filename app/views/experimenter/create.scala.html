@@ -5,6 +5,7 @@
 <!--  <script src='@routes.Assets.at("javascripts/jquery.ui.touch-punch.min.js")'></script>  TOUCH SUPPORT DISABLED !!! -->
 <script src='//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.1/moment-with-locales.min.js'></script>
 <script src='//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.0.3/fullcalendar.min.js'></script>
+    <script src="/assets/javascripts/bootstrap-typeahead.min.js" type="text/javascript"></script>
 
 
 <script>
@@ -340,7 +341,7 @@ $( "#openPreview" ).click(function() {
 								<label for="name" class="col-sm-3 control-label">Vorherige Studien</label>
 								<div class="col-sm-8">
 								<input type="search" id="searchStudies" class="form-control">
-
+								<div id="excludedExp" class="mt1em"></div>
 									</div>
 							</div>
 							</form>
@@ -441,9 +442,9 @@ $( "#openPreview" ).click(function() {
 
 
 				<div class="row" id="session" style="display:none">
-					<div class="col-xs-4"><span class="glyphicon glyphicon-calendar"></span> <span id="date"><span></div>
-					<div class="col-xs-3"><span class="glyphicon glyphicon-time"></span> <span id="time"><span></div>
-					<div class="col-xs-3"><span class="glyphicon glyphicon-user"></span> 3 <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModalTeilnehmer2"><span class="glyphicon glyphicon-pencil"></span></div>
+					<div class="col-xs-4"><span class="glyphicon glyphicon-calendar"></span> <span id="date"></span></div>
+					<div class="col-xs-3"><span class="glyphicon glyphicon-time"></span> <span id="time"></span></div>
+					<div class="col-xs-3"><span class="glyphicon glyphicon-user"></span> 3 <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModalTeilnehmer2"><span class="glyphicon glyphicon-pencil"></span></button></div>
 					<div class="col-xs-2">
 						<button type="button" class="btn btn-danger btn-sm eventdel"><span class="glyphicon glyphicon-remove"></span></button>
 					</div>
@@ -470,6 +471,9 @@ $( "#openPreview" ).click(function() {
 						  		<button type="button" class="btn btn-danger expRem" id=""><span class="glyphicon glyphicon-remove"></span></button>
 						  	</div>
 						</div>
+						
+							<input type="hidden" id="excludedHid" name="excludedExp">
+						<button type="button" id="excludedBut" class="btn btn-warning" style="display:none"></button>
 				<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script> 
 				<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/localization/messages_de.js"></script> 
 				<script type="text/javascript">
@@ -478,6 +482,25 @@ $( "#openPreview" ).click(function() {
 										<script type="text/javascript" src="/assets/javascripts/calendar.js"></script>
 				
 			<script type="text/javascript">	
+
+			$('#searchStudies').typeahead({
+				ajax: '/getExperiments',
+				onSelect: displayResult
+			});
+			function displayResult(item) {
+				button = $("#excludedBut").clone();
+				hidden = $("#excludedHid").clone();
+				hidden.val(item.value)
+				button.show();
+				button.text(item.text);
+				
+		        $('#excludedExp').append(button);
+		        $('#excludedExp').append(hidden);
+		        button.click(function () {
+		        	$(this).fadeOut('fast')
+		        })
+		    }
+			
 			$('#calendar').fullCalendar({
 				defaultView: 'agendaWeek',
 				header: {

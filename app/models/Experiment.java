@@ -5,13 +5,20 @@ import java.util.*;
 
 import javax.persistence.*;
 
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
+
 import play.Logger;
 import play.db.*;
 import play.db.ebean.*;
 import play.data.format.*;
 import play.data.validation.*;
+import play.libs.Json;
 
 import com.avaje.ebean.*;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 /**
  * User entity managed by Ebean
@@ -190,6 +197,19 @@ public class Experiment extends Model {
        con.close();
        return experiment_id;
 		
+	}
+
+	public static String jsonAll() throws SQLException {
+		List<Experiment> experiments = Experiment.all();
+    	ArrayNode result = new ArrayNode(JsonNodeFactory.instance);
+    	for(Experiment e : experiments) {
+    		ObjectNode event = Json.newObject();
+    		event.put("id", e.id);
+    		event.put("name", e.name);
+    		result.add(event);
+    	}
+    	
+    	return result.toString();
 	} 
     
     

@@ -208,6 +208,24 @@ public class User extends Model {
    		return list;
        } 
        
+       public static List<User> byFilter(Long id) throws SQLException { //TODO
+    	   Connection con = DB.getConnection();
+           Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+           ResultSet rs = stmt
+                   .executeQuery("SELECT User.id, User.name FROM User "
+                   		+ "WHERE User.name LIKE '%"+id+"%' LIMIT 3");
+           		List<User> list = new ArrayList<User>();
+   			while(rs.next()) {
+   				User e = new User();
+   				e.id = rs.getLong("id");
+   				e.name = rs.getString("name");
+   				list.add(e);
+   		}
+   			stmt.close();
+   			con.close();
+   		return list;
+       }
+       
        public static List<User> byName(String name) throws SQLException {
            Connection con = DB.getConnection();
            Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
