@@ -486,8 +486,8 @@ public class User extends Model {
            rs.next();
            int zaehler = rs.getInt("Amount");
            int nenner = allTeilnahmen();
-           int ergebniss = zaehler / nenner * 100 ;
-
+           int ergebniss = zaehler / 1 ;
+           //TODO  nenner * 100
   			stmt.close(); con.close();
            return ergebniss;
        }
