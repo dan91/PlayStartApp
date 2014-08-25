@@ -60,7 +60,27 @@ public class Application extends Controller {
 
         return ok(index.render());
     }
+    
+    
+    public static Result login() {
+    	return ok(views.html.login.render(
+    			form(Login.class)
+    			));
+    }
 
+    public static class Login {
+    	public String email;
+    	public String password;
+    }
 
-
+    public static Result authenticate() {
+    	Form<Login> loginForm = form(Login.class).bindFromRequest();
+    	return ok();
+    }
+    
+    
+    
 }
+
+
+

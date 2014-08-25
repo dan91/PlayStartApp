@@ -1,6 +1,25 @@
+@(form: Form[Application.Login])
+
+@scripts = {
+
+
+}
+
+@main(null,scripts,null){
+
+
+<div role="main" class="container main">
+	<div class="page-header">
+		<h2 style="text-align: center;">Login</h2>
+	</div>
 
 <div class='container_signin container'>
-<ul class='nav nav-tabs'>
+@helper.form(routes.Application.authenticate) {
+		<p> <input type="email" placeholder="Emailaddresse" value="@form("email").value"> </p>
+		<p> <input type="password" name="password" placeholder="Passwort"></p>
+		<p> <button type="submit">Login</button></p>
+	}
+<!-- <ul class='nav nav-tabs'>
 <li class='active'>
 <a data-toggle="tab" href="#tab-ldap">Student</a>
 </li>
@@ -15,8 +34,8 @@
     </fieldset>
 <br>
 <div class="form-actions">
-    <!-- class="btn btn-lg btn-primary btn-block" -->
-       <!--   <input type="submit" class="btn btn-primary" value="@Messages("login.login")">-->
+    class="btn btn-lg btn-primary btn-block"
+         <input type="submit" class="btn btn-primary" value="@Messages("login.login")">
         <a href="/admin" class="btn btn-primary">Login</a>
         
     </div>
@@ -28,12 +47,12 @@
     </fieldset>
 <br>
 <div class="form-actions">
-    <!-- class="btn btn-lg btn-primary btn-block" -->
+    class="btn btn-lg btn-primary btn-block"
         <input type="submit" class="btn btn-primary" value="@Messages("login.login")">
     </div>
 
-</div>
-<div>
+</div> -->
+<div> 
 <hr>
 <p>
 <span class='light'>Noch kein Konto?</span>
@@ -50,6 +69,7 @@
 
     
 
-   
+  </div> 
 
 </div>
+}
