@@ -362,7 +362,7 @@
                  
                 
                  /** Übergibt die Building id an einen <input> Tag */
-                $('.addNewRoom').click(function(wee) {
+                $(document).on('click', '.addNewRoom', (function(wee) {
               	   
                 	wee.preventDefault();
               	   reference = $(this);
@@ -410,13 +410,15 @@
                  
                  
                  
-                 
+                 /** Wichtig aufgrund von "event delegation" nach dem html append() durch den ajax request*/
                 $(document).on('click','.editableRoom',function(w) {
                	   w.preventDefault();
                	   reference = $(this);
                	   var statusCode = $(this).data('status');	
 					
                	   var felder = statusCode.split(';', 3);
+               	   
+               	   
                	   
                	   $('.roomEdit_id').val(felder[0]);
                	   $('.roomEditName').val(felder[1]);
