@@ -61,19 +61,29 @@
         
               var map = new google.maps.Map(document.getElementById('map-canvas'),mapOptions);
               
-              var obenVeits = new google.maps.LatLng(49.843541, 9.871617);
-              var untenWinter = new google.maps.LatLng(49.713182, 9.986459);
+              
+              /** AUTOCOMPLETE **/
+              
               
               var input = (document.getElementById('pac-input'));
-                
-                /** bindet die autocomplete vorschläge an die Bounds der vorher gesuchten Eingabe!
-                Wichtig, damit nicht zentren in anderen Städten, sondern immer die die lokal 
-                am nächsten sind, zuerst angezeigt werden.  
-                */
-              var autocomplete = new google.maps.places.Autocomplete(input);
-              autocomplete.bindTo('bounds', map);
-
+            
               
+              var southWest = new google.maps.LatLng(49.714372, 9.879637);
+              var northEast = new google.maps.LatLng(49.839525, 10.010787);
+              var bounds = new google.maps.LatLngBounds(southWest,northEast);
+            
+              var auto_options = {
+            		  bounds: bounds,
+            		  types: ['establishment'],
+            		  componentRestrictions: {country: 'DE'}
+            		};
+
+    		  //optionaler paramterTauschen zu  types: ['geocode'],
+    		  //Koordinaten sollten noch etwas eingegrenzt werden.
+              autocomplete = new google.maps.places.Autocomplete(input,auto_options);
+
+            
+            
               var infowindow = new google.maps.InfoWindow();
               var marker = new google.maps.Marker({
                 map: map,
@@ -87,20 +97,20 @@
                 /** EDITBUILDING MARKER */
               /**  markerE.setVisible(false); */
                 
-                var place = autocomplete.getPlace();
+          var place = autocomplete.getPlace();
                 if (!place.geometry) {
                   return;
                 }
 
-                // If the place has a geometry, then present it on a map.
+
                 if (place.geometry.viewport) {
                   /*map.fitBounds(place.geometry.viewport);*/
                 } else {
                   placeMarker(place.geometry.location)  
                   map.setCenter(place.geometry.location);
-                  map.setZoom(17);  // Why 17? Because it looks good.
+                  map.setZoom(17); 
                 }
-                marker.setIcon(/** */({
+                marker.setIcon(({
                   url: place.icon,
                   size: new google.maps.Size(71, 71),
                   origin: new google.maps.Point(0, 0),
@@ -109,8 +119,7 @@
                 }));
                 marker.setPosition(place.geometry.location);
                 
-                /** wenn der Admin vergisst einen genaueren Marker einzugeben,
-                wird immer die adresse genommen, die er eingetippt hat*/
+                
                 document.getElementById("latFld").value = place.geometry.location.lat();
                 document.getElementById("lngFld").value = place.geometry.location.lng();
 
@@ -128,7 +137,9 @@
 
                 infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
                 infowindow.open(map, marker);
-              });
+              }); 
+              
+
  
               
             // add a click event handler to the map object
