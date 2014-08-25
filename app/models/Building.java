@@ -109,7 +109,7 @@ public class Building extends Model {
 		return list;
     }
     
-    public static void add(String name, String description, double lat, double lng) throws SQLException {
+    public static long add(String name, String description, double lat, double lng) throws SQLException {
     	    	Connection con = DB.getConnection();
     	        Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
     			
@@ -120,11 +120,21 @@ public class Building extends Model {
     	        
     	        
     	       stmt.executeUpdate(insert);
-    	       stmt.close(); 
-    	        // iwo muss das statement aber noch geschlossen werden!!!!
-    	        //   stmt.close();
+    	       
+    	       ResultSet rs = stmt
+    					.executeQuery("SELECT id AS id FROM Building WHERE Building.name='"+name+"' AND Building.description='"+description+"' AND Building.Lat ="+lat+" AND Building.Lng ="+lng+";");
     	        
+    	        long id = 0;
+    	        
+    	        while(rs.next()){
+    	        	id = rs.getLong("id");
+    	        }
+    	        
+    	        
+    	       stmt.close(); 
     	       con.close();
+    	       
+    	       return id;
     	       
     	    }
     

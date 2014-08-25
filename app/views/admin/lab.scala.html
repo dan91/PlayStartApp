@@ -33,6 +33,7 @@
         /** NEW BUILDING */
         /** RESIZED DIE KARTE, SETZT CENTER DER MAP AUF ZFM DES LEHRSTUHLS MCM - UNI WÜRZBURG*/
         var ZFM = new google.maps.LatLng(49.782264, 9.974931);
+        
         $('#newBuildingModal').on('shown.bs.modal', function() {
         	/** erst resizen und dann Zentrum setzen, sonst verschiebt sich alles -.-   */
         	google.maps.event.trigger(map, 'resize');
@@ -195,8 +196,58 @@
                 }
                 
                 
+			$(document).on('click','.addBuilding',function(e){
+                	
+				    reference = $(this);
+				
+                	$('.buildingName').val("");
+                	$('.pac-input').val("");
+                	$('.latFld').val(ZFM.lat());
+                	$('.lngFld').val(ZFM.lng());
+                	
+                	
+                });
+             
+             
+                $(document).on('click','.newBuildingSubmit',function(e){
+                	
+                	buildingName = $('.buildingName').val();
+                	buildingDesc = $('.pac-input').val();
+                	buildingLat = $('.latFld').val();
+                	buildingLng = $('.lngFld').val();
+                	
+                	$.ajax({
+        		        type : 'POST',
+        		        url : '@routes.Admin.save()',
+        		        data : {
+        		            name: $('.buildingName').val(), desc: $('.pac-input').val(), lat : $('.latFld').val(), lng : $('.lngFld').val()
+        		        },
+        		        success : function(data) {
+        		        	alert("Neues Gebäude'"+$('.buildingName').val()+"' wurde erfolgreich angelegt!");
+        		          
+        		          reference.parent().parent().append(
+							'<div class="buildingAndItsRooms">'+
+							'<div class="row myStudies_ListView">'+
+										'<div class="col-sm-8 col-xs-6"><h4>'+$('.buildingName').val()+'</h4></div>'+
+										'<div class="col-sm-4 col-xs-6 text-right">'+
+										'<button class="btn btn-default addNewRoom"  data-status="'+parseInt(data,10)+'" data-toggle="modal" data-target="#myRoomModal"><span class="glyphicon glyphicon-plus"></span> Raum</button>'+
+										'<button data-status="'+parseInt(data,10)+';'+$('.buildingName').val()+';'+$('.pac-input').val()+';'+$('.latFld').val()+';'+$('.lngFld').val()+';" class="btn btn-default editableBuilding" data-toggle="modal" data-target="#editBuildingModal"> <span class="glyphicon glyphicon-pencil"></span></button>'+
+							      '<button type="submit" data-status="'+parseInt(data,10)+';'+$('.buildingName').val()+'" data-toggle="modal" data-target="#confirmDelete" class="btn btn-danger removableBuilding" > <span class="glyphicon glyphicon-remove"></span></button>'+
+							      '</div>'+
+								'</div>');
+        		          
+        		        },
+            		     error : function(err) {
+      	                
+      	                alert(err.responseText); 
+      	            	}
+            		  });
+              	 }); 
+                	
+             
+             
                 /** EDIT BUILDING --> SHOWS COORDINATES FROM DATABASE*/
-                $('.editableBuilding').click(function(e) {
+                $(document).on('click','.editableBuilding',function(e){
                 	   e.preventDefault();
                 	   var statusCode = $(this).data('status');	
 					   var felder = statusCode.split(';', 5);
@@ -480,7 +531,7 @@
 
 <div class="page-header">
 <h3>Labore <span class="label label-default">@amount</span>      
-            <button data-toggle="modal" data-target="#newBuildingModal" class="btn btn-default loc pull-right" ><span class="glyphicon glyphicon-plus"></span> Gebäude</button>
+            <button data-toggle="modal" data-target="#newBuildingModal" class="btn btn-default loc pull-right addBuilding" ><span class="glyphicon glyphicon-plus"></span> Gebäude</button>
         </h3>    </div>
 	
 	
@@ -532,7 +583,7 @@
 
 <!-- NEW BUILDING-Modal -->
 
-<form action="@routes.Admin.save()" method="POST">
+
 <div class="modal fade" id="newBuildingModal">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -546,7 +597,7 @@
                         <b>Bezeichnung</b>
                       </div>
                       <div class="col-sm-6">
-            						<input class="form-control"  id="buildingName" name="buildingName" type="text" placeholder="z.B. GameBox"/>
+            						<input class="form-control buildingName"  id="buildingName" name="buildingName" type="text" placeholder="z.B. GameBox"/>
                       </div>
             					</div>
             
@@ -556,7 +607,7 @@
             					<b>Ort</b>
                     </div>
                       <div class="col-sm-6">                    
-            						<input id="pac-input" name="pac-input" class="form-control" type="text"
+            						<input id="pac-input" name="pac-input" class="form-control pac-input" type="text"
 						        placeholder="z.B. Zentrum für Mediendidaktik"/>
             					</div>
             
@@ -578,18 +629,17 @@
             <div class="modal-footer">
 
 			<!-- Verstecktes Feld für LAT -->
-			            <input name="latFld" id="latFld" style="display:none"/>
+			            <input name="latFld" id="latFld"  class="latFld" style="display:none"/>
 			<!-- Verstecktes Feld für LNG -->            
-  						<input name="lngFld" id="lngFld" style="display:none"/>
+  						<input name="lngFld" id="lngFld" class="lngFld" style="display:none"/>
 			            
 			           <!-- ÜBERGIBT DIE DATEN AN DEN SERVER --> 
-			          <button type="submit" id="newBuildingSubmit" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Speichern</button>	 	
+			          <button type="submit" id="newBuildingSubmit" class="btn btn-primary newBuildingSubmit"><span class="glyphicon glyphicon-ok"></span> Speichern</button>	 	
 			</div>
         </div>
     </div>
     </div>
-    
-    </form> 
+
     
     <!-- SCHLIEßt MODAL OHNE DATEN ZU VERSCHLUCKEN, wie es data-dismiss tut -->
            		 	<script>
