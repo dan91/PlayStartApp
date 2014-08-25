@@ -13,67 +13,111 @@
 <!--
 INSERT INTO user (email, name, Passwort?, female, handedness, enrolement_date) Fehlt: Birthday, language, privilige_id, semesterstart, phone
 VALUES ('email','firstname + lastname (oder einfach konsolidieren)','Passwort???','Geschlecht','H��ndigkeit', 'aktueller_tag');
--->
-<form role="form" class="form-horizontal" action="/">
+--><form role="form" class="form-horizontal" action="/">
 
- <div class="form-group">
- 
-    <label class="col-sm-2 control-label">Email</label>
-    
-    <div class="col-sm-4">
-    <input type="email" class="form-control" id="email" placeholder="Max.Muster@@example.de">
-    </div>
-  </div>
-					
-<div class="form-group">
+		<div class="form-group">
 
-    <label class="col-sm-2 control-label">Vorname</label>
-    <div class="col-sm-4">
-    <input type="text" class="form-control" id="firstname" placeholder="Max">
-    </div>
-  </div>
+			<label class="col-sm-2 control-label">Email</label>
 
-<div class="form-group">
-    <label class="col-sm-2 control-label">Nachname</label>
-    <div class="col-sm-4">
-    <input type="text" class="form-control" id="lastname" placeholder="Muster">
-    </div>
-  </div>
-  
- <div class="form-group">
-    <label class="col-sm-2 control-label">Passwort</label>
-    <div class="col-sm-4">
-    <input type="password" class="form-control" id="password" placeholder="Passwort">
-    </div>
-  </div> 
+			<div class="col-sm-4">
+				<input type="email" class="form-control" id="email"
+					placeholder="Max.Muster@@example.de">
+			</div>
+		</div>
 
-<div class="form-group">
+		<div class="form-group">
+
+			<label class="col-sm-2 control-label">Name</label>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" id="name"
+					placeholder="Max Muster">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-sm-2 control-label">Passwort</label>
+			<div class="col-sm-4">
+				<input type="password" class="form-control" id="password"
+					placeholder="Passwort">
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label class="col-sm-2 control-label">Telefonnummer</label>
+			<div class="col-sm-4">
+				<input type="password" class="form-control" id="password"
+					placeholder="0123/4567890">
+			</div>
+		</div>
+
+		<div class="form-group">
 			<label for="description" class="col-sm-2 control-label">Geschlecht</span></label>
 			<div class="col-sm-4">
 				<div class="btn-group">
-					<label class="btn btn-default">
-						<input type="radio" name="gender" id="gender1" checked>
-						männlich </label><!-- female = false-->
-						<label class="btn btn-default">
-							<input type="radio" name="gender" id="gender2">
-							weiblich </label> <!-- female = true -->
-						</div>
-					</div>
-				</div>	
+					<label class="btn btn-default"> <input type="radio"
+						name="gender" id="gender1" checked> männlich
+					</label>
+					<!-- female = false-->
+					<label class="btn btn-default"> <input type="radio"
+						name="gender" id="gender2"> weiblich
+					</label>
+					<!-- female = true -->
+				</div>
+			</div>
+		</div>
 
-<div class="form-group">
-			<label for="description" class="col-sm-2 control-label">H��ndigkeit</span></label>
+		<div class="form-group">
+			<label for="description" class="col-sm-2 control-label">Händigkeit</span></label>
 			<div class="col-sm-4">
 				<div class="btn-group">
-					<label class="btn btn-default">
-						<input type="radio" name="options" id="links">
-						links </label> <!-- ist ein varchar -->
-						<label class="btn btn-default">
-							<input type="radio" name="options" id="rechts" checked>
-							rechts </label>
-						</div>
-					</div>
+					<label class="btn btn-default"> <input type="radio"
+						name="hand" id="links"> links
+					</label>
+					<!-- ist ein varchar -->
+					<label class="btn btn-default"> <input type="radio"
+						name="hand" id="rechts" checked> rechts
+					</label>
 				</div>
+			</div>
+		</div>
+
+
+		<div class="form-group">
+			<label for="name" class="col-sm-2 control-label">Studienbegin</label>
+			<div class="col-sm-4">
+				<select id="semesterFrom" class="form-control">
+					<option>Sommersemester 2011</option>
+					<option>Wintersemester 2011/12</option>
+					<option>Sommersemester 2012</option>
+					<option>Wintersemester 2012/13</option>
+					<option>Sommersemester 2013</option>
+					<option>Wintersemester 2014/15</option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="name" class="col-sm-2 control-label">Studiengang</label>
+			<div class="col-sm-4">
+				<div class="btn-group">
+					<label class="btn btn-default"> <input type="radio"
+						name="options" id="MCS"> MCS
+					</label> <label class="btn btn-default"> <input type="radio"
+						name="options" id="MK"> MK
+					</label> <label class="btn btn-default"> <input type="radio"
+						name="options" id="Sonstiges" checked> Sonstiger
+					</label>
+				</div>
+
+			</div>
+
+</div>
+
+          
+		<hr>
+
+
+
+
 
 <div class="form-group">
 
