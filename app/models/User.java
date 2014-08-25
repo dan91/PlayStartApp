@@ -548,6 +548,12 @@ public static List<User> allProbandList() throws SQLException {
 		// TODO Auto-generated method stub
 		
 	}
+
+
+	public static Object authenticate(String email2, String password) {
+		// TODO Auto-generated method stub
+		return null;
+	}
        
        
 }

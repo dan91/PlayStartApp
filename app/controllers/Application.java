@@ -7,6 +7,7 @@ import java.util.Map;
 import models.User;
 import play.Logger;
 import play.Routes;
+import play.data.*;
 import play.data.Form;
 import play.data.validation.Constraints;
 import play.i18n.Messages;
@@ -67,19 +68,33 @@ public class Application extends Controller {
     			form(Login.class)
     			));
     }
-
+    
+    public static Result authenticate() {
+    	Form<Login> loginForm = form(Login.class).bindFromRequest();
+    		if (loginForm.hasErrors()) {
+    			return badRequest(views.html.login.render(loginForm));
+    		} else {
+    			session().clear();
+    			session("email", loginForm.get().email); //TODO session id lieber die User.id nehmen
+    			return redirect (routes.Application.index());
+    		}
+    }
+    
     public static class Login {
     	public String email;
     	public String password;
+     
+    
+		    public String validate() {
+		    	if (User.authenticate(email, password) == null) {
+		    		return "Falsche Logindaten";
+		    	}
+		    	return null;
+		    }
+    
     }
-
-    public static Result authenticate() {
-    	Form<Login> loginForm = form(Login.class).bindFromRequest();
-    	return ok();
-    }
     
-    
-    
+   
 }
 
 
