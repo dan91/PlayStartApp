@@ -36,6 +36,7 @@ GET		/allStudies				controllers.Admin.astudies()
 GET		/admin_edit				controllers.Admin.edit()
 GET		/user_edit/:id			controllers.Admin.user_edit(id: Long)
 
+POST	/user_edit/:id			controllers.Admin.user_edit_Safe(id: Long)
 
 
 POST    /lab                  	controllers.Admin.save()

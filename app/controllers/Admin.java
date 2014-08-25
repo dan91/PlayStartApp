@@ -1,6 +1,7 @@
 package controllers;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Map;
 
 import models.Building;
@@ -54,27 +55,7 @@ public class Admin extends Controller {
     }
     
     
-//    public static Result user_edit_Safe(Long id) throws SQLException { 
-//    	   
-//        final String name = values.get("userName")[0];
-//        final String email = values.get("userEmail")[0];
-//        final String sstart = values.get("userEmail")[0];
-//        final String course = values.get("userEmail")[0];
-//
-//        
-//        // zeigt in der console an ob der server es bekommen hat || geht hier was durch?
-//        Logger.info(name);
-//        try {
-//        	User.add(name, email, sstart, course);
-//        	
-//			return ok(lab.render(Building.all(),Room.all(),Building.count()));
-//			return ok(views.html.admin.user_edit.render(User.byId(id)));
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			return badRequest(e.toString());
-//		}
-//    	
-//    }
+
 
 
         /**
@@ -149,6 +130,31 @@ public class Admin extends Controller {
 			return badRequest(e.toString());
 		}
     }
+    
+    
+  public static Result user_edit_Safe(Long id) throws SQLException { 
+	   
+ List<User> values;
+//final String name = values.get("userName")[0];
+// final String email = values.get("userEmail")[0];
+// final String sstart = values.get("userEmail")[0];
+// final String course = values.get("userEmail")[0];
+
+ 
+ // zeigt in der console an ob der server es bekommen hat || geht hier was durch?
+// Logger.info(name);
+ try {
+// 	User.add(name, email, sstart, course);
+ 	
+		return ok(lab.render(Building.all(),Room.all(),Building.count()));
+//		return ok(views.html.admin.user_edit.render(User.byId(id)));
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		return badRequest(e.toString());
+	}
+	
+} 
+    
     
     
     
