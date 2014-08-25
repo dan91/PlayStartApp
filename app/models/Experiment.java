@@ -199,7 +199,7 @@ public class Experiment extends Model {
 		
 	}
 
-	public static String jsonAll() throws SQLException {
+	public static String jsonByString(String query) throws SQLException {
 		List<Experiment> experiments = Experiment.all();
     	ArrayNode result = new ArrayNode(JsonNodeFactory.instance);
     	for(Experiment e : experiments) {

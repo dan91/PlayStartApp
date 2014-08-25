@@ -161,7 +161,7 @@ public class Experimenter extends Controller {
     }
     
     public static Result getExperiments() throws SQLException, JsonProcessingException {
-    	String n = Experiment.jsonbyString(query);
+    	String n = Experiment.jsonByString("test");
 		return ok(n);
     }
     

@@ -67,6 +67,7 @@ public static Result authenticate(){
 		final Map<String, String[]> values = request().body().asFormUrlEncoded();
 		final String email = values.get("email")[0];
 		final String password = values.get("password")[0];
+		return ok();
 //        if(User.authenticate(email, password)) {
 //        	
 //        }
