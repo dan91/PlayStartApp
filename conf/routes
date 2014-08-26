@@ -25,7 +25,7 @@ GET     /confirmParticipation/:id		controllers.Experimenter.confirmParticipation
 POST    /saveParticipation		controllers.Experimenter.saveParticipation()
 POST    /saveGeneralData/:id		controllers.Experimenter.saveGeneralData(id: Int)
 POST    /saveSessions/:id		controllers.Experimenter.saveSessions(id: Int)
-GET     /getExperiments 		controllers.Experimenter.getExperiments()
+POST     /getExperiments 		controllers.Experimenter.getExperiments()
 GET		/jsonByExperimentId/:id		controllers.Experimenter.jsonByExperimentId(id: Int)
 
 # Admin

@@ -100,6 +100,24 @@ public class Experiment extends Model {
 		return list;
     }
     
+    public static List<Experiment> byName(String name) throws SQLException {
+    	Connection con = DB.getConnection();
+        Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+		ResultSet rs = stmt
+				.executeQuery("SELECT id, name FROM Experiment WHERE name LIKE '%"+name+"%'");
+		List<Experiment> list = new ArrayList<Experiment>();
+		while(rs.next()) {
+			Experiment e = new Experiment();
+			e.id = rs.getLong("id");
+			e.name = rs.getString("name");
+			
+			list.add(e);
+		}
+		stmt.close();
+		con.close();
+		return list;
+    }
+    
     
     public static List<Experiment> TenExp() throws SQLException {
         Connection con = DB.getConnection();
@@ -200,7 +218,7 @@ public class Experiment extends Model {
 	}
 
 	public static String jsonByString(String query) throws SQLException {
-		List<Experiment> experiments = Experiment.all();
+		List<Experiment> experiments = Experiment.byName(query);
     	ArrayNode result = new ArrayNode(JsonNodeFactory.instance);
     	for(Experiment e : experiments) {
     		ObjectNode event = Json.newObject();

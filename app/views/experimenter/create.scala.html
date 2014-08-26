@@ -179,10 +179,10 @@ $( "#openPreview" ).click(function() {
 				</div>
 				<hr>
 				<div class="form-group">
-					<label for="description" class="col-sm-3 control-label">Versuchsleiter</span></label>
+					<label for="description" class="col-sm-3 control-label">Versuchsleiter</label>
 					<div class="col-sm-6">
 						<p  class="label label-default" id="me">Ich</p>
-						<button type="button" class="btn btn-default" id="add" data-toggle="modal" data-target="#modalAddPersons"><span class="glyphicon glyphicon-user"> <span class="glyphicon glyphicon-plus"></span></button>
+						<button type="button" class="btn btn-default" id="add" data-toggle="modal" data-target="#modalAddPersons"><span class="glyphicon glyphicon-user"></span> <span class="glyphicon glyphicon-plus"></span></button>
 						<div id="rowsExp">
 						<div class="row mt1em expRow">
 							<input type="hidden" name="assignment" value="1"><!-- TODO: SESSION USER ID -->
@@ -484,8 +484,11 @@ $( "#openPreview" ).click(function() {
 			<script type="text/javascript">	
 
 			$('#searchStudies').typeahead({
-				ajax: '/getExperiments',
-				onSelect: displayResult
+				ajax: {
+			        url: '/getExperiments',	        
+			        method: "post",
+			        },
+				onSelect: displayResult,
 			});
 			function displayResult(item) {
 				button = $("#excludedBut").clone();
