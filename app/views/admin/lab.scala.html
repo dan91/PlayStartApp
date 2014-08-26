@@ -20,7 +20,6 @@
     	
     	
         var markersArray = [];
-        var markersArrayE = [];
         
         /** DELETE ROOM/BUILDING VARIABLES */
         var reference;
@@ -33,24 +32,6 @@
         /** NEW BUILDING */
         /** RESIZED DIE KARTE, SETZT CENTER DER MAP AUF ZFM DES LEHRSTUHLS MCM - UNI WÜRZBURG*/
         var ZFM = new google.maps.LatLng(49.782264, 9.974931);
-        
-        $('#newBuildingModal').on('shown.bs.modal', function() {
-        	/** erst resizen und dann Zentrum setzen, sonst verschiebt sich alles -.-   */
-        	google.maps.event.trigger(map, 'resize');
-            map.setCenter(ZFM);	
-            placeMarker(ZFM);
-          });
-        /** -----------------------------------------------*/
-   
-        $('#editBuildingModal').on('shown.bs.modal', function() {
-             		   /** CENTERS MAP ON DATABASE COORDINATES */
-             		   google.maps.event.trigger(mapE, 'resize');
-             		   mapE.setCenter(placeOfEditableBuilding);
-             		   placeMarkerE(placeOfEditableBuilding)
-          });
-        
-        
-        
         var mapOptions = {
                 /** Startwert ist hier das Zentrum für Mediendidaktik (ZFM) der Uni Würzburg*/
         		zoom: 17,
@@ -58,14 +39,36 @@
                 mapTypeId: google.maps.MapTypeId.ROADMAP
               };
         
+        var map = new google.maps.Map(document.getElementById('map-canvas'),mapOptions);
         
-              var map = new google.maps.Map(document.getElementById('map-canvas'),mapOptions);
-              
+        
+        $('#newBuildingModal').on('shown.bs.modal', function() {
+        	/** erst resizen und dann Zentrum setzen, sonst verschiebt sich alles -.-   */
+        	google.maps.event.trigger(map, 'resize');
+            map.setCenter(ZFM);	
+            placeMarker(ZFM,map);
+            
+            googlePlaceSuggestions(document.getElementById('pac-input'), map);
+          });
+        /** -----------------------------------------------*/
+   
+        $('#editBuildingModal').on('shown.bs.modal', function() {
+             		   /** CENTERS MAP ON DATABASE COORDINATES */
+             		   google.maps.event.trigger(mapE, 'resize');
+             		   mapE.setCenter(placeOfEditableBuilding);
+             		   placeMarker(placeOfEditableBuilding,mapE);
+             		   
+             		   googlePlaceSuggestions(document.getElementById('pac-inputEdit'), mapE);
+          });
+        
+        
+        
               
               /** AUTOCOMPLETE **/
               
-              
-              var input = (document.getElementById('pac-input'));
+      function googlePlaceSuggestions(suggest, whichMap){
+            	  
+              var input = suggest;
             
               
               var southWest = new google.maps.LatLng(49.714372, 9.879637);
@@ -85,81 +88,55 @@
               autocomplete = new google.maps.places.Autocomplete(input,auto_options);
 
             
-            
-              //var infowindow = new google.maps.InfoWindow();
-              var marker = new google.maps.Marker({
-                map: map
-              });
-
               google.maps.event.addListener(autocomplete, 'place_changed', function() {
-               // infowindow.close();
-                marker.setVisible(false);
+                
                 
               var place = autocomplete.getPlace();
                 if (!place.geometry) {
                   return;
                 }
 
-
-               
-                  placeMarker(place.geometry.location)  
-                  map.setCenter(place.geometry.location);
-                  map.setZoom(17);
-                
-                
-               /** marker.setIcon(({
-                  url: place.icon,
-                  size: new google.maps.Size(71, 71),
-                  origin: new google.maps.Point(0, 0),
-                  anchor: new google.maps.Point(17, 34),
-                  scaledSize: new google.maps.Size(35, 35)
-                }));**/
-                //marker.setPosition(place.geometry.location);
-                
+                  placeMarker(place.geometry.location,whichMap)  
+                  whichMap.setCenter(place.geometry.location);
+                  whichMap.setZoom(17);
                 
                 document.getElementById("latFld").value = place.geometry.location.lat();
                 document.getElementById("lngFld").value = place.geometry.location.lng();
 
+                // besser wäre eine if-Abfrage ob edit oder new Building, ich weiß...
+                document.getElementById("latFldEdit").value = place.geometry.location.lat();
+                document.getElementById("lngFldEdit").value = place.geometry.location.lng();
               
-                marker.setVisible(true);
-
-               /* var address = '';
-                if (place.address_components) {
-                  address = [
-                    (place.address_components[0] && place.address_components[0].short_name || ''),
-                    (place.address_components[1] && place.address_components[1].short_name || ''),
-                    (place.address_components[2] && place.address_components[2].short_name || '')
-                  ].join(' ');
-                }*/
-
-                infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
-                infowindow.open(map, marker);
               }); 
               
+              google.maps.event.addListener(whichMap, "click", function(event)
+                      {
+                          // place a marker
+                          placeMarker(event.latLng,whichMap);
+
+                          // display the lat/lng in your form's lat/lng fields
+                          document.getElementById("latFld").value = event.latLng.lat();
+                          document.getElementById("lngFld").value = event.latLng.lng();
+                          
+                          // besser wäre eine if-Abfrage ob edit oder new Building, ich weiß...
+                          document.getElementById("latFldEdit").value = event.latLng.lat();
+                          document.getElementById("lngFldEdit").value = event.latLng.lng();
+                      });
+              
+              
+              }
 
  
               
-            // add a click event handler to the map object
-                google.maps.event.addListener(map, "click", function(event)
-                {
-                    // place a marker
-                    placeMarker(event.latLng);
-
-                    // display the lat/lng in your form's lat/lng fields
-                    document.getElementById("latFld").value = event.latLng.lat();
-                    document.getElementById("lngFld").value = event.latLng.lng();
-                });
-            
-            
-            
+           
                 /** NEW BUILDING MARKER */
-                function placeMarker(location) {
+                function placeMarker(location,whichMap) {
                     // first remove all markers if there are any
                     deleteOverlays();
 
                     var marker = new google.maps.Marker({
                         position: location, 
-                        map: map
+                        map: whichMap
                     });
 
                     // add marker in markers array
@@ -168,40 +145,13 @@
                     // map.setCenter(location);
                 }
                 
-                /** EDIT BUILDING MARKER */
-                function placeMarkerE(location) {
-                    // first remove all markers if there are any
-                    deleteOverlaysE();
-
-                    var markerE = new google.maps.Marker({
-                        position: location, 
-                        map: mapE
-                    });
-
-                    // add marker in markers array
-                    markersArrayE.push(markerE);
-
-                    // map.setCenter(location);
-                }
-                
-
-                // Deletes all markers in the array by removing references to them
+             // Deletes all markers in the array by removing references to them
                 function deleteOverlays() {
                     if (markersArray) {
                         for (i in markersArray) {
                             markersArray[i].setMap(null);
                         }
                     markersArray.length = 0;
-                    }
-                }
-  
-             // Deletes all markers in the array by removing references to them
-                function deleteOverlaysE() {
-                    if (markersArrayE) {
-                        for (i in markersArrayE) {
-                            markersArrayE[i].setMap(null);
-                        }
-                    markersArrayE.length = 0;
                     }
                 }
                 
@@ -261,7 +211,7 @@
                 	   var statusCode = $(this).data('status');	
 					   var felder = statusCode.split(';', 5);
 	                	
-					   reference = $(this);
+					   	   reference = $(this);
 					   
 					   	   buildingId  = felder[0];
 	                	   buildingName = felder[1];
@@ -282,19 +232,8 @@
                 			    };
                 	   
                 	   mapE = new google.maps.Map(document.getElementById("map_canvas"), mapOptionsE);
-                	   
-
-                    placeOfEditableBuilding =   new google.maps.LatLng(buildingLat, buildingLng);
-                    // add marker in markers array
+                       placeOfEditableBuilding =   new google.maps.LatLng(buildingLat, buildingLng);
                     
-                    placeMarkerE(placeOfEditableBuilding);
-                    google.maps.event.addListener(mapE, "click", function(eventEdit)
-                            {
-                            	// place a marker
-                                placeMarkerE(eventEdit.latLng); 
-                                $('.latFldEdit').val(eventEdit.latLng.lat());
-      	                 	    $('.lngFldEdit').val(eventEdit.latLng.lng());
-                    }); 
               });
                
               $(".editBuildingSubmit").click(function (c){
@@ -324,10 +263,6 @@
             		    });
               	 }); 
               
-                
-                
-                
-                
                 
                 /**------------------------------------------------------- */
                 
@@ -463,16 +398,12 @@
         	            	}
               		    });
                 	} else {
-                		
                 		alert("Das Formular wurde nicht vollständig ausgefüllt!");
-                		
                 	}
 	 				
 	 			});
                  
-                 
-                 
-                 
+                
                  /** Wichtig aufgrund von "event delegation" nach dem html append() durch den ajax request*/
                 $(document).on('click','.editableRoom',function(w) {
                	   w.preventDefault();
@@ -515,14 +446,8 @@
 	 				
 	 			});
                 
-                
                 google.maps.event.trigger(map, 'resize');
-                
     });  
-    
-    
-   
-    
     
     </script>
 
