@@ -19,16 +19,16 @@ $( "#openPreview" ).click(function() {
 		 var description = $("textarea#description").val();
 		 
 		 if(description.trim() == "")
-			 description = '"\nBeschreibungstext editieren!\nWird HIER eingefügt!"';
+			 description = '"\nBeschreibungstext editieren!\nWird HIER eingef��gt!"';
 		 
 		 
 		 var previewContent = 
 			 "Lieber #Name,"
-				+"\n\nWir haben eine interessante Studie für dich!\n\n"
+				+"\n\nWir haben eine interessante Studie f��r dich!\n\n"
 				
 				+description
 				
-				+"\n\nVielleicht sehen wir uns ja demnächst!"
+				+"\n\nVielleicht sehen wir uns ja demn��chst!"
 				+"\nBis bald!" 
 				+"\n#Versuchsleitername";
 		 
@@ -279,7 +279,7 @@ $( "#openPreview" ).click(function() {
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-						<h4 class="modal-title">Probanden auswählen</h4>
+						<h4 class="modal-title">Probanden ausw��hlen</h4>
 
 					</div>
 					<div class="modal-body">
@@ -303,7 +303,7 @@ $( "#openPreview" ).click(function() {
 									<div class="btn-group">
 										<label class="btn btn-default">
 											<input type="checkbox" name="gender" class="gender" value="male" checked>
-											männlich </label>
+											m��nnlich </label>
 											<label class="btn btn-default">
 												<input type="checkbox" name="gender" class="gender" value="female" checked>
 												weiblich </label>
@@ -361,7 +361,7 @@ $( "#openPreview" ).click(function() {
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<h4 class="modal-title">Versuchsleiter hinzufügen</h4>
+				<h4 class="modal-title">Versuchsleiter hinzuf��gen</h4>
 			</div>
 			<div class="modal-body">
 		<div class="row">
@@ -399,7 +399,7 @@ $( "#openPreview" ).click(function() {
             <div class="col-md-3"><button type="button" class="btn btn-danger btn-sm" id="me"><span class="glyphicon glyphicon-remove"></span></button></div>
 		</div> <!-- row -->
 		<hr>
-		<b>Probanden hinzufügen</b>
+		<b>Probanden hinzuf��gen</b>
 		<div class="row">
 			<div class="col-sm-12">
 				<input type="text" class="form-control addProb" id="" placeholder="Name des Probands" autofocus>
@@ -428,7 +428,7 @@ $( "#openPreview" ).click(function() {
 		</div> <!-- row -->
 		</div>
 		<hr>
-		<b>Probanden hinzufügen</b>
+		<b>Probanden hinzuf��gen</b>
 		<div class="row">
 			<div class="col-sm-12">
 				<input type="text" class="form-control addProb" id="" placeholder="Name des Probands" autofocus>
@@ -508,7 +508,7 @@ $( "#openPreview" ).click(function() {
 					center: '',
 					right:  'today prev,next'
 				},
-				// Hier wird dem fullcalendar events array ein Participations array hinzugefügt. 
+				// Hier wird dem fullcalendar events array ein Participations array hinzugef��gt. 
 				// Somit werden den Sessions Teilnehmer zugewiesen
 				
 				lang: 'de',
@@ -525,7 +525,7 @@ $( "#openPreview" ).click(function() {
 				contentHeight: 1200,
 				
 				/**
-				Bei Click & Drag werden im ausgewählten Zeitraum Sessions erstellt
+				Bei Click & Drag werden im ausgew��hlten Zeitraum Sessions erstellt
 				**/
 				select: function(start, end) {
 					
@@ -569,7 +569,7 @@ $( "#openPreview" ).click(function() {
 			        partic_dr = el.find(".rowPartic").first().clone();
 
 					 /**
-					Füge Event-Handler für Proband hinzufügen & löschen hinzu
+					F��ge Event-Handler f��r Proband hinzuf��gen & l��schen hinzu
 					**/
 					$(element).on('show.bs.popover', function (e) {
 				        $('.fc-event').not(this).popover('hide');

@@ -62,7 +62,7 @@ public class Application extends Controller {
         return ok(index.render());
     }
     
-    
+    // TODO siehe model.user Zeile 550
     public static Result login() {
     	return ok(views.html.login.render(
     			form(Login.class)
@@ -70,12 +70,12 @@ public class Application extends Controller {
     }
     
     public static Result authenticate() {
-    	Form<Login> loginForm = form(Login.class).bindFromRequest();
+    	Form<Login> loginForm = form(Login.class).bindFromRequest(); //TODO BindfromRequest weg? Login.class weg? aber wie?
     		if (loginForm.hasErrors()) {
     			return badRequest(views.html.login.render(loginForm));
     		} else {
     			session().clear();
-    			session("email", loginForm.get().email); //TODO session id lieber die User.id nehmen
+    			session("id", loginForm.get().email); //TODO session id = User.id 
     			return redirect (routes.Application.index());
     		}
     }
@@ -94,7 +94,13 @@ public class Application extends Controller {
     
     }
     
-   
+    public static Result logout() {
+        session().clear();
+        flash("Erfolg", "Logout erfolgreich");
+        return redirect(
+            routes.Application.login()
+        );
+    }
 }
 
 

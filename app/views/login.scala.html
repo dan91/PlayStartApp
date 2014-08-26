@@ -14,11 +14,15 @@
 	</div>
 
 <div class='container_signin container'>
+
+
 @if(form.hasGlobalErrors) {
 	<p class="warning">@form.globalError.message</p>
 }
+
+
 @helper.form(routes.Application.authenticate) {
-		<p> <input type="email" placeholder="Emailaddresse" value="@form("email").value"> </p>
+		<p> <input type="email" name="email" placeholder="Emailaddresse" value="@form("email").value"> </p>
 		<p> <input type="password" name="password" placeholder="Passwort"></p>
 		<p> <button type="submit">Login</button></p>
 	}

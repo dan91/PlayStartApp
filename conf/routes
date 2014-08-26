@@ -55,4 +55,5 @@ GET     /javascriptRoutes       controllers.Application.javascriptRoutes()
 GET		/konto					controllers.Admin.konto()
 GET		/login					controllers.Application.login()
 POST 	/login					controllers.Application.authenticate()
+GET     /logout                 controllers.Application.logout()
 
