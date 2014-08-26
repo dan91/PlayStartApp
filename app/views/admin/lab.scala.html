@@ -382,8 +382,6 @@
                 	 });
                  
                  
-                 
-                
                  /** Übergibt die Building id an einen <input> Tag */
                 $(document).on('click','.addNewRoom',function(wee) { 
                 	wee.preventDefault();
@@ -440,8 +438,6 @@
 					
                	   var felder = statusCode.split(';', 3);
                	   
-               	   
-               	   
                	   $('.roomEdit_id').val(felder[0]);
                	   $('.roomEditName').val(felder[1]);
                	   $('.roomEditDescription').val(felder[2]);
@@ -480,7 +476,6 @@
 	 		    	
 	 		    } 
 	 			 
-	 				
 	 	  });
                 
                 google.maps.event.trigger(map, 'resize');
@@ -537,9 +532,6 @@
       </div> 
       </div>
       
-      
-       
-     
 }
 
 }
