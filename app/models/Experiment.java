@@ -138,7 +138,7 @@ public class Experiment extends Model {
     public static List<Experiment> LauFend() throws SQLException {
         Connection con = DB.getConnection();
         Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-        ResultSet rs = stmt     .executeQuery("SELECT Experiment.name, Experiment.id, User.name FROM Experiment JOIN Assignment ON Experiment.id=Assignment.experiment_id JOIN User ON User.id=Assignment.user_id JOIN Session ON Experiment.id=Session.experiment_id WHERE FROM_UNIXTIME(Session.datetime) > NOW() ");
+        ResultSet rs = stmt     .executeQuery("SELECT Experiment.name, Experiment.id, User.name FROM Experiment JOIN Assignment ON Experiment.id=Assignment.experiment_id JOIN User ON User.id=Assignment.user_id JOIN Session ON Experiment.id=Session.experiment_id WHERE Session.datetime > NOW() ");
 		List<Experiment> list = new ArrayList<Experiment>();
         while(rs.next()) {
 			Experiment e = new Experiment();
@@ -157,7 +157,7 @@ public class Experiment extends Model {
     public static List<Experiment> finishedStudies() throws SQLException {
         Connection con = DB.getConnection();
         Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-        ResultSet rs = stmt     .executeQuery("SELECT DISTINCT Experiment.name, Experiment.id, User.name FROM Experiment JOIN Assignment ON Experiment.id=Assignment.experiment_id JOIN User ON User.id=Assignment.user_id JOIN Session ON Experiment.id=Session.experiment_id WHERE FROM_UNIXTIME(Session.datetime) < NOW() AND NOT Session.datetime > NOW();");
+        ResultSet rs = stmt     .executeQuery("SELECT DISTINCT Experiment.name, Experiment.id, User.name FROM Experiment JOIN Assignment ON Experiment.id=Assignment.experiment_id JOIN User ON User.id=Assignment.user_id JOIN Session ON Experiment.id=Session.experiment_id WHERE Session.datetime < NOW() AND NOT Session.datetime > NOW();");
 		List<Experiment> list = new ArrayList<Experiment>();
         while(rs.next()) {
 			Experiment e = new Experiment();
