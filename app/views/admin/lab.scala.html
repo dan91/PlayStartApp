@@ -175,6 +175,11 @@
                 	buildingLat = $('.latFld').val();
                 	buildingLng = $('.lngFld').val();
                 	
+                	
+               if($.trim($('.buildingName').val()) != "" && $.trim($('.pac-input').val()) != "" ){
+                	
+            	   $('#newBuildingModal').modal('hide');
+            	   
                 	$.ajax({
         		        type : 'POST',
         		        url : '@routes.Admin.save()',
@@ -205,6 +210,14 @@
       	                alert(err.responseText); 
       	            	}
             		  });
+               
+               		} else {
+               			
+               			alert("Formular nicht vollständig ausgefüllt!");
+               			
+               		}
+                	
+                	
               	 }); 
                 	
              
@@ -243,7 +256,7 @@
               $(".editBuildingSubmit").click(function (c){
             	  c.preventDefault();
             	  
-            if($.trim($('.editId').val()) != "" || $.trim($('.buildingNameEdit').val()) != "" || $.trim($('.pac-inputEdit').val()) != "" ){
+              if($.trim($('.editId').val()) != "" && $.trim($('.buildingNameEdit').val()) != "" && $.trim($('.pac-inputEdit').val()) != "" ){
             	  var nameShown = ""+$('.buildingNameEdit').val();
             	  
             	  reference.parent().parent().children().eq(0).children().eq(0).text(nameShown);
@@ -436,10 +449,12 @@
                	   
                 });
                 
-                $('.editRoomSubmit').click(function(){
-	 				$('#roomEditModal').modal('hide');
+          $('.editRoomSubmit').click(function(){
 	 				
-	 				$.ajax({
+	 		 if($.trim($('.roomEdit_id').val()) != "" && $.trim($('.roomEditName').val()) != ""  && $.trim($('.roomEditDescription').val()) != ""){
+	 					$('#roomEditModal').modal('hide');
+	 			
+	 			 $.ajax({
           		        type : 'POST',
           		        url : '@routes.Admin.saveEditRoom()',
           		        data : {
@@ -458,8 +473,15 @@
         	            	}
         	            	
               		    });
+	 			 
+	 		    } else {
+	 		    	
+	 		    	alert("Formular nicht vollständig ausgefüllt!");
+	 		    	
+	 		    } 
+	 			 
 	 				
-	 			});
+	 	  });
                 
                 google.maps.event.trigger(map, 'resize');
     });  
@@ -589,20 +611,7 @@
     </div>
     </div>
 
-    
-    <!-- SCHLIEßt MODAL OHNE DATEN ZU VERSCHLUCKEN, wie es data-dismiss tut -->
-           		 	<script>
-           		 	$(document).ready(function(){
-           		 			$('#newBuildingSubmit').click(function(){
-           		 				/** on click wird das modal versteckt und
-           		 				der User bekommt wieder die neugeladene lab Seite zu sehen*/
-           		 				$('#newBuildingModal').modal('hide');
-           		 			});
-           		 	});
-           		 	</script>
-           		 	
-     
-     
+   
      
      
      <!-- Beginn EDIT-BUILDING-Modal -->
@@ -666,18 +675,6 @@
     </div>
 
 
-    
-    <!-- SCHLIEßt MODAL OHNE DATEN ZU VERSCHLUCKEN, wie es data-dismiss tut -->
-           		 	<script>
-           		 	$(document).ready(function(){
-           		 			$('#editBuildingSubmit').click(function(){
-           		 				/** on click wird das modal versteckt und
-           		 				der User bekommt wieder die neugeladene lab Seite zu sehen*/
-           		 				$('#editBuildingModal').modal('hide');
-           		 			});
-           		 	});
-           		 	</script>      		 	
-           		 	
            		 	
            		 	
            		 	
