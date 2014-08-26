@@ -194,6 +194,10 @@
 							      '<button type="submit" data-status="'+parseInt(data,10)+';'+$('.buildingName').val()+'" data-toggle="modal" data-target="#confirmDelete" class="btn btn-danger removableBuilding" > <span class="glyphicon glyphicon-remove"></span></button>'+
 							      '</div>'+
 								'</div><div class="amountRooms"><hr></div></div>');
+        		        	
+        		        	// soll zahl an laboren aktualisieren --- funktioniert nicht!
+        		        	//var old = parseInt($('.buildingAmount').text(amountNew),10);
+        		        	//$('.buildingAmount').html("<h1>"+old+1+"</h1>");
 
         		        },
             		     error : function(err) {
@@ -239,6 +243,7 @@
               $(".editBuildingSubmit").click(function (c){
             	  c.preventDefault();
             	  
+            if($.trim($('.editId').val()) != "" || $.trim($('.buildingNameEdit').val()) != "" || $.trim($('.pac-inputEdit').val()) != "" ){
             	  var nameShown = ""+$('.buildingNameEdit').val();
             	  
             	  reference.parent().parent().children().eq(0).children().eq(0).text(nameShown);
@@ -253,6 +258,7 @@
         		            id: $('.editId').val(), name: $('.buildingNameEdit').val(), desc : $('.pac-inputEdit').val(), lat : $('.latFldEdit').val(), lng : $('.lngFldEdit').val()
         		        },
         		        success : function(data) {
+        		          $('#editBuildingModal').modal('hide');
         		          alert(data);
         		          
         		        },
@@ -260,14 +266,23 @@
       	                
       	                alert(err.responseText); 
       	            	}
-            		    });
+            		});
+            	  
+            	  } else {
+            		  
+            		alert("Formular nicht vollständig ausgefüllt");  
+            		  
+            	  }
+            	  
+            	  
+            	  
               	 }); 
               
                 
                 /**------------------------------------------------------- */
                 
                 
-                 $('.removableBuilding').click(function(w) {
+                 $(document).on('click','.removableBuilding',function(w){ 
                 	   w.preventDefault();
                 	   var statusCode = $(this).data('status');	
                 	   
@@ -464,7 +479,7 @@
 
 
 <div class="page-header">
-<h3>Labore <span class="label label-default">@amount</span>      
+<h3>Labore <span class="label label-default buildingAmount">@amount</span>      
             <button data-toggle="modal" data-target="#newBuildingModal" class="btn btn-default loc pull-right addBuilding" ><span class="glyphicon glyphicon-plus"></span> Gebäude</button>
         </h3>    </div>
 	
@@ -531,7 +546,7 @@
                         <b>Bezeichnung</b>
                       </div>
                       <div class="col-sm-6">
-            						<input class="form-control buildingName"  id="buildingName" name="buildingName" type="text" placeholder="z.B. GameBox"/>
+            						<input class="form-control buildingName"  id="buildingName" name="buildingName" type="text" placeholder="z.B. GameBox" required/>
                       </div>
             					</div>
             
@@ -542,7 +557,7 @@
                     </div>
                       <div class="col-sm-6">                    
             						<input id="pac-input" name="pac-input" class="form-control pac-input" type="text"
-						        placeholder="z.B. Zentrum für Mediendidaktik"/>
+						        placeholder="z.B. Zentrum für Mediendidaktik" required/>
             					</div>
             
             			</div> 
@@ -563,9 +578,9 @@
             <div class="modal-footer">
 
 			<!-- Verstecktes Feld für LAT -->
-			            <input name="latFld" id="latFld"  class="latFld" style="display:none"/>
+			            <input name="latFld" id="latFld"  class="latFld" style="display:none" required/>
 			<!-- Verstecktes Feld für LNG -->            
-  						<input name="lngFld" id="lngFld" class="lngFld" style="display:none"/>
+  						<input name="lngFld" id="lngFld" class="lngFld" style="display:none" required/>
 			            
 			           <!-- ÜBERGIBT DIE DATEN AN DEN SERVER --> 
 			          <button type="submit" id="newBuildingSubmit" class="btn btn-primary newBuildingSubmit"><span class="glyphicon glyphicon-ok"></span> Speichern</button>	 	
@@ -605,7 +620,7 @@
                         <b>Bezeichnung</b>
                       </div>
                       <div class="col-sm-6">
-            						<input class="form-control buildingNameEdit"  id="buildingNameEdit" name="buildingNameEdit" type="text" placeholder="z.B. GameBox"/>
+            						<input class="form-control buildingNameEdit"  id="buildingNameEdit" name="buildingNameEdit" type="text" placeholder="z.B. GameBox" required/>
                       </div>
             					</div>
             
@@ -616,7 +631,7 @@
                     </div>
                       <div class="col-sm-6">                    
             						<input id="pac-inputEdit" name="pac-inputEdit" class="form-control pac-inputEdit" type="text"
-						        placeholder="z.B. Zentrum für Mediendidaktik"/>
+						        placeholder="z.B. Zentrum für Mediendidaktik" required/>
             					</div>
             
             			</div> 
@@ -637,11 +652,11 @@
             <div class="modal-footer">
 
 			<!-- Verstecktes Feld für Id -->
-			            <input name="editId" id="editId" class="editId" value="" style="display:none"/>
+			            <input name="editId" id="editId" class="editId" value="" style="display:none" required/>
 			<!-- Verstecktes Feld für LAT -->
-			            <input name="latFldEdit" id="latFldEdit"  class="latFldEdit" style="display:none"/>
+			            <input name="latFldEdit" id="latFldEdit"  class="latFldEdit" style="display:none" required/>
 			<!-- Verstecktes Feld für LNG -->            
-  						<input name="lngFldEdit" id="lngFldEdit"  class="lngFldEdit" style="display:none"/>
+  						<input name="lngFldEdit" id="lngFldEdit"  class="lngFldEdit" style="display:none" required/>
 			            
 			           <!-- ÜBERGIBT DIE DATEN AN DEN SERVER --> 
 			          <button type="submit" class="btn btn-primary editBuildingSubmit"><span class="glyphicon glyphicon-ok"></span> Speichern</button>	 	
@@ -744,7 +759,7 @@
             					<b>Bezeichnung</b>
                     </div>
                     <div class="col-sm-9">
-            						<input class="form-control roomEditName" id="roomEditName" name="roomEditName" type="text" placeholder="z.B. Raum 00.105"/>
+            						<input class="form-control roomEditName" id="roomEditName" name="roomEditName" type="text" placeholder="z.B. Raum 00.105" required/>
             					</div>
             
             			</div>  
@@ -754,10 +769,10 @@
             					<b>Beschreibung</b>
                       </div>
                     <div class="col-sm-9">
-            						<textarea class="form-control field span12 roomEditDescription" name="roomEditDescription" id="roomEditDescription" cols="55" rows="15" placeholder="z.B. Der Raum 00.1XX befindet sich im oberen Stockwerk."></textarea>
+            						<textarea class="form-control field span12 roomEditDescription" name="roomEditDescription" id="roomEditDescription" cols="55" rows="15" placeholder="z.B. Der Raum 00.1XX befindet sich im oberen Stockwerk." required></textarea>
 						        	
 						        	
-						        	<input class="form-control roomEdit_id" id="roomEdit_id" name="roomEdit_id" type="text" value="" style="display:none;"/>
+						        	<input class="form-control roomEdit_id" id="roomEdit_id" name="roomEdit_id" type="text" value="" style="display:none;" required/>
 						        	
             					</div>
             
