@@ -191,6 +191,18 @@ public class Room extends Model {
         return roomInUse;
     	
     }
+    
+    public static int allRooms() throws SQLException {
+        Connection con = DB.getConnection();
+        Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        ResultSet rs = stmt
+                .executeQuery("SELECT COUNT(*) AS Amount FROM Room");
+        rs.next();
+        int amount = rs.getInt("Amount");
+
+			stmt.close(); con.close();
+        return amount;
+    }
 
     
 //    ÜBERFLÜSSIG: GEBÄUDE WERDEN NICHT GELÖSCHT SONDERN INS ARCHIV VERSCHOBEN

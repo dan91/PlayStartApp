@@ -40,7 +40,7 @@
 						<li><a href="/admin">Übersicht</a></li>
 						<li><a href="/allStudies">Studien <span class="badge">@User.allStudies()</span></a></li>
 						<li><a href="/user">Benutzer <span class="badge">@User.allUsers()</span></a></li>
-						<li><a href="/lab">Labore <span class="badge">1</span></a></li>
+						<li><a href="/lab">Labore <span class="badge">@Room.allRooms()</span></a></li>
 					} else {
 						@if(navbar == "experimenter") {
 						<li><a href="/myStudies">Meine Studien <span class="badge">3</span></a></li>
