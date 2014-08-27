@@ -101,14 +101,17 @@ public class RegisteredMapper {
 	
 	public static List<RegisteredMapper> latLngByDefaultId(Long id) throws SQLException {
     	
+		Logger.info("Die id heißt: "+id);
+		
     	Connection con = DB.getConnection();
         Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 		ResultSet rs = stmt
-				.executeQuery("SELECT Building.name,Room.name AS room_name, Room.description AS room_desc, lat,lng FROM Room JOIN Building ON Room.building_id = Building.id WHERE Building.archive=0 AND Room.id="+id+";");
+				.executeQuery("SELECT Building.name,Building.description, Room.name AS room_name, Room.description AS room_desc, Building.lat,Building.lng FROM Room JOIN Building ON Room.building_id = Building.id WHERE Building.archive=0 AND Room.id="+id+";");
 		List<RegisteredMapper> list = new ArrayList<RegisteredMapper>();
 		while(rs.next()) {
 			RegisteredMapper e = new RegisteredMapper();
 			e.building_name = rs.getString("name");
+			e.building_description = rs.getString("description");
 			e.room_name = rs.getString("room_name");
 			e.Lat = rs.getDouble("lat");
 			e.Lng = rs.getDouble("lng");

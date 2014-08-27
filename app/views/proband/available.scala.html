@@ -1,8 +1,6 @@
 @scripts = {
 
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
-<script src="@routes.Assets.at("javascripts/probandSimpleMap.js")" charset="UTF-8"
-	type="text/javascript"></script>
 <link rel='stylesheet'
 	href='//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.0.3/fullcalendar.css' />
 
@@ -12,9 +10,10 @@
 	src='//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.1/moment-with-locales.min.js'></script>
 <script
 	src='//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.0.3/fullcalendar.min.js'></script>
-	
-	
+
 <script>
+
+
 
 $(document).ready(function(){
 	
@@ -30,18 +29,22 @@ $(document).ready(function(){
     var lat;
     var lng;
     	
-    $(document).on('click','.glyphicon-map-marker',function(e){
+    $('.glyphicon-map-marker').click(function(e) {
  	   e.preventDefault();
+ 	   
+ 	   alert("inside");
  	   
 	   var statusCode = $(this).data('status');	
 	   var felder = statusCode.split(';', 6);
 	   
-	   building_name = felder[0];
-       building_description = felder[1];
-	   room_name = felder[2];
-	   room_description = felder[3];
-	   lat = felder[4];
-	   lng = felder[5];
+	   alert(building_description = felder[0]);
+	   alert(building_name = felder[1]);
+	   alert(lat = felder[2]);
+	   alert(lng = felder[3]);
+       alert(room_name = felder[4]);
+       alert(room_description = felder[5]);
+	   
+	   
 	   
 	   $("#modalHead").html(building_name+", "+room_name);
 	   
@@ -51,7 +54,7 @@ $(document).ready(function(){
    	    
    		});
 	   
-	   $('#placeModal').on('shown.bs.modal', function() {
+	   $('#myMapModal').on('shown.bs.modal', function() {
 		   center=new google.maps.LatLng(lat, lng);
 	       
 	    	map=    new google.maps.Map(
@@ -81,7 +84,7 @@ $(document).ready(function(){
     	
 });
 
-</script>	
+</script>
 
 } 
 @main(null, scripts) {
@@ -119,12 +122,16 @@ $(document).ready(function(){
 		<h3 class="mt0"><span class="glyphicon glyphicon-info-sign"></span></h3>
 		<p>@e.description
 		<hr>
-			<span><b id="b_@e.id">@Building.buildingByRoomId(e.defaultRoom_id).name</b>,
-				<span id="r_@e.id">@Room.byId(e.defaultRoom_id).name</span> </span>
+		
+		@for(info <- RegisteredMapper.latLngByDefaultId(e.defaultRoom_id)){
+			<span><b id="b_@e.id">@info.building_name</b>,
+				<span id="r_@e.id">@info.room_name</span> </span>
 			<button data-toggle="modal" data-target="#myMapModal"
 				class="btn btn-default btn-sm">
-				<span class="glyphicon glyphicon-map-marker"></span>
+				<span class="glyphicon glyphicon-map-marker" data-status="@info.building_description;@info.building_name;@info.Lat;@info.Lng;@info.room_name;@info.room_description;"></span>
 			</button>
+			}
+			
 		</div>
 		}
 	</div>
@@ -166,19 +173,19 @@ $(document).ready(function(){
 
 <!-- MAP MODAL -->
 <div class="modal fade" id="myMapModal">
-	<div class="modal-dialog contains_map1">
-		<div class="modal-content contains_map2">
-			<div class="modal-header">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header modalHead">
 				<button type="button" class="close" data-dismiss="modal"
 					aria-hidden="true">×</button>
 				<h4 class="modal-title">Oswald Külpe Weg, Gebäude 82</h4>
 
 			</div>
-			<div class="modal-body contains_map3">
-				<div class="container contains_map4">
-					<div class="row contains_map4">
+			<div class="modal-body">
+				<div class="container">
+					<div class="row">
 
-						<div align="center" id="map-canvas" class="contains_map4"></div>
+						<div align="center" id="map-canvas"></div>
 
 					</div>
 				</div>
