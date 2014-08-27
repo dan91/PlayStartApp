@@ -12,6 +12,76 @@
 	src='//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.1/moment-with-locales.min.js'></script>
 <script
 	src='//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.0.3/fullcalendar.min.js'></script>
+	
+	
+<script>
+
+$(document).ready(function(){
+	
+	var map;	
+	var center;
+	var marker;
+	var infowindow;
+	
+    var building_name;
+    var building_description;
+    var room_name;
+    var room_description;
+    var lat;
+    var lng;
+    	
+    $(document).on('click','.glyphicon-map-marker',function(e){
+ 	   e.preventDefault();
+ 	   
+	   var statusCode = $(this).data('status');	
+	   var felder = statusCode.split(';', 6);
+	   
+	   building_name = felder[0];
+       building_description = felder[1];
+	   room_name = felder[2];
+	   room_description = felder[3];
+	   lat = felder[4];
+	   lng = felder[5];
+	   
+	   $("#modalHead").html(building_name+", "+room_name);
+	   
+	   infowindow = new google.maps.InfoWindow({
+   	    content: '<div id="infodiv"><h2 id="firstHeading" class="firstHeading">'+building_name+'</h2>'
+   	    +'<div id="bodyContent">'+room_description+'</div></div>'
+   	    
+   		});
+	   
+	   $('#placeModal').on('shown.bs.modal', function() {
+		   center=new google.maps.LatLng(lat, lng);
+	       
+	    	map=    new google.maps.Map(
+	                 document.getElementById('map-canvas'), 
+	                  { zoom: 17,
+	                    center: center,
+	                    mapTypeId: google.maps.MapTypeId.HYBRID });
+	    	
+	    	
+	    	google.maps.event.trigger(map, "resize");
+		    map.setCenter(center); 
+		    marker=new google.maps.Marker({
+		    	   position:center
+		    	});
+		    marker.setMap(map);
+		    
+			google.maps.event.addListener(marker, 'click', function() {
+			  infowindow.open(map,marker);
+			  });
+			
+				infowindow.open(map,marker);
+	    	});
+	    	
+    });
+    	
+    infowindow.open(map,marker);
+    	
+});
+
+</script>	
 
 } 
 @main(null, scripts) {
