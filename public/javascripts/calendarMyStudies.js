@@ -60,7 +60,7 @@ $(".openCalendar").click(function() {
 		$("div").each(function () {
 			if($(this).css('overflow-x') == 'hidden') {
 				$(this).css('overflow-x','visible')
-				$(this).css('overflow-y','visible')
+				$(this).css('overflow-y','scroll')
 			}
 		});
 

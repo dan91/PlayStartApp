@@ -7,7 +7,7 @@
 <!--  <script src='@routes.Assets.at("javascripts/jquery.ui.touch-punch.min.js")'></script>  TOUCH SUPPORT DISABLED !!! -->
 <script src='//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.1/moment-with-locales.min.js'></script>
 <script src='//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.0.3/fullcalendar.min.js'></script>
-
+<script src="/assets/javascripts/de.js"></script>
 
 
 <script>
@@ -276,12 +276,12 @@ $( "#openPreview" ).click(function() {
 	<div class="col-xs-3">
 		<span class="glyphicon glyphicon-time"></span> <span id="time"><span>
 	</div>
-	<div class="col-xs-3">
+	<!--  <div class="col-xs-3">
 		<span class="glyphicon glyphicon-user"></span> 3
 		<button type="button" class="btn btn-default" data-toggle="modal"
 			data-target="#myModalTeilnehmer2">
 			<span class="glyphicon glyphicon-pencil"></span>
-	</div>
+	</div>-->
 	<div class="col-xs-2">
 		<button type="button" class="btn btn-danger btn-sm eventdel">
 			<span class="glyphicon glyphicon-remove"></span>
@@ -563,7 +563,7 @@ $( "#openPreview" ).click(function() {
 			$('#calendar').fullCalendar({
 				defaultView: 'agendaWeek',
 				header: {
-					left:   '',
+					left: 'month,agendaWeek',
 					center: '',
 					right:  'today prev,next'
 				},
@@ -599,7 +599,10 @@ $( "#openPreview" ).click(function() {
 				slotEventOverlap: false,
 				axisFormat: 'H:mm',
 				timeFormat: 'H:mm',
-				columnFormat: 'dd., D.M',
+				columnFormat: {
+				    month: 'dddd',    // Mon
+				    week: 'dd., D.M'
+				},
 				contentHeight: 1200,
 				
 				/**

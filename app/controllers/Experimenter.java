@@ -119,8 +119,10 @@ public class Experimenter extends Controller {
     	for(String p : probandPools) {
     		ProbandPoolFilter.create(filter_id, p);
     	}
-    	for(String p : excludedExp) {
-    		ExcludedExperiment.create(filter_id, p);
+    	if(excludedExp != null) {
+	    	for(String p : excludedExp) {
+	    		ExcludedExperiment.create(filter_id, p);
+	    	}
     	}
         for(String user_id : assignments) {
         	int right = Integer.parseInt(values.get("assignment_rights_"+user_id)[0]);

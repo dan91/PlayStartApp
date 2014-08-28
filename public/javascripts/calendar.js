@@ -51,7 +51,7 @@ function listEvents() {
 };			
 $('#sessionCalendar').on('shown.bs.modal', function () {
 	$('#calendar').fullCalendar('render');
-	$(".fc-view-agendaWeek").css('overflow','visible');
+	$("#sessionCalendar").css('overflow','scroll');
 	$("div").each(function () {
 		if($(this).css('overflow-x') == 'hidden') {
 			$(this).css('overflow-x','visible')
