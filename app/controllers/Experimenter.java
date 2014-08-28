@@ -70,10 +70,16 @@ public class Experimenter extends Controller {
      * @throws SQLException 
      */
     public static Result myStudies() throws SQLException {  
-			return ok(views.html.experimenter.myStudies.render(Experiment.all()));
+			return ok(views.html.experimenter.myStudies.render(Experiment.all(),""));
 		
 		
     }
+    
+    public static Result myStudiesUpdated(String param) throws SQLException {  
+		return ok(views.html.experimenter.myStudies.render(Experiment.all(), param));
+	
+	
+}
     
     public static Result saveGeneralData(int id) throws SQLException {
 
@@ -196,7 +202,7 @@ public class Experimenter extends Controller {
         	
         }
 
-        return ok(views.html.experimenter.myStudies.render(Experiment.all()));
+        return ok(views.html.experimenter.myStudies.render(Experiment.all(),"successPartic"));
     }
 
 

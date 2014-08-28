@@ -194,8 +194,11 @@ function saveSessions(id) {
 		data: JSON.stringify(fin),
         contentType: "application/json; charset=utf-8",
 		success: function(response) {
-			//window.location = "/myStudies";
-		    btn.button('reset')
+			if(id == 0)
+				param = 'create'
+			else
+				param = 'edit'
+			window.location = "/myStudiesUpdated/success"+param;
 		}
 	});
 }

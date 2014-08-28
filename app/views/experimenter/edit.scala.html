@@ -232,7 +232,7 @@ $( "#openPreview" ).click(function() {
 		<div class="col-sm-offset-2 col-sm-8"
 			style="margin-top: 1em; border-top: 1px solid #eee; padding-top: 1em">
 			<button type="button" id="save"
-				class="btn btn-primary btn-lg pull-right" data-loading-text="Speichern...">
+				class="btn btn-primary btn-lg pull-right" data-role="button" data-loading-text="Speichern...">
 				<span class="glyphicon glyphicon-ok"></span> Speichern
 			</button>
 		</div>
@@ -742,7 +742,13 @@ $( "#openPreview" ).click(function() {
 			});
 			
 			$(document).ready(function(){
-
+$("#save").click(function() {
+	/**
+	Allgemeine Informationen speichern
+	**/
+	var btn = $(this)
+    btn.button('loading')
+   });
 				$('.form-horizontal').validate(
 				{
 					rules: {

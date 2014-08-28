@@ -1,4 +1,4 @@
-@(experiments: List[Experiment])
+@(experiments: List[Experiment])(param: String)
 @scripts = {
 <link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.0.3/fullcalendar.css' />
 
@@ -10,6 +10,12 @@
 }
 
 @main(null, scripts, "experimenter") {
+	@if(param == "successedit") {
+@alert("success","Ihre Änderungen wurden gespeichert")
+}
+@if(param == "successcreate") {
+@alert("success","Das Experiment wurde angelegt")
+}
 <div class="page-header">
 	<h3>Meine Studien</h3>
 </div>

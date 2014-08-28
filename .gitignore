@@ -27,3 +27,5 @@ conf/application.conf
 conf/application.conf
 
 conf/application.conf
+
+.cache

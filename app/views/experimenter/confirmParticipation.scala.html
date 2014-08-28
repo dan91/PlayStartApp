@@ -68,7 +68,7 @@ Alle Teilnahmen sind bestätigt.
 }
 }
 
-@if(Session.toConfirmByExperimentId(id, "old").length > 1) {
+@if(Session.toConfirmByExperimentId(id, "old").length > 0) {
 
 
 
@@ -133,6 +133,7 @@ Alle Teilnahmen sind bestätigt.
 
 </div>
 
+@if(Session.toConfirmByExperimentId(id, "old").length > 0 || Session.toConfirmByExperimentId(id, "new").length > 0) {
 
 <div class="row">
 	<div class="col-sm-2 col-sm-offset-7">
@@ -141,30 +142,26 @@ Alle Teilnahmen sind bestätigt.
 			</button>
 	</div>
 
-
-
-
-
 </div>
+}
 </form>
 
 
 
 <script>
-collapsed = true;
-con_collapsed = 'Bereits bestätigte Teilnahmen anzeigen <span class="glyphicon glyphicon-chevron-down"></span>';
-con_expanded = 'Bereits bestätigte Teilnahmen ausblenden <span class="glyphicon glyphicon-chevron-up"></span>';
-$("#showOld").click(function () {
-	$("#oldPartics").fadeToggle();
-	if(collapsed) {
-		$("#showOld").html(con_expanded);
-		collapsed = false;
-	}
-	else {
-		$("#showOld").html(con_collapsed);
-		collapsed = true;
-	}
-})
+	collapsed = true;
+	con_collapsed = 'Bereits bestätigte Teilnahmen anzeigen <span class="glyphicon glyphicon-chevron-down"></span>';
+	con_expanded = 'Bereits bestätigte Teilnahmen ausblenden <span class="glyphicon glyphicon-chevron-up"></span>';
+	$("#showOld").click(function() {
+		$("#oldPartics").fadeToggle();
+		if (collapsed) {
+			$("#showOld").html(con_expanded);
+			collapsed = false;
+		} else {
+			$("#showOld").html(con_collapsed);
+			collapsed = true;
+		}
+	})
 </script>
 
 
