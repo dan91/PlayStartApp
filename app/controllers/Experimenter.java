@@ -80,9 +80,10 @@ public class Experimenter extends Controller {
         //final String[] excludedExp = values.get("excludedExp");
         final int semesterFrom = Integer.parseInt(values.get("semesterFrom")[0]);
         final int semesterUntil = Integer.parseInt(values.get("semesterUntil")[0]);
-        final int probandHours = Integer.parseInt(values.get("probandHours")[0]);
+        final Integer probandHours = Integer.parseInt(values.get("probandHours")[0]);
         final String[] course = values.get("course");
-        if(genders == null || probandPools == null) // alle 
+        if(genders == null || probandPools == null || probandHours == null || course == null)
+        	return ok("");
         String gender = "";
         if(genders.length > 1) {
         	gender = "both";

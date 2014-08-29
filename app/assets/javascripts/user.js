@@ -9,13 +9,14 @@ function updateUsers() {
 		success : function(data) {
 			$("#users").html("")
 			var obj = jQuery.parseJSON(data);
-			console.log(obj	)
+			console.log(obj)
+			$("#amount").text(obj.length)
 			$.each( obj, function( key, value ) {
 				  el = $("#user_dr").clone();
 				  el.show()
 				  el.find(".name").text(value.name);
 				  el.data("user-id", value.id);
-				  $("#users").append(el)
+				  $("#users").append(el);
 				});
 		}
 		
