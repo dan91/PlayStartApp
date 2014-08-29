@@ -31,8 +31,7 @@ $(document).ready(function(){
     	
     $(document).on('click','.glyphicon-map-marker',function(e) {
  	   e.preventDefault();
- 	   
- 	   alert("inside");
+ 	  
  	   
 	   var statusCode = $(this).data('status');	
 	   var felder = statusCode.split(';', 6);
@@ -129,6 +128,8 @@ $(document).ready(function(){
 			<button data-toggle="modal" data-target="#myMapModal"
 				class="btn btn-default btn-sm">
 				<span class="glyphicon glyphicon-map-marker" data-status="@info.building_description;@info.building_name;@info.Lat;@info.Lng;@info.room_name;@info.room_description;"></span>
+			
+			
 			</button>
 			}
 			
@@ -215,6 +216,7 @@ $(document).ready(function(){
 				if (first) { // remove default source on first tab selection
 					$('#calendar').fullCalendar('removeEventSource',
 							eventSourceDefault);
+				    
 					console.log('removed default event source')
 					first = false
 				} else { // every further tab selection
