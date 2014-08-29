@@ -1,0 +1,123 @@
+@scripts = {
+<script src="/assets/javascripts/user.js"></script>
+} @main(null, scripts, "experimenter") {
+<div class="page-header">
+	<h2>Benutzer verwalten</h2>
+</div>
+<div id="user_dr" class="row" style="display: none">
+			<div class="col-sm-5 name"></div>
+			<div class="col-sm-2">
+				<button type="button" class="btn btn-default btn-sm edit">
+					<span class="glyphicon glyphicon-pencil"></span>
+				</button>
+			</div>
+		</div>
+<div class="row">
+	<div class="col-sm-6" id="users">
+		
+	</div>
+	<div class="col-sm-6">
+
+		<form class="form-horizontal" role="form" action="/sessions">
+			<div class="form-group">
+				<label for="name" class="col-sm-3 control-label">Probandenpool</label>
+				<div class="col-sm-8">
+					<div class="btn-group">
+						@for(pp <- ProbandPool.all()) { <label class="btn btn-default">
+							<input type="checkbox" class="probandPools" name="probandPools"
+							value="@pp.id" checked> @pp.name
+						</label> }
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="name" class="col-sm-3 control-label">Studiengang</label>
+				<div class="col-sm-8">
+					<div class="btn-group">
+						@for(course <- Course.all()) { <label class="btn btn-default">
+							<input type="checkbox" name="course"
+							value="@course.id" checked> @course.name
+						</label> }
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="gender" class="col-sm-3 control-label">Geschlecht</label>
+				<div class="col-sm-8">
+					<div class="btn-group">
+						<label class="btn btn-default"> <input type="checkbox"
+							name="gender" value="male" checked> männlich
+						</label> <label class="btn btn-default"> <input type="checkbox"
+							name="gender" value="female" checked> weiblich
+						</label>
+					</div>
+				</div>
+			</div>
+			<div class="form-group inline">
+				<label for="duration" class="col-sm-3 control-label">Semester</label>
+				<div class="col-sm-9">
+					von: <select name="semesterFrom" class="form-control">
+						<option value="0">unbegrenzt</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+						<option value="6">6</option>
+						<option value="7">7</option>
+						<option value="8">8</option>
+					</select> bis: <select name="semesterUntil" class="form-control">
+						<option value="0">unbegrenzt</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+						<option value="6">6</option>
+						<option value="7">7</option>
+						<option value="8">8</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="name" class="col-sm-3 control-label">VP-Stunden</label>
+				<div class="col-sm-8">
+					<select name="probandHours" class="form-control">
+						<option value="0">0</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+						<option value="6">6</option>
+						<option value="7">7</option>
+						<option>8</option>
+						<option>9</option>
+						<option>10</option>
+						<option>11</option>
+						<option>12</option>
+						<option>13</option>
+						<option>14</option>
+						<option>15</option>
+						<option>16</option>
+						<option>17</option>
+						<option>18</option>
+						<option>19</option>
+						<option>20</option>
+						<option>21</option>
+						<option>22</option>
+						<option>23</option>
+						<option>24</option>
+						<option>25</option>
+					</select>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+<script>
+$( ":input" ).change(function() {
+updateUsers()
+});
+	</script>
+}
