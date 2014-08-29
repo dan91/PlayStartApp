@@ -223,7 +223,7 @@ public class Experimenter extends Controller {
         	
         }
 
-        return ok(views.html.experimenter.myStudies.render(Experiment.all(),"successPartic"));
+        return ok(views.html.experimenter.myStudies.render(Experiment.all(),"successedit"));
     }
 
 

@@ -79,7 +79,7 @@ public class User extends Model {
 		Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
 				ResultSet.CONCUR_UPDATABLE);
 		String update = String
-				.format("UPDATE User SET name='%s',email='%s',privilige_id='%s',phone='%s', birthday='%s', handedness='%s', course='%s', proband_pool_id='%s', gender='%s', studystart='%s' WHERE id=%s; name,  email,  privilige_id,  phone,  birthday,  handedness,  course,  proband_pool_id,  gender,  studystart,");
+				.format("UPDATE User SET name='%s',email='%s',privilige_id='%s',phone='%s', birthday='%s', handedness='%s', course_id='%s', proband_pool_id='%s', gender='%s', studystart='%s' WHERE id=%s; name,  email,  privilige_id,  phone,  birthday,  handedness,  course,  proband_pool_id,  gender,  studystart,");
 
 		try {
 			stmt.executeUpdate(update);
@@ -473,7 +473,7 @@ public class User extends Model {
 		Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
 				ResultSet.CONCUR_UPDATABLE);
 		ResultSet rs = stmt
-				.executeQuery("SELECT COUNT(*) AS Amount FROM User WHERE course='MCS'");
+				.executeQuery("SELECT COUNT(*) AS Amount FROM User WHERE course_id='1'");
 		rs.next();
 		int amount = rs.getInt("Amount");
 
@@ -488,7 +488,7 @@ public class User extends Model {
 		Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
 				ResultSet.CONCUR_UPDATABLE);
 		ResultSet rs = stmt
-				.executeQuery("SELECT COUNT(*) AS Amount FROM User WHERE course='MK'");
+				.executeQuery("SELECT COUNT(*) AS Amount FROM User WHERE course_id='2'");
 		rs.next();
 		int amount = rs.getInt("Amount");
 
@@ -502,7 +502,7 @@ public class User extends Model {
 		Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
 				ResultSet.CONCUR_UPDATABLE);
 		ResultSet rs = stmt
-				.executeQuery("SELECT COUNT(*) AS Amount FROM User WHERE course!='MCS' AND course!='MK' ");
+				.executeQuery("SELECT COUNT(*) AS Amount FROM User WHERE course_id!='1' AND course_id!='2' ");
 		rs.next();
 		int amount = rs.getInt("Amount");
 
