@@ -16,6 +16,7 @@ function updateUsers() {
 				  el.show()
 				  el.find(".name").text(value.name);
 				  el.data("user-id", value.id);
+				  el.find("#edit").prop('href','edit/'+value.id)
 				  $("#users").append(el);
 				});
 		}
