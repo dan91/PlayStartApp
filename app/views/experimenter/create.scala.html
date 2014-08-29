@@ -473,7 +473,7 @@ $( "#openPreview" ).click(function() {
 						</div>
 						
 							<input type="hidden" id="excludedHid" name="excludedExp">
-						<button type="button" id="excludedBut" class="btn btn-warning" style="display:none"></button>
+						<button type="button" id="excludedBut" class="btn btn-warning" style="display:none"> &times;</button>
 				<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script> 
 				<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/localization/messages_de.js"></script> 
 				<script type="text/javascript">
@@ -495,7 +495,7 @@ $( "#openPreview" ).click(function() {
 				hidden = $("#excludedHid").clone();
 				hidden.val(item.value)
 				button.show();
-				button.text(item.text);
+				button.prepend(item.text);
 				
 		        $('#excludedExp').append(button);
 		        $('#excludedExp').append(hidden);

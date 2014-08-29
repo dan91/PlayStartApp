@@ -34,6 +34,7 @@ public class Application extends Controller {
                 routes.javascript.Admin.deleteRoom(),
                 routes.javascript.Experimenter.userSearch(),
             	routes.javascript.Experimenter.saveGeneralData(),
+            	routes.javascript.Experimenter.searchUsers(),
             	routes.javascript.Experimenter.saveSessions()
 
             )

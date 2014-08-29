@@ -71,8 +71,28 @@ public class Experimenter extends Controller {
      */
     public static Result myStudies() throws SQLException {  
 			return ok(views.html.experimenter.myStudies.render(Experiment.all(),""));
-		
-		
+    }
+    
+    public static Result searchUsers() throws SQLException, JsonProcessingException {
+    	final Map<String, String[]> values = request().body().asFormUrlEncoded();
+    	final String[] genders = values.get("gender");
+    	final String[] probandPools = values.get("probandPools");
+        //final String[] excludedExp = values.get("excludedExp");
+        final int semesterFrom = Integer.parseInt(values.get("semesterFrom")[0]);
+        final int semesterUntil = Integer.parseInt(values.get("semesterUntil")[0]);
+        final int probandHours = Integer.parseInt(values.get("probandHours")[0]);
+        final String[] course = values.get("course");
+        if(genders == null || probandPools == null) // alle 
+        String gender = "";
+        if(genders.length > 1) {
+        	gender = "both";
+        }
+        else {
+			gender = genders[0];
+    	}
+    	Logger.info(genders[0]);
+    	String n = User.search(gender, probandPools, semesterFrom, semesterUntil, course, probandHours);
+		return ok(n);
     }
     
     public static Result myStudiesUpdated(String param) throws SQLException {  
